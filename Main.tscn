@@ -150,5 +150,6 @@ material = SubResource( 9 )
 [node name="CollisionShape" type="CollisionShape" parent="Tile/Area"]
 shape = SubResource( 17 )
 
+[connection signal="input_event" from="Tile/Area" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area" to="Tile" method="mouse_enter"]
 [connection signal="mouse_exited" from="Tile/Area" to="Tile" method="mouse_exit"]
