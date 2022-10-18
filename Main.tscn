@@ -1,0 +1,154 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://scripts/CharacterController.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Puzzle.gd" type="Script" id=2]
+[ext_resource path="res://scripts/PuzzleTile.gd" type="Script" id=3]
+[ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/scenes/prototype_dark_01.tscn" type="PackedScene" id=4]
+[ext_resource path="res://models/tile_bar.glb" type="PackedScene" id=5]
+
+[sub_resource type="CapsuleShape" id=4]
+
+[sub_resource type="BoxShape" id=7]
+
+[sub_resource type="PlaneMesh" id=8]
+
+[sub_resource type="VisualShaderNodeColorUniform" id=18]
+uniform_name = "main_colour"
+default_value_enabled = true
+
+[sub_resource type="VisualShader" id=14]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+uniform vec4 main_colour : hint_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// ColorUniform:3
+	vec3 n_out3p0 = main_colour.rgb;
+	float n_out3p1 = main_colour.a;
+
+// Output:0
+	ALBEDO = n_out3p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -462.207, -24.1574 )
+nodes/fragment/3/node = SubResource( 18 )
+nodes/fragment/3/position = Vector2( -440, 120 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 14 )
+shader_param/main_colour = Color( 1, 1, 1, 1 )
+
+[sub_resource type="VisualShaderNodeTextureUniform" id=19]
+uniform_name = "icon_texture"
+
+[sub_resource type="VisualShader" id=12]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+uniform sampler2D icon_texture;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// TextureUniform:3
+	vec3 n_out3p0;
+	float n_out3p1;
+	{
+		vec4 n_tex_read = texture(icon_texture, UV.xy);
+		n_out3p0 = n_tex_read.rgb;
+		n_out3p1 = n_tex_read.a;
+	}
+
+// Output:0
+	ALBEDO = n_out3p0;
+	ALPHA = n_out3p1;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -517.207, -0.15741 )
+nodes/fragment/3/node = SubResource( 19 )
+nodes/fragment/3/position = Vector2( -680, 160 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 0, 0, 3, 1, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 12 )
+
+[sub_resource type="BoxShape" id=17]
+extents = Vector3( 1, 0.031, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Player" type="KinematicBody" parent="."]
+script = ExtResource( 1 )
+camera_path = NodePath("PlayerCamera")
+
+[node name="PlayerCapsule" type="CollisionShape" parent="Player"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -1, 0 )
+shape = SubResource( 4 )
+
+[node name="PlayerCamera" type="ClippedCamera" parent="Player"]
+
+[node name="TestPuzzle" type="Spatial" parent="."]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0388746, -1.43171, -0.770229 )
+script = ExtResource( 2 )
+puzzle = [ 8.0, 4.0, [ [ [ 0, 2 ], [ 0, 2 ], null, null ], [ [ 0, 2 ], [ 0, 2 ], null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ] ], [ [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ] ], [ [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ] ] ]
+instance = NodePath("../Tile")
+
+[node name="PrototypeCube" parent="." instance=ExtResource( 4 )]
+transform = Transform( 40, 0, 0, 0, 1, 0, 0, 0, 40, -40, -5.30862, -40 )
+
+[node name="StaticBody" type="StaticBody" parent="PrototypeCube"]
+
+[node name="CollisionShape" type="CollisionShape" parent="PrototypeCube/StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1 )
+shape = SubResource( 7 )
+
+[node name="Tile" type="Spatial" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+script = ExtResource( 3 )
+backplane_path = NodePath("Backplane")
+
+[node name="tile_bar" parent="Tile" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.929 )
+
+[node name="Backplane" type="CSGMesh" parent="Tile"]
+mesh = SubResource( 8 )
+material = SubResource( 15 )
+
+[node name="Icon" type="CSGMesh" parent="Tile"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0 )
+mesh = SubResource( 8 )
+material = SubResource( 9 )
+
+[node name="Area" type="Area" parent="Tile"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Tile/Area"]
+shape = SubResource( 17 )
+
+[connection signal="mouse_entered" from="Tile/Area" to="Tile" method="mouse_enter"]
+[connection signal="mouse_exited" from="Tile/Area" to="Tile" method="mouse_exit"]
