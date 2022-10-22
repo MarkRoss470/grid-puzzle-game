@@ -297,18 +297,20 @@ func resize_arrays():
 	# Edges have different dimensions than cells
 	var targets := [
 		[target_width_cells, target_height_cells], 
-		[target_width_cells, target_height_cells + 1], 
-		[target_width_cells + 1, target_height_cells]
+	# Uncomment if adding icons on edges
+	#	[target_width_cells, target_height_cells + 1], 
+	#	[target_width_cells + 1, target_height_cells]
 	]
 	
 	var indices := [
 		PuzzleClasses.CELLS, 
-		PuzzleClasses.EDGES_HORIZONTAL, 
-		PuzzleClasses.EDGES_VERTICAL
+	# Uncomment if adding icons on edges
+	#	PuzzleClasses.EDGES_HORIZONTAL, 
+	#	PuzzleClasses.EDGES_VERTICAL
 	]
 	
 	# Loop over indices
-	for j in range(3):
+	for j in range(len(indices)):
 		# Get index into current_value
 		var i = indices[j]
 		# Get target width and height for this iteration

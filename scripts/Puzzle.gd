@@ -2,23 +2,29 @@ extends Spatial
 
 class_name Puzzle
 
-"""[
+"""
+represents the puzzle - sets which icons go in which cells
+[
 	width, height,
 	[[PuzzleCell or null; width]; height],        #cells
-	[[PuzzleEdge or null; width]; height + 1],    #horizontal edges
-	[[PuzzleEdge or null; width + 1]; height + 1] #vertical edges
-]"""
+]
+"""
 export(Array) var puzzle
+# Colours for puzzle's neutral state
 export(Color) var colour_base = Color(0.5, 0.5, 0.5)
 export(Color) var colour_hover = Color(0.8, 0.8, 0.8)
-export(Color) var colour_on_incorrect = Color(1, 0, 0)
+# Colours for an incorrect solution
+export(Color) var colour_incorrect_base = Color(1, 0, 0)
+export(Color) var colour_incorrect_hover = Color(1, 0.5, 0.5)
+# Colours for a correct solution
 export(Color) var colour_solved_base = Color(0, 1, 0)
 export(Color) var colour_solved_hover = Color(0.5, 1, 0.5)
 
 # What object to instance as a tile
 export(NodePath) var instance
 # What object to call the on_puzzle_solve method of when the puzle is solved
-export(NodePath) var on_complete
+export(NodePath) var on_complete_path
+var on_complete: Node = null
 # What parameter to pass to on_puzzle_solve
 export(int) var on_complete_param
 
@@ -28,42 +34,64 @@ var current_state: Array
 # Stores references to the PuzzleTile nodes of this puzzle
 var tiles: Array
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Loop over cells in puzzle
+	if on_complete_path != "":
+		on_complete = get_node(on_complete_path)
+	
+	# Loop over columns in puzzle
 	for x in range(puzzle[PuzzleClasses.WIDTH]):
+		# Pad current_state and tiles
 		current_state.append([])
 		tiles.append([])
+		# Loop over cells in column
 		for y in range(puzzle[PuzzleClasses.HEIGHT]):
 			# Initialise current puzzle state
 			current_state[x].append(0)
 			# Create new tile
 			var tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
-			tile.transform.origin = Vector3(x, -y, 0)
+			# Add reference to tile to tiles
 			tiles[x].append(tile)
+			# Add tile to scene tree
 			add_child(tile)
 
 # Creates a new puzzle cell object
 func create_tile(x: int, y: int, cell) -> PuzzleTile:
+	# Create new instance of template
 	var node: PuzzleTile = get_node(instance).duplicate()
 	
+	# Set the node's colours
 	node.colour_hover = colour_hover
 	node.colour_base = colour_base
 	
+	# Set the node's position in the puzzle
 	node.this_x = x
 	node.this_y = y
+	
+	# Set physical position of node
+	node.transform.origin = Vector3(x, -y, 0)
+	
+	# Give the node a reference to this puzzle to report rotations to
 	node.puzzle = self
+	# Make the node visible
 	node.set_visible(true)
+	
+	# Get the node's icon plane
 	var icon: CSGMesh = node.get_node("Icon")
+	# If the puzzle cell has an icon, set the right image
 	if cell != null:
+		# Get texture
 		var texture := TextureCacheSingleton.get_coloured_cell_texture(cell)
+		# Make copy of material
 		var mat_override := icon.get_material().duplicate()
+		# Set texture
 		mat_override.set_shader_param("icon_texture", texture)
+		# Set icon to use this material
 		icon.set_material_override(mat_override)
+	# If the puzzle cell has no icon, hide the icon plane
 	else:
 		icon.set_visible(false)
-	node.rotate(Vector3.RIGHT, PI / 2)
+	
 	return node
 
 # Called by a cell when it is clicked
@@ -79,21 +107,26 @@ func check_solution():
 	var solved := true
 	# Initialise the cells to the base colour
 	for column in tiles:
-			for tile in column:
-				tile.set_colour(colour_base, colour_hover)
+		for tile in column:
+			tile.set_colour(colour_base, colour_hover)
 	
-	
+	# TODO: Check if puzzle is actually solved
 	if current_state[0][0] == 1:
 		solved = false
 	
-	#TODO: check whether the puzzle is actually solved
-	var node = get_node(on_complete)
 	if solved:
+		# Set cells to colour on completion
 		for column in tiles:
 			for tile in column:
 				tile.set_colour(colour_solved_base, colour_solved_hover)
-		
-		if node != null:
-			node.on_puzzle_solve(on_complete_param)
-	elif node != null:
-		node.on_puzzle_unsolve(on_complete_param)
+		# Call puzzle solve callback
+		if on_complete != null:
+			on_complete.on_puzzle_solve(on_complete_param)
+	else:
+		# Set cells to colour on incorrect solution
+		for column in tiles:
+			for tile in column:
+				tile.set_colour(colour_incorrect_base, colour_incorrect_hover)
+		# Call puzzle unsolve callback
+		if on_complete != null:
+			on_complete.on_puzzle_unsolve(on_complete_param)

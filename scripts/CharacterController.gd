@@ -92,7 +92,7 @@ func _physics_process(delta: float):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	# If 'free_mouse' input was just pressed this frame 
+	# If 'free_mouse' input was just pressed, update mouse mode
 	if Input.is_action_just_pressed("free_mouse"):
 		# If mouse is currently free, capture it
 		if mouse_is_free:
@@ -102,6 +102,7 @@ func _process(_delta):
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			mouse_is_free = true
+	# If 'enter_solution' input was just pressed, check solution of most recently interacted puzzle
 	if Input.is_action_just_pressed("enter_solution"):
 		if most_recent_puzzle != null:
 			most_recent_puzzle.check_solution()

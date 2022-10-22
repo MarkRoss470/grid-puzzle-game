@@ -25,14 +25,9 @@ _global_script_classes=[ {
 "path": "res://scripts/PuzzleClasses.gd"
 }, {
 "base": "EditorInspectorPlugin",
-"class": "PuzzleEditorPlugin",
+"class": "PuzzleEditorInspectorPlugin",
 "language": "GDScript",
-"path": "res://addons/PuzzleResource/PuzzleEditorPlugin.gd"
-}, {
-"base": "EditorPlugin",
-"class": "PuzzleResource",
-"language": "GDScript",
-"path": "res://addons/PuzzleResource/PuzzleResource.gd"
+"path": "res://addons/PuzzleEditorPlugin/PuzzleEditorInspectorPlugin.gd"
 }, {
 "base": "Spatial",
 "class": "PuzzleTile",
@@ -48,8 +43,7 @@ _global_script_class_icons={
 "CharacterController": "",
 "Puzzle": "",
 "PuzzleClasses": "",
-"PuzzleEditorPlugin": "",
-"PuzzleResource": "",
+"PuzzleEditorInspectorPlugin": "",
 "PuzzleTile": "",
 "TextureCache": ""
 }
@@ -68,10 +62,6 @@ TextureCacheSingleton="*res://scripts/TextureCache.gd"
 
 version_control_autoload_on_startup=true
 version_control_plugin_name="GitAPI"
-
-[editor_plugins]
-
-enabled=PoolStringArray( "res://addons/PuzzleResource/plugin.cfg" )
 
 [gdnative]
 

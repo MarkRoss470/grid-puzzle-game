@@ -5,7 +5,7 @@ extends KinematicBody
 # var a = 2
 # var b = "text"
 export(Vector3) var displacement := Vector3(0, 1, 0)
-export(float) var time := 1
+export(float) var time := 1.0
 
 # True if moving toward (or at) solved state
 # False if moving toward (or at) unsolved state
@@ -14,10 +14,12 @@ var start_location: Vector3
 var end_location: Vector3
 var target_location: Vector3
 
-func on_puzzle_solve(i: int):
+# Called on correct solution
+func on_puzzle_solve(_i: int):
 	movement_multiplier = 1
 	target_location = end_location
-func on_puzzle_unsolve(i: int):
+# Called on incorrect solution
+func on_puzzle_unsolve(_i: int):
 	movement_multiplier = -1
 	target_location = start_location
 
