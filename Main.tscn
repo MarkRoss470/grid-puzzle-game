@@ -1,10 +1,12 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/CharacterController.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Puzzle.gd" type="Script" id=2]
 [ext_resource path="res://scripts/PuzzleTile.gd" type="Script" id=3]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/scenes/prototype_dark_01.tscn" type="PackedScene" id=4]
 [ext_resource path="res://models/tile_bar.glb" type="PackedScene" id=5]
+[ext_resource path="res://addons/kenney_prototypes/assets/colors/green/scenes/prototype_green_01.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape" id=4]
 
@@ -118,6 +120,7 @@ transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0388746, -1.43171, -0
 script = ExtResource( 2 )
 puzzle = [ 8.0, 4.0, [ [ [ 0, 2 ], [ 0, 2 ], null, null ], [ [ 0, 2 ], [ 0, 2 ], null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ] ], [ [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ] ], [ [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ], [ null, null, null, null ] ] ]
 instance = NodePath("../Tile")
+on_complete = NodePath("../ProtoCube")
 
 [node name="PrototypeCube" parent="." instance=ExtResource( 4 )]
 transform = Transform( 40, 0, 0, 0, 1, 0, 0, 0, 40, -40, -5.30862, -40 )
@@ -130,6 +133,7 @@ shape = SubResource( 7 )
 
 [node name="Tile" type="Spatial" parent="."]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+visible = false
 script = ExtResource( 3 )
 backplane_path = NodePath("Backplane")
 
@@ -149,6 +153,17 @@ material = SubResource( 9 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Tile/Area"]
 shape = SubResource( 17 )
+
+[node name="ProtoCube" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -5.19516, 2 )
+script = ExtResource( 7 )
+displacement = Vector3( 0, 5, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ProtoCube"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1 )
+shape = SubResource( 17 )
+
+[node name="PrototypeCube2" parent="ProtoCube" instance=ExtResource( 6 )]
 
 [connection signal="input_event" from="Tile/Area" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area" to="Tile" method="mouse_enter"]
