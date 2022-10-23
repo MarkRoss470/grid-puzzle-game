@@ -1,9 +1,5 @@
 extends KinematicBody
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 export(Vector3) var displacement := Vector3(0, 1, 0)
 export(float) var time := 1.0
 
@@ -14,10 +10,18 @@ var start_location: Vector3
 var end_location: Vector3
 var target_location: Vector3
 
+# Called if the puzzle was loaded as solved from a saved game
+# Should have the same effect as on_puzzle_solve but instantly
+func load_solved(_i: int):
+	movement_multiplier = 1
+	target_location = end_location
+	transform.origin = end_location
+
 # Called on correct solution
 func on_puzzle_solve(_i: int):
 	movement_multiplier = 1
 	target_location = end_location
+
 # Called on incorrect solution
 func on_puzzle_unsolve(_i: int):
 	movement_multiplier = -1

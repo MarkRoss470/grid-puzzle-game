@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://scripts/PuzzleTile.gd"
 }, {
 "base": "Node",
+"class": "SolutionChecker",
+"language": "GDScript",
+"path": "res://scripts/SolutionChecker.gd"
+}, {
+"base": "Node",
 "class": "TextureCache",
 "language": "GDScript",
 "path": "res://scripts/TextureCache.gd"
@@ -45,6 +50,7 @@ _global_script_class_icons={
 "PuzzleClasses": "",
 "PuzzleEditorInspectorPlugin": "",
 "PuzzleTile": "",
+"SolutionChecker": "",
 "TextureCache": ""
 }
 
@@ -58,10 +64,9 @@ config/icon="res://icon.png"
 
 TextureCacheSingleton="*res://scripts/TextureCache.gd"
 
-[editor]
+[editor_plugins]
 
-version_control_autoload_on_startup=true
-version_control_plugin_name="GitAPI"
+enabled=PoolStringArray( "res://addons/PuzzleEditorPlugin/plugin.cfg" )
 
 [gdnative]
 
