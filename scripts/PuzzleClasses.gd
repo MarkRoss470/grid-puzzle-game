@@ -15,7 +15,7 @@ const COLOURS := [
 ]
 
 enum PuzzleCellIcon {DIAMOND}
-const CELL_TEXTURES := [preload("res://textures/diamond.png")]
+const CELL_TEXTURES := [preload("res://textures/puzzle icons/diamond.svg")]
 
 # Uncomment if adding icons on edges
 #enum PuzzleEdgeIcon {}
