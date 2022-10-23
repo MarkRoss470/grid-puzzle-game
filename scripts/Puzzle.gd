@@ -21,12 +21,15 @@ export(Color) var colour_solved_base = Color(0, 1, 0)
 export(Color) var colour_solved_hover = Color(0.5, 1, 0.5)
 
 # What object to instance as a tile
-export(NodePath) var instance
+export(NodePath) var instance_path
+var instance: Node
 # What object to call the on_puzzle_solve method of when the puzle is solved
 export(NodePath) var on_complete_path
 var on_complete: Node = null
 # What parameter to pass to on_puzzle_solve
 export(int) var on_complete_param
+# Whether to load the puzzle immediately on startup
+export(bool) var load_on_start = true
 
 # Array[x][y] of the direction of cells
 # 0 = up, 1 = right etc
@@ -36,8 +39,15 @@ var tiles: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if load_on_start: load_puzzle()
+
+# Loads the puzzle into the scene
+func load_puzzle():
 	if on_complete_path != "":
 		on_complete = get_node(on_complete_path)
+	instance = get_node(instance_path)
+	
+	# TODO: load puzzle state from saved game
 	
 	# Loop over columns in puzzle
 	for x in range(puzzle[PuzzleClasses.WIDTH]):
@@ -58,7 +68,7 @@ func _ready():
 # Creates a new puzzle cell object
 func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	# Create new instance of template
-	var node: PuzzleTile = get_node(instance).duplicate()
+	var node: PuzzleTile = instance.duplicate()
 	
 	# Set the node's colours
 	node.colour_hover = colour_hover
@@ -101,20 +111,27 @@ func rotate_cell(x, y):
 	# Wrap around to 0 if reaches 4
 	current_state[x][y] %= 4
 	
+	# Set all the cells to the base colour
+	# Stops a puzzle from looking solved when it's not
+	for column in tiles:
+		for tile in column:
+			tile.set_colour(colour_base, colour_hover)
+	
+	
 # Checks whether the current solution is valid
 # Calls on_complete.on_puzzle_solve(on_complete_param) if it is
 func check_solution():
-	var solved := true
+	# Check solution
+	var solution := SolutionChecker.check_solution(puzzle, current_state)
+	
+	#TODO: save puzzle state to saved game
+	
 	# Initialise the cells to the base colour
 	for column in tiles:
 		for tile in column:
 			tile.set_colour(colour_base, colour_hover)
 	
-	# TODO: Check if puzzle is actually solved
-	if current_state[0][0] == 1:
-		solved = false
-	
-	if solved:
+	if solution.is_correct:
 		# Set cells to colour on completion
 		for column in tiles:
 			for tile in column:
@@ -124,9 +141,8 @@ func check_solution():
 			on_complete.on_puzzle_solve(on_complete_param)
 	else:
 		# Set cells to colour on incorrect solution
-		for column in tiles:
-			for tile in column:
-				tile.set_colour(colour_incorrect_base, colour_incorrect_hover)
+		for cell in solution.wrong_cells:
+			tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
 		# Call puzzle unsolve callback
 		if on_complete != null:
 			on_complete.on_puzzle_unsolve(on_complete_param)
