@@ -2,13 +2,15 @@ extends KinematicBody
 
 class_name CharacterController
 
-#player's speed in units per second
+# Player's speed in units per second
 export var walk_speed: float = 3
-#acceleration due to gravity in units per second^2
-export var gravity_acceleration: float = 10
-#speed of turning in radians per pixel
+# Acceleration due to gravity in units per second^2
+export var gravity_acceleration: float = 1
+# Player's maximum fall speed
+export var max_fall_speed: float = 5
+# Speed of turning in radians per pixel
 export var mouse_sensitivity: float = 0.02
-#player's run speed in units per second
+# Player's run speed in units per second
 export var run_speed: float = 10
 # Camera to rotate
 export (NodePath) var camera_path
@@ -85,6 +87,8 @@ func _physics_process(delta: float):
 	
 	# Apply acceleration due to gravity
 	velocity += Vector3.DOWN * gravity_acceleration * delta
+	if velocity.length() > max_fall_speed:
+		velocity = velocity.normalized() * max_fall_speed
 	# move_and_collide returns a truthy value only if collision occured
 	# So check for that to reset velocity if a collision occured
 	if move_and_collide(velocity):
