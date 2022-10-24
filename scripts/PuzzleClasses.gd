@@ -21,7 +21,7 @@ const CELL_TEXTURES := [
 	preload("res://textures/puzzle icons/pointer up.svg")
 ]
 
-enum PuzzleCellIcon {
+enum {
 	DIAMOND, 
 	POINTER_UP, 
 	POINTER_RIGHT, 
@@ -40,13 +40,13 @@ const CELL_ICONS := [
 # Groups of icons for the puzzle editor
 const ICON_GROUPS := [
 	[
-		PuzzleCellIcon.DIAMOND,
+		DIAMOND,
 	],
 	[
-		PuzzleCellIcon.POINTER_UP, 
-		PuzzleCellIcon.POINTER_RIGHT, 
-		PuzzleCellIcon.POINTER_DOWN, 
-		PuzzleCellIcon.POINTER_LEFT,
+		POINTER_UP, 
+		POINTER_RIGHT, 
+		POINTER_DOWN, 
+		POINTER_LEFT,
 	],
 ]
 
