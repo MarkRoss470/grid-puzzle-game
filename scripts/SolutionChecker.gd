@@ -34,7 +34,9 @@ static func check_solution(puzzle: Array, solution: Array) -> Solution:
 	# Loop over all cells and check whether the rules are followed
 	for x in range(len(solution)):
 		for y in range(len(solution[0])):
-			match puzzle[PuzzleClasses.CELLS][x][y][0]:
+			var icon = puzzle[PuzzleClasses.CELLS][x][y]
+			if icon == null: continue
+			match icon[0]:
 				# Pointer cells: check the right edge to see if there is a bar there
 				PuzzleClasses.POINTER_UP:
 					if not edges.horizontal[x][y]:
