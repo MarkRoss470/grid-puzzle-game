@@ -78,12 +78,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# If signal travelling toward end but has not reached it
-	if completed and signal_travel != 1:
+	if completed and signal_travel < 1:
+		print(signal_travel)
 		# Increase signal_travel relative to how much time has passed
 		signal_travel += delta / travel_time
 
 		# If the signal has reached the end of the wire, call on_complete.on_puzzle_solve()
-		if signal_travel > 1:
+		if signal_travel >= 1:
 			signal_travel = 1
 			on_complete.on_puzzle_solve(on_complete_param)
 		
