@@ -14,8 +14,41 @@ const COLOURS := [
 	Color(0, 0, 1), # Blue 
 ]
 
-enum PuzzleCellIcon {DIAMOND}
-const CELL_TEXTURES := [preload("res://textures/puzzle icons/diamond.svg")]
+
+# Textures to be used as icons
+const CELL_TEXTURES := [
+	preload("res://textures/puzzle icons/diamond.svg"), 
+	preload("res://textures/puzzle icons/pointer up.svg")
+]
+
+enum PuzzleCellIcon {
+	DIAMOND, 
+	POINTER_UP, 
+	POINTER_RIGHT, 
+	POINTER_DOWN, 
+	POINTER_LEFT
+}
+# Indices into CELL_TEXTURES and the rotation they should have
+const CELL_ICONS := [
+	[0, 0], # Diamond
+	[1, 0], # Pointer Up
+	[1, 1], # Pointer Right
+	[1, 2], # Pointer Down
+	[1, 3], # Pointer Left
+]
+
+# Groups of icons for the puzzle editor
+const ICON_GROUPS := [
+	[
+		PuzzleCellIcon.DIAMOND,
+	],
+	[
+		PuzzleCellIcon.POINTER_UP, 
+		PuzzleCellIcon.POINTER_RIGHT, 
+		PuzzleCellIcon.POINTER_DOWN, 
+		PuzzleCellIcon.POINTER_LEFT,
+	],
+]
 
 # Uncomment if adding icons on edges
 #enum PuzzleEdgeIcon {}

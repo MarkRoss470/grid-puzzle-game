@@ -91,7 +91,8 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	# If the puzzle cell has an icon, set the right image
 	if cell != null:
 		# Get texture
-		var texture := TextureCacheSingleton.get_coloured_cell_texture(cell)
+		var texture := TextureCacheSingleton.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[cell[0]][0], cell[1]])
+		node.get_node(node.backplane_path).rotate(Vector3.UP, PuzzleClasses.CELL_ICONS[cell[0]][0] * PI / 2)
 		# Make copy of material
 		var mat_override := icon.get_material().duplicate()
 		# Set texture

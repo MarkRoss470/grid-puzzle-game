@@ -16,6 +16,7 @@ var expanded := false
 var current_value := PuzzleClasses.DEFAULT
 
 # The currently selected icon and colour
+var current_icon_group := 0
 var current_icon := 0
 var current_colour := 0
 
@@ -42,15 +43,19 @@ func _init():
 const WIDTH_LINE_Y := 10
 const HEIGHT_LINE_Y := 65
 
-const ICON_PICKER_Y := 130
+const ICON_GROUP_PICKER_Y := 130
+const ICON_GROUP_PICKER_SIZE := 30
+const ICON_GROUP_PICKER_OFFSET := 40
+
+const ICON_PICKER_Y := 180
 const ICON_PICKER_SIZE := 30
 const ICON_PICKER_OFFSET := 40
 
-const COLOUR_PICKER_Y := 180
+const COLOUR_PICKER_Y := 230
 const COLOUR_PICKER_SIZE := 30
 const COLOUR_PICKER_OFFSET := 40
 
-const GRID_Y := 230
+const GRID_Y := 280
 const GRID_CELL_SIZE := 45
 const GRID_EDGE_SIZE := 15
 const GRID_CELL_OFFSET := GRID_CELL_SIZE + GRID_EDGE_SIZE
@@ -97,23 +102,26 @@ func init_editor():
 		height_input.connect("value_changed", self, "on_dimension_change", [1])
 		editor_items.add_child(height_input)
 	
-	# Set up icon selectors
-	var icon_picker := Container.new()
-	icon_picker.name = "icon_picker"
-	icon_picker.set_position(Vector2(0, ICON_PICKER_Y))
-	
-	# Add icons to selector
-	for i in range(len(PuzzleClasses.CELL_TEXTURES)):
+	# Set up icon group selectors
+	var icon_group_picker := Container.new()
+	icon_group_picker.name = "icon_group_picker"
+	icon_group_picker.set_position(Vector2(0, ICON_GROUP_PICKER_Y))
+
+	# Add icon groups to selector
+	for i in range(len(PuzzleClasses.ICON_GROUPS)):
+		var icon_index: int = PuzzleClasses.ICON_GROUPS[i][0]
+
 		# Set up icon
 		var icon := TextureRect.new()
-		icon.name = "icon_picker-" + str(i)
-		icon.texture = texture_cache.get_coloured_cell_texture([i, current_colour])
+		icon.name = "icon_group_picker-" + str(i)
+		icon.texture = texture_cache.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[icon_index][0], current_colour])
 		icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * ICON_PICKER_SIZE
+		icon.set_rotation(PuzzleClasses.CELL_ICONS[icon_index][1] * PI / 2)
 		icon.set_position(Vector2(ICON_PICKER_OFFSET * i, 0))
-		icon.connect("gui_input", self, "set_current_icon", [i])
-		icon_picker.add_child(icon)
-	
-	editor_items.add_child(icon_picker)
+		icon.connect("gui_input", self, "set_current_icon_group", [i])
+		icon_group_picker.add_child(icon)
+
+	editor_items.add_child(icon_group_picker)
 	
 	# Set up icon selectors
 	var colour_picker := Container.new()
@@ -132,37 +140,78 @@ func init_editor():
 		colour_picker.add_child(icon)
 	
 	editor_items.add_child(colour_picker)
-	
+
 	# Set up rectangle to indicate currently selected icon
 	var icon_indicator := ColorRect.new()
 	icon_indicator.name = "icon_indicator"
 	icon_indicator.set_position(Vector2(0, ICON_PICKER_Y + ICON_PICKER_SIZE))
 	icon_indicator.set_size(Vector2(ICON_PICKER_SIZE, 10))
 	editor_items.add_child(icon_indicator)
-	
+
+	set_current_icon_group(null, 0)
 	populate_grid()
+	
+
+# Callback of icon group selectors
+func set_current_icon_group(event: InputEvent, icon_group: int):
+	if event == null or event is InputEventMouseButton and event.pressed:
+		if event != null:
+			editor_items.remove_child(editor_items.get_node("icon_picker"))
+		current_icon_group = icon_group
+		current_icon = 0
+		editor_items.get_node("icon_indicator").set_position(Vector2(ICON_PICKER_OFFSET * current_icon, ICON_PICKER_Y + ICON_PICKER_SIZE))
+
+		# Set up icon selectors
+		var icon_picker := Container.new()
+		icon_picker.name = "icon_picker"
+		icon_picker.set_position(Vector2(0, ICON_PICKER_Y))
+		
+		# Add icons to selector
+		for i in range(len(PuzzleClasses.ICON_GROUPS[icon_group])):
+			var icon_index: int = PuzzleClasses.ICON_GROUPS[icon_group][i]
+
+			# Set up icon
+			var icon := TextureRect.new()
+			icon.name = "icon_picker-" + str(i)
+
+			icon.texture = texture_cache.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[icon_index][0], current_colour])
+			icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * ICON_PICKER_SIZE
+			icon.set_rotation(PuzzleClasses.CELL_ICONS[icon_index][1] * PI / 2)
+			var icon_position := Vector2(ICON_PICKER_OFFSET * i, 0)
+			match PuzzleClasses.CELL_ICONS[icon_index][1]:
+				1:
+					icon_position += Vector2(ICON_GROUP_PICKER_SIZE, 0)
+				2:
+					icon_position += Vector2(ICON_GROUP_PICKER_SIZE, ICON_GROUP_PICKER_SIZE)
+				3:
+					icon_position += Vector2(0, ICON_GROUP_PICKER_SIZE)
+			icon.set_position(icon_position)
+			icon.connect("gui_input", self, "set_current_icon", [i])
+			icon_picker.add_child(icon)
+		
+		editor_items.add_child(icon_picker)
 
 # Callback of icon selectors
 func set_current_icon(event: InputEvent, icon: int):
 	# Only respond to click events, otherwise hovering changes the icon
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and event.pressed:
 		current_icon = icon
 		update_ui()
 
 # Callback of colour selectors
 func set_current_colour(event: InputEvent, colour: int):
 	# Only respond to click events, otherwise hovering changes the icon
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and event.pressed:
 		current_colour = colour
 		update_ui()
 
 # Callback of grid cells
 func set_cell_icon(event: InputEvent, x: int, y: int):
 	# Only respond to click events, otherwise hovering changes the icon
-	if event is InputEventMouseButton:		
+	if event is InputEventMouseButton and event.pressed:
 		#set cell to selected value on left click
 		if event.button_index == 1:
-			current_value[PuzzleClasses.CELLS][x][y] = [current_icon, current_colour]
+			current_value[PuzzleClasses.CELLS][x][y] = [PuzzleClasses.ICON_GROUPS[current_icon_group][current_icon], current_colour]
 			update_ui()
 		#clear cell on right click
 		elif event.button_index == 2:
@@ -205,10 +254,19 @@ func populate_grid():
 			if cell_icon != null:
 				# Set up icon
 				var icon := TextureRect.new()
-				icon.texture = texture_cache.get_coloured_cell_texture(cell_icon)
+				icon.texture = texture_cache.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[cell_icon[0]][0], cell_icon[1]])
 				icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * GRID_CELL_SIZE
 				icon.name = "icon-" + str(x) + "-" + str(y)
-				icon.set_position(Vector2(x * GRID_CELL_OFFSET, 0))
+				icon.set_rotation(PuzzleClasses.CELL_ICONS[cell_icon[0]][1] * PI / 2)
+				var icon_position := Vector2(GRID_CELL_OFFSET * x, 0)
+				match PuzzleClasses.CELL_ICONS[cell_icon[0]][1]:
+					1:
+						icon_position += Vector2(GRID_CELL_SIZE, 0)
+					2:
+						icon_position += Vector2(GRID_CELL_SIZE, GRID_CELL_SIZE)
+					3:
+						icon_position += Vector2(0, GRID_CELL_SIZE)
+				icon.set_position(icon_position)
 				# Needed so that mouse events get recieved by the cell underneath
 				icon.mouse_filter = MOUSE_FILTER_IGNORE
 				
@@ -259,9 +317,12 @@ func update_ui():
 	# Move the icon indicator under the right icon
 	editor_items.get_node("icon_indicator").set_position(Vector2(ICON_PICKER_OFFSET * current_icon, ICON_PICKER_Y + ICON_PICKER_SIZE))
 	
-	for i in range(len(PuzzleClasses.CELL_TEXTURES)):
-		editor_items.get_node("icon_picker/icon_picker-" + str(i)).texture = texture_cache.get_coloured_cell_texture([i, current_colour])
-	
+	for i in range(len(PuzzleClasses.ICON_GROUPS[current_icon_group])):
+		var icon_index: int = PuzzleClasses.ICON_GROUPS[current_icon_group][i]
+
+		editor_items.get_node("icon_picker/icon_picker-" + str(i)).texture = texture_cache.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[icon_index][0], current_colour])
+		editor_items.get_node("icon_picker/icon_picker-" + str(i)).set_rotation(PuzzleClasses.CELL_ICONS[icon_index][1] * PI / 2)
+
 	# Set the container to the right size for the grid
 	var min_x = len(current_value[PuzzleClasses.CELLS]) * GRID_CELL_OFFSET
 	var min_y = 50 + GRID_Y + len(current_value[PuzzleClasses.CELLS][0]) * GRID_CELL_OFFSET
