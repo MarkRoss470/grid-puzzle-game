@@ -92,7 +92,7 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	if cell != null:
 		# Get texture
 		var texture := TextureCacheSingleton.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[cell[0]][0], cell[1]])
-		node.get_node(node.backplane_path).rotate(Vector3.UP, PuzzleClasses.CELL_ICONS[cell[0]][0] * PI / 2)
+		icon.rotate(Vector3.DOWN, PuzzleClasses.CELL_ICONS[cell[0]][1] * PI / 2)
 		# Make copy of material
 		var mat_override := icon.get_material().duplicate()
 		# Set texture
