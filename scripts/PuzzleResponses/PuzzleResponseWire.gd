@@ -79,7 +79,6 @@ func _ready():
 func _process(delta):
 	# If signal travelling toward end but has not reached it
 	if completed and signal_travel < 1:
-		print(signal_travel)
 		# Increase signal_travel relative to how much time has passed
 		signal_travel += delta / travel_time
 
