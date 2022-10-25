@@ -21,13 +21,15 @@ const CELL_TEXTURES := [
 	preload("res://textures/puzzle icons/pointer up.svg")
 ]
 
+# Enum for cell icons
 enum {
-	NONE, 
+	NONE, # There is no cell. An empty cell is represented by null
 	POINTER_UP, 
 	POINTER_RIGHT, 
 	POINTER_DOWN, 
 	POINTER_LEFT
 }
+
 # Indices into CELL_TEXTURES and the rotation they should have
 const CELL_ICONS := [
 	[0, 0], # Diamond
@@ -48,6 +50,15 @@ const ICON_GROUPS := [
 		POINTER_DOWN, 
 		POINTER_LEFT,
 	],
+]
+
+# Conversions from icon to group and index
+const ICON_TO_GROUP := [
+	[0, 0], # NONE
+	[1, 0], # POINTER_UP
+	[1, 1], # POINTER_RIGHT
+	[1, 2], # POINTER_DOWN
+	[1, 3], # POINTER_LEFT
 ]
 
 # Uncomment if adding icons on edges
