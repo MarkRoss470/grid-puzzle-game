@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scripts/CharacterController.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Puzzle.gd" type="Script" id=2]
@@ -227,6 +227,13 @@ shader_param/powered = Color( 1, 0, 0, 1 )
 shader_param/signal_travel = null
 shader_param/curve_length = null
 
+[sub_resource type="Curve3D" id=34]
+bake_interval = 0.01
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 2.54547, -1.51227, -1.11401, 0, 0, 0, 0, 0, 0, -0.210812, -1.44148, -0.982187 ),
+"tilts": PoolRealArray( 0, 0 )
+}
+
 [node name="Spatial" type="Spatial"]
 
 [node name="Player" type="KinematicBody" parent="."]
@@ -241,14 +248,25 @@ shape = SubResource( 4 )
 [node name="PlayerCamera" type="ClippedCamera" parent="Player"]
 
 [node name="TestPuzzle" type="Spatial" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.0388746, -1.43171, -0.770229 )
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 2.82046, -1.43171, -0.770229 )
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": "																				"
 }
-puzzle = [ 5.0, 5.0, [ [ [ 0, 0 ], [ 1, 0 ], [ 2, 0 ], [ 3, 0 ], [ 4, 0 ] ], [ [ 0, 1 ], [ 1, 1 ], [ 2, 1 ], [ 3, 1 ], [ 4, 1 ] ], [ [ 0, 2 ], [ 1, 2 ], [ 2, 2 ], [ 3, 2 ], [ 4, 2 ] ], [ [ 0, 3 ], [ 1, 3 ], [ 2, 3 ], [ 3, 3 ], [ 4, 3 ] ], [ [ 0, 4 ], [ 1, 4 ], [ 2, 4 ], [ 3, 4 ], [ 4, 4 ] ] ] ]
+puzzle = [ 5.0, 5.0, [ [ [ 0, 0 ], [ 1, 0 ], null, null, null ], [ [ 0, 1 ], [ 1, 1 ], null, null, null ], [ [ 0, 2 ], [ 1, 2 ], null, null, null ], [ [ 0, 3 ], [ 1, 3 ], null, null, null ], [ [ 0, 4 ], [ 1, 4 ], null, null, null ] ] ]
 instance_path = NodePath("../Tile")
-on_complete_path = NodePath("../Path")
+on_complete_path = NodePath("../TestWire2")
+
+[node name="TestPuzzle2" type="Spatial" parent="."]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.160685, -1.26934, -0.650096 )
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": "																				"
+}
+puzzle = [ 5.0, 5.0, [ [ [ 0, 0 ], [ 1, 0 ], null, null, null ], [ [ 0, 1 ], [ 1, 1 ], null, null, null ], [ [ 0, 2 ], [ 1, 2 ], null, null, null ], [ [ 0, 3 ], [ 1, 3 ], null, null, null ], [ [ 0, 4 ], [ 1, 4 ], null, null, null ] ] ]
+instance_path = NodePath("../Tile")
+on_complete_path = NodePath("../TestWire")
+load_on_start = false
 
 [node name="PrototypeCube" parent="." instance=ExtResource( 4 )]
 transform = Transform( 40, 0, 0, 0, 1, 0, 0, 0, 40, -40, -5.30862, -40 )
@@ -260,29 +278,32 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1 )
 shape = SubResource( 7 )
 
 [node name="Tile" type="Spatial" parent="."]
-transform = Transform( -0.5, 4.37114e-08, 1.91069e-15, 0, -2.18557e-08, 0.5, 4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0 )
 visible = false
 script = ExtResource( 3 )
-backplane_path = NodePath("Backplane")
-rotation_indicator_path = NodePath("tile_bar pivot")
+backplane_path = NodePath("Tile pivot/Backplane")
+icon_path = NodePath("Tile pivot/Icon")
+rotation_indicator_path = NodePath("Tile pivot/tile_bar pivot")
 
-[node name="Backplane" type="CSGMesh" parent="Tile"]
+[node name="Tile pivot" type="Spatial" parent="Tile"]
+transform = Transform( -0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0 )
+
+[node name="Backplane" type="CSGMesh" parent="Tile/Tile pivot"]
 mesh = SubResource( 8 )
 material = SubResource( 15 )
 
-[node name="Icon" type="CSGMesh" parent="Tile"]
+[node name="Icon" type="CSGMesh" parent="Tile/Tile pivot"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.01, 0 )
 mesh = SubResource( 8 )
 material = SubResource( 9 )
 
-[node name="Area" type="Area" parent="Tile"]
+[node name="Area" type="Area" parent="Tile/Tile pivot"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Tile/Area"]
+[node name="CollisionShape" type="CollisionShape" parent="Tile/Tile pivot/Area"]
 shape = SubResource( 17 )
 
-[node name="tile_bar pivot" type="Spatial" parent="Tile"]
+[node name="tile_bar pivot" type="Spatial" parent="Tile/Tile pivot"]
 
-[node name="tile_bar" parent="Tile/tile_bar pivot" instance=ExtResource( 5 )]
+[node name="tile_bar" parent="Tile/Tile pivot/tile_bar pivot" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.23516e-22, 0, 0.929 )
 
 [node name="TestCube" type="KinematicBody" parent="."]
@@ -296,7 +317,7 @@ shape = SubResource( 17 )
 
 [node name="PrototypeCube2" parent="TestCube" instance=ExtResource( 6 )]
 
-[node name="Path" type="Path" parent="."]
+[node name="TestWire" type="Path" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.188177, -0.0169004, 0.0586053 )
 curve = SubResource( 20 )
 script = ExtResource( 9 )
@@ -304,6 +325,14 @@ on_complete_path = NodePath("../TestCube")
 num_points = 32
 wire_material = SubResource( 26 )
 
-[connection signal="input_event" from="Tile/Area" to="Tile" method="input_event"]
-[connection signal="mouse_entered" from="Tile/Area" to="Tile" method="mouse_enter"]
-[connection signal="mouse_exited" from="Tile/Area" to="Tile" method="mouse_exit"]
+[node name="TestWire2" type="Path" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.376354, -0.0338008, 0.117211 )
+curve = SubResource( 34 )
+script = ExtResource( 9 )
+on_complete_path = NodePath("../TestPuzzle2")
+num_points = 32
+wire_material = SubResource( 26 )
+
+[connection signal="input_event" from="Tile/Tile pivot/Area" to="Tile" method="input_event"]
+[connection signal="mouse_entered" from="Tile/Tile pivot/Area" to="Tile" method="mouse_enter"]
+[connection signal="mouse_exited" from="Tile/Tile pivot/Area" to="Tile" method="mouse_exit"]

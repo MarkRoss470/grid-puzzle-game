@@ -4,6 +4,9 @@ class_name PuzzleTile
 
 # What to change the colour of on hover, solve, etc
 export(NodePath) var backplane_path
+# What to set the image on
+export(NodePath) var icon_path
+
 # The mesh/material to change the colour of
 var backplane: CSGMesh
 var mat_override: Material
