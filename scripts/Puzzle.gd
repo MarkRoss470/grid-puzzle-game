@@ -191,17 +191,6 @@ func _process(delta):
 			for y in range(puzzle[PuzzleClasses.HEIGHT]):
 
 				if puzzle[PuzzleClasses.CELLS][x][y] != null and puzzle[PuzzleClasses.CELLS][x][y][0] == PuzzleClasses.NONE: continue
-
-				# If the tile is not loaded, load it
-				if tiles[x][y] == null:
-					# Create tile
-					var tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
-					# Set the tile's scale to 0
-					tile.scale = Vector3(0, 0, 0)
-					# Add reference to tile to tiles
-					tiles[x][y] = tile
-					# Add tile to scene tree
-					add_child(tile)
 				
 				# If animation for this tile has finished
 				if loading_tiles_progress > (x + y) * tile_animation_offset + tile_animation_time:
@@ -211,6 +200,17 @@ func _process(delta):
 					tiles[x][y].scale = Vector3(1, 1, 1)
 				# If animation for this tile is still going
 				elif loading_tiles_progress > (x + y) * tile_animation_offset:
+					# If the tile is not loaded, load it
+					if tiles[x][y] == null:
+						# Create tile
+						var tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
+						# Set the tile's scale to 0
+						tile.scale = Vector3(0, 0, 0)
+						# Add reference to tile to tiles
+						tiles[x][y] = tile
+						# Add tile to scene tree
+						add_child(tile)
+
 					# Calculate how long this tile has been animating for
 					var animation_time := loading_tiles_progress - (x + y) * tile_animation_offset
 					# Calculate what proportion of the animation has been completed
