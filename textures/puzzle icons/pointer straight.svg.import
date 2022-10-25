@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pointer up.svg-bc978fc26859ef08ccba8d5df5acf7c6.stex"
+path="res://.import/pointer straight.svg-d98eb124cce36d4aa114f93e82a66a09.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/puzzle icons/pointer up.svg"
-dest_files=[ "res://.import/pointer up.svg-bc978fc26859ef08ccba8d5df5acf7c6.stex" ]
+source_file="res://textures/puzzle icons/pointer straight.svg"
+dest_files=[ "res://.import/pointer straight.svg-d98eb124cce36d4aa114f93e82a66a09.stex" ]
 
 [params]
 

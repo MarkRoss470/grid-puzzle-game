@@ -8,7 +8,7 @@
    version="1.1"
    id="svg263"
    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
-   sodipodi:docname="pointer up.svg"
+   sodipodi:docname="pointer quadruple.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,9 +25,9 @@
      inkscape:document-units="mm"
      showgrid="true"
      showguides="true"
-     inkscape:zoom="0.4204826"
-     inkscape:cx="470.8875"
-     inkscape:cy="593.36581"
+     inkscape:zoom="0.51473926"
+     inkscape:cx="288.49558"
+     inkscape:cy="467.22684"
      inkscape:window-width="1536"
      inkscape:window-height="891"
      inkscape:window-x="0"
@@ -41,11 +41,35 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#000000;stroke-width:0.130203"
+       style="fill:#000000;stroke-width:0.127532"
        id="rect288"
        width="16"
-       height="107.35766"
+       height="103"
        x="120"
-       y="20" />
+       y="33" />
+    <rect
+       style="fill:#000000;stroke-width:0.127533"
+       id="rect288-3"
+       width="16"
+       height="103"
+       x="120"
+       y="-223"
+       transform="rotate(90)" />
+    <rect
+       style="fill:#000000;stroke-width:0.127533"
+       id="rect288-3-6"
+       width="16"
+       height="103"
+       x="-136"
+       y="-223"
+       transform="scale(-1)" />
+    <rect
+       style="fill:#000000;stroke-width:0.127533"
+       id="rect288-3-6-7"
+       width="16"
+       height="103"
+       x="-136"
+       y="33"
+       transform="rotate(-90)" />
   </g>
 </svg>
