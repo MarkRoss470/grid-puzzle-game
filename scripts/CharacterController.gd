@@ -28,7 +28,6 @@ var most_recent_puzzle: Puzzle
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	OS.set_window_maximized(true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera = get_node(camera_path)
 
@@ -96,6 +95,11 @@ func _physics_process(delta: float):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	# Set fullscreen on first frame
+	# Prevents graphical artifacts when called in _ready
+	if Engine.get_frames_drawn() == 0:
+		OS.set_window_maximized(true)
+	
 	# If 'free_mouse' input was just pressed, update mouse mode
 	if Input.is_action_just_pressed("free_mouse"):
 		# If mouse is currently free, capture it
