@@ -29,7 +29,7 @@ static func check_solution(puzzle: Array, solution: Array) -> Solution:
 	var result = Solution.new()
 
 	# Get which edges have a bar on at least one side
-	var edges := get_filled_edges(solution)
+	var edges := get_filled_edges(puzzle, solution)
 
 	# Loop over all cells and check whether the rules are followed
 	for x in range(len(solution)):
@@ -75,12 +75,13 @@ class FilledEdges:
 				vertical[i].append(false)
 
 # Takes a puzzle solution and returns which edges have a bar on at least one side of them
-static func get_filled_edges(solution: Array) -> FilledEdges:
+static func get_filled_edges(puzzle: Array, solution: Array) -> FilledEdges:
 	# A FilledEdges object to add data to
 	var edges := FilledEdges.new(len(solution), len(solution[0]))
 	# For each cell, set the edge the right side of it to true
 	for x in range(len(solution)):
 		for y in range(len(solution[0])):
+			if puzzle[PuzzleClasses.CELLS][x][y] != null and puzzle[PuzzleClasses.CELLS][x][y][0] == PuzzleClasses.NONE: continue
 			match solution[x][y]:
 				0: # Up
 					edges.horizontal[x][y] = true

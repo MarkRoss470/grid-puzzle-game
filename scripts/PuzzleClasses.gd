@@ -22,7 +22,7 @@ const CELL_TEXTURES := [
 ]
 
 enum {
-	DIAMOND, 
+	NONE, 
 	POINTER_UP, 
 	POINTER_RIGHT, 
 	POINTER_DOWN, 
@@ -40,7 +40,7 @@ const CELL_ICONS := [
 # Groups of icons for the puzzle editor
 const ICON_GROUPS := [
 	[
-		DIAMOND,
+		NONE,
 	],
 	[
 		POINTER_UP, 

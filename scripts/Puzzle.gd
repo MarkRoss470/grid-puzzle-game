@@ -70,6 +70,9 @@ func load_solved():
 	for x in range(puzzle[PuzzleClasses.WIDTH]):
 		# Loop over cells in column
 		for y in range(puzzle[PuzzleClasses.HEIGHT]):
+
+			if puzzle[PuzzleClasses.CELLS][x][y] != null and puzzle[PuzzleClasses.CELLS][x][y][0] == PuzzleClasses.NONE: continue
+
 			# Create new tile
 			var tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
 			# Rotate to match puzzle state
@@ -142,7 +145,8 @@ func rotate_cell(x, y):
 	# Stops a puzzle from looking solved when it's not
 	for column in tiles:
 		for tile in column:
-			tile.set_colour(colour_base, colour_hover)
+			if tile != null:
+				tile.set_colour(colour_base, colour_hover)
 	
 	
 # Checks whether the current solution is valid
@@ -156,13 +160,15 @@ func check_solution():
 	# Initialise the cells to the base colour
 	for column in tiles:
 		for tile in column:
-			tile.set_colour(colour_base, colour_hover)
+			if tile != null:
+				tile.set_colour(colour_base, colour_hover)
 	
 	if solution.is_correct:
 		# Set cells to colour on completion
 		for column in tiles:
 			for tile in column:
-				tile.set_colour(colour_solved_base, colour_solved_hover)
+				if tile != null:
+					tile.set_colour(colour_solved_base, colour_solved_hover)
 		# Call puzzle solve callback
 		if on_complete != null:
 			on_complete.on_puzzle_solve(on_complete_param)
@@ -183,6 +189,9 @@ func _process(delta):
 		# Update rotation + scale of every tile
 		for x in range(puzzle[PuzzleClasses.WIDTH]):
 			for y in range(puzzle[PuzzleClasses.HEIGHT]):
+
+				if puzzle[PuzzleClasses.CELLS][x][y] != null and puzzle[PuzzleClasses.CELLS][x][y][0] == PuzzleClasses.NONE: continue
+
 				# If the tile is not loaded, load it
 				if tiles[x][y] == null:
 					# Create tile
@@ -222,7 +231,7 @@ func _process(delta):
 			loading_tiles_progress = -1
 
 	# If unload animation is playing
-	if unloading_tiles_progress != -1:
+	elif unloading_tiles_progress != -1:
 		unloading_tiles_progress += delta
 		# Update rotation + scale of every tile
 		for x in range(puzzle[PuzzleClasses.WIDTH]):
