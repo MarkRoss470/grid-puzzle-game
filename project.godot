@@ -60,10 +60,6 @@ config/name="Puzzle"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
-[autoload]
-
-TextureCacheSingleton="*res://scripts/TextureCache.gd"
-
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/PuzzleEditorPlugin/plugin.cfg" )

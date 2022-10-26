@@ -119,13 +119,13 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	var icon: CSGMesh = node.get_node(node.icon_path)
 	# If the puzzle cell has an icon, set the right image
 	if cell != null:
-		# Get texture
-		var texture := TextureCacheSingleton.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[cell[0]][0], cell[1]])
 		icon.rotate(Vector3.DOWN, PuzzleClasses.CELL_ICONS[cell[0]][1] * PI / 2)
 		# Make copy of material
 		var mat_override := icon.get_material().duplicate()
 		# Set texture
-		mat_override.set_shader_param("icon_texture", texture)
+		mat_override.set_shader_param("icon_texture", PuzzleClasses.CELL_TEXTURES[PuzzleClasses.CELL_ICONS[cell[0]][0]])
+		# Set colour
+		mat_override.set_shader_param("icon_colour", PuzzleClasses.COLOURS[cell[1]])
 		# Set icon to use this material
 		icon.set_material_override(mat_override)
 	# If the puzzle cell has no icon, hide the icon plane
