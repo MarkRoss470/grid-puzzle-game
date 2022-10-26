@@ -44,6 +44,9 @@ func get_coloured_cell_texture(cell_icon: Array) -> Texture:
 	var tex = ImageTexture.new()
 	tex.create_from_image(image, 0)
 	
+	# Release image lock
+	image.unlock()
+
 	# Add texture to cache and return it
 	coloured_cell_textures[icon_index][colour_index] = tex
 	return tex
