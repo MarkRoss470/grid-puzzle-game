@@ -19,12 +19,12 @@ const COLOURS := [
 # Textures to be used as icons
 const CELL_TEXTURES := [
 	preload("res://textures/puzzle icons/diamond.svg"), 
-	preload("res://textures/puzzle icons/diamond.svg"), # TODO: have different icons
-	preload("res://textures/puzzle icons/pointer.svg"),
-	preload("res://textures/puzzle icons/pointer angle.svg"),
-	preload("res://textures/puzzle icons/pointer straight.svg"),
-	preload("res://textures/puzzle icons/pointer triple.svg"),
-	preload("res://textures/puzzle icons/pointer quadruple.svg"),
+	preload("res://textures/puzzle icons/empty.jpg"), # EMPTY
+	preload("res://textures/puzzle icons/pointer.svg"), # POINTER_SINGLE
+	preload("res://textures/puzzle icons/pointer angle.svg"), # POINTER_DOUBLE_ANGLE
+	preload("res://textures/puzzle icons/pointer straight.svg"), # POINTER_DOUBLE_STRAIGHT
+	preload("res://textures/puzzle icons/pointer triple.svg"), # POINTER_TRIPLE
+	preload("res://textures/puzzle icons/pointer quadruple.svg"), # POINTER_QUADRAPLE
 ]
 
 # Enum for cell icons

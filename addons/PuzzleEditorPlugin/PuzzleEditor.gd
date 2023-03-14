@@ -339,10 +339,16 @@ func update_ui():
 	
 	update_icons()
 	
-	for i in range(len(PuzzleClasses.ICON_GROUPS[current_icon_group])):
-		var icon_index: int = PuzzleClasses.ICON_GROUPS[current_icon_group][i]
+	var current_group = PuzzleClasses.ICON_GROUPS[current_icon_group]
+	for i in range(len(current_group)):
+		var icon_index: int = current_group[i]
 		var item = editor_items.get_node("icon_picker/icon_picker-" + str(i))
-		item.texture = texture_cache.get_coloured_cell_texture([icon_index, current_colour])
+		# Group 0 is for special values which have UI textures
+		# So they shouldn't be recoloured
+		if current_icon_group != 0:
+			item.texture = texture_cache.get_coloured_cell_texture([icon_index, current_colour])
+		else:
+			item.texture = PuzzleClasses.CELL_TEXTURES[current_group[i]]
 		item.set_rotation(current_rotation * PI / 2)
 
 	# Set the container to the right size for the grid
