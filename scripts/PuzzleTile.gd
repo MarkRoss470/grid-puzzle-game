@@ -6,14 +6,11 @@ class_name PuzzleTile
 export(NodePath) var backplane_path
 # What to set the image on
 export(NodePath) var icon_path
+var icon: Spatial
 
 # The mesh/material to change the colour of
 var backplane: CSGMesh
 var mat_override: Material
-
-# What to rotate when tile is clicked
-export(NodePath) var rotation_indicator_path
-var rotation_indicator: Spatial
 
 # Current base and hover colours
 var colour_base: Color
@@ -59,8 +56,6 @@ func input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: 
 		if event.button_index == 1 and event.pressed:
 			# Tell puzzle cell has been rotated
 			puzzle.rotate_cell(this_x, this_y)
-			# Physically rotate this cell
-			rotation_indicator.rotate(Vector3.DOWN, PI / 2)
 			
 			# Set this puzzle as the most recently interacted puzzle
 			# So that enter_solution inputs register with this puzzle
@@ -73,4 +68,4 @@ func _ready():
 	backplane.set_material_override(mat_override)
 	mat_override.set_shader_param("main_colour", colour_base)
 
-	rotation_indicator = get_node(rotation_indicator_path)
+	icon = get_node(icon_path)

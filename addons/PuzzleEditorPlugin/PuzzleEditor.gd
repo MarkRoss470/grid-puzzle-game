@@ -15,10 +15,14 @@ var expanded := false
 # The current puzzle value
 var current_value := PuzzleClasses.DEFAULT
 
-# The currently selected icon and colour
+# The currently selected icon group
 var current_icon_group := 0
+# The index of the current item into the current group
 var current_icon := 0
+# The currently selected colour
 var current_colour := 0
+# The current rotation
+var current_rotation := 0
 
 var texture_cache: TextureCache = null
 
@@ -55,14 +59,23 @@ const COLOUR_PICKER_Y := 230
 const COLOUR_PICKER_SIZE := 30
 const COLOUR_PICKER_OFFSET := 40
 
-const GRID_Y := 280
+const ROTATION_BUTTONS_Y := 280
+const ROTATION_BUTTONS_SIZE := 30
+const ROTATION_BUTTONS_OFFSET := 70
+
+const GRID_Y := 330
 const GRID_CELL_SIZE := 45
 const GRID_EDGE_SIZE := 15
 const GRID_CELL_OFFSET := GRID_CELL_SIZE + GRID_EDGE_SIZE
 
+const ROTATE_ARROW_TEX := preload("res://textures/UI/rotate_arrow.jpg")
+var ROTATE_BUTTON_SCALE := Vector2(1.0 / ROTATE_ARROW_TEX.get_height(), 1.0 / ROTATE_ARROW_TEX.get_height()) * ICON_PICKER_SIZE
+
 # Sets up editor elements
 func init_editor():
 	initialised = true
+	
+	reset_state()
 	
 	#setup width and height input
 	if true: #for collapsing
@@ -107,16 +120,15 @@ func init_editor():
 	icon_group_picker.name = "icon_group_picker"
 	icon_group_picker.set_position(Vector2(0, ICON_GROUP_PICKER_Y))
 
-	# Add icon groups to selector
+	# Add icon groups to selector	reset_state()
 	for i in range(len(PuzzleClasses.ICON_GROUPS)):
 		var icon_index: int = PuzzleClasses.ICON_GROUPS[i][0]
 
 		# Set up icon
 		var icon := TextureRect.new()
 		icon.name = "icon_group_picker-" + str(i)
-		icon.texture = texture_cache.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[icon_index][0], current_colour])
+		icon.texture = texture_cache.get_coloured_cell_texture([icon_index, current_colour])
 		icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * ICON_PICKER_SIZE
-		icon.set_rotation(PuzzleClasses.CELL_ICONS[icon_index][1] * PI / 2)
 		icon.set_position(Vector2(ICON_PICKER_OFFSET * i, 0))
 		icon.connect("gui_input", self, "set_current_icon_group", [i])
 		icon_group_picker.add_child(icon)
@@ -140,6 +152,28 @@ func init_editor():
 		colour_picker.add_child(icon)
 	
 	editor_items.add_child(colour_picker)
+
+	var rotation_buttons := Container.new()
+	rotation_buttons.name = "rotation_buttons"
+	rotation_buttons.set_position(Vector2(0, ROTATION_BUTTONS_Y))
+	
+	var rotate_left := TextureRect.new()
+	rotate_left.name = "rotate_left"
+	rotate_left.rect_scale = ROTATE_BUTTON_SCALE
+	rotate_left.set_position(Vector2(0, 0))
+	rotate_left.texture = ROTATE_ARROW_TEX
+	rotate_left.connect("gui_input", self, "rotate_selection", [1])
+	rotation_buttons.add_child(rotate_left)
+	
+	var rotate_right := TextureRect.new()
+	rotate_right.name = "rotate_right"
+	rotate_right.rect_scale = ROTATE_BUTTON_SCALE * Vector2(-1, 1)
+	rotate_right.set_position(Vector2(ROTATION_BUTTONS_OFFSET, 0))
+	rotate_right.texture = ROTATE_ARROW_TEX
+	rotate_right.connect("gui_input", self, "rotate_selection", [-1])
+	rotation_buttons.add_child(rotate_right)
+
+	editor_items.add_child(rotation_buttons)
 
 	# Set up rectangle to indicate currently selected icon
 	var icon_indicator := ColorRect.new()
@@ -184,20 +218,16 @@ func set_cell_icon(event: InputEvent, x: int, y: int):
 	if event is InputEventMouseButton and event.pressed:
 		#set cell to selected value on left click
 		if event.button_index == 1:
-			current_value[PuzzleClasses.CELLS][x][y] = [PuzzleClasses.ICON_GROUPS[current_icon_group][current_icon], current_colour]
+			current_value[PuzzleClasses.CELLS][x][y] = [
+				PuzzleClasses.ICON_GROUPS[current_icon_group][current_icon],
+				current_colour,
+				current_rotation
+			]
 			update_ui()
 		#clear cell on right click
 		elif event.button_index == 2:
-			current_value[PuzzleClasses.CELLS][x][y] = null
+			current_value[PuzzleClasses.CELLS][x][y][0] = PuzzleClasses.EMPTY
 			update_ui()
-		#copy cell on middle click
-		elif event.button_index == 3:
-			if current_value[PuzzleClasses.CELLS][x][y] != null:
-				var group_values = PuzzleClasses.ICON_TO_GROUP[current_value[PuzzleClasses.CELLS][x][y][0]]
-				current_icon_group = group_values[0]
-				current_icon = group_values[1]
-				current_colour = current_value[PuzzleClasses.CELLS][x][y][1]
-				update_ui()
 
 # TODO: edge icons
 # Adds the grid of cells to the editor
@@ -226,15 +256,18 @@ func populate_grid():
 			
 			# If cell has an icon, add it on top
 			var cell_icon = current_value[PuzzleClasses.CELLS][x][y]
-			if cell_icon != null:
+			if cell_icon[PuzzleClasses.ICON] != PuzzleClasses.EMPTY:
 				# Set up icon
 				var icon := TextureRect.new()
-				icon.texture = texture_cache.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[cell_icon[0]][0], cell_icon[1]])
+				icon.texture = texture_cache.get_coloured_cell_texture([cell_icon[0], cell_icon[1]])
 				icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * GRID_CELL_SIZE
 				icon.name = "icon-" + str(x) + "-" + str(y)
-				icon.set_rotation(PuzzleClasses.CELL_ICONS[cell_icon[0]][1] * PI / 2)
+				icon.set_rotation(cell_icon[PuzzleClasses.ROTATION] * PI / 2)
 				var icon_position := Vector2(GRID_CELL_OFFSET * x, 0)
-				match PuzzleClasses.CELL_ICONS[cell_icon[0]][1]:
+				# Add an offset to icon_position to make icons stay in the same place when rotated
+				match cell_icon[PuzzleClasses.ROTATION]:
+					0:
+						pass
 					1:
 						icon_position += Vector2(GRID_CELL_SIZE, 0)
 					2:
@@ -280,6 +313,18 @@ func on_expand_button_pressed():
 		expand_button.text = "-"
 		expanded = true
 
+# Callback of rotate left/right buttons
+# Adds the argument to current_rotation
+func rotate_selection(event: InputEvent, rotation: int):
+	if event is InputEventMouseButton and event.pressed:
+		current_rotation += rotation
+		# Makes negative rotations work properly
+		current_rotation += 4
+		# Wrap wrap rotation if >= 4
+		current_rotation %= 4
+		
+		update_ui()
+
 # Updates UI elements to match current_value
 func update_ui():
 	# Set the value of the width and height selectors
@@ -296,9 +341,9 @@ func update_ui():
 	
 	for i in range(len(PuzzleClasses.ICON_GROUPS[current_icon_group])):
 		var icon_index: int = PuzzleClasses.ICON_GROUPS[current_icon_group][i]
-
-		editor_items.get_node("icon_picker/icon_picker-" + str(i)).texture = texture_cache.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[icon_index][0], current_colour])
-		editor_items.get_node("icon_picker/icon_picker-" + str(i)).set_rotation(PuzzleClasses.CELL_ICONS[icon_index][1] * PI / 2)
+		var item = editor_items.get_node("icon_picker/icon_picker-" + str(i))
+		item.texture = texture_cache.get_coloured_cell_texture([icon_index, current_colour])
+		item.set_rotation(current_rotation * PI / 2)
 
 	# Set the container to the right size for the grid
 	var min_x = len(current_value[PuzzleClasses.CELLS]) * GRID_CELL_OFFSET
@@ -335,16 +380,10 @@ func resize_arrays():
 	# Edges have different dimensions than cells
 	var targets := [
 		[target_width_cells, target_height_cells], 
-	# Uncomment if adding icons on edges
-	#	[target_width_cells, target_height_cells + 1], 
-	#	[target_width_cells + 1, target_height_cells]
 	]
 	
 	var indices := [
 		PuzzleClasses.CELLS, 
-	# Uncomment if adding icons on edges
-	#	PuzzleClasses.EDGES_HORIZONTAL, 
-	#	PuzzleClasses.EDGES_VERTICAL
 	]
 	
 	# Loop over indices
@@ -373,10 +412,10 @@ func resize_arrays():
 			# If too long, slice it
 			if current_height > target_height:
 				current_value[i][x] = current_value[i][x].slice(0, target_height - 1)
-			# Ig too short, pad with null
+			# If too short, pad with null
 			elif current_height < target_height:
 				for y in range(target_height - current_height):
-					current_value[i][x].append(null)
+					current_value[i][x].append(PuzzleClasses.DEFAULT_CELL)
 
 func update_icons():
 	if editor_items.has_node("icon_picker"):
@@ -395,11 +434,14 @@ func update_icons():
 		var icon := TextureRect.new()
 		icon.name = "icon_picker-" + str(i)
 
-		icon.texture = texture_cache.get_coloured_cell_texture([PuzzleClasses.CELL_ICONS[icon_index][0], current_colour])
+		icon.texture = texture_cache.get_coloured_cell_texture([icon_index, current_colour])
 		icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * ICON_PICKER_SIZE
-		icon.set_rotation(PuzzleClasses.CELL_ICONS[icon_index][1] * PI / 2)
+		icon.set_rotation(current_rotation * PI / 2)
 		var icon_position := Vector2(ICON_PICKER_OFFSET * i, 0)
-		match PuzzleClasses.CELL_ICONS[icon_index][1]:
+		# Add an offset to icon_position to make icons line up even when rotated
+		match current_rotation:
+			0:
+				pass
 			1:
 				icon_position += Vector2(ICON_GROUP_PICKER_SIZE, 0)
 			2:
@@ -411,3 +453,6 @@ func update_icons():
 		icon_picker.add_child(icon)
 	
 	editor_items.add_child(icon_picker)
+
+func reset_state():
+	current_value = PuzzleClasses.DEFAULT

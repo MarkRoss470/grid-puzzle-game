@@ -1,10 +1,9 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scripts/CharacterController.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Puzzle.gd" type="Script" id=2]
 [ext_resource path="res://scripts/PuzzleTile.gd" type="Script" id=3]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/scenes/prototype_dark_01.tscn" type="PackedScene" id=4]
-[ext_resource path="res://models/tile_bar.glb" type="PackedScene" id=5]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/green/scenes/prototype_green_01.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" type="Script" id=7]
 [ext_resource path="res://scripts/PuzzleResponses/PuzzleResponseWire.gd" type="Script" id=9]
@@ -264,7 +263,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": "																				"
 }
-puzzle = [ 4.0, 4.0, [ [ [ 3, 0 ], [ 1, 4 ], null, null ], [ [ 1, 1 ], [ 1, 5 ], null, null ], [ [ 1, 2 ], [ 1, 6 ], null, null ], [ [ 1, 3 ], [ 1, 7 ], null, null ] ] ]
+puzzle = [ 3.0, 4.0, 0, 0, [ [ [ 2, 0, 0 ], [ 2, 0, 1 ], [ 2, 0, 2 ], [ 2, 0, 3 ] ], [ [ 3, 0, 0 ], [ 3, 0, 1 ], [ 3, 0, 2 ], [ 3, 0, 3 ] ], [ [ 4, 0, 0 ], [ 4, 0, 1 ], [ 4, 0, 2 ], [ 4, 0, 3 ] ] ] ]
 instance_path = NodePath("../Tile")
 on_complete_path = NodePath("../TestWire2")
 
@@ -274,7 +273,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": "																				"
 }
-puzzle = [ 5.0, 5.0, [ [ [ 0, 0 ], [ 3, 2 ], null, null, null ], [ [ 0, 0 ], [ 3, 1 ], null, null, null ], [ [ 3, 3 ], [ 3, 2 ], null, null, null ], [ [ 3, 3 ], [ 3, 3 ], null, null, null ], [ [ 3, 4 ], [ 3, 4 ], null, null, null ] ] ]
+puzzle = [ 3.0, 4.0, 0, 0, [ [ [ 2, 0, 0 ], [ 2, 0, 1 ], [ 2, 0, 2 ], [ 2, 0, 3 ] ], [ [ 3, 0, 0 ], [ 3, 0, 1 ], [ 3, 0, 2 ], [ 3, 0, 3 ] ], [ [ 4, 0, 0 ], [ 4, 0, 1 ], [ 4, 0, 2 ], [ 4, 0, 3 ] ] ] ]
 instance_path = NodePath("../Tile")
 on_complete_path = NodePath("../TestWire")
 load_on_start = false
@@ -289,11 +288,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1 )
 shape = SubResource( 7 )
 
 [node name="Tile" type="Spatial" parent="."]
-visible = false
 script = ExtResource( 3 )
 backplane_path = NodePath("Tile pivot/Backplane")
 icon_path = NodePath("Tile pivot/Icon")
-rotation_indicator_path = NodePath("Tile pivot/tile_bar pivot")
 
 [node name="Tile pivot" type="Spatial" parent="Tile"]
 transform = Transform( -0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0 )
@@ -311,11 +308,6 @@ material = SubResource( 9 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Tile/Tile pivot/Area"]
 shape = SubResource( 17 )
-
-[node name="tile_bar pivot" type="Spatial" parent="Tile/Tile pivot"]
-
-[node name="tile_bar" parent="Tile/Tile pivot/tile_bar pivot" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.23516e-22, 0, 0.929 )
 
 [node name="TestCube" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -5.19516, 2 )

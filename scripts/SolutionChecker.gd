@@ -24,6 +24,13 @@ class Solution:
 # ------------RULES------------
 # Pointers: The edges being pointed to must have a bar on at least one side
 
+static func check_validity(puzzle: Array, state: Array) -> Solution:
+	var result := Solution.new()
+	print(state[0][0])
+	if state[0][0] != 0:
+		result.add_wrong(0, 0) 
+	return result
+
 static func check_solution(puzzle: Array, solution: Array) -> Solution:
 	# A Solution to add results into
 	var result = Solution.new()

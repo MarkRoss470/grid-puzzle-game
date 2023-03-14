@@ -6,7 +6,8 @@ class_name Puzzle
 represents the puzzle - sets which icons go in which cells
 [
 	width, height,
-	[[PuzzleCell or null; width]; height],        #cells
+	key_x, key_y, # The x and y positions of the key cell
+	[[PuzzleCell or null; width]; height], # The cells' symbols
 ]
 """
 export(Array) var puzzle
@@ -57,9 +58,9 @@ func _ready():
 	for x in range(puzzle[PuzzleClasses.WIDTH]):
 		tiles.append([])
 		current_state.append([])
-		for _y in range(puzzle[PuzzleClasses.HEIGHT]):
+		for y in range(puzzle[PuzzleClasses.HEIGHT]):
 			tiles[x].append(null)
-			current_state[x].append(0)
+			current_state[x].append(puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ROTATION])
 	
 	# Load puzzles that should always be active
 	if load_on_start: load_solved()
@@ -71,7 +72,8 @@ func load_solved():
 		# Loop over cells in column
 		for y in range(puzzle[PuzzleClasses.HEIGHT]):
 
-			if puzzle[PuzzleClasses.CELLS][x][y] != null and puzzle[PuzzleClasses.CELLS][x][y][0] == PuzzleClasses.NONE: continue
+			if puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] == PuzzleClasses.NO_CELL:
+				continue
 
 			# Create new tile
 			var tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
@@ -94,7 +96,7 @@ func unload_puzzle():
 
 # Creates a new puzzle cell object
 func create_tile(x: int, y: int, cell) -> PuzzleTile:
-	# Create new instance of templaterotations
+	# Create new instance of template
 	var node: PuzzleTile = instance.duplicate()
 	
 	# Set the node's colours
@@ -112,18 +114,15 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	node.puzzle = self
 	# Make the node visible
 	node.set_visible(true)
-	
-	node.get_node(node.rotation_indicator_path).rotate(Vector3.DOWN, current_state[x][y] * PI / 2)
 
 	# Get the node's icon plane
 	var icon: CSGMesh = node.get_node(node.icon_path)
 	# If the puzzle cell has an icon, set the right image
-	if cell != null:
-		icon.rotate(Vector3.DOWN, PuzzleClasses.CELL_ICONS[cell[0]][1] * PI / 2)
+	if cell[PuzzleClasses.ICON] != PuzzleClasses.EMPTY:
 		# Make copy of material
 		var mat_override := icon.get_material().duplicate()
 		# Set texture
-		mat_override.set_shader_param("icon_texture", PuzzleClasses.CELL_TEXTURES[PuzzleClasses.CELL_ICONS[cell[0]][0]])
+		mat_override.set_shader_param("icon_texture", PuzzleClasses.CELL_TEXTURES[cell[0]])
 		# Set colour
 		mat_override.set_shader_param("icon_colour", PuzzleClasses.COLOURS[cell[1]])
 		# Set icon to use this material
@@ -136,10 +135,36 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 
 # Called by a cell when it is clicked
 func rotate_cell(x, y):
+	
+	print(current_state)
+	
 	# Add one to cell's rotation
 	current_state[x][y] += 1
 	# Wrap around to 0 if reaches 4
 	current_state[x][y] %= 4
+	
+	var solution := SolutionChecker.check_validity(puzzle, current_state)
+	
+	if not solution.is_correct:
+		# Set cells to colour on incorrect solution
+		for cell in solution.wrong_cells:
+			tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
+		
+		# Undo the rotation
+		current_state[x][y] -= 1
+		# Wrap around to 3 if reaches -1
+		current_state[x][y] %= 4
+		
+		return
+	
+	# Physically rotate this cell
+	tiles[x][y].icon.rotate(Vector3.DOWN, PI / 2)
+	
+	# Call puzzle unsolve callback
+	if on_complete != null:
+		on_complete.on_puzzle_unsolve(on_complete_param)
+	
+
 	
 	# Set all the cells to the base colour
 	# Stops a puzzle from looking solved when it's not

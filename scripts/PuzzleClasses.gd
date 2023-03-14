@@ -19,6 +19,7 @@ const COLOURS := [
 # Textures to be used as icons
 const CELL_TEXTURES := [
 	preload("res://textures/puzzle icons/diamond.svg"), 
+	preload("res://textures/puzzle icons/diamond.svg"), # TODO: have different icons
 	preload("res://textures/puzzle icons/pointer.svg"),
 	preload("res://textures/puzzle icons/pointer angle.svg"),
 	preload("res://textures/puzzle icons/pointer straight.svg"),
@@ -28,129 +29,62 @@ const CELL_TEXTURES := [
 
 # Enum for cell icons
 enum {
-	NONE, # There is no cell. This does not mean an empty cell, which is instead represented by null
-	POINTER_UP, 
-	POINTER_RIGHT, 
-	POINTER_DOWN, 
-	POINTER_LEFT,
-	POINTER_ANGLE_UP,
-	POINTER_ANGLE_RIGHT,
-	POINTER_ANGLE_DOWN,
-	POINTER_ANGLE_LEFT,
-	POINTER_STRAIGHT_UP,
-	POINTER_STRAIGHT_RIGHT,
-	POINTER_TRIPLE_UP,
-	POINTER_TRIPLE_RIGHT,
-	POINTER_TRIPLE_DOWN,
-	POINTER_TRIPLE_LEFT,
-	POINTER_QUADRUPLE,
+	NO_CELL, # There is no cell.
+	EMPTY, # An empty cell
+	POINTER_SINGLE, # One pointer. 
+		#A rotation of 0 means up.
+	POINTER_DOUBLE_ANGLE, # Two pointers at 90 degrees from each other.
+		#A rotation of 0 means up-right.
+	POINTER_DOUBLE_STRAIGHT, # Two pointers at 180 degrees from each other.
+		#A rotation of 0 means up-down.
+	POINTER_TRIPLE, # Three pointers, each at 90 degrees from each other.
+		# A rotation of 0 means up-left-down.
+	POINTER_QUADRUPLE, # Four pointers, each at 90 degrees from each other.
 }
-
-# Indices into CELL_TEXTURES and the rotation they should have
-const CELL_ICONS := [
-	[0, 0], # Diamond
-	[1, 0], # Pointer Up
-	[1, 1], # Pointer Right
-	[1, 2], # Pointer Down
-	[1, 3], # Pointer Left
-	[2, 0], # Pointer Angle Up
-	[2, 1], # Pointer Angle Right
-	[2, 2], # Pointer Angle Down
-	[2, 3], # Pointer Angle Left
-	[3, 0], # Pointer Straight Up
-	[3, 1], # Pointer Straight Right
-	[4, 0], # Pointer Triple Up
-	[4, 1], # Pointer Triple Right
-	[4, 2], # Pointer Triple Down
-	[4, 3], # Pointer Triple Left
-	[5, 0], # Pointer Quadruple
-]
 
 # Groups of icons for the puzzle editor
 const ICON_GROUPS := [
 	[
-		NONE,
+		NO_CELL,
+		EMPTY,
 	],
 	[
-		POINTER_UP, 
-		POINTER_RIGHT, 
-		POINTER_DOWN, 
-		POINTER_LEFT,
-		POINTER_ANGLE_UP, 
-		POINTER_ANGLE_RIGHT, 
-		POINTER_ANGLE_DOWN, 
-		POINTER_ANGLE_LEFT,
-		POINTER_STRAIGHT_UP,
-		POINTER_STRAIGHT_RIGHT,
-	],
-	[
-		POINTER_TRIPLE_UP,
-		POINTER_TRIPLE_RIGHT,
-		POINTER_TRIPLE_DOWN,
-		POINTER_TRIPLE_LEFT,
+		POINTER_SINGLE,
+		POINTER_DOUBLE_ANGLE,
+		POINTER_DOUBLE_STRAIGHT,
+		POINTER_TRIPLE,
 		POINTER_QUADRUPLE
 	],
-]
-
-# Conversions from icon to group and index
-const ICON_TO_GROUP := [
-	[0, 0], # NONE
-	[1, 0], # POINTER_UP
-	[1, 1], # POINTER_RIGHT
-	[1, 2], # POINTER_DOWN
-	[1, 3], # POINTER_LEFT
-	[1, 4], # Pointer Up-Right
-	[1, 5], # Pointer Right-Down
-	[1, 6], # Pointer Down-Left
-	[1, 7], # Pointer Left-Up
 ]
 
 # Uncomment if adding icons on edges
 #enum PuzzleEdgeIcon {}
 #const EDGE_TEXTURES := []
 
-enum {WIDTH, HEIGHT, CELLS, ARR_LEN}
+# The contents of a puzzle
+enum {WIDTH, HEIGHT, KEY_X, KEY_Y, CELLS, ARR_LEN}
+# The contents of a cell
+enum {ICON, COLOUR, ROTATION}
 
 # What to reset a puzzle to if an invalid state is detected
-const DEFAULT = [0, 0, [[]]]
-
-
+const DEFAULT = [0, 0, 0, 0, [[]]]
+const DEFAULT_CELL = [EMPTY, 0, 0]
 
 # Which icons count as pointers
 const POINTERS := [
-	POINTER_UP, 
-	POINTER_RIGHT, 
-	POINTER_DOWN, 
-	POINTER_LEFT,
-	POINTER_ANGLE_UP,
-	POINTER_ANGLE_RIGHT,
-	POINTER_ANGLE_DOWN,
-	POINTER_ANGLE_LEFT,
-	POINTER_STRAIGHT_UP,
-	POINTER_STRAIGHT_RIGHT,
-	POINTER_TRIPLE_UP,
-	POINTER_TRIPLE_RIGHT,
-	POINTER_TRIPLE_DOWN,
-	POINTER_TRIPLE_LEFT,
+	POINTER_SINGLE,
+	POINTER_DOUBLE_ANGLE,
+	POINTER_DOUBLE_STRAIGHT,
+	POINTER_TRIPLE,
 	POINTER_QUADRUPLE,
 ]
 
 # Which directions each pointer icon points in
 const POINT_DIRECTIONS := {
-# Whether the pointer points    [ up,   right, down,  left ]
-	POINTER_UP:                 [true,  false, false, false],
-	POINTER_RIGHT:              [false, true,  false, false],
-	POINTER_DOWN:               [false, false, true,  false],
-	POINTER_LEFT:               [false, false, false, true ],
-	POINTER_ANGLE_UP:           [true,  true,  false, false],
-	POINTER_ANGLE_RIGHT:        [false, true,  true,  false],
-	POINTER_ANGLE_DOWN:         [false, false, true,  true ],
-	POINTER_ANGLE_LEFT:         [true,  false, false, true ],
-	POINTER_STRAIGHT_UP:        [true,  false, true,  false],
-	POINTER_STRAIGHT_RIGHT:     [false, true,  false, true ],
-	POINTER_TRIPLE_UP:          [true,  true,  true,  false],
-	POINTER_TRIPLE_RIGHT:       [false, true,  true,  true ],
-	POINTER_TRIPLE_DOWN:        [true,  false, true,  true ],
-	POINTER_TRIPLE_LEFT:        [true,  true,  false, true ],
+# Whether the pointer points    [up,    right, down,  left ]
+	POINTER_SINGLE:             [true,  false, false, false],
+	POINTER_DOUBLE_ANGLE:       [true,  true,  false, false],
+	POINTER_DOUBLE_STRAIGHT:    [true,  false, true,  false],
+	POINTER_TRIPLE:             [true,  true,  true,  false],
 	POINTER_QUADRUPLE:          [true,  true,  true,  true ],
 }
