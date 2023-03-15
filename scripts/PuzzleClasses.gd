@@ -57,18 +57,31 @@ const ICON_GROUPS := [
 	],
 ]
 
-# Uncomment if adding icons on edges
-#enum PuzzleEdgeIcon {}
-#const EDGE_TEXTURES := []
-
 # The contents of a puzzle
-enum {WIDTH, HEIGHT, KEY_X, KEY_Y, CELLS, ARR_LEN}
+enum {
+	WIDTH,
+	HEIGHT,
+	KEY_X,
+	KEY_Y,
+	KEY_TARGET_ROTATION,
+	CELLS,
+	# ANOTHER_THING, # Uncomment to force reset in editor
+	ARR_LEN
+}
 # The contents of a cell
-enum {ICON, COLOUR, ROTATION}
+enum {
+	ICON,
+	COLOUR,
+	ROTATION
+}
 
 # What to reset a puzzle to if an invalid state is detected
-const DEFAULT = [0, 0, 0, 0, [[]]]
-const DEFAULT_CELL = [EMPTY, 0, 0]
+# Function rather than a const to prevent aliasing
+static func get_default():
+	return [0, 0, 0, 0, 0, [[]]]
+# Gets the default value of a cell
+static func get_default_cell():
+	return [EMPTY, 0, 0]
 
 # Which icons count as pointers
 const POINTERS := [

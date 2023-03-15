@@ -8,12 +8,16 @@ represents the puzzle - sets which icons go in which cells
 	width, height,
 	key_x, key_y, # The x and y positions of the key cell
 	[[PuzzleCell or null; width]; height], # The cells' symbols
+	target_rotation, # The target rotation of the key cell
 ]
 """
 export(Array) var puzzle
 # Colours for puzzle's neutral state
 export(Color) var colour_base = Color(0.5, 0.5, 0.5)
 export(Color) var colour_hover = Color(0.8, 0.8, 0.8)
+# Colours for the key cell's neutral state
+export(Color) var key_colour_base = Color(0.7, 0.8, 0.1)
+export(Color) var key_colour_hover = Color(1, 1, 0.0)
 # Colours for an incorrect solution
 export(Color) var colour_incorrect_base = Color(1, 0, 0)
 export(Color) var colour_incorrect_hover = Color(1, 0.5, 0.5)
@@ -71,7 +75,6 @@ func load_solved():
 	for x in range(puzzle[PuzzleClasses.WIDTH]):
 		# Loop over cells in column
 		for y in range(puzzle[PuzzleClasses.HEIGHT]):
-
 			if puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] == PuzzleClasses.NO_CELL:
 				continue
 
@@ -83,6 +86,7 @@ func load_solved():
 			tiles[x][y] = tile
 			# Add tile to scene tree
 			add_child(tile)
+	reset_tile_colours()
 
 # Loads the puzzle with animation
 func load_puzzle():
@@ -143,9 +147,9 @@ func rotate_cell(x, y):
 	# Wrap around to 0 if reaches 4
 	current_state[x][y] %= 4
 	
-	var solution := SolutionChecker.check_validity(puzzle, current_state)
+	var solution := SolutionChecker.check_solution(puzzle, current_state)
 	
-	if not solution.is_correct:
+	if not solution.is_valid:
 		# Set cells to colour on incorrect solution
 		for cell in solution.wrong_cells:
 			tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
@@ -160,50 +164,24 @@ func rotate_cell(x, y):
 	# Physically rotate this cell
 	tiles[x][y].icon.rotate(Vector3.DOWN, PI / 2)
 	
-	# Call puzzle unsolve callback
-	if on_complete != null:
-		on_complete.on_puzzle_unsolve(on_complete_param)
-	
-
-	
-	# Set all the cells to the base colour
-	# Stops a puzzle from looking solved when it's not
-	for column in tiles:
-		for tile in column:
-			if tile != null:
-				tile.set_colour(colour_base, colour_hover)
-	
-	
-# Checks whether the current solution is valid
-# Calls on_complete.on_puzzle_solve(on_complete_param) if it is
-func check_solution():
-	# Check solution
-	var solution := SolutionChecker.check_solution(puzzle, current_state)
-	
-	#TODO: save puzzle state to saved game
-	
-	# Initialise the cells to the base colour
-	for column in tiles:
-		for tile in column:
-			if tile != null:
-				tile.set_colour(colour_base, colour_hover)
-	
-	if solution.is_correct:
-		# Set cells to colour on completion
-		for column in tiles:
-			for tile in column:
-				if tile != null:
-					tile.set_colour(colour_solved_base, colour_solved_hover)
-		# Call puzzle solve callback
-		if on_complete != null:
-			on_complete.on_puzzle_solve(on_complete_param)
+	if solution.is_solved:
+		solve_puzzle()
 	else:
-		# Set cells to colour on incorrect solution
-		for cell in solution.wrong_cells:
-			tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
 		# Call puzzle unsolve callback
 		if on_complete != null:
 			on_complete.on_puzzle_unsolve(on_complete_param)
+	
+	reset_tile_colours()
+
+func solve_puzzle():
+	# Set cells to colour on completion
+	for column in tiles:
+		for tile in column:
+			if tile != null:
+				tile.set_colour(colour_solved_base, colour_solved_hover)
+	# Call puzzle unsolve callback
+	if on_complete != null:
+		on_complete.on_puzzle_solve(on_complete_param)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # Handles the puzzle's load and unload animations
@@ -214,8 +192,9 @@ func _process(delta):
 		# Update rotation + scale of every tile
 		for x in range(puzzle[PuzzleClasses.WIDTH]):
 			for y in range(puzzle[PuzzleClasses.HEIGHT]):
-
-				if puzzle[PuzzleClasses.CELLS][x][y] != null and puzzle[PuzzleClasses.CELLS][x][y][0] == PuzzleClasses.NONE: continue
+				
+				# If there is no cell, don't create a tile
+				if puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] == PuzzleClasses.NO_CELL: continue
 				
 				# If animation for this tile has finished
 				if loading_tiles_progress > (x + y) * tile_animation_offset + tile_animation_time:
@@ -286,7 +265,8 @@ func _process(delta):
 		# If whole animation is finished, stop checking tiles
 		if unloading_tiles_progress > (puzzle[PuzzleClasses.WIDTH] + puzzle[PuzzleClasses.HEIGHT]) * tile_animation_offset + tile_animation_time:
 			unloading_tiles_progress = -1
-
+	
+	reset_tile_colours()
 
 # Callbacks for if this object is used as a PuzzleResponse
 func on_puzzle_solve(_i: int):
@@ -296,3 +276,22 @@ func on_puzzle_unsolve(_i: int):
 	if on_complete != null:
 		on_complete.on_puzzle_unsolve(on_complete_param)
 	unload_puzzle()
+
+# Set all the cells to their base colour
+# Stops a puzzle from looking solved when it's not
+func reset_tile_colours():
+# Initialise the cells to the base colour
+	for x in puzzle[PuzzleClasses.WIDTH]:
+		var column = tiles[x]
+		for y in puzzle[PuzzleClasses.HEIGHT]:
+			var tile = column[y]
+			
+			if tile == null: continue
+			
+			var icon = puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON]
+			if icon == PuzzleClasses.NO_CELL: continue
+			if x == puzzle[PuzzleClasses.KEY_X] and y == puzzle[PuzzleClasses.KEY_Y]:
+				tile.set_colour(key_colour_base, key_colour_hover)
+			else:
+				tile.set_colour(colour_base, colour_hover)
+				

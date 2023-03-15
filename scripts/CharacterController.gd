@@ -110,7 +110,3 @@ func _process(_delta):
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			mouse_is_free = true
-	# If 'enter_solution' input was just pressed, check solution of most recently interacted puzzle
-	if Input.is_action_just_pressed("enter_solution"):
-		if most_recent_puzzle != null:
-			most_recent_puzzle.check_solution()

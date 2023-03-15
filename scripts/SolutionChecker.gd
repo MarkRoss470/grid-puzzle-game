@@ -5,7 +5,8 @@ class_name SolutionChecker
 # Class representing a solution
 class Solution:
 	# Whether the solution is right
-	var is_correct: bool
+	var is_valid: bool
+	var is_solved: bool
 	# An array of [x, y] coordinates of the cells which are wrong
 	# This is not (necessarily) the cells which are in the wrong rotation
 	# It's the cells whose rules are broken because of a cell in the wrong rotation 
@@ -13,38 +14,31 @@ class Solution:
 	
 	# Simple constructor
 	func _init():
-		is_correct = true
+		is_valid = true
+		is_solved = false
 		wrong_cells = []
 	
 	# Add a wrong cell and set is_correct to false
 	func add_wrong(x: int, y: int):
-		is_correct = false
+		is_valid = false
 		wrong_cells.append([x, y])
 
-# ------------RULES------------
-# Pointers: The edges being pointed to must have a bar on at least one side
 
-static func check_validity(puzzle: Array, state: Array) -> Solution:
-	var result := Solution.new()
-	print(state[0][0])
-	if state[0][0] != 0:
-		result.add_wrong(0, 0) 
-	return result
 
-static func check_solution(puzzle: Array, solution: Array) -> Solution:
+static func check_solution(puzzle: Array, state: Array) -> Solution:
 	# A Solution to add results into
 	var result = Solution.new()
 
-	# Get which edges have a bar on at least one side
-	var edges := get_filled_edges(puzzle, solution)
+	if state[0][0] != 0:
+		result.add_wrong(0, 0) 
 
-	# Loop over all cells and check whether the rules are followed
-	for x in range(len(solution)):
-		for y in range(len(solution[0])):
-			var icon = puzzle[PuzzleClasses.CELLS][x][y]
-			if icon == null: continue
-			if icon[0] in PuzzleClasses.POINTERS:
-				if not check_pointer(x, y, icon[0], edges): result.add_wrong(x, y)
+	var key_x = puzzle[PuzzleClasses.KEY_X]
+	var key_y = puzzle[PuzzleClasses.KEY_Y]
+	var key_rotation = state[key_x][key_y]
+	var target_rotation = puzzle[PuzzleClasses.KEY_TARGET_ROTATION]
+	
+	if key_rotation == target_rotation:
+		result.is_solved = true
 
 	return result
 

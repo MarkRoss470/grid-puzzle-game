@@ -13,7 +13,7 @@ var initialised := false
 var expanded := false
 
 # The current puzzle value
-var current_value := PuzzleClasses.DEFAULT
+var current_value = PuzzleClasses.get_default()
 
 # The currently selected icon group
 var current_icon_group := 0
@@ -45,25 +45,29 @@ func _init():
 
 # Contants for UI layout
 const WIDTH_LINE_Y := 10
-const HEIGHT_LINE_Y := 65
+const HEIGHT_LINE_Y := WIDTH_LINE_Y + 55
 
-const ICON_GROUP_PICKER_Y := 130
+const KEY_X_Y := HEIGHT_LINE_Y + 55
+const KEY_Y_Y := KEY_X_Y + 55
+const KEY_TARGET_Y := KEY_Y_Y + 55
+
+const ICON_GROUP_PICKER_Y := KEY_TARGET_Y + 65
 const ICON_GROUP_PICKER_SIZE := 30
 const ICON_GROUP_PICKER_OFFSET := 40
 
-const ICON_PICKER_Y := 180
+const ICON_PICKER_Y := ICON_GROUP_PICKER_Y + 50
 const ICON_PICKER_SIZE := 30
 const ICON_PICKER_OFFSET := 40
 
-const COLOUR_PICKER_Y := 230
+const COLOUR_PICKER_Y := ICON_PICKER_Y + 100
 const COLOUR_PICKER_SIZE := 30
 const COLOUR_PICKER_OFFSET := 40
 
-const ROTATION_BUTTONS_Y := 280
+const ROTATION_BUTTONS_Y := COLOUR_PICKER_Y + 100
 const ROTATION_BUTTONS_SIZE := 30
 const ROTATION_BUTTONS_OFFSET := 70
 
-const GRID_Y := 330
+const GRID_Y := ROTATION_BUTTONS_Y + 50
 const GRID_CELL_SIZE := 45
 const GRID_EDGE_SIZE := 15
 const GRID_CELL_OFFSET := GRID_CELL_SIZE + GRID_EDGE_SIZE
@@ -71,49 +75,38 @@ const GRID_CELL_OFFSET := GRID_CELL_SIZE + GRID_EDGE_SIZE
 const ROTATE_ARROW_TEX := preload("res://textures/UI/rotate_arrow.jpg")
 var ROTATE_BUTTON_SCALE := Vector2(1.0 / ROTATE_ARROW_TEX.get_height(), 1.0 / ROTATE_ARROW_TEX.get_height()) * ICON_PICKER_SIZE
 
+func add_label_and_spinbox(name: String, label_text: String, y: float, callback: String, callback_args: Array):
+	# Create label
+	var label := Label.new()
+	label.name = name + "_label"
+	label.text = label_text
+	label.set_position(Vector2(0, y))
+	editor_items.add_child(label)
+
+	# Create spinbox
+	var input := SpinBox.new()
+	input.name = name + "_input"
+	input.set_anchor(MARGIN_LEFT, 1)
+	input.set_anchor(MARGIN_RIGHT, 1)
+	input.set_position(Vector2(250, y))
+	input.connect("value_changed", self, callback, callback_args)
+	editor_items.add_child(input)
+
 # Sets up editor elements
 func init_editor():
 	initialised = true
+
+	#reset_state()
+
+	editor_items.set_anchor(MARGIN_LEFT, 0)
+	editor_items.set_anchor(MARGIN_RIGHT, 1)
+	editor_items.set_position(Vector2(10, 40))
 	
-	reset_state()
-	
-	#setup width and height input
-	if true: #for collapsing
-		editor_items.set_anchor(MARGIN_LEFT, 0)
-		editor_items.set_anchor(MARGIN_RIGHT, 1)
-		editor_items.set_position(Vector2(10, 40))
-		
-		# Set up width label
-		var width_label := Label.new()
-		width_label.name = "width_label"
-		width_label.text = "Width: "
-		width_label.set_position(Vector2(0, WIDTH_LINE_Y))
-		editor_items.add_child(width_label)
-		
-		# Set up width input
-		var width_input := SpinBox.new()
-		width_input.name = "width_input"
-		width_input.set_anchor(MARGIN_LEFT, 1)
-		width_input.set_anchor(MARGIN_RIGHT, 1)
-		width_input.set_position(Vector2(250, WIDTH_LINE_Y))
-		width_input.connect("value_changed", self, "on_dimension_change", [0])
-		editor_items.add_child(width_input)
-		
-		# Set up height label
-		var height_label := Label.new()
-		height_label.name = "height_label"
-		height_label.text = "Height: "
-		height_label.set_position(Vector2(0, HEIGHT_LINE_Y))
-		editor_items.add_child(height_label)
-		
-		# Set up height input
-		var height_input := SpinBox.new()
-		height_input.name = "height_input"
-		height_input.set_anchor(MARGIN_LEFT, 1)
-		height_input.set_anchor(MARGIN_RIGHT, 1)
-		height_input.set_position(Vector2(250, HEIGHT_LINE_Y))
-		height_input.connect("value_changed", self, "on_dimension_change", [1])
-		editor_items.add_child(height_input)
+	add_label_and_spinbox("width", "Width: ", WIDTH_LINE_Y, "on_dimension_change", [0])
+	add_label_and_spinbox("height", "Height: ", HEIGHT_LINE_Y, "on_dimension_change", [1])
+	add_label_and_spinbox("key_x", "Key X: ", KEY_X_Y, "on_key_pos_change", [0])
+	add_label_and_spinbox("key_y", "Key Y: ", KEY_Y_Y, "on_key_pos_change", [1])
+	add_label_and_spinbox("key_target", "Target rotation: ", KEY_TARGET_Y, "on_key_target_change", [])
 	
 	# Set up icon group selectors
 	var icon_group_picker := Container.new()
@@ -185,6 +178,14 @@ func init_editor():
 	set_current_icon_group(null, 0)
 	populate_grid()
 	
+
+func on_key_pos_change(value: float, axis: int):
+	current_value[PuzzleClasses.KEY_X + axis] = value
+	# Save new state
+	emit_changed("puzzle", current_value)
+
+func on_key_target_change(value: float):
+	current_value[PuzzleClasses.KEY_TARGET_ROTATION] = value
 
 # Callback of icon group selectors
 func set_current_icon_group(event: InputEvent, icon_group: int):
@@ -327,6 +328,7 @@ func rotate_selection(event: InputEvent, rotation: int):
 
 # Updates UI elements to match current_value
 func update_ui():
+	
 	# Set the value of the width and height selectors
 	editor_items.get_node("width_input").value = current_value[PuzzleClasses.WIDTH]
 	editor_items.get_node("height_input").value = current_value[PuzzleClasses.HEIGHT]
@@ -365,7 +367,7 @@ func update_property():
 	
 	# If the value is invalid, reset it to a blank puzzle
 	if len(new_value) != PuzzleClasses.ARR_LEN:
-		new_value = PuzzleClasses.DEFAULT
+		new_value = PuzzleClasses.get_default()
 		emit_changed("puzzle", new_value)
 	
 	# If the value has not changed, do not update UI
@@ -418,10 +420,10 @@ func resize_arrays():
 			# If too long, slice it
 			if current_height > target_height:
 				current_value[i][x] = current_value[i][x].slice(0, target_height - 1)
-			# If too short, pad with null
+			# If too short, pad with default cell
 			elif current_height < target_height:
 				for y in range(target_height - current_height):
-					current_value[i][x].append(PuzzleClasses.DEFAULT_CELL)
+					current_value[i][x].append(PuzzleClasses.get_default_cell())
 
 func update_icons():
 	if editor_items.has_node("icon_picker"):
@@ -460,5 +462,8 @@ func update_icons():
 	
 	editor_items.add_child(icon_picker)
 
+# Resets the puzzle's state, but not any UI.
 func reset_state():
-	current_value = PuzzleClasses.DEFAULT
+	# '[] + ' Prevents aliasing between different puzzles
+	current_value = [] + PuzzleClasses.get_default()
+	emit_changed("puzzle", current_value)
