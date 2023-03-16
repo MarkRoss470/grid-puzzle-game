@@ -4,12 +4,14 @@ class_name SolutionChecker
 
 # Class representing a solution
 class Solution:
-	# Whether the solution is right
+	# Whether the solution is a valid puzzle state
 	var is_valid: bool
+	# Whether the puzzle is solved
 	var is_solved: bool
+	
 	# An array of [x, y] coordinates of the cells which are wrong
 	# This is not (necessarily) the cells which are in the wrong rotation
-	# It's the cells whose rules are broken because of a cell in the wrong rotation 
+	# It's the cells whose rules are broken because of a cell in the wrong rotation
 	var wrong_cells: Array
 	
 	# Simple constructor
@@ -18,13 +20,13 @@ class Solution:
 		is_solved = false
 		wrong_cells = []
 	
-	# Add a wrong cell and set is_correct to false
+	# Add a wrong cell at the given coordinates and set is_valid to false
 	func add_wrong(x: int, y: int):
 		is_valid = false
 		wrong_cells.append([x, y])
 
-
-
+# Check the rules of cells in a puzzle
+# Determines whether the player is allowed to make a certain move or not
 static func check_solution(puzzle: Array, state: Array) -> Solution:
 	# A Solution to add results into
 	var result = Solution.new()
@@ -52,15 +54,15 @@ class FilledEdges:
 	func _init(x: int, y: int):
 		# Initiase horizontal with the right dimensions
 		horizontal = []
-		for i in range(x):
+		for i in x:
 			horizontal.append([])
-			for _j in range(y + 1):
+			for _j in y + 1:
 				horizontal[i].append(false)
 		# Initiase vertical with the right dimensions
 		vertical = []
-		for i in range(x + 1):
+		for i in x + 1:
 			vertical.append([])
-			for _j in range(y):
+			for _j in y:
 				vertical[i].append(false)
 
 # Takes a puzzle solution and returns which edges have a bar on at least one side of them
@@ -68,8 +70,8 @@ static func get_filled_edges(puzzle: Array, solution: Array) -> FilledEdges:
 	# A FilledEdges object to add data to
 	var edges := FilledEdges.new(len(solution), len(solution[0]))
 	# For each cell, set the edge the right side of it to true
-	for x in range(len(solution)):
-		for y in range(len(solution[0])):
+	for x in len(solution):
+		for y in len(solution[0]):
 			if puzzle[PuzzleClasses.CELLS][x][y] != null and puzzle[PuzzleClasses.CELLS][x][y][0] == PuzzleClasses.NONE: continue
 			match solution[x][y]:
 				0: # Up

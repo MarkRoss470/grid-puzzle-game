@@ -3,28 +3,26 @@ extends KinematicBody
 class_name CharacterController
 
 # Player's speed in units per second
-export var walk_speed: float = 3
+export var walk_speed := 3.0
 # Acceleration due to gravity in units per second^2
-export var gravity_acceleration: float = 1
+export var gravity_acceleration := 1.0
 # Player's maximum fall speed
-export var max_fall_speed: float = 5
+export var max_fall_speed := 5.0
 # Speed of turning in radians per pixel
-export var mouse_sensitivity: float = 0.02
+export var mouse_sensitivity := 0.02
 # Player's run speed in units per second
-export var run_speed: float = 10
-# Camera to rotate
+export var run_speed := 10.0
+
+# The player camera
 export (NodePath) var camera_path
 var camera: Camera
-# Collider to move
 
 #player's current velocity (movement due to pressed keys does not count for this)
 var velocity := Vector3.ZERO
 
-# Whether the mouse is free
+# Whether the mouse is free (when interacting with a puzzle)
 # Controls whether mouse and keyboard inputs move the player
 var mouse_is_free := false
-# Which puzzle was most recently interacted with
-var most_recent_puzzle: Puzzle
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,7 +43,7 @@ func _input(event: InputEvent):
 		var new_angle: float = current_angle + -event.relative[1] * mouse_sensitivity
 		
 		# Constrain new angle to within 0 - PI radians so that camera does not become upside-down
-		# Small offset stops rotation fast mouse movements from getting around this
+		# Small offset stops fast mouse movements from getting around this
 		new_angle = min(new_angle, PI - 0.001)
 		new_angle = max(new_angle, 0.001)
 		
@@ -54,11 +52,12 @@ func _input(event: InputEvent):
 		# Apply left/right rotation
 		camera.rotate(Vector3.DOWN, event.relative[0] * mouse_sensitivity)
 
+# Called each frame
+# Movement is calculated here, rotation is calculated in _input
 func _physics_process(delta: float):
-	
 	# Dont move if interacting with a puzzle
 	if not mouse_is_free:
-		# Sores direction player will move in
+		# Stores direction player will move in
 		var direction := Vector3.ZERO
 
 		# Check for each move input and update direction
@@ -71,11 +70,12 @@ func _physics_process(delta: float):
 		if Input.is_action_pressed("move_forward"):
 			direction.z -= 1
 		
-		# If resultant motion, apply it
+		# If there is resultant motion, apply it
 		if direction != Vector3.ZERO:
 			# Get whether the player is running
 			var this_frame_speed := run_speed if Input.is_action_pressed("run") else walk_speed
 			# Transform direction to face in current looking direction
+			# So that movement is applied relative to the player's current facing direction
 			var motion := Transform.looking_at(-camera.transform.basis.z, Vector3.UP) * direction
 			motion.y = 0
 			# Multiply motion by player's speed

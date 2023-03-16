@@ -32,11 +32,11 @@ enum {
 	NO_CELL, # There is no cell.
 	EMPTY, # An empty cell
 	POINTER_SINGLE, # One pointer. 
-		#A rotation of 0 means up.
+		# A rotation of 0 means up.
 	POINTER_DOUBLE_ANGLE, # Two pointers at 90 degrees from each other.
-		#A rotation of 0 means up-right.
+		# A rotation of 0 means up-right.
 	POINTER_DOUBLE_STRAIGHT, # Two pointers at 180 degrees from each other.
-		#A rotation of 0 means up-down.
+		# A rotation of 0 means up-down.
 	POINTER_TRIPLE, # Three pointers, each at 90 degrees from each other.
 		# A rotation of 0 means up-left-down.
 	POINTER_QUADRUPLE, # Four pointers, each at 90 degrees from each other.
@@ -44,11 +44,11 @@ enum {
 
 # Groups of icons for the puzzle editor
 const ICON_GROUPS := [
-	[
+	[ # Group of special icons
 		NO_CELL,
 		EMPTY,
 	],
-	[
+	[ # Group of pointers
 		POINTER_SINGLE,
 		POINTER_DOUBLE_ANGLE,
 		POINTER_DOUBLE_STRAIGHT,
@@ -59,20 +59,18 @@ const ICON_GROUPS := [
 
 # The contents of a puzzle
 enum {
-	WIDTH,
-	HEIGHT,
-	KEY_X,
-	KEY_Y,
-	KEY_TARGET_ROTATION,
-	CELLS,
+	WIDTH, HEIGHT, # The width and height of the puzzle
+	KEY_X, KEY_Y, # The x and y coordinates of the key cell
+	KEY_TARGET_ROTATION, # The rotation of the key cell which solved the puzzle
+	CELLS, # The icons and starting rotations of the cells
 	# ANOTHER_THING, # Uncomment to force reset in editor
 	ARR_LEN
 }
 # The contents of a cell
 enum {
-	ICON,
-	COLOUR,
-	ROTATION
+	ICON, # The type of icon
+	COLOUR, # The colour of the icon
+	ROTATION # The starting rotation of the cell
 }
 
 # What to reset a puzzle to if an invalid state is detected

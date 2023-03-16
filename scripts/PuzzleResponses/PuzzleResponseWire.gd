@@ -3,13 +3,17 @@ extends Path
 # What object to call the on_puzzle_solve method of when the signal reaches the end of the wire
 export(NodePath) var on_complete_path
 var on_complete: Node
+
+# The parameter to pass to on_puzzle_solve of on_complete
 export(int) var on_complete_param := 0
+
 # How many points the circle that is extruded to make the wire should have
 export(int) var num_points := 16
 # The radius of the wire
 export(float) var radius := 0.02
 # The distance between edge loops on the wire
 export(float) var edge_loop_distance := 0.1
+
 # How long the signal should take to get to the end of the wire
 export(float) var travel_time := 1.0
 # What material the wire should have
@@ -17,8 +21,10 @@ export(float) var travel_time := 1.0
 # It should also have a parameter called 'curve_length' which gives the total length of the curve
 export(Material) var wire_material
 
+# If the puzzle this wire is taking input from is solved
 var completed := false
-var signal_travel: float = 0
+# How far the signal has travelled down the wire, from 0 to 1
+var signal_travel := 0.0
 
 # Called if the puzzle was loaded as solved from a saved game
 # Should have the same effect as on_puzzle_solve but instantly
@@ -36,7 +42,7 @@ func on_puzzle_solve(_i: int):
 # Called on incorrect solution
 func on_puzzle_unsolve(_i: int):
 	completed = false
-	# Do call on_puzzle_unsolve herem as the signal instantly retracts on unsolve
+	# Do call on_puzzle_unsolve here as the signal instantly retracts on unsolve, but takes time visually
 	on_complete.on_puzzle_unsolve(on_complete_param)
 
 # Called when the node enters the scene tree for the first time.
@@ -52,11 +58,11 @@ func _ready():
 	var pool := PoolVector2Array()
 
 	# Populate the array with the points of a circle
-	for i in range(num_points):
+	for i in num_points:
 		# Calculate angle in radians
 		var angle := (float(i) / num_points) * 2 * PI
 		# Calculate and add point
-		pool.append(Vector2(cos(angle) * radius, sin(angle) * radius))
+		pool.append(Vector2(cos(angle), sin(angle)) * radius)
 	
 	# Set up the polygon to use the point array
 	poly.polygon = pool

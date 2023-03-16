@@ -23,7 +23,7 @@ var this_y: int
 var puzzle
 
 # Whether the mouse is over the tile at the moment
-var mouse_over_tile: bool = false
+var mouse_over_tile := false
 
 # Sets the base and hover colours of this tile
 func set_colour(colour: Color, colour_h: Color):
@@ -52,18 +52,15 @@ func mouse_exit():
 func input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int):
 	# If this tile is clicked
 	if event is InputEventMouseButton:
-		# If left click and press not release
+		# If it is the left mouse button and it is being pressed down rather than released
 		if event.button_index == 1 and event.pressed:
 			# Tell puzzle cell has been rotated
 			puzzle.rotate_cell(this_x, this_y)
-			
-			# Set this puzzle as the most recently interacted puzzle
-			# So that enter_solution inputs register with this puzzle
-			get_node("../../Player").most_recent_puzzle = puzzle
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	backplane = get_node(backplane_path)
+	# Create a new material override so that colour changes only apply to this cell
 	mat_override = backplane.get_material().duplicate()
 	backplane.set_material_override(mat_override)
 	mat_override.set_shader_param("main_colour", colour_base)

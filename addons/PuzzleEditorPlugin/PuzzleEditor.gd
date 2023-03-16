@@ -113,14 +113,14 @@ func init_editor():
 	icon_group_picker.name = "icon_group_picker"
 	icon_group_picker.set_position(Vector2(0, ICON_GROUP_PICKER_Y))
 
-	# Add icon groups to selector	reset_state()
-	for i in range(len(PuzzleClasses.ICON_GROUPS)):
+	# Add icon groups to selector
+	for i in len(PuzzleClasses.ICON_GROUPS):
 		var icon_index: int = PuzzleClasses.ICON_GROUPS[i][0]
 
 		# Set up icon
 		var icon := TextureRect.new()
 		icon.name = "icon_group_picker-" + str(i)
-		icon.texture = texture_cache.get_coloured_cell_texture([icon_index, current_colour])
+		icon.texture = texture_cache.get_coloured_cell_texture(icon_index, current_colour)
 		icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * ICON_PICKER_SIZE
 		icon.set_position(Vector2(ICON_PICKER_OFFSET * i, 0))
 		icon.connect("gui_input", self, "set_current_icon_group", [i])
@@ -134,7 +134,7 @@ func init_editor():
 	colour_picker.set_position(Vector2(0, COLOUR_PICKER_Y))
 	
 	# Add icons to selector
-	for i in range(len(PuzzleClasses.COLOURS)):
+	for i in len(PuzzleClasses.COLOURS):
 		# Set up icon
 		var icon := ColorRect.new()
 		icon.name = "colour_picker-" + str(i)
@@ -238,13 +238,13 @@ func populate_grid():
 	grid.name = "grid"
 	grid.set_position(Vector2(0, GRID_Y))
 	
-	for y in range(current_value[PuzzleClasses.HEIGHT]):
+	for y in current_value[PuzzleClasses.HEIGHT]:
 		# Set up row container
 		var row := Container.new()
 		row.name = "row-" + str(y)
 		row.set_position(Vector2(0, GRID_CELL_OFFSET * y))
 
-		for x in range(current_value[PuzzleClasses.WIDTH]):
+		for x in current_value[PuzzleClasses.WIDTH]:
 			# Set up cell
 			var cell := ColorRect.new()
 			cell.color = Color(0.5, 0.5, 0.5)
@@ -260,7 +260,7 @@ func populate_grid():
 			if cell_icon[PuzzleClasses.ICON] != PuzzleClasses.EMPTY:
 				# Set up icon
 				var icon := TextureRect.new()
-				icon.texture = texture_cache.get_coloured_cell_texture([cell_icon[0], cell_icon[1]])
+				icon.texture = texture_cache.get_coloured_cell_texture(cell_icon[0], cell_icon[1])
 				icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * GRID_CELL_SIZE
 				icon.name = "icon-" + str(x) + "-" + str(y)
 				icon.set_rotation(cell_icon[PuzzleClasses.ROTATION] * PI / 2)
@@ -342,13 +342,13 @@ func update_ui():
 	update_icons()
 	
 	var current_group = PuzzleClasses.ICON_GROUPS[current_icon_group]
-	for i in range(len(current_group)):
+	for i in len(current_group):
 		var icon_index: int = current_group[i]
 		var item = editor_items.get_node("icon_picker/icon_picker-" + str(i))
 		# Group 0 is for special values which have UI textures
 		# So they shouldn't be recoloured
 		if current_icon_group != 0:
-			item.texture = texture_cache.get_coloured_cell_texture([icon_index, current_colour])
+			item.texture = texture_cache.get_coloured_cell_texture(icon_index, current_colour)
 		else:
 			item.texture = PuzzleClasses.CELL_TEXTURES[current_group[i]]
 		item.set_rotation(current_rotation * PI / 2)
@@ -395,7 +395,7 @@ func resize_arrays():
 	]
 	
 	# Loop over indices
-	for j in range(len(indices)):
+	for j in len(indices):
 		# Get index into current_value
 		var i = indices[j]
 		# Get target width and height for this iteration
@@ -410,11 +410,11 @@ func resize_arrays():
 			current_value[i] = current_value[i].slice(0, target_width - 1)
 		# If too short, pad with empty arrays
 		elif current_width < target_width:
-			for x in range(target_width - current_width):
+			for x in target_width - current_width:
 				current_value[i].append([])
 		
 		# Loop through all columns and resize them
-		for x in range(target_width):
+		for x in target_width:
 			# Get current height of this column
 			var current_height := len(current_value[i][x])
 			# If too long, slice it
@@ -422,7 +422,7 @@ func resize_arrays():
 				current_value[i][x] = current_value[i][x].slice(0, target_height - 1)
 			# If too short, pad with default cell
 			elif current_height < target_height:
-				for y in range(target_height - current_height):
+				for y in target_height - current_height:
 					current_value[i][x].append(PuzzleClasses.get_default_cell())
 
 func update_icons():
@@ -435,14 +435,14 @@ func update_icons():
 	icon_picker.set_position(Vector2(0, ICON_PICKER_Y))
 
 	# Add icons to selector
-	for i in range(len(PuzzleClasses.ICON_GROUPS[current_icon_group])):
+	for i in len(PuzzleClasses.ICON_GROUPS[current_icon_group]):
 		var icon_index: int = PuzzleClasses.ICON_GROUPS[current_icon_group][i]
 
 		# Set up icon
 		var icon := TextureRect.new()
 		icon.name = "icon_picker-" + str(i)
 
-		icon.texture = texture_cache.get_coloured_cell_texture([icon_index, current_colour])
+		icon.texture = texture_cache.get_coloured_cell_texture(icon_index, current_colour)
 		icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * ICON_PICKER_SIZE
 		icon.set_rotation(current_rotation * PI / 2)
 		var icon_position := Vector2(ICON_PICKER_OFFSET * i, 0)

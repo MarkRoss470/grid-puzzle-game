@@ -12,16 +12,15 @@ var coloured_cell_textures := []
 # Set up cache
 func _init():
 	# Pad array with nulls
-	for icon in range(len(PuzzleClasses.CELL_TEXTURES)):
+	for icon in len(PuzzleClasses.CELL_TEXTURES):
 		coloured_cell_textures.append([])
-		for _colour in range(len(PuzzleClasses.COLOURS)):
+		for _colour in len(PuzzleClasses.COLOURS):
 			coloured_cell_textures[icon].append(null)
 
-func get_coloured_cell_texture(cell_icon: Array) -> Texture:
-	var icon_index: int = cell_icon[0]
-	var colour_index: int = cell_icon[1]
-	
-	# If texture has already been computed, return it now
+# Gets a cell texture with a certain colouring from coloured_cell_textures,
+# or generates it if it has not been generated already.
+func get_coloured_cell_texture(icon_index: int, colour_index: int) -> Texture:
+	# If texture has already been computed, return it
 	if coloured_cell_textures[icon_index][colour_index] != null:
 		return coloured_cell_textures[icon_index][colour_index]
 		

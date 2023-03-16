@@ -37,12 +37,12 @@ export(int) var on_complete_param
 export(bool) var load_on_start = true
 
 # How long each tile's animation should take
-export(float) var tile_animation_time: float = 1
+export(float) var tile_animation_time := 1.0
 # The offset between tiles' animations
-export(float) var tile_animation_offset: float = 0.2
+export(float) var tile_animation_offset := 0.2
 # Variables to keep track of animations
-var loading_tiles_progress: float = -1
-var unloading_tiles_progress: float = -1
+var loading_tiles_progress := -1.0
+var unloading_tiles_progress := -1.0
 
 # Array[x][y] of the direction of cells
 # 0 = up, 1 = right etc
@@ -59,10 +59,10 @@ func _ready():
 	# TODO: load puzzle state from saved game
 	
 	# Initialise tiles and current_state
-	for x in range(puzzle[PuzzleClasses.WIDTH]):
+	for x in puzzle[PuzzleClasses.WIDTH]:
 		tiles.append([])
 		current_state.append([])
-		for y in range(puzzle[PuzzleClasses.HEIGHT]):
+		for y in puzzle[PuzzleClasses.HEIGHT]:
 			tiles[x].append(null)
 			current_state[x].append(puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ROTATION])
 	
@@ -72,9 +72,9 @@ func _ready():
 # Loads the puzzle with no animation
 func load_solved():
 	# Loop over columns in puzzle
-	for x in range(puzzle[PuzzleClasses.WIDTH]):
+	for x in puzzle[PuzzleClasses.WIDTH]:
 		# Loop over cells in column
-		for y in range(puzzle[PuzzleClasses.HEIGHT]):
+		for y in puzzle[PuzzleClasses.HEIGHT]:
 			if puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] == PuzzleClasses.NO_CELL:
 				continue
 
@@ -190,8 +190,8 @@ func _process(delta):
 	if loading_tiles_progress != -1:
 		loading_tiles_progress += delta
 		# Update rotation + scale of every tile
-		for x in range(puzzle[PuzzleClasses.WIDTH]):
-			for y in range(puzzle[PuzzleClasses.HEIGHT]):
+		for x in puzzle[PuzzleClasses.WIDTH]:
+			for y in puzzle[PuzzleClasses.HEIGHT]:
 				
 				# If there is no cell, don't create a tile
 				if puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] == PuzzleClasses.NO_CELL: continue
@@ -216,7 +216,7 @@ func _process(delta):
 						add_child(tile)
 
 					# Calculate how long this tile has been animating for
-					var animation_time := loading_tiles_progress - (x + y) * tile_animation_offset
+					var animation_time: float = loading_tiles_progress - (x + y) * tile_animation_offset
 					# Calculate what proportion of the animation has been completed
 					var animation_proportion := animation_time / tile_animation_time
 					# Calculate tile's rotation
@@ -238,8 +238,8 @@ func _process(delta):
 	elif unloading_tiles_progress != -1:
 		unloading_tiles_progress += delta
 		# Update rotation + scale of every tile
-		for x in range(puzzle[PuzzleClasses.WIDTH]):
-			for y in range(puzzle[PuzzleClasses.HEIGHT]):
+		for x in puzzle[PuzzleClasses.WIDTH]:
+			for y in puzzle[PuzzleClasses.HEIGHT]:
 				# Don't try to operate on non-existant tiles
 				if tiles[x][y] == null: continue
 				# If animation for this tile is finished, unload tile
@@ -249,7 +249,7 @@ func _process(delta):
 				# If animation for this tile is still going
 				elif unloading_tiles_progress > (x + y) * tile_animation_offset:
 					# Calculate how long this tile has been animating for
-					var animation_time := unloading_tiles_progress - (x + y) * tile_animation_offset
+					var animation_time: float = unloading_tiles_progress - (x + y) * tile_animation_offset
 					# Calculate what proportion of the animation has been completed
 					var animation_proportion := 1 - animation_time / tile_animation_time
 					# Calculate tile's rotation
