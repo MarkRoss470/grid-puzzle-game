@@ -139,9 +139,6 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 
 # Called by a cell when it is clicked
 func rotate_cell(x, y):
-	
-	print(current_state)
-	
 	# Add one to cell's rotation
 	current_state[x][y] += 1
 	# Wrap around to 0 if reaches 4
