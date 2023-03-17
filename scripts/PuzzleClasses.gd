@@ -57,6 +57,12 @@ const ICON_GROUPS := [
 	],
 ]
 
+# Which icons shouldn't be recoloured in the editor
+const DONT_RECOLOUR := [
+	NO_CELL,
+	EMPTY
+]
+
 # The contents of a puzzle
 enum {
 	WIDTH, HEIGHT, # The width and height of the puzzle

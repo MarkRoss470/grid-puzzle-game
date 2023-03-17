@@ -7,7 +7,7 @@
    viewBox="0 0 256 256"
    version="1.1"
    id="svg263"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    sodipodi:docname="pointer straight.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -26,7 +26,7 @@
      showgrid="true"
      showguides="true"
      inkscape:zoom="0.51473926"
-     inkscape:cx="292.38104"
+     inkscape:cx="125.30616"
      inkscape:cy="467.22684"
      inkscape:window-width="1536"
      inkscape:window-height="891"
@@ -41,14 +41,14 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#000000;stroke-width:0.127532"
+       style="fill:#ffffff;stroke-width:0.127532;fill-opacity:1"
        id="rect288"
        width="16"
        height="103"
        x="120"
        y="33" />
     <rect
-       style="fill:#000000;stroke-width:0.127533"
+       style="fill:#ffffff;stroke-width:0.127533;fill-opacity:1"
        id="rect288-3"
        width="16"
        height="103"
