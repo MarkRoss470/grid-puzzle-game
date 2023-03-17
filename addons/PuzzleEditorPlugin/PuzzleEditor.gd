@@ -24,12 +24,8 @@ var current_colour := 0
 # The current rotation
 var current_rotation := 0
 
-var texture_cache: TextureCache = null
-
 # Called when a new node is selected - initialisation of UI
 func _init():
-	texture_cache = TextureCache.new()
-	
 	# Set up the +/- button
 	expand_button.set_anchor(MARGIN_RIGHT, 1)
 	expand_button.text = "+"

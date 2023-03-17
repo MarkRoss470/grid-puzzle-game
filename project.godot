@@ -38,11 +38,6 @@ _global_script_classes=[ {
 "class": "SolutionChecker",
 "language": "GDScript",
 "path": "res://scripts/SolutionChecker.gd"
-}, {
-"base": "Node",
-"class": "TextureCache",
-"language": "GDScript",
-"path": "res://scripts/TextureCache.gd"
 } ]
 _global_script_class_icons={
 "CharacterController": "",
@@ -50,8 +45,7 @@ _global_script_class_icons={
 "PuzzleClasses": "",
 "PuzzleEditorInspectorPlugin": "",
 "PuzzleTile": "",
-"SolutionChecker": "",
-"TextureCache": ""
+"SolutionChecker": ""
 }
 
 [application]
