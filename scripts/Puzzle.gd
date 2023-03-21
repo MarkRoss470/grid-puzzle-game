@@ -183,8 +183,12 @@ func solve_puzzle():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # Handles the puzzle's load and unload animations
 func _process(delta):
+	var animating := false
+	
 	# If load animation playing
 	if loading_tiles_progress != -1:
+		animating = true
+		
 		loading_tiles_progress += delta
 		# Update rotation + scale of every tile
 		for x in puzzle[PuzzleClasses.WIDTH]:
@@ -233,6 +237,8 @@ func _process(delta):
 
 	# If unload animation is playing
 	elif unloading_tiles_progress != -1:
+		animating = true
+		
 		unloading_tiles_progress += delta
 		# Update rotation + scale of every tile
 		for x in puzzle[PuzzleClasses.WIDTH]:
@@ -263,7 +269,8 @@ func _process(delta):
 		if unloading_tiles_progress > (puzzle[PuzzleClasses.WIDTH] + puzzle[PuzzleClasses.HEIGHT]) * tile_animation_offset + tile_animation_time:
 			unloading_tiles_progress = -1
 	
-	reset_tile_colours()
+	if animating:
+		reset_tile_colours()
 
 # Callbacks for if this object is used as a PuzzleResponse
 func on_puzzle_solve(_i: int):
@@ -277,7 +284,7 @@ func on_puzzle_unsolve(_i: int):
 # Set all the cells to their base colour
 # Stops a puzzle from looking solved when it's not
 func reset_tile_colours():
-# Initialise the cells to the base colour
+	# Initialise the cells to the base colour
 	for x in puzzle[PuzzleClasses.WIDTH]:
 		var column = tiles[x]
 		for y in puzzle[PuzzleClasses.HEIGHT]:
@@ -285,10 +292,10 @@ func reset_tile_colours():
 			
 			if tile == null: continue
 			
-			var icon = puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON]
-			if icon == PuzzleClasses.NO_CELL: continue
-			if x == puzzle[PuzzleClasses.KEY_X] and y == puzzle[PuzzleClasses.KEY_Y]:
-				tile.set_colour(key_colour_base, key_colour_hover)
-			else:
-				tile.set_colour(colour_base, colour_hover)
-				
+			tile.set_colour(colour_base, colour_hover)
+	
+	var key_x = puzzle[PuzzleClasses.KEY_X]
+	var key_y = puzzle[PuzzleClasses.KEY_Y]
+	var key_tile = tiles[key_x][key_y]
+	if key_tile != null:
+		key_tile.set_colour(key_colour_base, key_colour_hover)

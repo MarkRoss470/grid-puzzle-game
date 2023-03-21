@@ -202,6 +202,7 @@ func on_key_pos_change(value: float, axis: int):
 # Callback of the key target rotation selector
 func on_key_target_change(value: float):
 	current_value[PuzzleClasses.KEY_TARGET_ROTATION] = value
+	emit_changed("puzzle", current_value)
 
 # Callback of icon group selectors
 func set_current_icon_group(event: InputEvent, icon_group: int):
@@ -349,6 +350,12 @@ func update_ui():
 	# Set the value of the width and height selectors
 	editor_items.get_node("width_input").value = current_value[PuzzleClasses.WIDTH]
 	editor_items.get_node("height_input").value = current_value[PuzzleClasses.HEIGHT]
+	# Set the value of the key x and y selectors
+	editor_items.get_node("key_x_input").value = current_value[PuzzleClasses.KEY_X]
+	editor_items.get_node("key_y_input").value = current_value[PuzzleClasses.KEY_Y]
+	# Set the value of the key target rotation selector
+	editor_items.get_node("key_target_input").value = current_value[PuzzleClasses.KEY_TARGET_ROTATION]
+	
 	# Delete current grid and regenerate it
 	editor_items.remove_child(editor_items.get_node("grid"))
 	populate_grid()

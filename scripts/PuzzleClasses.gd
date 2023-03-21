@@ -25,6 +25,7 @@ const CELL_TEXTURES := [
 	preload("res://textures/puzzle icons/pointer straight.svg"), # POINTER_DOUBLE_STRAIGHT
 	preload("res://textures/puzzle icons/pointer triple.svg"), # POINTER_TRIPLE
 	preload("res://textures/puzzle icons/pointer quadruple.svg"), # POINTER_QUADRAPLE
+	preload("res://textures/puzzle icons/square.svg")
 ]
 
 # Enum for cell icons
@@ -40,6 +41,7 @@ enum {
 	POINTER_TRIPLE, # Three pointers, each at 90 degrees from each other.
 		# A rotation of 0 means up-left-down.
 	POINTER_QUADRUPLE, # Four pointers, each at 90 degrees from each other.
+	SQUARE,
 }
 
 # Groups of icons for the puzzle editor
@@ -54,6 +56,9 @@ const ICON_GROUPS := [
 		POINTER_DOUBLE_STRAIGHT,
 		POINTER_TRIPLE,
 		POINTER_QUADRUPLE
+	],
+	[
+		SQUARE
 	],
 ]
 
