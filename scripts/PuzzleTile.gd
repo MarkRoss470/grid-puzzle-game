@@ -55,7 +55,11 @@ func input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: 
 		# If it is the left mouse button and it is being pressed down rather than released
 		if event.button_index == 1 and event.pressed:
 			# Tell puzzle cell has been rotated
-			puzzle.rotate_cell(this_x, this_y)
+			puzzle.rotate_cell(this_x, this_y, 1)
+		# If it is the right mouse button and it is being pressed down rather than released
+		if event.button_index == 2 and event.pressed:
+			# Tell puzzle cell has been rotated
+			puzzle.rotate_cell(this_x, this_y, -1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

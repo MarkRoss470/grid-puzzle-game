@@ -138,9 +138,13 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	return node
 
 # Called by a cell when it is clicked
-func rotate_cell(x, y):
+# direction = 1 -> clockwise
+# direction = -1 -> anti-clockwise
+func rotate_cell(x: int, y: int, direction: int):
+	var prev_rotation = current_state[x][y]
+	
 	# Add one to cell's rotation
-	current_state[x][y] += 1
+	current_state[x][y] += (4 + direction)
 	# Wrap around to 0 if reaches 4
 	current_state[x][y] %= 4
 	
@@ -151,15 +155,12 @@ func rotate_cell(x, y):
 		for cell in solution.wrong_cells:
 			tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
 		
-		# Undo the rotation
-		current_state[x][y] -= 1
-		# Wrap around to 3 if reaches -1
-		current_state[x][y] %= 4
+		current_state[x][y] = prev_rotation
 		
 		return
 	
 	# Physically rotate this cell
-	tiles[x][y].icon.rotate(Vector3.DOWN, PI / 2)
+	tiles[x][y].icon.rotate(Vector3.DOWN, direction * PI / 2)
 	
 	if solution.is_solved:
 		solve_puzzle()
@@ -201,6 +202,8 @@ func _process(delta):
 				if loading_tiles_progress > (x + y) * tile_animation_offset + tile_animation_time:
 					# Clear rotation
 					tiles[x][y].set_rotation(Vector3(0, 0, 0))
+					# Rotate to match puzzle state
+					tiles[x][y].rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
 					# Reset scale
 					tiles[x][y].scale = Vector3(1, 1, 1)
 				# If animation for this tile is still going
@@ -225,6 +228,8 @@ func _process(delta):
 
 					# Clear tile's rotation
 					tiles[x][y].set_rotation(Vector3(0, 0, 0))
+					# Rotate to match puzzle state
+					tiles[x][y].rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
 					# Rotate for animation
 					tiles[x][y].rotate(Vector3.RIGHT, rotation)
 
