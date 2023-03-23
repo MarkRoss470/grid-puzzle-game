@@ -167,11 +167,11 @@ static func check_solution(puzzle: Array, state: Array) -> Solution:
 			match puzzle_cells[x][y][PuzzleClasses.ICON]:
 				# Squares can't be in the same region as another square of the same colour
 				PuzzleClasses.SQUARE:
-					print(x, ", ", y, ", ")
-					containing_region.pretty_print()
 					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.SQUARE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y):
 						result.add_wrong(x, y)
-	
+				PuzzleClasses.CIRCLE:
+					if not containing_region.contains_icon(puzzle_cells, PuzzleClasses.CIRCLE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y):
+						result.add_wrong(x, y)
 	var key_x = puzzle[PuzzleClasses.KEY_X]
 	var key_y = puzzle[PuzzleClasses.KEY_Y]
 	var key_rotation = state[key_x][key_y]
