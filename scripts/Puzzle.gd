@@ -40,9 +40,10 @@ export(bool) var load_on_start = true
 export(float) var tile_animation_time := 1.0
 # The offset between tiles' animations
 export(float) var tile_animation_offset := 0.2
-# Variables to keep track of animations
-var loading_tiles_progress := -1.0
-var unloading_tiles_progress := -1.0
+
+# An array of all the tile load / unloads occuring
+# Each item is of the format [direction, progress] 
+var wipes := []
 
 # Array[x][y] of the direction of cells
 # 0 = up, 1 = right etc
@@ -69,6 +70,38 @@ func _ready():
 	# Load puzzles that should always be active
 	if load_on_start: load_solved()
 
+func add_wipe(direction: int, timeout: float):
+	if len(wipes) != 0:
+		var next_wipe_time = wipes[-1][1]
+		
+		# - not + in this calculation because time counts up, so to get a future time you subtract
+		if timeout > next_wipe_time - tile_animation_time:
+			timeout = next_wipe_time - tile_animation_time
+	
+	wipes.append([direction, timeout])
+	
+	# If there is both a load which hasn't started and an unload which hasn't started, make them cancel out
+	# The indexes of the last load and unload which hasn't started yet, or -1 if there is none
+	var load_index := -1
+	var unload_index := -1
+	
+	for i in len(wipes):
+		if wipes[i][1] < 0:
+			if wipes[i][0] == 1:
+				load_index = i
+			else:
+				unload_index = i 
+	
+	if load_index != -1 and unload_index != -1:
+		# Removing the later item of the array first stops indices from changing
+		if load_index > unload_index:
+			wipes.remove(load_index)
+			wipes.remove(unload_index)
+		else:
+			wipes.remove(unload_index)
+			wipes.remove(load_index)
+			
+
 # Loads the puzzle with no animation
 func load_solved():
 	# Loop over columns in puzzle
@@ -88,15 +121,27 @@ func load_solved():
 			add_child(tile)
 	reset_tile_colours()
 
+# Resets the puzzle
+func reset():
+	# Reset tiles and current state
+	for x in puzzle[PuzzleClasses.WIDTH]:
+		for y in puzzle[PuzzleClasses.HEIGHT]:
+			current_state[x][y] = puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ROTATION]
+	
+	# Call puzzle unsolve callback
+	if on_complete != null:
+		on_complete.on_puzzle_unsolve(on_complete_param)
+	
+	add_wipe(-1, 0)
+	add_wipe(1, -tile_animation_time)
+
 # Loads the puzzle with animation
 func load_puzzle():
-	loading_tiles_progress = 0
-	unloading_tiles_progress = -1
+	add_wipe(1, 0)
 
 # Unloads the puzzle with animation
 func unload_puzzle():
-	unloading_tiles_progress = 0
-	loading_tiles_progress = -1
+	add_wipe(-1, 0)
 
 # Creates a new puzzle cell object
 func create_tile(x: int, y: int, cell) -> PuzzleTile:
@@ -184,97 +229,87 @@ func solve_puzzle():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # Handles the puzzle's load and unload animations
 func _process(delta):
-	var animating := false
+	# The index of a completed wipe, if there is one
+	var completed_wipe = -1
 	
-	# If load animation playing
-	if loading_tiles_progress != -1:
-		animating = true
+	for i in len(wipes):
+		# 1 if load, -1 if unload
+		var direction = wipes[i][0]
+		var prev_progress = wipes[i][1]
+		var progress = prev_progress + delta
+		wipes[i][1] = progress
 		
-		loading_tiles_progress += delta
 		# Update rotation + scale of every tile
 		for x in puzzle[PuzzleClasses.WIDTH]:
 			for y in puzzle[PuzzleClasses.HEIGHT]:
 				
-				# If there is no cell, don't create a tile
-				if puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] == PuzzleClasses.NO_CELL: continue
+				var tile_animation_start = (x + y) * tile_animation_offset
+				var tile_animation_end = (x + y) * tile_animation_offset + tile_animation_time
 				
-				# If animation for this tile has finished
-				if loading_tiles_progress > (x + y) * tile_animation_offset + tile_animation_time:
-					# Clear rotation
-					tiles[x][y].set_rotation(Vector3(0, 0, 0))
-					# Rotate to match puzzle state
-					tiles[x][y].rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
-					# Reset scale
-					tiles[x][y].scale = Vector3(1, 1, 1)
-				# If animation for this tile is still going
-				elif loading_tiles_progress > (x + y) * tile_animation_offset:
-					# If the tile is not loaded, load it
-					if tiles[x][y] == null:
-						# Create tile
-						var tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
-						# Set the tile's scale to 0
-						tile.scale = Vector3(0, 0, 0)
-						# Add reference to tile to tiles
-						tiles[x][y] = tile
-						# Add tile to scene tree
-						add_child(tile)
+				if prev_progress > tile_animation_end or progress < tile_animation_start:
+					continue
+				
+				var tile = tiles[x][y]
+				
+				if tile == null:
+					# If the tile is already null, don't load it just to unload it
+					if direction == -1:
+						continue
+					
+					# Create tile
+					tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
+					# Set the tile's scale to 0
+					tile.scale = Vector3(0, 0, 0)
+					# Add reference to tile to tiles
+					tiles[x][y] = tile
+					# Add tile to scene tree
+					add_child(tile)
+				
+				# If this is the last frame of animation for the tile, set it to the finishing position
+				if progress > tile_animation_end and tile_animation_end > prev_progress:
+					# If this wipe is an unload, unload the tile
+					if direction == -1:
+						remove_child(tiles[x][y])
+						tiles[x][y] = null
+					# If this wipe is a load, set the tile to the right rotation and scale
+					else:
+						# Clear rotation
+						tiles[x][y].set_rotation(Vector3(0, 0, 0))
+						# Rotate to match puzzle state
+						tiles[x][y].rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
+						# Reset scale
+						tiles[x][y].scale = Vector3(1, 1, 1)
+					continue
+				
+				# How long this tile has been animating for
+				var animation_time: float = progress - (x + y) * tile_animation_offset
+				# What proportion of the animation has been completed
+				var animation_proportion := animation_time / tile_animation_time
+				
+				if direction == -1:
+					animation_proportion = 1 - animation_proportion
+				
+				# The tile's rotation
+				var rotation := -(1 - animation_proportion) * PI
 
-					# Calculate how long this tile has been animating for
-					var animation_time: float = loading_tiles_progress - (x + y) * tile_animation_offset
-					# Calculate what proportion of the animation has been completed
-					var animation_proportion := animation_time / tile_animation_time
-					# Calculate tile's rotation
-					var rotation := -(1 - animation_proportion) * PI
+				# Clear tile's rotation
+				tiles[x][y].set_rotation(Vector3(0, 0, 0))
+				# Rotate to match puzzle state
+				tiles[x][y].rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
+				# Rotate for animation
+				tiles[x][y].rotate(Vector3.RIGHT, rotation)
 
-					# Clear tile's rotation
-					tiles[x][y].set_rotation(Vector3(0, 0, 0))
-					# Rotate to match puzzle state
-					tiles[x][y].rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
-					# Rotate for animation
-					tiles[x][y].rotate(Vector3.RIGHT, rotation)
-
-					# Set tile's scale
-					tiles[x][y].scale = Vector3(animation_proportion, animation_proportion, animation_proportion)
-		
-		# If whole animation is finished, stop checking tiles
-		if loading_tiles_progress > (puzzle[PuzzleClasses.WIDTH] + puzzle[PuzzleClasses.HEIGHT]) * tile_animation_offset + tile_animation_time:
-			loading_tiles_progress = -1
-
-	# If unload animation is playing
-	elif unloading_tiles_progress != -1:
-		animating = true
-		
-		unloading_tiles_progress += delta
-		# Update rotation + scale of every tile
-		for x in puzzle[PuzzleClasses.WIDTH]:
-			for y in puzzle[PuzzleClasses.HEIGHT]:
-				# Don't try to operate on non-existant tiles
-				if tiles[x][y] == null: continue
-				# If animation for this tile is finished, unload tile
-				if unloading_tiles_progress > (x + y) * tile_animation_offset + tile_animation_time:
-					remove_child(tiles[x][y])
-					tiles[x][y] = null
-				# If animation for this tile is still going
-				elif unloading_tiles_progress > (x + y) * tile_animation_offset:
-					# Calculate how long this tile has been animating for
-					var animation_time: float = unloading_tiles_progress - (x + y) * tile_animation_offset
-					# Calculate what proportion of the animation has been completed
-					var animation_proportion := 1 - animation_time / tile_animation_time
-					# Calculate tile's rotation
-					var rotation := -(1 - animation_proportion) * PI
-
-					# Clear tile's rotation
-					tiles[x][y].set_rotation(Vector3(0, 0, 0))
-					# Rotate for animation
-					tiles[x][y].rotate(Vector3.RIGHT, rotation)
-
-					# Set tile's scale
-					tiles[x][y].scale = Vector3(animation_proportion, animation_proportion, animation_proportion)
-		# If whole animation is finished, stop checking tiles
-		if unloading_tiles_progress > (puzzle[PuzzleClasses.WIDTH] + puzzle[PuzzleClasses.HEIGHT]) * tile_animation_offset + tile_animation_time:
-			unloading_tiles_progress = -1
+				# Set tile's scale
+				tiles[x][y].scale = Vector3(animation_proportion, animation_proportion, animation_proportion)
 	
-	if animating:
+		# If this wipe is finished, save its index
+		if progress > (puzzle[PuzzleClasses.WIDTH] + puzzle[PuzzleClasses.HEIGHT]) * tile_animation_offset + tile_animation_time:
+			completed_wipe = i
+	
+	if completed_wipe != -1:
+		wipes.remove(completed_wipe)
+	
+	if len(wipes) > 0:
 		reset_tile_colours()
 
 # Callbacks for if this object is used as a PuzzleResponse

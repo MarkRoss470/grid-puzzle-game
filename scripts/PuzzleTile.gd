@@ -61,6 +61,10 @@ func input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: 
 			# Tell puzzle cell has been rotated
 			puzzle.rotate_cell(this_x, this_y, -1)
 
+func _process(delta):
+	if mouse_over_tile and Input.is_action_just_pressed("reset"):
+		puzzle.reset()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	backplane = get_node(backplane_path)
