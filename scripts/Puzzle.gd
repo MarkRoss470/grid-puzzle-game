@@ -37,9 +37,9 @@ export(int) var on_complete_param
 export(bool) var load_on_start = true
 
 # How long each tile's animation should take
-export(float) var tile_animation_time := 1.0
+export(float) var tile_animation_time := 0.5
 # The offset between tiles' animations
-export(float) var tile_animation_offset := 0.2
+export(float) var tile_animation_offset := 0.1
 
 # An array of all the tile load / unloads occuring
 # Each item is of the format [direction, progress] 
