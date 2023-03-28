@@ -17,7 +17,7 @@ export var run_speed := 10.0
 export (NodePath) var camera_path
 var camera: Camera
 
-#player's current velocity (movement due to pressed keys does not count for this)
+# Player's current velocity (movement due to pressed keys does not count for this)
 var velocity := Vector3.ZERO
 
 # Whether the mouse is free (when interacting with a puzzle)
