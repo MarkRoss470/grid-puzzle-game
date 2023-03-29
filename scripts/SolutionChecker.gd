@@ -6,8 +6,6 @@ class_name SolutionChecker
 class Solution:
 	# Whether the solution is a valid puzzle state
 	var is_valid: bool
-	# Whether the puzzle is solved
-	var is_solved: bool
 	
 	# An array of [x, y] coordinates of the cells which are wrong
 	# This is not (necessarily) the cells which are in the wrong rotation
@@ -17,7 +15,6 @@ class Solution:
 	# Simple constructor
 	func _init():
 		is_valid = true
-		is_solved = false
 		wrong_cells = []
 	
 	# Add a wrong cell at the given coordinates and set is_valid to false
@@ -172,13 +169,6 @@ static func check_solution(puzzle: Array, state: Array) -> Solution:
 				PuzzleClasses.CIRCLE:
 					if not containing_region.contains_icon(puzzle_cells, PuzzleClasses.CIRCLE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y):
 						result.add_wrong(x, y)
-	var key_x = puzzle[PuzzleClasses.KEY_X]
-	var key_y = puzzle[PuzzleClasses.KEY_Y]
-	var key_rotation = state[key_x][key_y]
-	var target_rotation = puzzle[PuzzleClasses.KEY_TARGET_ROTATION]
-	
-	if key_rotation == target_rotation:
-		result.is_solved = true
 
 	return result
 

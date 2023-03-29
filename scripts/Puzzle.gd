@@ -12,6 +12,9 @@ represents the puzzle - sets which icons go in which cells
 ]
 """
 export(Array) var puzzle
+# Whether the states between the start and end states need to be valid
+export(bool) var check_intermediate
+
 # Colours for puzzle's neutral state
 export(Color) var colour_base = Color(0.5, 0.5, 0.5)
 export(Color) var colour_hover = Color(0.8, 0.8, 0.8)
@@ -193,21 +196,39 @@ func rotate_cell(x: int, y: int, direction: int):
 	# Wrap around to 0 if reaches 4
 	current_state[x][y] %= 4
 	
+	# Check whether the solution is valid
 	var solution := SolutionChecker.check_solution(puzzle, current_state)
 	
-	if not solution.is_valid:
-		# Set cells to colour on incorrect solution
-		for cell in solution.wrong_cells:
-			tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
+	# Whether the puzzle is solved
+	var is_solved := false;
+	
+	# If intermediate states must be valid, block the move if they aren't 
+	if check_intermediate:
+		if not solution.is_valid:
+			# Set cells to colour on incorrect solution
+			for cell in solution.wrong_cells:
+				tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
+			
+			current_state[x][y] = prev_rotation
+			
+			return
 		
-		current_state[x][y] = prev_rotation
-		
-		return
+		# Check whether the key cell is in the right rotation
+		var key_x = puzzle[PuzzleClasses.KEY_X]
+		var key_y = puzzle[PuzzleClasses.KEY_Y]
+		var key_rotation = current_state[key_x][key_y]
+		var target_rotation = puzzle[PuzzleClasses.KEY_TARGET_ROTATION]
+		if key_rotation == target_rotation:
+			is_solved = true
+	# If intermediate states don't need to be valid, then any valid state is a solution
+	else:
+		if solution.is_valid:
+			is_solved = true
 	
 	# Physically rotate this cell
 	tiles[x][y].icon.rotate(Vector3.DOWN, direction * PI / 2)
 	
-	if solution.is_solved:
+	if is_solved:
 		solve_puzzle()
 	else:
 		# Call puzzle unsolve callback
@@ -334,8 +355,9 @@ func reset_tile_colours():
 			
 			tile.set_colour(colour_base, colour_hover)
 	
-	var key_x = puzzle[PuzzleClasses.KEY_X]
-	var key_y = puzzle[PuzzleClasses.KEY_Y]
-	var key_tile = tiles[key_x][key_y]
-	if key_tile != null:
-		key_tile.set_colour(key_colour_base, key_colour_hover)
+	if check_intermediate:
+		var key_x = puzzle[PuzzleClasses.KEY_X]
+		var key_y = puzzle[PuzzleClasses.KEY_Y]
+		var key_tile = tiles[key_x][key_y]
+		if key_tile != null:
+			key_tile.set_colour(key_colour_base, key_colour_hover)
