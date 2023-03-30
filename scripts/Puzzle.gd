@@ -19,14 +19,22 @@ export(bool) var check_intermediate
 export(Color) var colour_base = Color(0.5, 0.5, 0.5)
 export(Color) var colour_hover = Color(0.8, 0.8, 0.8)
 # Colours for the key cell's neutral state
-export(Color) var key_colour_base = Color(0.7, 0.8, 0.1)
-export(Color) var key_colour_hover = Color(1, 1, 0.0)
+export(Color) var colour_key = Color(0.7, 0.8, 0.1)
+export(Color) var colour_key_hover = Color(1, 1, 0.0)
+
 # Colours for an incorrect solution
 export(Color) var colour_incorrect_base = Color(1, 0, 0)
 export(Color) var colour_incorrect_hover = Color(1, 0.5, 0.5)
+# Colours for an incorrect solution on the key cell
+export(Color) var colour_incorrect_key = Color(0.9, 0.55, 0.05)
+export(Color) var colour_incorrect_key_hover = Color(0.95, 0.75, 0.4)
+
 # Colours for a correct solution
 export(Color) var colour_solved_base = Color(0, 1, 0)
 export(Color) var colour_solved_hover = Color(0.5, 1, 0.5)
+# Colours for a correct solution on the key cell
+export(Color) var colour_solved_key = Color(0.15, 0.1, 0.9)
+export(Color) var colour_solved_key_hover = Color(0.3, 0.30, 0.85)
 
 # What object to instance as a tile
 export(NodePath) var instance_path
@@ -207,7 +215,10 @@ func rotate_cell(x: int, y: int, direction: int):
 		if not solution.is_valid:
 			# Set cells to colour on incorrect solution
 			for cell in solution.wrong_cells:
-				tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
+				if check_intermediate and cell == [puzzle[PuzzleClasses.KEY_X], puzzle[PuzzleClasses.KEY_Y]]:
+					tiles[cell[0]][cell[1]].set_colour(colour_incorrect_key, colour_incorrect_key_hover)
+				else:
+					tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
 			
 			current_state[x][y] = prev_rotation
 			
@@ -234,15 +245,24 @@ func rotate_cell(x: int, y: int, direction: int):
 		# Call puzzle unsolve callback
 		if on_complete != null:
 			on_complete.on_puzzle_unsolve(on_complete_param)
-	
-	reset_tile_colours()
+		reset_tile_colours()
 
 func solve_puzzle():
+	print("Solved")
+	
 	# Set cells to colour on completion
 	for column in tiles:
 		for tile in column:
 			if tile != null:
 				tile.set_colour(colour_solved_base, colour_solved_hover)
+	# Set the key cell to a different colour if there is one
+	if check_intermediate:
+		var key_x = puzzle[PuzzleClasses.KEY_X]
+		var key_y = puzzle[PuzzleClasses.KEY_Y]
+		var key_tile = tiles[key_x][key_y]
+		if key_tile != null:
+			key_tile.set_colour(colour_solved_key, colour_solved_key_hover)
+	
 	# Call puzzle unsolve callback
 	if on_complete != null:
 		on_complete.on_puzzle_solve(on_complete_param)
@@ -346,18 +366,14 @@ func on_puzzle_unsolve(_i: int):
 # Stops a puzzle from looking solved when it's not
 func reset_tile_colours():
 	# Initialise the cells to the base colour
-	for x in puzzle[PuzzleClasses.WIDTH]:
-		var column = tiles[x]
-		for y in puzzle[PuzzleClasses.HEIGHT]:
-			var tile = column[y]
-			
-			if tile == null: continue
-			
-			tile.set_colour(colour_base, colour_hover)
+	for column in tiles:
+		for tile in column:
+			if tile != null:
+				tile.set_colour(colour_base, colour_hover)
 	
 	if check_intermediate:
 		var key_x = puzzle[PuzzleClasses.KEY_X]
 		var key_y = puzzle[PuzzleClasses.KEY_Y]
 		var key_tile = tiles[key_x][key_y]
 		if key_tile != null:
-			key_tile.set_colour(key_colour_base, key_colour_hover)
+			key_tile.set_colour(colour_key, colour_key_hover)
