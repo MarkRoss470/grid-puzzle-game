@@ -1,9 +1,9 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scripts/CharacterController.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Puzzle.gd" type="Script" id=2]
 [ext_resource path="res://scripts/PuzzleTile.gd" type="Script" id=3]
-[ext_resource path="res://addons/kenney_prototypes/assets/colors/dark/scenes/prototype_dark_01.tscn" type="PackedScene" id=4]
+[ext_resource path="res://models/courtyard.glb" type="PackedScene" id=5]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/green/scenes/prototype_green_01.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" type="Script" id=7]
 [ext_resource path="res://scripts/PuzzleResponses/PuzzleResponseWire.gd" type="Script" id=9]
@@ -242,11 +242,43 @@ shader_param/icon_colour = null
 [sub_resource type="BoxShape" id=17]
 extents = Vector3( 1, 0.031, 1 )
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=37]
+extents = Vector3( 10, 2, 0.125 )
+
+[sub_resource type="BoxShape" id=39]
+extents = Vector3( 0.125, 2, 10 )
+
+[sub_resource type="BoxShape" id=38]
+extents = Vector3( 0.125, 2, 10 )
+
+[sub_resource type="BoxShape" id=41]
+extents = Vector3( 0.25, 3, 0.25 )
+
+[sub_resource type="BoxShape" id=40]
+extents = Vector3( 0.25, 3, 0.25 )
+
+[sub_resource type="BoxShape" id=42]
+extents = Vector3( 5, 2, 0.05 )
+
+[sub_resource type="BoxShape" id=43]
+extents = Vector3( 0.05, 2, 3.25 )
+
+[sub_resource type="BoxShape" id=44]
+extents = Vector3( 0.05, 2, 3.25 )
+
+[sub_resource type="BoxShape" id=45]
+extents = Vector3( 0.05, 2, 3.25 )
+
+[sub_resource type="BoxShape" id=46]
+extents = Vector3( 0.05, 2, 3.25 )
+
+[sub_resource type="BoxShape" id=36]
+extents = Vector3( 10, 0.001, 10 )
 
 [node name="Spatial" type="Spatial"]
 
 [node name="Player" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00024, 0 )
 script = ExtResource( 1 )
 max_fall_speed = 0.2
 camera_path = NodePath("PlayerCamera")
@@ -258,15 +290,13 @@ shape = SubResource( 4 )
 [node name="PlayerCamera" type="ClippedCamera" parent="Player"]
 
 [node name="TestPuzzle" type="Spatial" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 2.82046, -1.43171, -0.770229 )
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 2.82046, 2.68214, -0.770229 )
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": "																				"
 }
 puzzle = [ 7.0, 5.0, 3.0, 2.0, 1.0, [ [ [ 1, 0, 0 ], [ 1, 0, 3 ], [ 4, 0, 2 ], [ 1, 0, 1 ], [ 7, 1, 1 ] ], [ [ 1, 0, 1 ], [ 1, 0, 1 ], [ 3, 0, 1 ], [ 4, 0, 2 ], [ 4, 0, 2 ] ], [ [ 1, 0, 0 ], [ 3, 0, 1 ], [ 3, 0, 3 ], [ 3, 0, 1 ], [ 7, 1, 0 ] ], [ [ 4, 0, 0 ], [ 6, 0, 1 ], [ 4, 0, 0 ], [ 6, 0, 1 ], [ 4, 0, 0 ] ], [ [ 1, 0, 0 ], [ 3, 0, 2 ], [ 3, 0, 0 ], [ 3, 0, 2 ], [ 7, 1, 0 ] ], [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 3, 0, 2 ], [ 4, 0, 2 ], [ 4, 0, 2 ] ], [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 4, 0, 0 ], [ 1, 0, 0 ], [ 7, 1, 0 ] ] ] ]
 check_intermediate = true
-key_colour_base = Color( 1, 0.984314, 0, 1 )
-key_colour_hover = Color( 1, 1, 0.627451, 1 )
 instance_path = NodePath("../Tile")
 on_complete_path = NodePath("../TestPuzzle2/TestWire2")
 
@@ -279,7 +309,7 @@ num_points = 32
 wire_material = SubResource( 26 )
 
 [node name="TestPuzzle2" type="Spatial" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.160685, -1.26934, -0.650096 )
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.160685, 2.37085, -0.650096 )
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
@@ -332,14 +362,58 @@ shape = SubResource( 17 )
 
 [node name="PrototypeCube2" parent="TestCube" instance=ExtResource( 6 )]
 
-[node name="PrototypeCube" parent="." instance=ExtResource( 4 )]
-transform = Transform( 40, 0, 0, 0, 1, 0, 0, 0, 40, -40, -5.30862, -40 )
+[node name="Courtyard" parent="." instance=ExtResource( 5 )]
 
-[node name="StaticBody" type="StaticBody" parent="PrototypeCube"]
+[node name="Collision" type="StaticBody" parent="Courtyard"]
 
-[node name="CollisionShape" type="CollisionShape" parent="PrototypeCube/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1 )
-shape = SubResource( 7 )
+[node name="Walls" type="StaticBody" parent="Courtyard/Collision"]
+
+[node name="South" type="CollisionShape" parent="Courtyard/Collision/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 10 )
+shape = SubResource( 37 )
+
+[node name="West" type="CollisionShape" parent="Courtyard/Collision/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 0 )
+shape = SubResource( 39 )
+
+[node name="East" type="CollisionShape" parent="Courtyard/Collision/Walls"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 0 )
+shape = SubResource( 38 )
+
+[node name="Pillars" type="StaticBody" parent="Courtyard/Collision"]
+
+[node name="Southwest" type="CollisionShape" parent="Courtyard/Collision/Pillars"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 5 )
+shape = SubResource( 41 )
+
+[node name="Southeast" type="CollisionShape" parent="Courtyard/Collision/Pillars"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 5 )
+shape = SubResource( 40 )
+
+[node name="Fences" type="StaticBody" parent="Courtyard/Collision"]
+
+[node name="South" type="CollisionShape" parent="Courtyard/Collision/Fences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5 )
+shape = SubResource( 42 )
+
+[node name="West-south" type="CollisionShape" parent="Courtyard/Collision/Fences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 1.75 )
+shape = SubResource( 43 )
+
+[node name="West-north" type="CollisionShape" parent="Courtyard/Collision/Fences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -6.75 )
+shape = SubResource( 44 )
+
+[node name="East-south" type="CollisionShape" parent="Courtyard/Collision/Fences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 1.75 )
+shape = SubResource( 45 )
+
+[node name="East-north" type="CollisionShape" parent="Courtyard/Collision/Fences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -6.75 )
+shape = SubResource( 46 )
+
+[node name="Ground" type="CollisionShape" parent="Courtyard/Collision"]
+shape = SubResource( 36 )
 
 [connection signal="input_event" from="Tile/Tile pivot/Area" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Tile pivot/Area" to="Tile" method="mouse_enter"]
