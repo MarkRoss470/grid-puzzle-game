@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scripts/CharacterController.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Puzzle.gd" type="Script" id=2]
@@ -6,140 +6,10 @@
 [ext_resource path="res://models/courtyard.glb" type="PackedScene" id=5]
 [ext_resource path="res://addons/kenney_prototypes/assets/colors/green/scenes/prototype_green_01.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" type="Script" id=7]
-[ext_resource path="res://scripts/PuzzleResponses/PuzzleResponseWire.gd" type="Script" id=9]
 
 [sub_resource type="CapsuleShape" id=4]
 radius = 0.5
-
-[sub_resource type="Curve3D" id=20]
-bake_interval = 0.01
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -0.313442, -1.41743, -0.984823, 0.0493925, 0.0779769, -0.0388377, -0.0493925, -0.0779769, 0.0388377, -0.988769, -1.46226, -1.08321, 0.0906138, 0.0457911, -0.033005, -0.0906138, -0.0457911, 0.033005, -1, -3, -1, 0.078651, -0.00356197, -0.121203, -0.078651, 0.00356197, 0.121203, -3, -3, -1, 0, 0, 0, 0, 0, 0, -3.06767, -3.2145, 1.87068 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
-}
-
-[sub_resource type="VisualShaderNodeScalarUniform" id=30]
-uniform_name = "curve_length"
-
-[sub_resource type="VisualShaderNodeColorUniform" id=32]
-uniform_name = "unpowered"
-default_value_enabled = true
-default_value = Color( 0, 0, 0, 1 )
-
-[sub_resource type="VisualShaderNodeColorUniform" id=33]
-uniform_name = "powered"
-default_value_enabled = true
-default_value = Color( 1, 0, 0, 1 )
-
-[sub_resource type="VisualShaderNodeScalarUniform" id=21]
-uniform_name = "signal_travel"
-
-[sub_resource type="VisualShaderNodeVectorInterp" id=22]
-
-[sub_resource type="VisualShaderNodeInput" id=27]
-input_name = "uv"
-
-[sub_resource type="VisualShaderNodeVectorDecompose" id=28]
-
-[sub_resource type="VisualShaderNodeCompare" id=29]
-function = 2
-
-[sub_resource type="VisualShaderNodeScalarOp" id=31]
-operator = 2
-
-[sub_resource type="VisualShader" id=25]
-code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible, unshaded;
-
-uniform vec4 unpowered : hint_color = vec4(0.000000, 0.000000, 0.000000, 1.000000);
-uniform vec4 powered : hint_color = vec4(1.000000, 0.000000, 0.000000, 1.000000);
-uniform float signal_travel;
-uniform float curve_length;
-
-
-
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// ColorUniform:11
-	vec3 n_out11p0 = unpowered.rgb;
-	float n_out11p1 = unpowered.a;
-
-// ColorUniform:12
-	vec3 n_out12p0 = powered.rgb;
-	float n_out12p1 = powered.a;
-
-// ScalarUniform:2
-	float n_out2p0 = signal_travel;
-
-// ScalarUniform:10
-	float n_out10p0 = curve_length;
-
-// ScalarOp:9
-	float n_out9p0 = n_out2p0 * n_out10p0;
-
-// Input:6
-	vec3 n_out6p0 = vec3(UV, 0.0);
-
-// VectorDecompose:7
-	float n_out7p0 = n_out6p0.x;
-	float n_out7p1 = n_out6p0.y;
-	float n_out7p2 = n_out6p0.z;
-
-// Compare:8
-	bool n_out8p0 = n_out9p0>n_out7p0;
-
-// VectorMix:3
-	vec3 n_out3p0 = mix(n_out11p0, n_out12p0, vec3(n_out8p0 ? 1.0 : 0.0));
-
-// Output:0
-	ALBEDO = n_out3p0;
-
-}
-
-void light() {
-// Output:0
-
-}
-"
-graph_offset = Vector2( -693.386, -105.366 )
-flags/unshaded = true
-nodes/fragment/2/node = SubResource( 21 )
-nodes/fragment/2/position = Vector2( -1880, 280 )
-nodes/fragment/3/node = SubResource( 22 )
-nodes/fragment/3/position = Vector2( 20, -80 )
-nodes/fragment/6/node = SubResource( 27 )
-nodes/fragment/6/position = Vector2( -1820, 840 )
-nodes/fragment/7/node = SubResource( 28 )
-nodes/fragment/7/position = Vector2( -1500, 820 )
-nodes/fragment/8/node = SubResource( 29 )
-nodes/fragment/8/position = Vector2( -740, 500 )
-nodes/fragment/9/node = SubResource( 31 )
-nodes/fragment/9/position = Vector2( -1200, 520 )
-nodes/fragment/10/node = SubResource( 30 )
-nodes/fragment/10/position = Vector2( -1880, 540 )
-nodes/fragment/11/node = SubResource( 32 )
-nodes/fragment/11/position = Vector2( -1020, -420 )
-nodes/fragment/12/node = SubResource( 33 )
-nodes/fragment/12/position = Vector2( -1020, -60 )
-nodes/fragment/connections = PoolIntArray( 6, 0, 7, 0, 3, 0, 0, 0, 8, 0, 3, 2, 7, 0, 8, 1, 9, 0, 8, 0, 10, 0, 9, 1, 2, 0, 9, 0, 11, 0, 3, 0, 12, 0, 3, 1 )
-
-[sub_resource type="ShaderMaterial" id=26]
-shader = SubResource( 25 )
-shader_param/unpowered = Color( 0, 0, 0, 1 )
-shader_param/powered = Color( 1, 0, 0, 1 )
-shader_param/signal_travel = null
-shader_param/curve_length = null
-
-[sub_resource type="Curve3D" id=34]
-bake_interval = 0.01
-_data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 2.54547, -1.51227, -1.11401, 0, 0, 0, 0, 0, 0, -0.210812, -1.44148, -0.982187 ),
-"tilts": PoolRealArray( 0, 0 )
-}
+height = 1.5
 
 [sub_resource type="PlaneMesh" id=8]
 
@@ -276,6 +146,9 @@ extents = Vector3( 0.05, 2, 3.25 )
 [sub_resource type="BoxShape" id=36]
 extents = Vector3( 10, 0.001, 10 )
 
+[sub_resource type="BoxShape" id=47]
+extents = Vector3( 2.5, 1, 2.5 )
+
 [node name="Spatial" type="Spatial"]
 
 [node name="Player" type="KinematicBody" parent="."]
@@ -285,13 +158,13 @@ max_fall_speed = 0.2
 camera_path = NodePath("PlayerCamera")
 
 [node name="PlayerCapsule" type="CollisionShape" parent="Player"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -1, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.75, 0 )
 shape = SubResource( 4 )
 
 [node name="PlayerCamera" type="ClippedCamera" parent="Player"]
 
 [node name="TestPuzzle" type="Spatial" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 2.82046, 2.68214, -0.770229 )
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.35, 1, 0 )
 script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": "																				"
@@ -299,35 +172,6 @@ __meta__ = {
 puzzle = [ 7.0, 5.0, 3.0, 2.0, 1.0, [ [ [ 1, 0, 0 ], [ 1, 0, 3 ], [ 4, 0, 2 ], [ 1, 0, 1 ], [ 7, 1, 1 ] ], [ [ 1, 0, 1 ], [ 1, 0, 1 ], [ 3, 0, 1 ], [ 4, 0, 2 ], [ 4, 0, 2 ] ], [ [ 1, 0, 0 ], [ 3, 0, 1 ], [ 3, 0, 3 ], [ 3, 0, 1 ], [ 7, 1, 0 ] ], [ [ 4, 0, 0 ], [ 6, 0, 1 ], [ 4, 0, 0 ], [ 6, 0, 1 ], [ 4, 0, 0 ] ], [ [ 1, 0, 0 ], [ 3, 0, 2 ], [ 3, 0, 0 ], [ 3, 0, 2 ], [ 7, 1, 0 ] ], [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 3, 0, 2 ], [ 4, 0, 2 ], [ 4, 0, 2 ] ], [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 4, 0, 0 ], [ 1, 0, 0 ], [ 7, 1, 0 ] ] ] ]
 check_intermediate = true
 instance_path = NodePath("../Tile")
-on_complete_path = NodePath("../TestPuzzle2/TestWire2")
-
-[node name="TestWire" type="Path" parent="TestPuzzle"]
-transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, -26.3228, 14.1481, 8.28834 )
-curve = SubResource( 20 )
-script = ExtResource( 9 )
-on_complete_path = NodePath("../../TestCube")
-num_points = 32
-wire_material = SubResource( 26 )
-
-[node name="TestPuzzle2" type="Spatial" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.160685, 2.37085, -0.650096 )
-script = ExtResource( 2 )
-__meta__ = {
-"_editor_description_": ""
-}
-puzzle = [ 7.0, 5.0, 3.0, 3.0, 2.0, [ [ [ 7, 0, 3 ], [ 1, 1, 2 ], [ 4, 0, 3 ], [ 1, 1, 2 ], [ 7, 1, 2 ] ], [ [ 4, 0, 2 ], [ 4, 0, 2 ], [ 3, 0, 3 ], [ 4, 0, 2 ], [ 4, 0, 2 ] ], [ [ 1, 0, 0 ], [ 3, 0, 1 ], [ 5, 0, 0 ], [ 3, 0, 0 ], [ 1, 0, 0 ] ], [ [ 7, 3, 1 ], [ 4, 0, 1 ], [ 7, 3, 1 ], [ 4, 0, 1 ], [ 1, 3, 1 ] ], [ [ 1, 0, 2 ], [ 5, 0, 2 ], [ 5, 0, 2 ], [ 3, 0, 3 ], [ 1, 0, 3 ] ], [ [ 4, 0, 2 ], [ 5, 0, 0 ], [ 5, 0, 0 ], [ 5, 0, 0 ], [ 4, 0, 2 ] ], [ [ 7, 2, 2 ], [ 7, 0, 1 ], [ 4, 0, 1 ], [ 7, 1, 1 ], [ 7, 2, 2 ] ] ] ]
-check_intermediate = true
-instance_path = NodePath("../Tile")
-on_complete_path = NodePath("../TestPuzzle/TestWire")
-load_on_start = false
-
-[node name="TestWire2" type="Path" parent="TestPuzzle2"]
-transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 2.15669, 12.3554, 7.67307 )
-curve = SubResource( 34 )
-script = ExtResource( 9 )
-on_complete_path = NodePath("..")
-num_points = 32
-wire_material = SubResource( 26 )
 
 [node name="Tile" type="Spatial" parent="."]
 visible = false
@@ -415,6 +259,10 @@ shape = SubResource( 46 )
 
 [node name="Ground" type="CollisionShape" parent="Courtyard/Collision"]
 shape = SubResource( 36 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Courtyard/Collision"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5 )
+shape = SubResource( 47 )
 
 [connection signal="input_event" from="Tile/Tile pivot/Area" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Tile pivot/Area" to="Tile" method="mouse_enter"]
