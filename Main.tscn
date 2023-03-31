@@ -9,6 +9,7 @@
 [ext_resource path="res://scripts/PuzzleResponses/PuzzleResponseWire.gd" type="Script" id=9]
 
 [sub_resource type="CapsuleShape" id=4]
+radius = 0.5
 
 [sub_resource type="Curve3D" id=20]
 bake_interval = 0.01
