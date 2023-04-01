@@ -59,6 +59,8 @@ var wipes := []
 # Array[x][y] of the direction of cells
 # 0 = up, 1 = right etc
 var current_state: Array
+# Whether the puzzle is solved and the solved colours should be used
+var is_solved := false
 # Stores references to the PuzzleTile nodes of this puzzle
 var tiles: Array
 
@@ -139,16 +141,17 @@ func reset():
 
 # Loads the puzzle with animation
 func load_puzzle():
-	print(self, " Loading ", wipes)
 	add_wipe(1, 0)
-	print(wipes)
-
+	
+	# Check whether the puzzle is solved
+	var solution := SolutionChecker.check_solution(puzzle, current_state)
+	
+	if is_solved:
+		solve_puzzle()
 
 # Unloads the puzzle with animation
 func unload_puzzle():
-	print(self, " Unloading ", wipes)
 	add_wipe(-1, 0)
-	print(wipes)
 
 # Creates a new puzzle cell object
 func create_tile(x: int, y: int, cell) -> PuzzleTile:
@@ -203,9 +206,6 @@ func rotate_cell(x: int, y: int, direction: int):
 	# Check whether the solution is valid
 	var solution := SolutionChecker.check_solution(puzzle, current_state)
 	
-	# Whether the puzzle is solved
-	var is_solved := false;
-	
 	# If intermediate states must be valid, block the move if they aren't 
 	if check_intermediate:
 		if not solution.is_valid:
@@ -225,12 +225,11 @@ func rotate_cell(x: int, y: int, direction: int):
 		var key_y = puzzle[PuzzleClasses.KEY_Y]
 		var key_rotation = current_state[key_x][key_y]
 		var target_rotation = puzzle[PuzzleClasses.KEY_TARGET_ROTATION]
-		if key_rotation == target_rotation:
-			is_solved = true
+		
+		is_solved = key_rotation == target_rotation
 	# If intermediate states don't need to be valid, then any valid state is a solution
 	else:
-		if solution.is_valid:
-			is_solved = true
+		is_solved = solution.is_valid
 	
 	# Physically rotate this cell
 	tiles[x][y].icon.rotate(Vector3.DOWN, direction * PI / 2)
@@ -244,22 +243,12 @@ func rotate_cell(x: int, y: int, direction: int):
 		reset_tile_colours()
 
 func solve_puzzle():
-	print("Solved")
+	is_solved = true
 	
-	# Set cells to colour on completion
-	for column in tiles:
-		for tile in column:
-			if tile != null:
-				tile.set_colour(colour_solved_base, colour_solved_hover)
-	# Set the key cell to a different colour if there is one
-	if check_intermediate:
-		var key_x = puzzle[PuzzleClasses.KEY_X]
-		var key_y = puzzle[PuzzleClasses.KEY_Y]
-		var key_tile = tiles[key_x][key_y]
-		if key_tile != null:
-			key_tile.set_colour(colour_solved_key, colour_solved_key_hover)
+	# This will use the solved colours because is_solved is true
+	reset_tile_colours()
 	
-	# Call puzzle unsolve callback
+	# Call puzzle solve callback
 	if on_complete != null:
 		on_complete.on_puzzle_solve(on_complete_param)
 
@@ -365,11 +354,17 @@ func reset_tile_colours():
 	for column in tiles:
 		for tile in column:
 			if tile != null:
-				tile.set_colour(colour_base, colour_hover)
+				if is_solved:
+					tile.set_colour(colour_solved_base, colour_solved_hover)
+				else:
+					tile.set_colour(colour_base, colour_hover)
 	
 	if check_intermediate:
 		var key_x = puzzle[PuzzleClasses.KEY_X]
 		var key_y = puzzle[PuzzleClasses.KEY_Y]
 		var key_tile = tiles[key_x][key_y]
 		if key_tile != null:
-			key_tile.set_colour(colour_key, colour_key_hover)
+			if is_solved:
+				key_tile.set_colour(colour_solved_key, colour_solved_key_hover)
+			else:
+				key_tile.set_colour(colour_key, colour_key_hover)
