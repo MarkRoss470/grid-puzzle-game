@@ -152,7 +152,7 @@ extents = Vector3( 2.5, 1, 2.5 )
 [node name="Spatial" type="Spatial"]
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00024, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3 )
 script = ExtResource( 1 )
 max_fall_speed = 0.2
 camera_path = NodePath("PlayerCamera")
@@ -263,6 +263,22 @@ shape = SubResource( 36 )
 [node name="CollisionShape" type="CollisionShape" parent="Courtyard/Collision"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5 )
 shape = SubResource( 47 )
+
+[node name="Puzzles" type="Spatial" parent="Courtyard"]
+
+[node name="Intro 1" type="Spatial" parent="Courtyard/Puzzles"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -8 )
+script = ExtResource( 2 )
+puzzle = [ 1.0, 3.0, 0, 0, 0, [ [ [ 7, 0, 0 ], [ 4, 0, 0 ], [ 7, 0, 0 ] ] ] ]
+instance_path = NodePath("../../../Tile")
+on_complete_path = NodePath("../Intro 2")
+
+[node name="Intro 2" type="Spatial" parent="Courtyard/Puzzles"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -5 )
+script = ExtResource( 2 )
+puzzle = [ 3.0, 3.0, 0, 0, 0, [ [ [ 7, 0, 1 ], [ 4, 0, 0 ], [ 7, 0, 1 ] ], [ [ 4, 0, 1 ], [ 6, 0, 1 ], [ 4, 0, 1 ] ], [ [ 7, 0, 1 ], [ 4, 0, 0 ], [ 7, 0, 1 ] ] ] ]
+instance_path = NodePath("../../../Tile")
+load_on_start = false
 
 [connection signal="input_event" from="Tile/Tile pivot/Area" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Tile pivot/Area" to="Tile" method="mouse_enter"]

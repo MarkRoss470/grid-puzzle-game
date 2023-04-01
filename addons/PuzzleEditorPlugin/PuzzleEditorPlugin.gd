@@ -3,6 +3,7 @@ extends EditorPlugin
 
 # A class member to hold the dock during the plugin life cycle.
 var inspector_plugin: EditorInspectorPlugin
+var gizmo_plugin: EditorSpatialGizmoPlugin
 
 # Called when plugin is loaded
 func _enter_tree():
@@ -11,9 +12,14 @@ func _enter_tree():
 	print("Adding inspector plugin ", inspector_plugin)
 	# Load inspector plugin
 	add_inspector_plugin(inspector_plugin)
+	
+	gizmo_plugin = preload("res://addons/PuzzleEditorPlugin/PuzzleGizmo.gd").new()
+	print("Adding gizmo plugin ", gizmo_plugin)
+	add_spatial_gizmo_plugin(gizmo_plugin)
 
 # Called when plugin is unloaded
 func _exit_tree():
 	print("Removing inspector plugin ", inspector_plugin)
-	# Unload inspector plugin
+	# Unload inspector plugins
 	remove_inspector_plugin(inspector_plugin)
+	remove_spatial_gizmo_plugin(gizmo_plugin)
