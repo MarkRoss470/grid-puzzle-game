@@ -83,35 +83,20 @@ func _ready():
 
 func add_wipe(direction: int, timeout: float):
 	if len(wipes) != 0:
-		var next_wipe_time = wipes[-1][1]
+		var last_wipe_time = wipes[-1][1]
+		var last_wipe_direction = wipes[-1][0]
 		
+		# If this wipe is less than tile_animation_time seconds after the wipe before it,
+		# delay it to make it so that animation issues don't occur
 		# - not + in this calculation because time counts up, so to get a future time you subtract
-		if timeout > next_wipe_time - tile_animation_time:
-			timeout = next_wipe_time - tile_animation_time
-	
+		if timeout > last_wipe_time - tile_animation_time:
+			timeout = last_wipe_time - tile_animation_time
+		
+		# Don't add a wipe if it has the same direction as the one before it
+		if direction == last_wipe_direction:
+			return
+		
 	wipes.append([direction, timeout])
-	
-	# If there is both a load which hasn't started and an unload which hasn't started, make them cancel out
-	# The indexes of the last load and unload which hasn't started yet, or -1 if there is none
-	var load_index := -1
-	var unload_index := -1
-	
-	for i in len(wipes):
-		if wipes[i][1] < 0:
-			if wipes[i][0] == 1:
-				load_index = i
-			else:
-				unload_index = i 
-	
-	if load_index != -1 and unload_index != -1:
-		# Removing the later item of the array first stops indices from changing
-		if load_index > unload_index:
-			wipes.remove(load_index)
-			wipes.remove(unload_index)
-		else:
-			wipes.remove(unload_index)
-			wipes.remove(load_index)
-			
 
 # Loads the puzzle with no animation
 func load_solved():
@@ -134,6 +119,12 @@ func load_solved():
 
 # Resets the puzzle
 func reset():
+	# Don't reset if there are wipes ongoing
+	# This prevents a reset from being queued during another wipe, 
+	# leading to the puzzle spending a long time animating
+	if len(wipes) != 0:
+		return
+	
 	# Reset tiles and current state
 	for x in puzzle[PuzzleClasses.WIDTH]:
 		for y in puzzle[PuzzleClasses.HEIGHT]:
@@ -148,11 +139,16 @@ func reset():
 
 # Loads the puzzle with animation
 func load_puzzle():
+	print(self, " Loading ", wipes)
 	add_wipe(1, 0)
+	print(wipes)
+
 
 # Unloads the puzzle with animation
 func unload_puzzle():
+	print(self, " Unloading ", wipes)
 	add_wipe(-1, 0)
+	print(wipes)
 
 # Creates a new puzzle cell object
 func create_tile(x: int, y: int, cell) -> PuzzleTile:
