@@ -1,11 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://bfb4h625ijw6f"]
+[gd_scene load_steps=30 format=3 uid="uid://bfb4h625ijw6f"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/Puzzle.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard.glb" id="5"]
-[ext_resource type="PackedScene" path="res://addons/kenney_prototypes/assets/colors/green/scenes/prototype_green_01.tscn" id="6"]
-[ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" id="7"]
 
 [sub_resource type="CapsuleShape3D" id="4"]
 height = 1.5
@@ -108,9 +106,6 @@ shader_parameter/icon_colour = null
 [sub_resource type="BoxShape3D" id="BoxShape3D_j73v0"]
 size = Vector3(1, 0.05, 0.9)
 
-[sub_resource type="BoxShape3D" id="17"]
-size = Vector3(100, 1.8, 100)
-
 [sub_resource type="BoxShape3D" id="37"]
 size = Vector3(20, 4, 0.25)
 
@@ -202,17 +197,6 @@ monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/Area3D"]
 shape = SubResource("BoxShape3D_j73v0")
-
-[node name="TestCube" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -2.05624, 2)
-script = ExtResource("7")
-displacement = Vector3(0, 5, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TestCube"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1)
-shape = SubResource("17")
-
-[node name="PrototypeCube2" parent="TestCube" instance=ExtResource("6")]
 
 [node name="Courtyard" parent="." instance=ExtResource("5")]
 
