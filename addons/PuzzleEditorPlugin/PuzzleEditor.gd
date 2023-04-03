@@ -86,7 +86,7 @@ func add_label_and_spinbox(name: String, label_text: String, y: float, callback:
 	input.set_anchor(SIDE_LEFT, 1)
 	input.set_anchor(SIDE_RIGHT, 1)
 	input.set_position(Vector2(250, y))
-	input.connect("value_changed", Callable(self, callback).bind(callback_args))
+	input.connect("value_changed", Callable(self, callback).bindv(callback_args))
 	editor_items.add_child(input)
 	
 	return [label, input]
@@ -304,10 +304,7 @@ func populate_grid():
 	editor_items.add_child(grid)
 
 # Callback of width and height selectors
-func on_dimension_change(value: float, args: Array):
-	print(args)
-	var dimension = args[0]
-	
+func on_dimension_change(value: float, dimension: int):	
 	if current_value[dimension] != value:
 		current_value[dimension] = value
 		# Make sure the arrays in current_value are the right dimensions
