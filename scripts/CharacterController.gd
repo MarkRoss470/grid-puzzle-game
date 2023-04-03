@@ -92,7 +92,6 @@ func _physics_process(delta: float):
 	# move_and_collide returns a truthy value only if collision occured
 	# So check for that to reset velocity if a collision occured
 	if move_and_collide(Vector3.DOWN * y_velocity):
-		print("Collision")
 		y_velocity = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
