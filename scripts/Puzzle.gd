@@ -66,7 +66,7 @@ var tiles: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if on_complete_path != null:
+	if not on_complete_path.is_empty():
 		on_complete = get_node(on_complete_path)
 	instance = get_node(instance_path)
 
