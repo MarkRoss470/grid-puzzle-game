@@ -3,3 +3,5 @@ res://Main.tscn
 res://scripts/CharacterController.gd
 res://test_area3d.gd
 res://scripts/PuzzleTile.gd
+res://addons/PuzzleEditorPlugin/PuzzleEditor.gd
+res://addons/PuzzleEditorPlugin/PuzzleEditorInspectorPlugin.gd

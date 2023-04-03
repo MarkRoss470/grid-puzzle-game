@@ -27,7 +27,7 @@ var current_rotation := 0
 # Called when a new node is selected - initialisation of UI
 func _init():
 	# Set up the +/- button
-	expand_button.set_anchor(MARGIN_RIGHT, 1)
+	expand_button.set_anchor(SIDE_RIGHT, 1)
 	expand_button.text = "+"
 	expand_button.connect("pressed", Callable(self, "on_expand_button_pressed"))
 	
@@ -83,8 +83,8 @@ func add_label_and_spinbox(name: String, label_text: String, y: float, callback:
 	# Create spinbox
 	var input := SpinBox.new()
 	input.name = name + "_input"
-	input.set_anchor(MARGIN_LEFT, 1)
-	input.set_anchor(MARGIN_RIGHT, 1)
+	input.set_anchor(SIDE_LEFT, 1)
+	input.set_anchor(SIDE_RIGHT, 1)
 	input.set_position(Vector2(250, y))
 	input.connect("value_changed", Callable(self, callback).bind(callback_args))
 	editor_items.add_child(input)
@@ -116,8 +116,8 @@ func init_editor():
 
 	#reset_state()
 	
-	editor_items.set_anchor(MARGIN_LEFT, 0)
-	editor_items.set_anchor(MARGIN_RIGHT, 1)
+	editor_items.set_anchor(SIDE_LEFT, 0)
+	editor_items.set_anchor(SIDE_RIGHT, 1)
 	editor_items.set_position(Vector2(10, 40))
 	
 	add_label_and_spinbox("width", "Width: ", WIDTH_LINE_Y, "on_dimension_change", [0])
@@ -304,7 +304,10 @@ func populate_grid():
 	editor_items.add_child(grid)
 
 # Callback of width and height selectors
-func on_dimension_change(value: float, dimension: int):
+func on_dimension_change(value: float, args: Array):
+	print(args)
+	var dimension = args[0]
+	
 	if current_value[dimension] != value:
 		current_value[dimension] = value
 		# Make sure the arrays in current_value are the right dimensions
@@ -373,7 +376,7 @@ func update_ui():
 # Called whenever the value changes
 # Is not called when changed due to this script calling emit_changed()
 # Is called after initialisation of this script
-func update_property():
+func _update_property():
 	# Read the current value from the property.
 	var new_value = get_edited_object()["puzzle"]
 	

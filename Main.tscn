@@ -180,6 +180,7 @@ instance_path = NodePath("../Tile")
 
 [node name="Tile" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0313179)
+visible = false
 script = ExtResource("3")
 backplane_path = NodePath("Backplane")
 icon_path = NodePath("Icon")
