@@ -3,3 +3,5 @@ res://Main.tscn
 res://scripts/CharacterController.gd
 res://scripts/PuzzleTile.gd
 res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd
+res://scripts/Puzzle.gd
+res://scripts/SolutionChecker.gd

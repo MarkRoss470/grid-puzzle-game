@@ -167,7 +167,7 @@ static func check_solution(puzzle: Array, state: Array) -> Solution:
 					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.SQUARE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y):
 						result.add_wrong(x, y)
 				PuzzleClasses.CIRCLE:
-					if not containing_region.contains_icon(puzzle_cells, PuzzleClasses.CIRCLE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y):
+					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.CIRCLE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y) != []:
 						result.add_wrong(x, y)
 
 	return result

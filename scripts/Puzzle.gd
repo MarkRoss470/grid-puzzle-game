@@ -48,9 +48,9 @@ var on_complete: Node = null
 @export var load_on_start: bool = true
 
 # How long each tile's animation should take
-@export var tile_animation_time: float := 0.5
+@export var tile_animation_time := 0.5
 # The offset between tiles' animations
-@export var tile_animation_offset: float := 0.1
+@export var tile_animation_offset := 0.1
 
 # An array of all the tile load / unloads occuring
 # Each item is of the format [direction, progress] 
@@ -66,7 +66,7 @@ var tiles: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if on_complete_path != "":
+	if on_complete_path != null:
 		on_complete = get_node(on_complete_path)
 	instance = get_node(instance_path)
 
@@ -144,9 +144,6 @@ func reset():
 # Loads the puzzle with animation
 func load_puzzle():
 	add_wipe(1, 0)
-	
-	# Check whether the puzzle is solved
-	var solution := SolutionChecker.check_solution(puzzle, current_state)
 	
 	if is_solved:
 		solve_puzzle()
@@ -335,7 +332,7 @@ func _process(delta):
 			completed_wipe = i
 	
 	if completed_wipe != -1:
-		wipes.remove(completed_wipe)
+		wipes.remove_at(completed_wipe)
 	
 	if len(wipes) > 0:
 		reset_tile_colours()
