@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bfb4h625ijw6f"]
+[gd_scene load_steps=30 format=3 uid="uid://bfb4h625ijw6f"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/Puzzle.gd" id="2"]
@@ -117,13 +117,20 @@ size = Vector3(10, 0.001, 10)
 [sub_resource type="BoxShape3D" id="47"]
 size = Vector3(2.5, 1, 2.5)
 
+[sub_resource type="Environment" id="Environment_j8joh"]
+background_mode = 2
+background_energy_multiplier = 1.09
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.86
+
 [node name="Node3D" type="Node3D"]
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1")
-gravity_acceleration = 0.0
-max_fall_speed = 0.2
+max_fall_speed = 1.0
 camera_path = NodePath("PlayerCamera")
 
 [node name="PlayerCapsule" type="CollisionShape3D" parent="Player"]
@@ -284,14 +291,11 @@ check_intermediate = true
 instance_path = NodePath("../../../Tile")
 load_on_start = false
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.418279, 0.908318, 0, -0.908318, 0.418279, 0, 6.22737, 0)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_j8joh")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DirectionalLight3D"]
-transform = Transform3D(0.647083, -0.579334, -0.495638, 0.69252, 0.174697, 0.699926, -0.318904, -0.796149, 0.514244, 0, 6.22737, -1.43051e-06)
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="DirectionalLight3D"]
-transform = Transform3D(0.443087, 0.6812, 0.582787, -0.814288, 0.0338998, 0.57947, 0.374978, -0.731312, 0.569713, -0.0773916, 7.1114, -0.0746927)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -0.765146, 0.643857, 0, -0.643857, -0.765146, 0, 7.22089, -12.8683)
 
 [connection signal="input_event" from="Tile/Tile pivot/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Tile pivot/Area3D" to="Tile" method="mouse_enter"]

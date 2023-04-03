@@ -2,3 +2,4 @@ res://default_env.tres
 res://Main.tscn
 res://scripts/CharacterController.gd
 res://scripts/PuzzleTile.gd
+res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd

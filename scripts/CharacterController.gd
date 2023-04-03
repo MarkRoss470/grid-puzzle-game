@@ -21,6 +21,9 @@ var camera: Camera3D
 # Controls whether mouse and keyboard inputs move the player
 var mouse_is_free := false
 
+# The vertical velocity
+var y_velocity := 0.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -51,7 +54,7 @@ func _input(event: InputEvent):
 
 # Called each frame
 # Movement is calculated here, rotation is calculated in _input
-func _physics_process(delta: float):	
+func _physics_process(delta: float):
 	# Dont move if interacting with a puzzle
 	if not mouse_is_free:
 		# Stores direction player will move in
@@ -81,17 +84,16 @@ func _physics_process(delta: float):
 			# warning-ignore:return_value_discarded
 			set_velocity(motion)
 			move_and_slide()
-		else:
-			set_velocity(Vector3.ZERO)
 	
 	# Apply acceleration due to gravity
-	velocity += Vector3.DOWN * gravity_acceleration * delta
-	if velocity.length() > max_fall_speed:
-		velocity = velocity.normalized() * max_fall_speed
+	y_velocity = y_velocity + gravity_acceleration * delta
+	y_velocity = min(y_velocity, max_fall_speed)
+	
 	# move_and_collide returns a truthy value only if collision occured
 	# So check for that to reset velocity if a collision occured
-	if move_and_collide(velocity):
-		velocity = Vector3.ZERO
+	if move_and_collide(Vector3.DOWN * y_velocity):
+		print("Collision")
+		y_velocity = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
