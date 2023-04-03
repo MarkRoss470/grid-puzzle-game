@@ -3,3 +3,6 @@ addons/kenney*
 icon.PNG
 icon.PNG.import
 exports/*
+
+# Godot 4 editor files
+.godot/
