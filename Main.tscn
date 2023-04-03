@@ -294,6 +294,24 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3,
 script = ExtResource( 2 )
 puzzle = [ 3.0, 3.0, 0, 0, 0, [ [ [ 7, 0, 0 ], [ 4, 0, 0 ], [ 7, 1, 0 ] ], [ [ 4, 0, 1 ], [ 4, 0, 0 ], [ 4, 0, 1 ] ], [ [ 7, 0, 0 ], [ 4, 0, 0 ], [ 7, 1, 0 ] ] ] ]
 instance_path = NodePath("../../../Tile")
+on_complete_path = NodePath("../Intro 5")
+load_on_start = false
+
+[node name="Intro 5" type="Spatial" parent="Courtyard/Puzzles"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7, 3, 9.5 )
+script = ExtResource( 2 )
+puzzle = [ 3.0, 3.0, 1.0, 1.0, 1.0, [ [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ] ], [ [ 1, 0, 0 ], [ 2, 0, 0 ], [ 1, 0, 0 ] ], [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ] ] ] ]
+check_intermediate = true
+instance_path = NodePath("../../../Tile")
+on_complete_path = NodePath("../Intro 6")
+load_on_start = false
+
+[node name="Intro 6" type="Spatial" parent="Courtyard/Puzzles"]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 2, 3.2, 9.5 )
+script = ExtResource( 2 )
+puzzle = [ 3.0, 3.0, 1.0, 2.0, 1.0, [ [ [ 1, 0, 0 ], [ 1, 0, 3 ], [ 1, 0, 0 ] ], [ [ 4, 0, 2 ], [ 3, 0, 1 ], [ 4, 0, 0 ] ], [ [ 7, 0, 2 ], [ 4, 0, 1 ], [ 7, 0, 2 ] ] ] ]
+check_intermediate = true
+instance_path = NodePath("../../../Tile")
 load_on_start = false
 
 [connection signal="input_event" from="Tile/Tile pivot/Area" to="Tile" method="input_event"]

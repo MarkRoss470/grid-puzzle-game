@@ -132,6 +132,8 @@ func reset():
 		for y in puzzle[PuzzleClasses.HEIGHT]:
 			current_state[x][y] = puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ROTATION]
 	
+	is_solved = false
+	
 	# Call puzzle unsolve callback
 	if on_complete != null:
 		on_complete.on_puzzle_unsolve(on_complete_param)
