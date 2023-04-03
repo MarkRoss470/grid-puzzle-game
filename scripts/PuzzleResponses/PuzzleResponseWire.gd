@@ -1,25 +1,25 @@
-extends Path
+extends Path3D
 
 # What object to call the on_puzzle_solve method of when the signal reaches the end of the wire
-export(NodePath) var on_complete_path
+@export var on_complete_path: NodePath
 var on_complete: Node
 
 # The parameter to pass to on_puzzle_solve of on_complete
-export(int) var on_complete_param := 0
+@export var on_complete_param: int := 0
 
 # How many points the circle that is extruded to make the wire should have
-export(int) var num_points := 16
+@export var num_points: int := 16
 # The radius of the wire
-export(float) var radius := 0.02
+@export var radius: float := 0.02
 # The distance between edge loops on the wire
-export(float) var edge_loop_distance := 0.1
+@export var edge_loop_distance: float := 0.1
 
 # How long the signal should take to get to the end of the wire
-export(float) var travel_time := 1.0
+@export var travel_time: float := 1.0
 # What material the wire should have
 # Material should have parameter 'signal_travel' from 0 to 1 controlling how much of the wire the signal has travelled
 # It should also have a parameter called 'curve_length' which gives the total length of the curve
-export(Material) var wire_material
+@export var wire_material: Material
 
 # If the puzzle this wire is taking input from is solved
 var completed := false
@@ -32,7 +32,7 @@ func load_solved(_i: int):
 	completed = true
 	signal_travel = 1
 	on_complete.load_solved(on_complete_param)
-	wire_material.set_shader_param("signal_travel", signal_travel)
+	wire_material.set_shader_parameter("signal_travel", signal_travel)
 
 # Called on correct solution
 func on_puzzle_solve(_i: int):
@@ -50,12 +50,12 @@ func _ready():
 	on_complete = get_node(on_complete_path)
 	# Duplicate material so as not to interfere with other wires using the same material
 	wire_material = wire_material.duplicate()
-	wire_material.set_shader_param("curve_length", self.curve.get_baked_length())
+	wire_material.set_shader_parameter("curve_length", self.curve.get_baked_length())
 
 	# Create a new polygon
-	var poly := CSGPolygon.new()
+	var poly := CSGPolygon3D.new()
 	# Create a new array of Vector2s to represent the polygon's vertices
-	var pool := PoolVector2Array()
+	var pool := PackedVector2Array()
 
 	# Populate the array with the points of a circle
 	for i in num_points:
@@ -67,9 +67,9 @@ func _ready():
 	# Set up the polygon to use the point array
 	poly.polygon = pool
 	# Set up the polygon to follow this path
-	poly.mode = CSGPolygon.MODE_PATH
+	poly.mode = CSGPolygon3D.MODE_PATH
 
-	poly.path_interval_type = CSGPolygon.PATH_INTERVAL_DISTANCE
+	poly.path_interval_type = CSGPolygon3D.PATH_INTERVAL_DISTANCE
 	poly.path_interval = edge_loop_distance
 
 	# Set what path for the polygon to extrude along
@@ -94,7 +94,7 @@ func _process(delta):
 			on_complete.on_puzzle_solve(on_complete_param)
 		
 		# Update the shader to reflect the new signal_travel value
-		wire_material.set_shader_param("signal_travel", signal_travel)
+		wire_material.set_shader_parameter("signal_travel", signal_travel)
 	
 	# If signal travelling back but has not reached it
 	elif (not completed) and signal_travel != 0:
@@ -106,4 +106,4 @@ func _process(delta):
 			signal_travel = 0
 		
 		# Update the shader to reflect the new signal_travel value
-		wire_material.set_shader_param("signal_travel", signal_travel)
+		wire_material.set_shader_parameter("signal_travel", signal_travel)

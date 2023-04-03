@@ -4,7 +4,7 @@ extends Node
 class_name PuzzleClasses
 
 # Colours to be used for icons
-const COLOURS := [
+const COLOURS: Array[Color] = [
 	Color(0, 0, 0), # Black
 	Color(1, 1, 1), # White
 	Color(1, 0, 0), # Red
@@ -17,7 +17,7 @@ const COLOURS := [
 
 
 # Textures to be used as icons
-const CELL_TEXTURES := [
+const CELL_TEXTURES: Array[Texture2D] = [
 	preload("res://textures/puzzle icons/diamond.svg"), 
 	preload("res://textures/puzzle icons/empty.jpg"), # EMPTY
 	preload("res://textures/puzzle icons/pointer.svg"), # POINTER_SINGLE
@@ -47,7 +47,7 @@ enum {
 }
 
 # Groups of icons for the puzzle editor
-const ICON_GROUPS := [
+const ICON_GROUPS: Array[Array] = [
 	[ # Group of special icons
 		NO_CELL,
 		EMPTY,
@@ -66,7 +66,7 @@ const ICON_GROUPS := [
 ]
 
 # Which icons shouldn't be recoloured in the editor
-const DONT_RECOLOUR := [
+const DONT_RECOLOUR: Array[int] = [
 	NO_CELL,
 	EMPTY
 ]
@@ -80,6 +80,7 @@ enum {
 	# ANOTHER_THING, # Uncomment to force reset in editor
 	ARR_LEN
 }
+
 # The contents of a cell
 enum {
 	ICON, # The type of icon
@@ -89,14 +90,14 @@ enum {
 
 # What to reset a puzzle to if an invalid state is detected
 # Function rather than a const to prevent aliasing
-static func get_default():
+static func get_default() -> Array:
 	return [0, 0, 0, 0, 0, [[]]]
 # Gets the default value of a cell
 static func get_default_cell():
 	return [EMPTY, 0, 0]
 
 # Which icons count as pointers
-const POINTERS := [
+const POINTERS: Array[int] = [
 	POINTER_SINGLE,
 	POINTER_DOUBLE_ANGLE,
 	POINTER_DOUBLE_STRAIGHT,

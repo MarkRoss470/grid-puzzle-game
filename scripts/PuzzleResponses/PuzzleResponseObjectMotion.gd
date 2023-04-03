@@ -1,9 +1,9 @@
-extends KinematicBody
+extends CharacterBody3D
 
 # The offset from the current position to move to when activates
-export(Vector3) var displacement := Vector3(0, 1, 0)
+@export var displacement := Vector3(0, 1, 0)
 # The time in seconds over which to move
-export(float) var time := 1.0
+@export var time := 1.0
 
 # The speed to move at, relative to the distance and time parameters
 # 1 if moving toward (or at) solved state
