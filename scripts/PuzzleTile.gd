@@ -13,8 +13,8 @@ var backplane: CSGMesh3D
 var mat_override: Material
 
 # Current base and hover colours
-var colour_base: Color
-var colour_hover: Color
+var colour_base := Color(0, 0, 0)
+var colour_hover := Color(0, 1, 0)
 
 # The x and y of this cell in the puzzle
 var this_x: int

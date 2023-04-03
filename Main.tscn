@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bfb4h625ijw6f"]
+[gd_scene load_steps=33 format=3 uid="uid://bfb4h625ijw6f"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/Puzzle.gd" id="2"]
@@ -105,8 +105,11 @@ render_priority = 0
 shader = SubResource("12")
 shader_parameter/icon_colour = null
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_j73v0"]
+size = Vector3(1, 0.05, 0.9)
+
 [sub_resource type="BoxShape3D" id="17"]
-size = Vector3(1, 0.031, 1)
+size = Vector3(100, 1.8, 100)
 
 [sub_resource type="BoxShape3D" id="37"]
 size = Vector3(20, 4, 0.25)
@@ -165,6 +168,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
 shape = SubResource("4")
 
 [node name="PlayerCamera" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 current = true
 
 [node name="TestPuzzle" type="Node3D" parent="."]
@@ -175,30 +179,31 @@ check_intermediate = true
 instance_path = NodePath("../Tile")
 
 [node name="Tile" type="Node3D" parent="."]
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0313179)
 script = ExtResource("3")
-backplane_path = NodePath("Tile pivot/Backplane")
-icon_path = NodePath("Tile pivot/Icon")
+backplane_path = NodePath("Backplane")
+icon_path = NodePath("Icon")
 
-[node name="Tile pivot" type="Node3D" parent="Tile"]
+[node name="Backplane" type="CSGMesh3D" parent="Tile"]
 transform = Transform3D(-0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0)
-
-[node name="Backplane" type="CSGMesh3D" parent="Tile/Tile pivot"]
 mesh = SubResource("8")
 material = SubResource("15")
 
-[node name="Icon" type="CSGMesh3D" parent="Tile/Tile pivot"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.01, 0)
+[node name="Icon" type="CSGMesh3D" parent="Tile"]
+transform = Transform3D(0.5, -4.37114e-08, 4.37114e-08, 4.37114e-08, -2.18557e-08, -0.5, 4.37114e-08, 0.5, -2.18557e-08, -4.37114e-10, -2.18557e-10, 0.005)
 mesh = SubResource("8")
 material = SubResource("9")
 
-[node name="Area3D" type="Area3D" parent="Tile/Tile pivot"]
+[node name="Area3D" type="Area3D" parent="Tile"]
+transform = Transform3D(-1, -1.50996e-07, -6.60024e-15, 0, -4.37114e-08, 1, -1.50996e-07, 1, 4.37114e-08, 1.1228e-24, 0, -0.00672182)
+monitoring = false
+monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/Tile pivot/Area3D"]
-shape = SubResource("17")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/Area3D"]
+shape = SubResource("BoxShape3D_j73v0")
 
 [node name="TestCube" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -5.19516, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -2.05624, 2)
 script = ExtResource("7")
 displacement = Vector3(0, 5, 0)
 
@@ -321,6 +326,6 @@ environment = SubResource("Environment_j8joh")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -0.765146, 0.643857, 0, -0.643857, -0.765146, 0, 7.22089, -12.8683)
 
-[connection signal="input_event" from="Tile/Tile pivot/Area3D" to="Tile" method="input_event"]
-[connection signal="mouse_entered" from="Tile/Tile pivot/Area3D" to="Tile" method="mouse_enter"]
-[connection signal="mouse_exited" from="Tile/Tile pivot/Area3D" to="Tile" method="mouse_exit"]
+[connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
+[connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
+[connection signal="mouse_exited" from="Tile/Area3D" to="Tile" method="mouse_exit"]

@@ -157,6 +157,8 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	# Create new instance of template
 	var node: PuzzleTile = instance.duplicate()
 	
+	node.name = self.name + "-" + str(x) + "-" + str(y)
+	
 	# Set the node's colours
 	node.colour_hover = colour_hover
 	node.colour_base = colour_base
@@ -231,7 +233,7 @@ func rotate_cell(x: int, y: int, direction: int):
 		is_solved = solution.is_valid
 	
 	# Physically rotate this cell
-	tiles[x][y].icon.rotate(Vector3.DOWN, direction * PI / 2)
+	tiles[x][y].icon.rotate(Vector3.FORWARD, direction * PI / 2)
 	
 	if is_solved:
 		solve_puzzle()
@@ -283,10 +285,9 @@ func _process(delta):
 					
 					# Create tile
 					tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
-					# Set the tile's scale to 0
-					tile.scale = Vector3(0, 0, 0)
 					# Add reference to tile to tiles
 					tiles[x][y] = tile
+					
 					# Add tile to scene tree
 					add_child(tile)
 				
