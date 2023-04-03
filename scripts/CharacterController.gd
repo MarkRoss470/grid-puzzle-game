@@ -1,24 +1,21 @@
-extends KinematicBody
+extends CharacterBody3D
 
 class_name CharacterController
 
 # Player's speed in units per second
-export var walk_speed := 3.0
+@export var walk_speed := 3.0
 # Acceleration due to gravity in units per second^2
-export var gravity_acceleration := 1.0
+@export var gravity_acceleration := 1.0
 # Player's maximum fall speed
-export var max_fall_speed := 5.0
+@export var max_fall_speed := 5.0
 # Speed of turning in radians per pixel
-export var mouse_sensitivity := 0.02
+@export var mouse_sensitivity := 0.02
 # Player's run speed in units per second
-export var run_speed := 10.0
+@export var run_speed := 10.0
 
 # The player camera
-export (NodePath) var camera_path
-var camera: Camera
-
-# Player's current velocity (movement due to pressed keys does not count for this)
-var velocity := Vector3.ZERO
+@export var camera_path: NodePath
+var camera: Camera3D
 
 # Whether the mouse is free (when interacting with a puzzle)
 # Controls whether mouse and keyboard inputs move the player
@@ -54,7 +51,7 @@ func _input(event: InputEvent):
 
 # Called each frame
 # Movement is calculated here, rotation is calculated in _input
-func _physics_process(delta: float):
+func _physics_process(delta: float):	
 	# Dont move if interacting with a puzzle
 	if not mouse_is_free:
 		# Stores direction player will move in
@@ -76,13 +73,16 @@ func _physics_process(delta: float):
 			var this_frame_speed := run_speed if Input.is_action_pressed("run") else walk_speed
 			# Transform direction to face in current looking direction
 			# So that movement is applied relative to the player's current facing direction
-			var motion := Transform.looking_at(-camera.transform.basis.z, Vector3.UP) * direction
+			var motion := Transform3D().looking_at(-camera.transform.basis.z, Vector3.UP) * direction
 			motion.y = 0
 			# Multiply motion by player's speed
 			motion = motion.normalized() * this_frame_speed
 			# Apply motion
 			# warning-ignore:return_value_discarded
-			move_and_slide(motion)
+			set_velocity(motion)
+			move_and_slide()
+		else:
+			set_velocity(Vector3.ZERO)
 	
 	# Apply acceleration due to gravity
 	velocity += Vector3.DOWN * gravity_acceleration * delta
@@ -98,7 +98,7 @@ func _process(_delta):
 	# Set fullscreen on first frame
 	# Prevents graphical artifacts when called in _ready
 	if Engine.get_frames_drawn() == 0:
-		OS.set_window_maximized(true)
+		get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
 	
 	# If 'free_mouse' input was just pressed, update mouse mode
 	if Input.is_action_just_pressed("free_mouse"):

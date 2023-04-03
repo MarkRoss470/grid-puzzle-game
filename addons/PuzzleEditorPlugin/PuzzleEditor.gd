@@ -29,12 +29,12 @@ func _init():
 	# Set up the +/- button
 	expand_button.set_anchor(MARGIN_RIGHT, 1)
 	expand_button.text = "+"
-	expand_button.connect("pressed", self, "on_expand_button_pressed")
+	expand_button.connect("pressed", Callable(self, "on_expand_button_pressed"))
 	
 	container.add_child(expand_button)
 	container.add_child(editor_items)
 	# Set the minumum size of the container to properly layout other components
-	container.rect_min_size = Vector2(400, 50)
+	container.custom_minimum_size = Vector2(400, 50)
 	
 	# Set container as the root node
 	add_child(container)
@@ -86,17 +86,17 @@ func add_label_and_spinbox(name: String, label_text: String, y: float, callback:
 	input.set_anchor(MARGIN_LEFT, 1)
 	input.set_anchor(MARGIN_RIGHT, 1)
 	input.set_position(Vector2(250, y))
-	input.connect("value_changed", self, callback, callback_args)
+	input.connect("value_changed", Callable(self, callback).bind(callback_args))
 	editor_items.add_child(input)
 	
 	return [label, input]
 
 # Creates and returns a TextureRect
-func create_texture_rect(name: String, texture: Texture, size: int, x: int, scale_x: int = 1) -> TextureRect:
+func create_texture_rect(name: String, texture: Texture2D, size: int, x: int, scale_x: int = 1) -> TextureRect:
 	var rect := TextureRect.new()
 	rect.name = name
 	rect.texture = texture
-	rect.rect_scale = Vector2(1.0 / texture.get_width(), 1.0 / texture.get_height()) * Vector2(size * scale_x, size)
+	rect.scale = Vector2(1.0 / texture.get_width(), 1.0 / texture.get_height()) * Vector2(size * scale_x, size)
 	rect.set_position(Vector2(x, 0))
 	return rect
 
@@ -145,7 +145,7 @@ func init_editor():
 			ICON_PICKER_OFFSET * i
 		)
 		
-		icon.connect("gui_input", self, "set_current_icon_group", [i])
+		icon.connect("gui_input", Callable(self, "set_current_icon_group").bind(i))
 		icon_group_picker.add_child(icon)
 	
 	editor_items.add_child(icon_group_picker)
@@ -163,7 +163,7 @@ func init_editor():
 			ICON_PICKER_SIZE, ICON_GROUP_PICKER_SIZE,
 			ICON_GROUP_PICKER_OFFSET * i
 		)
-		icon.connect("gui_input", self, "set_current_colour", [i])
+		icon.connect("gui_input", Callable(self, "set_current_colour").bind(i))
 		colour_picker.add_child(icon)
 	
 	editor_items.add_child(colour_picker)
@@ -173,10 +173,10 @@ func init_editor():
 	rotation_buttons.set_position(Vector2(0, ROTATION_BUTTONS_Y))
 	
 	var rotate_left := create_texture_rect ("rotate_left", ROTATE_ARROW_TEX, ROTATION_BUTTONS_SIZE, 0)
-	rotate_left.connect("gui_input", self, "rotate_selection", [1])
+	rotate_left.connect("gui_input", Callable(self, "rotate_selection").bind(1))
 	rotation_buttons.add_child(rotate_left)
 	var rotate_right := create_texture_rect ("rotate_right", ROTATE_ARROW_TEX, ROTATION_BUTTONS_SIZE, ROTATION_BUTTONS_OFFSET, -1)
-	rotate_right.connect("gui_input", self, "rotate_selection", [-1])
+	rotate_right.connect("gui_input", Callable(self, "rotate_selection").bind(-1))
 	rotation_buttons.add_child(rotate_right)
 	
 	editor_items.add_child(rotation_buttons)
@@ -185,7 +185,7 @@ func init_editor():
 	# Create the rect indicating the current icon
 	var icon_indicator := create_colour_rect (
 		"icon_indicator",
-		Color.white,
+		Color.WHITE,
 		ICON_GROUP_PICKER_SIZE, 10,
 		0
 	)
@@ -267,7 +267,7 @@ func populate_grid():
 			cell.set_position(Vector2(x * GRID_CELL_OFFSET, 0))
 			row.add_child(cell)
 			
-			cell.connect("gui_input", self, "set_cell_icon", [x, y])
+			cell.connect("gui_input", Callable(self, "set_cell_icon").bind(x, y))
 			
 			# If cell has an icon, add it on top
 			var cell_icon = current_value[PuzzleClasses.CELLS][x][y]
@@ -279,7 +279,7 @@ func populate_grid():
 				if not cell_icon[PuzzleClasses.ICON] in PuzzleClasses.DONT_RECOLOUR:
 					icon.modulate = PuzzleClasses.COLOURS[cell_icon[PuzzleClasses.COLOUR]]
 				
-				icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * GRID_CELL_SIZE
+				icon.scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * GRID_CELL_SIZE
 				icon.name = "icon-" + str(x) + "-" + str(y)
 				icon.set_rotation(cell_icon[PuzzleClasses.ROTATION] * PI / 2)
 				var icon_position := Vector2(GRID_CELL_OFFSET * x, 0)
@@ -320,7 +320,7 @@ func on_expand_button_pressed():
 		# Hide editor items
 		editor_items.hide()
 		# Make container small to shift other proprty editors back up
-		container.rect_min_size = Vector2(400, 50)
+		container.custom_minimum_size = Vector2(400, 50)
 		expand_button.text = "+"
 		expanded = false
 	# If closed, open
@@ -368,7 +368,7 @@ func update_ui():
 	# Set the container to the right size for the grid
 	var min_x = len(current_value[PuzzleClasses.CELLS]) * GRID_CELL_OFFSET
 	var min_y = 50 + GRID_Y + len(current_value[PuzzleClasses.CELLS][0]) * GRID_CELL_OFFSET
-	container.rect_min_size = Vector2(max(400, min_x), max(400, min_y))
+	container.custom_minimum_size = Vector2(max(400, min_x), max(400, min_y))
 
 # Called whenever the value changes
 # Is not called when changed due to this script calling emit_changed()
@@ -459,7 +459,7 @@ func update_icons():
 		if current_icon_group != 0:
 			icon.modulate = PuzzleClasses.COLOURS[current_colour]
 		
-		icon.rect_scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * ICON_PICKER_SIZE
+		icon.scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * ICON_PICKER_SIZE
 		icon.set_rotation(current_rotation * PI / 2)
 		
 		var icon_position := Vector2(ICON_PICKER_OFFSET * i, 0)
@@ -474,7 +474,7 @@ func update_icons():
 			3:
 				icon_position += Vector2(0, ICON_GROUP_PICKER_SIZE)
 		icon.set_position(icon_position)
-		icon.connect("gui_input", self, "set_current_icon", [i])
+		icon.connect("gui_input", Callable(self, "set_current_icon").bind(i))
 		
 
 		

@@ -1,4 +1,4 @@
-extends EditorSpatialGizmoPlugin
+extends EditorNode3DGizmoPlugin
 
 func get_name():
 	return "Puzzle Outline"
@@ -14,13 +14,13 @@ func redraw(gizmo):
 	gizmo.clear()
 	
 	# Get the width and height of the puzzle to draw the rectangle with the right dimensions
-	var spatial: Puzzle = gizmo.get_spatial_node()
+	var spatial: Puzzle = gizmo.get_node_3d()
 	var puzzle_width = spatial.puzzle[PuzzleClasses.WIDTH]
 	var puzzle_height = spatial.puzzle[PuzzleClasses.HEIGHT]
 	
 	# Initialise an array of points
 	# Each pair of points in the PoolVector3Array is one line that will be drawn
-	var lines := PoolVector3Array()
+	var lines := PackedVector3Array()
 	
 	# Integer coords are the centres of tiles
 	# So offsets of 0.5 are used to have the rectangle surround the whole puzzle

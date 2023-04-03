@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 class_name Puzzle
 
@@ -11,46 +11,46 @@ represents the puzzle - sets which icons go in which cells
 	target_rotation, # The target rotation of the key cell
 ]
 """
-export(Array) var puzzle
+@export var puzzle: Array
 # Whether the states between the start and end states need to be valid
-export(bool) var check_intermediate
+@export var check_intermediate: bool
 
 # Colours for puzzle's neutral state
-export(Color) var colour_base = Color(0.5, 0.5, 0.5)
-export(Color) var colour_hover = Color(0.8, 0.8, 0.8)
+@export var colour_base: Color = Color(0.5, 0.5, 0.5)
+@export var colour_hover: Color = Color(0.8, 0.8, 0.8)
 # Colours for the key cell's neutral state
-export(Color) var colour_key = Color(0.7, 0.8, 0.1)
-export(Color) var colour_key_hover = Color(1, 1, 0.0)
+@export var colour_key: Color = Color(0.7, 0.8, 0.1)
+@export var colour_key_hover: Color = Color(1, 1, 0.0)
 
 # Colours for an incorrect solution
-export(Color) var colour_incorrect_base = Color(1, 0, 0)
-export(Color) var colour_incorrect_hover = Color(1, 0.5, 0.5)
+@export var colour_incorrect_base: Color = Color(1, 0, 0)
+@export var colour_incorrect_hover: Color = Color(1, 0.5, 0.5)
 # Colours for an incorrect solution on the key cell
-export(Color) var colour_incorrect_key = Color(0.9, 0.55, 0.05)
-export(Color) var colour_incorrect_key_hover = Color(0.95, 0.75, 0.4)
+@export var colour_incorrect_key: Color = Color(0.9, 0.55, 0.05)
+@export var colour_incorrect_key_hover: Color = Color(0.95, 0.75, 0.4)
 
 # Colours for a correct solution
-export(Color) var colour_solved_base = Color(0, 1, 0)
-export(Color) var colour_solved_hover = Color(0.5, 1, 0.5)
+@export var colour_solved_base: Color = Color(0, 1, 0)
+@export var colour_solved_hover: Color = Color(0.5, 1, 0.5)
 # Colours for a correct solution on the key cell
-export(Color) var colour_solved_key = Color(0.15, 0.1, 0.9)
-export(Color) var colour_solved_key_hover = Color(0.3, 0.30, 0.85)
+@export var colour_solved_key: Color = Color(0.15, 0.1, 0.9)
+@export var colour_solved_key_hover: Color = Color(0.3, 0.30, 0.85)
 
 # What object to instance as a tile
-export(NodePath) var instance_path
+@export var instance_path: NodePath
 var instance: Node
 # What object to call the on_puzzle_solve method of when the puzle is solved
-export(NodePath) var on_complete_path
+@export var on_complete_path: NodePath
 var on_complete: Node = null
 # What parameter to pass to on_puzzle_solve
-export(int) var on_complete_param
+@export var on_complete_param: int
 # Whether to load the puzzle immediately on startup
-export(bool) var load_on_start = true
+@export var load_on_start: bool = true
 
 # How long each tile's animation should take
-export(float) var tile_animation_time := 0.5
+@export var tile_animation_time: float := 0.5
 # The offset between tiles' animations
-export(float) var tile_animation_offset := 0.1
+@export var tile_animation_offset: float := 0.1
 
 # An array of all the tile load / unloads occuring
 # Each item is of the format [direction, progress] 
@@ -177,15 +177,15 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	node.set_visible(true)
 
 	# Get the node's icon plane
-	var icon: CSGMesh = node.get_node(node.icon_path)
+	var icon: CSGMesh3D = node.get_node(node.icon_path)
 	# If the puzzle cell has an icon, set the right image
 	if cell[PuzzleClasses.ICON] != PuzzleClasses.EMPTY:
 		# Make copy of material
 		var mat_override := icon.get_material().duplicate()
 		# Set texture
-		mat_override.set_shader_param("icon_texture", PuzzleClasses.CELL_TEXTURES[cell[0]])
+		mat_override.set_shader_parameter("icon_texture", PuzzleClasses.CELL_TEXTURES[cell[0]])
 		# Set colour
-		mat_override.set_shader_param("icon_colour", PuzzleClasses.COLOURS[cell[1]])
+		mat_override.set_shader_parameter("icon_colour", PuzzleClasses.COLOURS[cell[1]])
 		# Set icon to use this material
 		icon.set_material_override(mat_override)
 	# If the puzzle cell has no icon, hide the icon plane

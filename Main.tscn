@@ -1,319 +1,298 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=29 format=3 uid="uid://bfb4h625ijw6f"]
 
-[ext_resource path="res://scripts/CharacterController.gd" type="Script" id=1]
-[ext_resource path="res://scripts/Puzzle.gd" type="Script" id=2]
-[ext_resource path="res://scripts/PuzzleTile.gd" type="Script" id=3]
-[ext_resource path="res://models/courtyard.glb" type="PackedScene" id=5]
-[ext_resource path="res://addons/kenney_prototypes/assets/colors/green/scenes/prototype_green_01.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" type="Script" id=7]
+[ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/Puzzle.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard.glb" id="5"]
+[ext_resource type="PackedScene" path="res://addons/kenney_prototypes/assets/colors/green/scenes/prototype_green_01.tscn" id="6"]
+[ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" id="7"]
 
-[sub_resource type="CapsuleShape" id=4]
-radius = 0.5
+[sub_resource type="CapsuleShape3D" id="4"]
 height = 1.5
 
-[sub_resource type="PlaneMesh" id=8]
+[sub_resource type="PlaneMesh" id="8"]
 
-[sub_resource type="VisualShaderNodeColorUniform" id=18]
-uniform_name = "main_colour"
+[sub_resource type="VisualShaderNodeColorParameter" id="18"]
+parameter_name = "main_colour"
 default_value_enabled = true
 
-[sub_resource type="VisualShader" id=14]
+[sub_resource type="VisualShader" id="14"]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible;
-
-uniform vec4 main_colour : hint_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform vec4 main_colour : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
 
 
-
-void vertex() {
-// Output:0
-
-}
 
 void fragment() {
-// ColorUniform:3
-	vec3 n_out3p0 = main_colour.rgb;
-	float n_out3p1 = main_colour.a;
+// ColorParameter:3
+	vec4 n_out3p0 = main_colour;
+
 
 // Output:0
-	ALBEDO = n_out3p0;
+	ALBEDO = vec3(n_out3p0.xyz);
 
-}
-
-void light() {
-// Output:0
 
 }
 "
-graph_offset = Vector2( -462.207, -24.1574 )
-nodes/fragment/3/node = SubResource( 18 )
-nodes/fragment/3/position = Vector2( -440, 120 )
-nodes/fragment/connections = PoolIntArray( 3, 0, 0, 0 )
+graph_offset = Vector2(-462.207, -24.1574)
+nodes/fragment/3/node = SubResource("18")
+nodes/fragment/3/position = Vector2(-440, 120)
+nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id=15]
-shader = SubResource( 14 )
-shader_param/main_colour = Color( 1, 1, 1, 1 )
+[sub_resource type="ShaderMaterial" id="15"]
+render_priority = 0
+shader = SubResource("14")
+shader_parameter/main_colour = Color(1, 1, 1, 1)
 
-[sub_resource type="VisualShaderNodeTextureUniform" id=19]
-uniform_name = "icon_texture"
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="19"]
+parameter_name = "icon_texture"
 
-[sub_resource type="VisualShaderNodeColorUniform" id=35]
-uniform_name = "icon_colour"
+[sub_resource type="VisualShaderNodeColorParameter" id="35"]
+parameter_name = "icon_colour"
 
-[sub_resource type="VisualShader" id=12]
+[sub_resource type="VisualShader" id="12"]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible;
-
-uniform vec4 icon_colour : hint_color;
-uniform sampler2D icon_texture;
+uniform vec4 icon_colour : source_color;
 
 
-
-void vertex() {
-// Output:0
-
-}
 
 void fragment() {
-// ColorUniform:4
-	vec3 n_out4p0 = icon_colour.rgb;
-	float n_out4p1 = icon_colour.a;
+// ColorParameter:4
+	vec4 n_out4p0 = icon_colour;
 
-// TextureUniform:3
-	vec3 n_out3p0;
-	float n_out3p1;
-	{
-		vec4 n_tex_read = texture(icon_texture, UV.xy);
-		n_out3p0 = n_tex_read.rgb;
-		n_out3p1 = n_tex_read.a;
-	}
 
 // Output:0
-	ALBEDO = n_out4p0;
-	ALPHA = n_out3p1;
+	ALBEDO = vec3(n_out4p0.xyz);
 
-}
-
-void light() {
-// Output:0
 
 }
 "
-graph_offset = Vector2( -498.162, -166.734 )
-nodes/fragment/3/node = SubResource( 19 )
-nodes/fragment/3/position = Vector2( -680, 160 )
-nodes/fragment/4/node = SubResource( 35 )
-nodes/fragment/4/position = Vector2( -620, -180 )
-nodes/fragment/connections = PoolIntArray( 3, 1, 0, 1, 4, 0, 0, 0 )
+graph_offset = Vector2(-498.162, -166.734)
+nodes/fragment/3/node = SubResource("19")
+nodes/fragment/3/position = Vector2(-680, 160)
+nodes/fragment/4/node = SubResource("35")
+nodes/fragment/4/position = Vector2(-620, -180)
+nodes/fragment/connections = PackedInt32Array(4, 0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = SubResource( 12 )
-shader_param/icon_colour = null
+[sub_resource type="ShaderMaterial" id="9"]
+render_priority = 0
+shader = SubResource("12")
+shader_parameter/icon_colour = null
 
-[sub_resource type="BoxShape" id=17]
-extents = Vector3( 1, 0.031, 1 )
+[sub_resource type="BoxShape3D" id="17"]
+size = Vector3(1, 0.031, 1)
 
-[sub_resource type="BoxShape" id=37]
-extents = Vector3( 10, 2, 0.125 )
+[sub_resource type="BoxShape3D" id="37"]
+size = Vector3(10, 2, 0.125)
 
-[sub_resource type="BoxShape" id=39]
-extents = Vector3( 0.125, 2, 10 )
+[sub_resource type="BoxShape3D" id="39"]
+size = Vector3(0.125, 2, 10)
 
-[sub_resource type="BoxShape" id=38]
-extents = Vector3( 0.125, 2, 10 )
+[sub_resource type="BoxShape3D" id="38"]
+size = Vector3(0.125, 2, 10)
 
-[sub_resource type="BoxShape" id=41]
-extents = Vector3( 0.25, 3, 0.25 )
+[sub_resource type="BoxShape3D" id="41"]
+size = Vector3(0.25, 3, 0.25)
 
-[sub_resource type="BoxShape" id=40]
-extents = Vector3( 0.25, 3, 0.25 )
+[sub_resource type="BoxShape3D" id="40"]
+size = Vector3(0.25, 3, 0.25)
 
-[sub_resource type="BoxShape" id=42]
-extents = Vector3( 5, 2, 0.05 )
+[sub_resource type="BoxShape3D" id="42"]
+size = Vector3(5, 2, 0.05)
 
-[sub_resource type="BoxShape" id=43]
-extents = Vector3( 0.05, 2, 3.25 )
+[sub_resource type="BoxShape3D" id="43"]
+size = Vector3(0.05, 2, 3.25)
 
-[sub_resource type="BoxShape" id=44]
-extents = Vector3( 0.05, 2, 3.25 )
+[sub_resource type="BoxShape3D" id="44"]
+size = Vector3(0.05, 2, 3.25)
 
-[sub_resource type="BoxShape" id=45]
-extents = Vector3( 0.05, 2, 3.25 )
+[sub_resource type="BoxShape3D" id="45"]
+size = Vector3(0.05, 2, 3.25)
 
-[sub_resource type="BoxShape" id=46]
-extents = Vector3( 0.05, 2, 3.25 )
+[sub_resource type="BoxShape3D" id="46"]
+size = Vector3(0.05, 2, 3.25)
 
-[sub_resource type="BoxShape" id=36]
-extents = Vector3( 10, 0.001, 10 )
+[sub_resource type="BoxShape3D" id="36"]
+size = Vector3(10, 0.001, 10)
 
-[sub_resource type="BoxShape" id=47]
-extents = Vector3( 2.5, 1, 2.5 )
+[sub_resource type="BoxShape3D" id="47"]
+size = Vector3(2.5, 1, 2.5)
 
-[node name="Spatial" type="Spatial"]
+[node name="Node3D" type="Node3D"]
 
-[node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3 )
-script = ExtResource( 1 )
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
+script = ExtResource("1")
+gravity_acceleration = 0.0
 max_fall_speed = 0.2
 camera_path = NodePath("PlayerCamera")
 
-[node name="PlayerCapsule" type="CollisionShape" parent="Player"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.75, 0 )
-shape = SubResource( 4 )
+[node name="PlayerCapsule" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+shape = SubResource("4")
 
-[node name="PlayerCamera" type="ClippedCamera" parent="Player"]
+[node name="PlayerCamera" type="Camera3D" parent="Player"]
+current = true
 
-[node name="TestPuzzle" type="Spatial" parent="."]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.35, 1, 0 )
-script = ExtResource( 2 )
+[node name="TestPuzzle" type="Node3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.35, 1, 0)
+script = ExtResource("2")
 __meta__ = {
 "_editor_description_": "																				"
 }
-puzzle = [ 7.0, 5.0, 3.0, 2.0, 1.0, [ [ [ 1, 0, 0 ], [ 1, 0, 3 ], [ 4, 0, 2 ], [ 1, 0, 1 ], [ 7, 1, 1 ] ], [ [ 1, 0, 1 ], [ 1, 0, 1 ], [ 3, 0, 1 ], [ 4, 0, 2 ], [ 4, 0, 2 ] ], [ [ 1, 0, 0 ], [ 3, 0, 1 ], [ 3, 0, 3 ], [ 3, 0, 1 ], [ 7, 1, 0 ] ], [ [ 4, 0, 0 ], [ 6, 0, 1 ], [ 4, 0, 0 ], [ 6, 0, 1 ], [ 4, 0, 0 ] ], [ [ 1, 0, 0 ], [ 3, 0, 2 ], [ 3, 0, 0 ], [ 3, 0, 2 ], [ 7, 1, 0 ] ], [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 3, 0, 2 ], [ 4, 0, 2 ], [ 4, 0, 2 ] ], [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 4, 0, 0 ], [ 1, 0, 0 ], [ 7, 1, 0 ] ] ] ]
+puzzle = [7.0, 5.0, 3.0, 2.0, 1.0, [[[1, 0, 0], [1, 0, 3], [4, 0, 2], [1, 0, 1], [7, 1, 1]], [[1, 0, 1], [1, 0, 1], [3, 0, 1], [4, 0, 2], [4, 0, 2]], [[1, 0, 0], [3, 0, 1], [3, 0, 3], [3, 0, 1], [7, 1, 0]], [[4, 0, 0], [6, 0, 1], [4, 0, 0], [6, 0, 1], [4, 0, 0]], [[1, 0, 0], [3, 0, 2], [3, 0, 0], [3, 0, 2], [7, 1, 0]], [[1, 0, 0], [1, 0, 0], [3, 0, 2], [4, 0, 2], [4, 0, 2]], [[1, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 1, 0]]]]
 check_intermediate = true
 instance_path = NodePath("../Tile")
 
-[node name="Tile" type="Spatial" parent="."]
+[node name="Tile" type="Node3D" parent="."]
 visible = false
-script = ExtResource( 3 )
+script = ExtResource("3")
 backplane_path = NodePath("Tile pivot/Backplane")
 icon_path = NodePath("Tile pivot/Icon")
 
-[node name="Tile pivot" type="Spatial" parent="Tile"]
-transform = Transform( -0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0 )
+[node name="Tile pivot" type="Node3D" parent="Tile"]
+transform = Transform3D(-0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0)
 
-[node name="Backplane" type="CSGMesh" parent="Tile/Tile pivot"]
-mesh = SubResource( 8 )
-material = SubResource( 15 )
+[node name="Backplane" type="CSGMesh3D" parent="Tile/Tile pivot"]
+mesh = SubResource("8")
+material = SubResource("15")
 
-[node name="Icon" type="CSGMesh" parent="Tile/Tile pivot"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.01, 0 )
-mesh = SubResource( 8 )
-material = SubResource( 9 )
+[node name="Icon" type="CSGMesh3D" parent="Tile/Tile pivot"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.01, 0)
+mesh = SubResource("8")
+material = SubResource("9")
 
-[node name="Area" type="Area" parent="Tile/Tile pivot"]
+[node name="Area3D" type="Area3D" parent="Tile/Tile pivot"]
 
-[node name="CollisionShape" type="CollisionShape" parent="Tile/Tile pivot/Area"]
-shape = SubResource( 17 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/Tile pivot/Area3D"]
+shape = SubResource("17")
 
-[node name="TestCube" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -5.19516, 2 )
-script = ExtResource( 7 )
-displacement = Vector3( 0, 5, 0 )
+[node name="TestCube" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -5.19516, 2)
+script = ExtResource("7")
+displacement = Vector3(0, 5, 0)
 
-[node name="CollisionShape" type="CollisionShape" parent="TestCube"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1 )
-shape = SubResource( 17 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestCube"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1)
+shape = SubResource("17")
 
-[node name="PrototypeCube2" parent="TestCube" instance=ExtResource( 6 )]
+[node name="PrototypeCube2" parent="TestCube" instance=ExtResource("6")]
 
-[node name="Courtyard" parent="." instance=ExtResource( 5 )]
+[node name="Courtyard" parent="." instance=ExtResource("5")]
 
-[node name="Collision" type="StaticBody" parent="Courtyard"]
+[node name="Collision" type="StaticBody3D" parent="Courtyard"]
 
-[node name="Walls" type="StaticBody" parent="Courtyard/Collision"]
+[node name="Walls" type="StaticBody3D" parent="Courtyard/Collision"]
 
-[node name="South" type="CollisionShape" parent="Courtyard/Collision/Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 10 )
-shape = SubResource( 37 )
+[node name="South" type="CollisionShape3D" parent="Courtyard/Collision/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 10)
+shape = SubResource("37")
 
-[node name="West" type="CollisionShape" parent="Courtyard/Collision/Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 0 )
-shape = SubResource( 39 )
+[node name="West" type="CollisionShape3D" parent="Courtyard/Collision/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 0)
+shape = SubResource("39")
 
-[node name="East" type="CollisionShape" parent="Courtyard/Collision/Walls"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 0 )
-shape = SubResource( 38 )
+[node name="East" type="CollisionShape3D" parent="Courtyard/Collision/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 0)
+shape = SubResource("38")
 
-[node name="Pillars" type="StaticBody" parent="Courtyard/Collision"]
+[node name="Pillars" type="StaticBody3D" parent="Courtyard/Collision"]
 
-[node name="Southwest" type="CollisionShape" parent="Courtyard/Collision/Pillars"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 5 )
-shape = SubResource( 41 )
+[node name="Southwest" type="CollisionShape3D" parent="Courtyard/Collision/Pillars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 5)
+shape = SubResource("41")
 
-[node name="Southeast" type="CollisionShape" parent="Courtyard/Collision/Pillars"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 5 )
-shape = SubResource( 40 )
+[node name="Southeast" type="CollisionShape3D" parent="Courtyard/Collision/Pillars"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 5)
+shape = SubResource("40")
 
-[node name="Fences" type="StaticBody" parent="Courtyard/Collision"]
+[node name="Fences" type="StaticBody3D" parent="Courtyard/Collision"]
 
-[node name="South" type="CollisionShape" parent="Courtyard/Collision/Fences"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5 )
-shape = SubResource( 42 )
+[node name="South" type="CollisionShape3D" parent="Courtyard/Collision/Fences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
+shape = SubResource("42")
 
-[node name="West-south" type="CollisionShape" parent="Courtyard/Collision/Fences"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 1.75 )
-shape = SubResource( 43 )
+[node name="West-south" type="CollisionShape3D" parent="Courtyard/Collision/Fences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, 1.75)
+shape = SubResource("43")
 
-[node name="West-north" type="CollisionShape" parent="Courtyard/Collision/Fences"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -6.75 )
-shape = SubResource( 44 )
+[node name="West-north" type="CollisionShape3D" parent="Courtyard/Collision/Fences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 2, -6.75)
+shape = SubResource("44")
 
-[node name="East-south" type="CollisionShape" parent="Courtyard/Collision/Fences"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 1.75 )
-shape = SubResource( 45 )
+[node name="East-south" type="CollisionShape3D" parent="Courtyard/Collision/Fences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 1.75)
+shape = SubResource("45")
 
-[node name="East-north" type="CollisionShape" parent="Courtyard/Collision/Fences"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -6.75 )
-shape = SubResource( 46 )
+[node name="East-north" type="CollisionShape3D" parent="Courtyard/Collision/Fences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, -6.75)
+shape = SubResource("46")
 
-[node name="Ground" type="CollisionShape" parent="Courtyard/Collision"]
-shape = SubResource( 36 )
+[node name="Ground" type="CollisionShape3D" parent="Courtyard/Collision"]
+shape = SubResource("36")
 
-[node name="CollisionShape" type="CollisionShape" parent="Courtyard/Collision"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5 )
-shape = SubResource( 47 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Courtyard/Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+shape = SubResource("47")
 
-[node name="Puzzles" type="Spatial" parent="Courtyard"]
+[node name="Puzzles" type="Node3D" parent="Courtyard"]
 
-[node name="Intro 1" type="Spatial" parent="Courtyard/Puzzles"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -8 )
-script = ExtResource( 2 )
-puzzle = [ 1.0, 3.0, 0, 0, 0, [ [ [ 7, 0, 0 ], [ 4, 0, 0 ], [ 7, 0, 0 ] ] ] ]
+[node name="Intro 1" type="Node3D" parent="Courtyard/Puzzles"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -8)
+script = ExtResource("2")
+puzzle = [1.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
 instance_path = NodePath("../../../Tile")
 on_complete_path = NodePath("../Intro 2")
 
-[node name="Intro 2" type="Spatial" parent="Courtyard/Puzzles"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -5 )
-script = ExtResource( 2 )
-puzzle = [ 3.0, 3.0, 0, 0, 0, [ [ [ 7, 0, 1 ], [ 4, 0, 0 ], [ 7, 0, 1 ] ], [ [ 4, 0, 1 ], [ 6, 0, 1 ], [ 4, 0, 1 ] ], [ [ 7, 0, 1 ], [ 4, 0, 0 ], [ 7, 0, 1 ] ] ] ]
+[node name="Intro 2" type="Node3D" parent="Courtyard/Puzzles"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -5)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 1], [4, 0, 0], [7, 0, 1]], [[4, 0, 1], [6, 0, 1], [4, 0, 1]], [[7, 0, 1], [4, 0, 0], [7, 0, 1]]]]
 instance_path = NodePath("../../../Tile")
 on_complete_path = NodePath("../Intro 3")
 load_on_start = false
 
-[node name="Intro 3" type="Spatial" parent="Courtyard/Puzzles"]
-transform = Transform( -2.62268e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.62268e-08, 9.5, 3.2, 0 )
-script = ExtResource( 2 )
-puzzle = [ 5.0, 5.0, 0, 0, 0, [ [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 4, 0, 0 ], [ 1, 0, 0 ], [ 7, 0, 0 ] ], [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 3, 0, 1 ], [ 3, 0, 0 ], [ 1, 0, 0 ] ], [ [ 4, 0, 1 ], [ 3, 0, 1 ], [ 7, 0, 0 ], [ 3, 0, 3 ], [ 4, 0, 1 ] ], [ [ 1, 0, 0 ], [ 3, 0, 2 ], [ 3, 0, 3 ], [ 1, 0, 0 ], [ 1, 0, 0 ] ], [ [ 7, 0, 0 ], [ 1, 0, 0 ], [ 4, 0, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ] ] ] ]
+[node name="Intro 3" type="Node3D" parent="Courtyard/Puzzles"]
+transform = Transform3D(-2.62268e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.62268e-08, 9.5, 3.2, 0)
+script = ExtResource("2")
+puzzle = [5.0, 5.0, 0, 0, 0, [[[1, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0], [3, 0, 3], [4, 0, 1]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [1, 0, 0]]]]
 instance_path = NodePath("../../../Tile")
 on_complete_path = NodePath("../Intro 4")
 load_on_start = false
 
-[node name="Intro 4" type="Spatial" parent="Courtyard/Puzzles"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, 5 )
-script = ExtResource( 2 )
-puzzle = [ 3.0, 3.0, 0, 0, 0, [ [ [ 7, 0, 0 ], [ 4, 0, 0 ], [ 7, 1, 0 ] ], [ [ 4, 0, 1 ], [ 4, 0, 0 ], [ 4, 0, 1 ] ], [ [ 7, 0, 0 ], [ 4, 0, 0 ], [ 7, 1, 0 ] ] ] ]
+[node name="Intro 4" type="Node3D" parent="Courtyard/Puzzles"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, 5)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [7, 1, 0]], [[4, 0, 1], [4, 0, 0], [4, 0, 1]], [[7, 0, 0], [4, 0, 0], [7, 1, 0]]]]
 instance_path = NodePath("../../../Tile")
 on_complete_path = NodePath("../Intro 5")
 load_on_start = false
 
-[node name="Intro 5" type="Spatial" parent="Courtyard/Puzzles"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7, 3, 9.5 )
-script = ExtResource( 2 )
-puzzle = [ 3.0, 3.0, 1.0, 1.0, 1.0, [ [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ] ], [ [ 1, 0, 0 ], [ 2, 0, 0 ], [ 1, 0, 0 ] ], [ [ 1, 0, 0 ], [ 1, 0, 0 ], [ 1, 0, 0 ] ] ] ]
+[node name="Intro 5" type="Node3D" parent="Courtyard/Puzzles"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7, 3, 9.5)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 1.0, 1.0, 1.0, [[[1, 0, 0], [1, 0, 0], [1, 0, 0]], [[1, 0, 0], [2, 0, 0], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
 check_intermediate = true
 instance_path = NodePath("../../../Tile")
 on_complete_path = NodePath("../Intro 6")
 load_on_start = false
 
-[node name="Intro 6" type="Spatial" parent="Courtyard/Puzzles"]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 2, 3.2, 9.5 )
-script = ExtResource( 2 )
-puzzle = [ 3.0, 3.0, 1.0, 2.0, 1.0, [ [ [ 1, 0, 0 ], [ 1, 0, 3 ], [ 1, 0, 0 ] ], [ [ 4, 0, 2 ], [ 3, 0, 1 ], [ 4, 0, 0 ] ], [ [ 7, 0, 2 ], [ 4, 0, 1 ], [ 7, 0, 2 ] ] ] ]
+[node name="Intro 6" type="Node3D" parent="Courtyard/Puzzles"]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 2, 3.2, 9.5)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 1.0, 2.0, 1.0, [[[1, 0, 0], [1, 0, 3], [1, 0, 0]], [[4, 0, 2], [3, 0, 1], [4, 0, 0]], [[7, 0, 2], [4, 0, 1], [7, 0, 2]]]]
 check_intermediate = true
 instance_path = NodePath("../../../Tile")
 load_on_start = false
 
-[connection signal="input_event" from="Tile/Tile pivot/Area" to="Tile" method="input_event"]
-[connection signal="mouse_entered" from="Tile/Tile pivot/Area" to="Tile" method="mouse_enter"]
-[connection signal="mouse_exited" from="Tile/Tile pivot/Area" to="Tile" method="mouse_exit"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.418279, 0.908318, 0, -0.908318, 0.418279, 0, 6.22737, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DirectionalLight3D"]
+transform = Transform3D(0.647083, -0.579334, -0.495638, 0.69252, 0.174697, 0.699926, -0.318904, -0.796149, 0.514244, 0, 6.22737, -1.43051e-06)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="DirectionalLight3D"]
+transform = Transform3D(0.443087, 0.6812, 0.582787, -0.814288, 0.0338998, 0.57947, 0.374978, -0.731312, 0.569713, -0.0773916, 7.1114, -0.0746927)
+
+[connection signal="input_event" from="Tile/Tile pivot/Area3D" to="Tile" method="input_event"]
+[connection signal="mouse_entered" from="Tile/Tile pivot/Area3D" to="Tile" method="mouse_enter"]
+[connection signal="mouse_exited" from="Tile/Tile pivot/Area3D" to="Tile" method="mouse_exit"]
