@@ -6,3 +6,6 @@ res://scripts/PuzzleTile.gd
 res://addons/PuzzleEditorPlugin/PuzzleEditor.gd
 res://addons/PuzzleEditorPlugin/PuzzleEditorInspectorPlugin.gd
 res://addons/PuzzleEditorPlugin/PuzzleGizmo.gd
+res://scripts/Puzzle.gd
+res://scripts/SolutionChecker.gd
+res://scripts/PuzzleClasses.gd

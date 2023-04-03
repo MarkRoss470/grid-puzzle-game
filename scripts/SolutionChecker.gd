@@ -10,7 +10,7 @@ class Solution:
 	# An array of [x, y] coordinates of the cells which are wrong
 	# This is not (necessarily) the cells which are in the wrong rotation
 	# It's the cells whose rules are broken because of a cell in the wrong rotation
-	var wrong_cells: Array
+	var wrong_cells: Array[Array]
 	
 	# Simple constructor
 	func _init():
@@ -27,7 +27,7 @@ class Region:
 	# Which cells this array contains
 	# A 2d array of bools, with dimensions twice the width and height of the puzzle
 	# This is because each cell is divided into 4 when calculating regions
-	var cells: Array
+	var cells: Array[Array]
 	
 	# Creates a new region with the specified width and height.
 	func _init(width: int, height: int):
@@ -55,7 +55,7 @@ class Region:
 
 	# Finds an subcell which is false and returns its x, y coordinates.
 	# If none is found, returns an empty array
-	func get_empty_cell() -> Array:
+	func get_empty_cell() -> Array[int]:
 		for x in len(cells):
 			for y in len(cells[x]):
 				if not cells[x][y]:
@@ -71,7 +71,7 @@ class Region:
 	# Recursively fill this region starting from the given coordinate, bounded by:
 	# * true cells in `other`
 	# * edges in `edges_horizontal` and `edges_vertical`
-	func floodfill_from(other: Region, edges_horizontal: Array, edges_vertical: Array, x: int, y: int):
+	func floodfill_from(other: Region, edges_horizontal: Array[Array], edges_vertical: Array[Array], x: int, y: int):
 		cells[x][y] = true
 		
 		# Check cell to the left
@@ -127,7 +127,7 @@ class Region:
 	# Only checks the top-left subcell of each cell
 	# Excludes the cell at the given coordinates
 	# Returns the x, y coordinates of the first such cell found, or an empty array if there is none
-	func contains_icon(puzzle: Array, icon: int, colour: int, exclude_x: int, exclude_y: int) -> Array:
+	func contains_icon(puzzle: Array, icon: int, colour: int, exclude_x: int, exclude_y: int) -> Array[int]:
 		for x in len(puzzle):
 			for y in len(puzzle[x]):
 				if cells[x * 2][y * 2] and [x, y] != [exclude_x, exclude_y]:
@@ -136,7 +136,7 @@ class Region:
 						return [x, y]
 		return []
 
-static func init_2d_array(width: int, height: int, fill) -> Array:
+static func init_2d_array(width: int, height: int, fill) -> Array[Array]:
 	var arr := []
 	for x in width:
 		arr.append([])
@@ -146,7 +146,7 @@ static func init_2d_array(width: int, height: int, fill) -> Array:
 
 # Check the rules of cells in a puzzle
 # Determines whether the player is allowed to make a certain move or not
-static func check_solution(puzzle: Array, state: Array) -> Solution:
+static func check_solution(puzzle: Array, state: Array[Array]) -> Solution:
 	var puzzle_cells: Array = puzzle[PuzzleClasses.CELLS]
 	# A Solution to add results into
 	var result = Solution.new()
@@ -173,12 +173,12 @@ static func check_solution(puzzle: Array, state: Array) -> Solution:
 	return result
 
 # Pretty prints a 2d array
-static func pretty_print_array(arr: Array):
+static func pretty_print_array(arr: Array[Array]):
 	for item in arr:
 		print(item)
 	print()
 
-static func calculate_regions(puzzle: Array, state: Array) -> Array:
+static func calculate_regions(puzzle: Array, state: Array[Array]) -> Array[Region]:
 	var regions := []
 	
 	# The width and height in subcells

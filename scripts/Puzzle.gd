@@ -58,11 +58,11 @@ var wipes := []
 
 # Array[x][y] of the direction of cells
 # 0 = up, 1 = right etc
-var current_state: Array
+var current_state: Array[Array]
 # Whether the puzzle is solved and the solved colours should be used
 var is_solved := false
 # Stores references to the PuzzleTile nodes of this puzzle
-var tiles: Array
+var tiles: Array[Array]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

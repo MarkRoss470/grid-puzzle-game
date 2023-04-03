@@ -13,7 +13,7 @@ var initialised := false
 var expanded := false
 
 # The current puzzle value
-var current_value = PuzzleClasses.get_default()
+var current_value := PuzzleClasses.get_default()
 
 # The currently selected icon group
 var current_icon_group := 0
@@ -124,10 +124,12 @@ func init_editor():
 	add_label_and_spinbox("height", "Height: ", HEIGHT_LINE_Y, "on_dimension_change", [1])
 	add_label_and_spinbox("key_x", "Key X: ", KEY_X_Y, "on_key_pos_change", [0])
 	add_label_and_spinbox("key_y", "Key Y: ", KEY_Y_Y, "on_key_pos_change", [1])
+	
 	var target_change_items := add_label_and_spinbox("key_target", "Target rotation: ", KEY_TARGET_Y, "on_key_target_change", [])
+	var target_rotation_spinbox: SpinBox = target_change_items[1]
 	# Target rotation should be a value between 0 and 3
-	target_change_items[1].min_value = 0
-	target_change_items[1].max_value = 3
+	target_rotation_spinbox.min_value = 0
+	target_rotation_spinbox.max_value = 3
 	
 	# Set up icon group selectors
 	var icon_group_picker := Container.new()
