@@ -17,6 +17,9 @@ class_name CharacterController
 @export var camera_path: NodePath
 var camera: Camera3D
 
+# Whether to make the game fullscreen
+@export var fullscreen := true
+
 # Whether the mouse is free (when interacting with a puzzle)
 # Controls whether mouse and keyboard inputs move the player
 var mouse_is_free := false
@@ -98,7 +101,7 @@ func _physics_process(delta: float):
 func _process(_delta):
 	# Set fullscreen on first frame
 	# Prevents graphical artifacts when called in _ready
-	if Engine.get_frames_drawn() == 0:
+	if fullscreen and Engine.get_frames_drawn() == 0:
 		get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
 	
 	# If 'free_mouse' input was just pressed, update mouse mode
