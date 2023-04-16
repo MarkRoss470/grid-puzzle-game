@@ -15,6 +15,8 @@ represents the puzzle - sets which icons go in which cells
 # Whether the states between the start and end states need to be valid
 @export var check_intermediate: bool
 
+@export_group("Colours")
+
 # Colours for puzzle's neutral state
 @export var colour_base: Color = Color(0.5, 0.5, 0.5)
 @export var colour_hover: Color = Color(0.8, 0.8, 0.8)
@@ -35,6 +37,8 @@ represents the puzzle - sets which icons go in which cells
 # Colours for a correct solution on the key cell
 @export var colour_solved_key: Color = Color(0.15, 0.1, 0.9)
 @export var colour_solved_key_hover: Color = Color(0.3, 0.30, 0.85)
+
+@export_group("")
 
 # What object to instance as a tile
 @export var instance: PuzzleTile
