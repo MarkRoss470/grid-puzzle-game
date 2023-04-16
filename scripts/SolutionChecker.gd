@@ -137,7 +137,7 @@ class Region:
 		return []
 
 static func init_2d_array(width: int, height: int, fill) -> Array[Array]:
-	var arr := []
+	var arr: Array[Array] = []
 	for x in width:
 		arr.append([])
 		for y in height:
@@ -179,7 +179,7 @@ static func pretty_print_array(arr: Array[Array]):
 	print()
 
 static func calculate_regions(puzzle: Array, state: Array[Array]) -> Array[Region]:
-	var regions := []
+	var regions: Array[Region] = []
 	
 	# The width and height in subcells
 	var width = puzzle[PuzzleClasses.WIDTH] * 2
