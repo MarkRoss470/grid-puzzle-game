@@ -197,15 +197,18 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 # direction = 1 -> clockwise
 # direction = -1 -> anti-clockwise
 func rotate_cell(x: int, y: int, direction: int):
+	# Save the cell's current rotation to reset it if the move is invalid
 	var prev_rotation = current_state[x][y]
 	
-	# Add one to cell's rotation
+	# Update cell's rotation based on the direction
 	current_state[x][y] += (4 + direction)
 	# Wrap around to 0 if reaches 4
 	current_state[x][y] %= 4
 	
 	# Check whether the solution is valid
 	var solution := SolutionChecker.check_solution(puzzle, current_state)
+	
+	reset_tile_colours()
 	
 	# If intermediate states must be valid, block the move if they aren't 
 	if check_intermediate:
@@ -241,8 +244,8 @@ func rotate_cell(x: int, y: int, direction: int):
 		# Call puzzle unsolve callback
 		if on_complete != null:
 			on_complete.on_puzzle_unsolve(on_complete_param)
-		reset_tile_colours()
 
+# Sets is_solved to true and calls the next puzzle's on_puzzle_solve callback
 func solve_puzzle():
 	is_solved = true
 	
