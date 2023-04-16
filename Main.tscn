@@ -257,52 +257,82 @@ shape = SubResource("47")
 
 [node name="Puzzles" type="Node3D" parent="Courtyard"]
 
-[node name="Intro 1" type="Node3D" parent="Courtyard/Puzzles"]
+[node name="Tutorial" type="Node3D" parent="Courtyard/Puzzles"]
+
+[node name="Teaches controls" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -8)
 script = ExtResource("2")
 puzzle = [1.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
-instance_path = NodePath("../../../Tile")
-on_complete_path = NodePath("../Intro 2")
+instance_path = NodePath("../../../../Tile")
+on_complete_path = NodePath("../Teaches squares")
 
-[node name="Intro 2" type="Node3D" parent="Courtyard/Puzzles"]
+[node name="Teaches squares" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -5)
 script = ExtResource("2")
 puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 1], [4, 0, 0], [7, 0, 1]], [[4, 0, 1], [6, 0, 1], [4, 0, 1]], [[7, 0, 1], [4, 0, 0], [7, 0, 1]]]]
-instance_path = NodePath("../../../Tile")
-on_complete_path = NodePath("../Intro 3")
+instance_path = NodePath("../../../../Tile")
+on_complete_path = NodePath("../Knowledge check of squares")
 load_on_start = false
 
-[node name="Intro 3" type="Node3D" parent="Courtyard/Puzzles"]
+[node name="Knowledge check of squares" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
 transform = Transform3D(-2.62268e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.62268e-08, 9.5, 3.2, 0)
 script = ExtResource("2")
 puzzle = [5.0, 5.0, 0, 0, 0, [[[1, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0], [3, 0, 3], [4, 0, 1]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [1, 0, 0]]]]
-instance_path = NodePath("../../../Tile")
-on_complete_path = NodePath("../Intro 4")
+colour_solved_key_hover = Color(0.301961, 0.301961, 0.85098, 1)
+instance_path = NodePath("../../../../Tile")
+on_complete_path = NodePath("../Coloured squares")
 load_on_start = false
 
-[node name="Intro 4" type="Node3D" parent="Courtyard/Puzzles"]
+[node name="Coloured squares" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, 5)
 script = ExtResource("2")
-puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [7, 1, 0]], [[4, 0, 1], [4, 0, 0], [4, 0, 1]], [[7, 0, 0], [4, 0, 0], [7, 1, 0]]]]
-instance_path = NodePath("../../../Tile")
-on_complete_path = NodePath("../Intro 5")
+puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 1], [7, 1, 0]], [[4, 0, 1], [4, 0, 2], [4, 0, 1]], [[7, 0, 0], [4, 0, 1], [7, 1, 0]]]]
+instance_path = NodePath("../../../../Tile")
+on_complete_path = NodePath("../First key puzzle")
 load_on_start = false
 
-[node name="Intro 5" type="Node3D" parent="Courtyard/Puzzles"]
+[node name="First key puzzle" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7, 3, 9.5)
 script = ExtResource("2")
 puzzle = [3.0, 3.0, 1.0, 1.0, 1.0, [[[1, 0, 0], [1, 0, 0], [1, 0, 0]], [[1, 0, 0], [2, 0, 0], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
 check_intermediate = true
-instance_path = NodePath("../../../Tile")
-on_complete_path = NodePath("../Intro 6")
+instance_path = NodePath("../../../../Tile")
+on_complete_path = NodePath("../Requires right click")
 load_on_start = false
 
-[node name="Intro 6" type="Node3D" parent="Courtyard/Puzzles"]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 2, 3.2, 9.5)
+[node name="Requires right click" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 2, 3, 9.5)
 script = ExtResource("2")
 puzzle = [3.0, 3.0, 1.0, 2.0, 1.0, [[[1, 0, 0], [1, 0, 3], [1, 0, 0]], [[4, 0, 2], [3, 0, 1], [4, 0, 0]], [[7, 0, 2], [4, 0, 1], [7, 0, 2]]]]
 check_intermediate = true
-instance_path = NodePath("../../../Tile")
+instance_path = NodePath("../../../../Tile")
+on_complete_path = NodePath("../../Practice/Coloured squares 1")
+load_on_start = false
+
+[node name="Practice" type="Node3D" parent="Courtyard/Puzzles"]
+
+[node name="Coloured squares 1" type="Node3D" parent="Courtyard/Puzzles/Practice"]
+transform = Transform3D(-0.75, 0, -6.55671e-08, 0, 0.75, 0, 6.55671e-08, 0, -0.75, -3, 3.125, 9.5)
+script = ExtResource("2")
+puzzle = [5.0, 4.0, 0, 0, 0, [[[7, 1, 0], [4, 0, 3], [4, 0, 3], [7, 1, 2]], [[4, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2]], [[7, 0, 2], [6, 0, 0], [6, 0, 0], [7, 0, 0]], [[4, 0, 2], [3, 0, 0], [3, 0, 1], [4, 0, 2]], [[7, 1, 0], [4, 0, 3], [4, 0, 3], [7, 1, 2]]]]
+instance_path = NodePath("../../../../Tile")
+on_complete_path = NodePath("../Coloured squares 2")
+load_on_start = false
+
+[node name="Coloured squares 2" type="Node3D" parent="Courtyard/Puzzles/Practice"]
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.5, 3.2, 7)
+script = ExtResource("2")
+puzzle = [5.0, 5.0, 0, 0, 0, [[[7, 1, 0], [4, 0, 1], [7, 0, 0], [4, 0, 1], [7, 1, 0]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [5, 0, 1], [4, 0, 0]], [[7, 0, 0], [4, 0, 1], [7, 0, 0], [4, 0, 1], [7, 0, 0]], [[4, 0, 0], [5, 0, 3], [4, 0, 0], [5, 0, 0], [4, 0, 0]], [[7, 1, 0], [4, 0, 1], [7, 0, 0], [4, 0, 1], [7, 1, 0]]]]
+instance_path = NodePath("../../../../Tile")
+on_complete_path = NodePath("../Key puzzles")
+load_on_start = false
+
+[node name="Key puzzles" type="Node3D" parent="Courtyard/Puzzles/Practice"]
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.5, 3.2, 2)
+script = ExtResource("2")
+puzzle = [5.0, 5.0, 2.0, 2.0, 1.0, [[[7, 0, 0], [1, 0, 3], [4, 0, 1], [1, 0, 3], [7, 0, 2]], [[1, 0, 2], [3, 0, 1], [5, 0, 2], [1, 0, 3], [1, 0, 2]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [5, 0, 0], [4, 0, 2]], [[1, 0, 2], [1, 0, 1], [5, 0, 0], [3, 0, 3], [1, 0, 2]], [[7, 0, 0], [1, 0, 1], [4, 0, 1], [1, 0, 3], [7, 0, 2]]]]
+check_intermediate = true
+instance_path = NodePath("../../../../Tile")
 load_on_start = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
