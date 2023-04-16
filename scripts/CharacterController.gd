@@ -14,8 +14,7 @@ class_name CharacterController
 @export var run_speed := 10.0
 
 # The player camera
-@export var camera_path: NodePath
-var camera: Camera3D
+@export var camera: Camera3D
 
 # Whether to make the game fullscreen
 @export var fullscreen := true
@@ -30,7 +29,6 @@ var y_velocity := 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	camera = get_node(camera_path)
 
 # Called on input events
 # Rotation is calculated here, movement is calculated in _physics_process

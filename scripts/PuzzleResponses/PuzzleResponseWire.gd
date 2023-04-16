@@ -1,21 +1,20 @@
 extends Path3D
 
 # What object to call the on_puzzle_solve method of when the signal reaches the end of the wire
-@export var on_complete_path: NodePath
-var on_complete: Node
+@export var on_complete: Node
 
 # The parameter to pass to on_puzzle_solve of on_complete
-@export var on_complete_param: int := 0
+@export var on_complete_param: int = 0
 
 # How many points the circle that is extruded to make the wire should have
-@export var num_points: int := 16
+@export var num_points: int = 16
 # The radius of the wire
-@export var radius: float := 0.02
+@export var radius: float = 0.02
 # The distance between edge loops on the wire
-@export var edge_loop_distance: float := 0.1
+@export var edge_loop_distance: float = 0.1
 
 # How long the signal should take to get to the end of the wire
-@export var travel_time: float := 1.0
+@export var travel_time: float = 1.0
 # What material the wire should have
 # Material should have parameter 'signal_travel' from 0 to 1 controlling how much of the wire the signal has travelled
 # It should also have a parameter called 'curve_length' which gives the total length of the curve
@@ -47,7 +46,6 @@ func on_puzzle_unsolve(_i: int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	on_complete = get_node(on_complete_path)
 	# Duplicate material so as not to interfere with other wires using the same material
 	wire_material = wire_material.duplicate()
 	wire_material.set_shader_parameter("curve_length", self.curve.get_baked_length())

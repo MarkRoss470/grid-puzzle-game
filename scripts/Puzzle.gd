@@ -37,11 +37,9 @@ represents the puzzle - sets which icons go in which cells
 @export var colour_solved_key_hover: Color = Color(0.3, 0.30, 0.85)
 
 # What object to instance as a tile
-@export var instance_path: NodePath
-var instance: Node
+@export var instance: PuzzleTile
 # What object to call the on_puzzle_solve method of when the puzle is solved
-@export var on_complete_path: NodePath
-var on_complete: Node = null
+@export var on_complete: Node
 # What parameter to pass to on_puzzle_solve
 @export var on_complete_param: int
 # Whether to load the puzzle immediately on startup
@@ -66,10 +64,6 @@ var tiles: Array[Array]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not on_complete_path.is_empty():
-		on_complete = get_node(on_complete_path)
-	instance = get_node(instance_path)
-
 	# TODO: load puzzle state from saved game
 	
 	# Initialise tiles and current_state
