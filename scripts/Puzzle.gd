@@ -207,11 +207,12 @@ func rotate_cell(x: int, y: int, direction: int):
 	# Check whether the solution is valid
 	var solution := SolutionChecker.check_solution(puzzle, current_state)
 	
-	reset_tile_colours()
+	
 	
 	# If intermediate states must be valid, block the move if they aren't 
 	if check_intermediate:
 		if not solution.is_valid:
+			reset_tile_colours()
 			# Set cells to colour on incorrect solution
 			for cell in solution.wrong_cells:
 				if check_intermediate and cell == [puzzle[PuzzleClasses.KEY_X], puzzle[PuzzleClasses.KEY_Y]]:
@@ -236,6 +237,8 @@ func rotate_cell(x: int, y: int, direction: int):
 	
 	# Physically rotate this cell
 	tiles[x][y].icon.rotate(Vector3.FORWARD, direction * PI / 2)
+	
+	reset_tile_colours()
 	
 	if is_solved:
 		solve_puzzle()
