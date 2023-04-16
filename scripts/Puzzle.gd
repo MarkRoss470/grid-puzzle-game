@@ -1,3 +1,4 @@
+@icon("res://textures/UI/puzzle icon.svg")
 extends Node3D
 
 class_name Puzzle
