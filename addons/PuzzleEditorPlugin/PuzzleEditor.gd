@@ -1,9 +1,7 @@
 extends EditorProperty
 
-# Container for all UI elements
-var container := Panel.new()
 # Container for all editor elements
-var editor_items := Control.new()
+var editor_items := Panel.new()
 
 # The current puzzle value
 var current_value := []
@@ -19,9 +17,7 @@ var current_rotation := 0
 
 # Called when a new node is selected - initialisation of UI
 func _init():
-	container.add_child(editor_items)
-	# Set container as the root node
-	add_child(container)
+	add_child(editor_items)
 
 # Contants for UI layout
 const WIDTH_LINE_Y := 0
@@ -95,10 +91,6 @@ func create_colour_rect(name: String, colour: Color, width: int, height: int, x:
 # Only called when the + button is pressed, not at startup.
 func init_editor():
 	#reset_state()
-	
-	editor_items.set_anchor(SIDE_LEFT, 0)
-	editor_items.set_anchor(SIDE_RIGHT, 1)
-	editor_items.set_position(Vector2(10, 40))
 	
 	add_label_and_spinbox("width", "Width: ", WIDTH_LINE_Y, "on_dimension_change", [0])
 	add_label_and_spinbox("height", "Height: ", HEIGHT_LINE_Y, "on_dimension_change", [1])
@@ -330,7 +322,7 @@ func update_ui():
 	# Set the container to the right size for the grid
 	var min_x = len(current_value[PuzzleClasses.CELLS]) * GRID_CELL_OFFSET
 	var min_y = 50 + GRID_Y + len(current_value[PuzzleClasses.CELLS][0]) * GRID_CELL_OFFSET
-	container.custom_minimum_size = Vector2(max(400, min_x), max(400, min_y))
+	editor_items.custom_minimum_size = Vector2(max(400, min_x), max(400, min_y))
 
 # Whether the call to _update_property is the first call
 # Determines whether update_ui is called
