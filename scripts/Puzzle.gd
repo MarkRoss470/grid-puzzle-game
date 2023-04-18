@@ -12,6 +12,9 @@ represents the puzzle - sets which icons go in which cells
 	target_rotation, # The target rotation of the key cell
 ]
 """
+
+@export_group("Puzzle")
+
 @export var puzzle: Array
 # Whether the states between the start and end states need to be valid
 @export var check_intermediate: bool

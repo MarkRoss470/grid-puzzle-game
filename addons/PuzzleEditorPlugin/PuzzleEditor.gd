@@ -4,16 +4,9 @@ extends EditorProperty
 var container := Panel.new()
 # Container for all editor elements
 var editor_items := Control.new()
-# Button to expand / retract the puzzle editor
-var expand_button := Button.new()
-
-# Whether the editor elements have been initialised
-var initialised := false
-# Whether the editor is currently expanded
-var expanded := false
 
 # The current puzzle value
-var current_value := PuzzleClasses.get_default()
+var current_value := []
 
 # The currently selected icon group
 var current_icon_group := 0
@@ -26,21 +19,12 @@ var current_rotation := 0
 
 # Called when a new node is selected - initialisation of UI
 func _init():
-	# Set up the +/- button
-	expand_button.set_anchor(SIDE_RIGHT, 1)
-	expand_button.text = "+"
-	expand_button.connect("pressed", Callable(self, "on_expand_button_pressed"))
-	
-	container.add_child(expand_button)
 	container.add_child(editor_items)
-	# Set the minumum size of the container to properly layout other components
-	container.custom_minimum_size = Vector2(400, 50)
-	
 	# Set container as the root node
 	add_child(container)
 
 # Contants for UI layout
-const WIDTH_LINE_Y := 10
+const WIDTH_LINE_Y := 0
 const HEIGHT_LINE_Y := WIDTH_LINE_Y + 55
 
 const KEY_X_Y := HEIGHT_LINE_Y + 55
@@ -83,8 +67,6 @@ func add_label_and_spinbox(name: String, label_text: String, y: float, callback:
 	# Create spinbox
 	var input := SpinBox.new()
 	input.name = name + "_input"
-	input.set_anchor(SIDE_LEFT, 1)
-	input.set_anchor(SIDE_RIGHT, 1)
 	input.set_position(Vector2(250, y))
 	input.connect("value_changed", Callable(self, callback).bindv(callback_args))
 	editor_items.add_child(input)
@@ -112,8 +94,6 @@ func create_colour_rect(name: String, colour: Color, width: int, height: int, x:
 # Sets up editor elements
 # Only called when the + button is pressed, not at startup.
 func init_editor():
-	initialised = true
-
 	#reset_state()
 	
 	editor_items.set_anchor(SIDE_LEFT, 0)
@@ -306,7 +286,7 @@ func populate_grid():
 	editor_items.add_child(grid)
 
 # Callback of width and height selectors
-func on_dimension_change(value: float, dimension: int):	
+func on_dimension_change(value: float, dimension: int):
 	if current_value[dimension] != value:
 		current_value[dimension] = value
 		# Make sure the arrays in current_value are the right dimensions
@@ -314,26 +294,6 @@ func on_dimension_change(value: float, dimension: int):
 		update_ui()
 		# Save new state
 		emit_changed("puzzle", current_value)
-
-# Callback of +/- button
-func on_expand_button_pressed():
-	# If open, close
-	if expanded:
-		# Hide editor items
-		editor_items.hide()
-		# Make container small to shift other proprty editors back up
-		container.custom_minimum_size = Vector2(400, 50)
-		expand_button.text = "+"
-		expanded = false
-	# If closed, open
-	else:
-		# If first time opening, initialise the editor
-		if not initialised: init_editor()
-		editor_items.show()
-		# Load data
-		update_ui()
-		expand_button.text = "-"
-		expanded = true
 
 # Callback of rotate left/right buttons
 # Adds the argument to current_rotation
@@ -372,10 +332,14 @@ func update_ui():
 	var min_y = 50 + GRID_Y + len(current_value[PuzzleClasses.CELLS][0]) * GRID_CELL_OFFSET
 	container.custom_minimum_size = Vector2(max(400, min_x), max(400, min_y))
 
+# Whether the call to _update_property is the first call
+# Determines whether update_ui is called
+var first_update = true
+
 # Called whenever the value changes
 # Is not called when changed due to this script calling emit_changed()
 # Is called after initialisation of this script
-func _update_property():
+func _update_property():	
 	# Read the current value from the property.
 	var new_value = get_edited_object()["puzzle"]
 	
@@ -390,54 +354,46 @@ func _update_property():
 	
 	current_value = new_value
 	
-	if expanded:
-		update_ui()
+	if first_update:
+		init_editor()
+	
+	update_ui()
+	
+	first_update = false
 
 # Adds or removes elements from arrays in current_value to make them the right size
 func resize_arrays():
 	# Get the right width and height
-	var target_width_cells = current_value[PuzzleClasses.WIDTH]
-	var target_height_cells = current_value[PuzzleClasses.HEIGHT]
-	
-	# Edges have different dimensions than cells
-	var targets := [
-		[target_width_cells, target_height_cells], 
-	]
-	
-	var indices := [
-		PuzzleClasses.CELLS, 
-	]
-	
-	# Loop over indices
-	for j in len(indices):
-		# Get index into current_value
-		var i = indices[j]
-		# Get target width and height for this iteration
-		var target_width = targets[j][0]
-		var target_height = targets[j][1]
+	var target_width = current_value[PuzzleClasses.WIDTH]
+	var target_height = current_value[PuzzleClasses.HEIGHT]
 		
-		# Get current width
-		var current_width := len(current_value[i])
+	# Get current width
+	var cells: Array = current_value[PuzzleClasses.CELLS]
+	var current_width := len(cells)
+	
+	# If array too long, slice it
+	if current_width > target_width:
+		cells = cells.slice(0, target_width)
+	# If too short, pad with empty arrays
+	elif current_width < target_width:
+		for x in target_width - current_width:
+			cells.append([])
+	
+	# Loop through all columns and resize them
+	for x in target_width:
+		# Get current height of this column
+		var current_height := len(cells[x])
+		# If too long, slice it
+		if current_height > target_height:
+			cells[x] = cells[x].slice(0, target_height)
+		# If too short, pad with default cell
+		elif current_height < target_height:
+			for y in target_height - current_height:
+				cells[x].append(PuzzleClasses.get_default_cell())
 		
-		# If array too long, slice it
-		if current_width > target_width:
-			current_value[i] = current_value[i].slice(0, target_width - 1)
-		# If too short, pad with empty arrays
-		elif current_width < target_width:
-			for x in target_width - current_width:
-				current_value[i].append([])
-		
-		# Loop through all columns and resize them
-		for x in target_width:
-			# Get current height of this column
-			var current_height := len(current_value[i][x])
-			# If too long, slice it
-			if current_height > target_height:
-				current_value[i][x] = current_value[i][x].slice(0, target_height - 1)
-			# If too short, pad with default cell
-			elif current_height < target_height:
-				for y in target_height - current_height:
-					current_value[i][x].append(PuzzleClasses.get_default_cell())
+		var new_height := len(cells[x])
+	
+	current_value[PuzzleClasses.CELLS] = cells
 
 func update_icons():
 	if editor_items.has_node("icon_picker"):
