@@ -1,9 +1,15 @@
-[gd_scene load_steps=32 format=3 uid="uid://bfb4h625ijw6f"]
+[gd_scene load_steps=45 format=3 uid="uid://cm8astuwgvqxu"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/Puzzle.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard.glb" id="5"]
+[ext_resource type="Texture2D" uid="uid://jqe3h8eqg8ad" path="res://textures/Object Textures/Control Tutorials/WASD.png" id="5_dj8dl"]
+[ext_resource type="Texture2D" uid="uid://ibv2qcugcvm3" path="res://textures/Object Textures/Control Tutorials/mouse move.png" id="6_dsqpq"]
+[ext_resource type="Texture2D" uid="uid://dgmcj0hui5247" path="res://textures/Object Textures/Control Tutorials/left click.png" id="7_2hhf2"]
+[ext_resource type="Texture2D" uid="uid://d4khqglidoi2x" path="res://textures/Object Textures/Control Tutorials/space bar.png" id="8_njmtl"]
+[ext_resource type="Texture2D" uid="uid://df74abvsml4lp" path="res://textures/Object Textures/Control Tutorials/right click.png" id="9_m1euw"]
+[ext_resource type="Texture2D" uid="uid://dmjcrxvgl0y0q" path="res://textures/Object Textures/Control Tutorials/reset.png" id="10_18o3s"]
 
 [sub_resource type="CapsuleShape3D" id="4"]
 height = 1.5
@@ -16,6 +22,8 @@ default_value_enabled = true
 
 [sub_resource type="VisualShader" id="14"]
 code = "shader_type spatial;
+render_mode cull_disabled;
+
 uniform vec4 main_colour : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
 
 
@@ -31,7 +39,8 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-462.207, -24.1574)
+graph_offset = Vector2(-203.836, 4.69254)
+modes/cull = 2
 nodes/fragment/3/node = SubResource("18")
 nodes/fragment/3/position = Vector2(-440, 120)
 nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0)
@@ -86,7 +95,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-258.408, -112.247)
+graph_offset = Vector2(-359.894, -88.6783)
 nodes/fragment/0/position = Vector2(760, 80)
 nodes/fragment/3/node = SubResource("19")
 nodes/fragment/3/position = Vector2(-1100, 260)
@@ -142,6 +151,38 @@ size = Vector3(20, 0.001, 20)
 [sub_resource type="BoxShape3D" id="47"]
 size = Vector3(5, 2, 5)
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_a654v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i7apb"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("5_dj8dl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2k6b0"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("6_dsqpq")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7n4st"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("8_njmtl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3akgm"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("7_2hhf2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kosb"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("9_m1euw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7amc5"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("10_18o3s")
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8xkuk"]
 
 [sub_resource type="Sky" id="Sky_ryqrm"]
@@ -162,6 +203,7 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1")
 max_fall_speed = 1.0
+mouse_sensitivity = 0.005
 camera = NodePath("PlayerCamera")
 
 [node name="PlayerCapsule" type="CollisionShape3D" parent="Player"]
@@ -356,6 +398,38 @@ puzzle = [7.0, 5.0, 3.0, 2.0, 1.0, [[[7, 6, 2], [1, 0, 3], [4, 0, 1], [7, 1, 2],
 check_intermediate = true
 instance = NodePath("../../../../Tile")
 load_on_start = false
+
+[node name="Control Tutorials" type="Node3D" parent="Courtyard"]
+
+[node name="WASD" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, -1.1, 0.8, 0)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_i7apb")
+
+[node name="Mouse Move" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0.9, 0.8, 0)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_2k6b0")
+
+[node name="Space Bar" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
+transform = Transform3D(-2.18557e-08, -0.5, 2.18557e-08, 0, -2.18557e-08, -0.5, 0.5, -2.18557e-08, 9.55343e-16, 9.5, 2, -9)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_7n4st")
+
+[node name="Left Click" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
+transform = Transform3D(-2.18557e-08, -0.5, 2.18557e-08, 0, -2.18557e-08, -0.5, 0.5, -2.18557e-08, 9.55343e-16, 9.5, 2, -7)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_3akgm")
+
+[node name="Right Click" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
+transform = Transform3D(-0.5, 4.37114e-08, -1.91069e-15, 0, -2.18557e-08, -0.5, -4.37114e-08, -0.5, 2.18557e-08, -5.5, 2, 9.5)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_0kosb")
+
+[node name="Reset" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
+transform = Transform3D(-0.5, 4.37114e-08, -1.91069e-15, 0, -2.18557e-08, -0.5, -4.37114e-08, -0.5, 2.18557e-08, 9, 2, 9.5)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_7amc5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_j8joh")
