@@ -83,7 +83,7 @@ func _ready():
 			current_state[x].append(puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ROTATION])
 	
 	# Load puzzles that should always be active
-	if load_on_start: load_solved()
+	if load_on_start: load_solved(0)
 
 func add_wipe(direction: int, timeout: float):
 	if len(wipes) != 0:
@@ -103,7 +103,7 @@ func add_wipe(direction: int, timeout: float):
 	wipes.append([direction, timeout])
 
 # Loads the puzzle with no animation
-func load_solved():
+func load_solved(_i: int):
 	# Loop over columns in puzzle
 	for x in puzzle[PuzzleClasses.WIDTH]:
 		# Loop over cells in column
