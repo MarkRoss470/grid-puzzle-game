@@ -20,14 +20,14 @@
      borderopacity="0.25"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
+     inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="true"
      showguides="true"
-     inkscape:zoom="0.72795124"
-     inkscape:cx="389.44916"
-     inkscape:cy="389.44916"
+     inkscape:zoom="2.7810332"
+     inkscape:cx="440.12419"
+     inkscape:cy="32.901441"
      inkscape:window-width="1536"
      inkscape:window-height="891"
      inkscape:window-x="0"
@@ -41,11 +41,11 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ffffff;stroke-width:0.127532;fill-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.146544"
        id="rect288"
        width="16"
-       height="103"
+       height="136"
        x="120"
-       y="33" />
+       y="-5.5511151e-17" />
   </g>
 </svg>
