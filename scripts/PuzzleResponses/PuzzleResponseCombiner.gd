@@ -14,7 +14,7 @@ func load_solved(i: int):
 	solved_prevs[i] = true
 	
 	# If all the inputs are true, call the target's load_solved
-	if solved_prevs.all(func(b): b):
+	if solved_prevs.all(func(b): return b):
 		target.load_solved(target_param)
 
 # Called on correct solution
