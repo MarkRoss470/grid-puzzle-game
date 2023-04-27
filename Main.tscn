@@ -1,10 +1,12 @@
-[gd_scene load_steps=45 format=3 uid="uid://cm8astuwgvqxu"]
+[gd_scene load_steps=46 format=3 uid="uid://cm8astuwgvqxu"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/Puzzle.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard.glb" id="5"]
 [ext_resource type="Texture2D" uid="uid://jqe3h8eqg8ad" path="res://textures/Object Textures/Control Tutorials/WASD.png" id="5_dj8dl"]
+[ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseSplitter.gd" id="5_t78nx"]
+[ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseCombiner.gd" id="6_4k3jo"]
 [ext_resource type="Texture2D" uid="uid://ibv2qcugcvm3" path="res://textures/Object Textures/Control Tutorials/mouse move.png" id="6_dsqpq"]
 [ext_resource type="Texture2D" uid="uid://dgmcj0hui5247" path="res://textures/Object Textures/Control Tutorials/left click.png" id="7_2hhf2"]
 [ext_resource type="Texture2D" uid="uid://d4khqglidoi2x" path="res://textures/Object Textures/Control Tutorials/space bar.png" id="8_njmtl"]
@@ -16,39 +18,7 @@ height = 1.5
 
 [sub_resource type="PlaneMesh" id="8"]
 
-[sub_resource type="VisualShaderNodeColorParameter" id="18"]
-parameter_name = "main_colour"
-default_value_enabled = true
-
-[sub_resource type="VisualShader" id="14"]
-code = "shader_type spatial;
-render_mode cull_disabled;
-
-uniform vec4 main_colour : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
-
-
-
-void fragment() {
-// ColorParameter:3
-	vec4 n_out3p0 = main_colour;
-
-
-// Output:0
-	ALBEDO = vec3(n_out3p0.xyz);
-
-
-}
-"
-graph_offset = Vector2(-203.836, 4.69254)
-modes/cull = 2
-nodes/fragment/3/node = SubResource("18")
-nodes/fragment/3/position = Vector2(-440, 120)
-nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="15"]
-render_priority = 0
-shader = SubResource("14")
-shader_parameter/main_colour = Color(1, 1, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ibgf7"]
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="19"]
 parameter_name = "icon_texture"
@@ -95,7 +65,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-359.894, -88.6783)
 nodes/fragment/0/position = Vector2(760, 80)
 nodes/fragment/3/node = SubResource("19")
 nodes/fragment/3/position = Vector2(-1100, 260)
@@ -123,6 +92,9 @@ size = Vector3(0.25, 4, 20)
 
 [sub_resource type="BoxShape3D" id="38"]
 size = Vector3(0.25, 4, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uvpya"]
+size = Vector3(5, 4, 0.2)
 
 [sub_resource type="BoxShape3D" id="41"]
 size = Vector3(0.5, 5, 0.5)
@@ -173,15 +145,15 @@ transparency = 1
 cull_mode = 2
 albedo_texture = ExtResource("7_2hhf2")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kosb"]
-transparency = 1
-cull_mode = 2
-albedo_texture = ExtResource("9_m1euw")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7amc5"]
 transparency = 1
 cull_mode = 2
 albedo_texture = ExtResource("10_18o3s")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kosb"]
+transparency = 1
+cull_mode = 2
+albedo_texture = ExtResource("9_m1euw")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8xkuk"]
 
@@ -196,6 +168,7 @@ ambient_light_color = Color(0.724643, 0.724643, 0.724643, 1)
 ambient_light_energy = 0.86
 
 [node name="Node3D" type="Node3D"]
+metadata/movie_file = "test"
 
 [node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
@@ -215,7 +188,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 current = true
 
 [node name="Tile" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0313179)
 visible = false
 script = ExtResource("3")
 backplane_path = NodePath("Backplane")
@@ -224,7 +196,7 @@ icon_path = NodePath("Icon")
 [node name="Backplane" type="CSGMesh3D" parent="Tile"]
 transform = Transform3D(-0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0)
 mesh = SubResource("8")
-material = SubResource("15")
+material = SubResource("StandardMaterial3D_ibgf7")
 
 [node name="Icon" type="CSGMesh3D" parent="Tile"]
 transform = Transform3D(0.5, -4.37114e-08, 4.37114e-08, 4.37114e-08, -2.18557e-08, -0.5, 4.37114e-08, 0.5, -2.18557e-08, -4.37114e-10, -2.18557e-10, 0.005)
@@ -250,12 +222,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 10)
 shape = SubResource("37")
 
 [node name="West" type="CollisionShape3D" parent="Courtyard/Collision/Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.1, 2, 0)
 shape = SubResource("39")
 
 [node name="East" type="CollisionShape3D" parent="Courtyard/Collision/Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.1, 2, 0)
 shape = SubResource("38")
+
+[node name="North-east" type="CollisionShape3D" parent="Courtyard/Collision/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, -10)
+shape = SubResource("BoxShape3D_uvpya")
+
+[node name="North-west" type="CollisionShape3D" parent="Courtyard/Collision/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2, -10)
+shape = SubResource("BoxShape3D_uvpya")
 
 [node name="Pillars" type="StaticBody3D" parent="Courtyard/Collision"]
 
@@ -303,139 +283,395 @@ puzzle = [7.0, 5.0, 3.0, 2.0, 1.0, [[[1, 0, 0], [1, 0, 3], [4, 0, 2], [1, 0, 1],
 check_intermediate = true
 instance = NodePath("../../Tile")
 
+[node name="WASD" type="CSGMesh3D" parent="Courtyard/Final Puzzle"]
+transform = Transform3D(2, 0, 0, 0, -8.74228e-08, -2, 0, 2, -8.74228e-08, -7.5, -2, 0)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_i7apb")
+
+[node name="Mouse Move" type="CSGMesh3D" parent="Courtyard/Final Puzzle"]
+transform = Transform3D(2, 0, 0, 0, -8.74228e-08, -2, 0, 2, -8.74228e-08, 12.5, -2, 0)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_2k6b0")
+
 [node name="Puzzles" type="Node3D" parent="Courtyard"]
 
 [node name="Tutorial" type="Node3D" parent="Courtyard/Puzzles"]
 
 [node name="Controls" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -8)
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 7.5, 3, -9.5)
 script = ExtResource("2")
 puzzle = [1.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
 instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Squares 1")
+on_complete = NodePath("../Squares Intro")
 
-[node name="Squares 1" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, -5)
+[node name="Space Bar Prompt" type="CSGMesh3D" parent="Courtyard/Puzzles/Tutorial/Controls"]
+transform = Transform3D(0.5, -1.99053e-20, -1.27061e-22, 0, -2.18557e-08, -0.5, 1.99053e-20, 0.5, -2.18557e-08, -1, -1, 0)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_7n4st")
+
+[node name="Left Click Prompt" type="CSGMesh3D" parent="Courtyard/Puzzles/Tutorial/Controls"]
+transform = Transform3D(0.5, -1.99053e-20, -1.27061e-22, 0, -2.18557e-08, -0.5, 1.99053e-20, 0.5, -2.18557e-08, 1, -1, 0)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_3akgm")
+
+[node name="Squares Intro" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 9.5, 3.5, -8.5)
+script = ExtResource("5_t78nx")
+target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right")])
+params = Array[int]([0, 0, 0, 0])
+
+[node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
 script = ExtResource("2")
-puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 1], [4, 0, 0], [7, 0, 1]], [[4, 0, 1], [6, 0, 1], [4, 0, 1]], [[7, 0, 1], [4, 0, 0], [7, 0, 1]]]]
-instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Squares 2")
+puzzle = [5.0, 2.0, 0, 0, 0, [[[7, 0, 0], [1, 0, 1]], [[4, 0, 1], [4, 0, 3]], [[1, 0, 0], [7, 0, 0]], [[4, 0, 1], [4, 0, 3]], [[7, 0, 0], [1, 0, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
 load_on_start = false
 
-[node name="Squares 2" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-2.62268e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.62268e-08, 9.5, 3.2, 0)
+[node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, -0.5, 0)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 0, 0, 0, [[[1, 0, 0], [4, 0, 0], [1, 0, 0]], [[7, 0, 0], [4, 0, 1], [7, 0, 0]], [[1, 0, 0], [4, 0, 2], [1, 0, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -3.5, 0)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]], [[4, 0, 1], [6, 0, 0], [4, 0, 1]], [[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -4.5, 0)
+script = ExtResource("2")
+puzzle = [5.0, 2.0, 0, 0, 0, [[[7, 0, 0], [1, 0, 1]], [[1, 0, 1], [3, 0, 1]], [[3, 0, 0], [3, 0, 2]], [[3, 0, 3], [1, 0, 0]], [[1, 0, 3], [7, 0, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 3
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("target")]
+script = ExtResource("6_4k3jo")
+num_inputs = 4
+target = NodePath("../../Squares Practice")
+
+[node name="Squares Practice" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 9.5, 3.5, -2.5)
+script = ExtResource("5_t78nx")
+target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Bottom Right"), NodePath("Top Right"), NodePath("Bottom Left")])
+params = Array[int]([0, 0, 0, 0])
+
+[node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(0.6, 0, 3.37508e-14, 0, 0.6, 0, -3.37508e-14, 0, 0.6, 0.3, -0.3, 0)
+script = ExtResource("2")
+puzzle = [5.0, 5.0, 0, 0, 0, [[[7, 0, 0], [1, 0, 0], [4, 0, 2], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [3, 0, 1], [5, 0, 2], [3, 0, 0], [1, 0, 0]], [[4, 0, 0], [5, 0, 1], [7, 0, 0], [5, 0, 3], [4, 0, 0]], [[1, 0, 0], [3, 0, 2], [5, 0, 0], [3, 0, 3], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+load_on_start = false
+
+[node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(0.6, 0, 6.21725e-14, 0, 0.6, 0, -6.21725e-14, 0, 0.6, 3.3, -3.3, 0)
 script = ExtResource("2")
 puzzle = [5.0, 5.0, 0, 0, 0, [[[1, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0], [3, 0, 3], [4, 0, 1]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [1, 0, 0]]]]
-colour_solved_key_hover = Color(0.301961, 0.301961, 0.85098, 1)
-instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Coloured squares 1")
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
 load_on_start = false
 
-[node name="Coloured squares 1" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3, 5)
+[node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(0.6, 0, 3.37508e-14, 0, 0.6, 0, -3.37508e-14, 0, 0.6, 3.9, -0.3, 0)
 script = ExtResource("2")
-puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 1], [7, 1, 0]], [[4, 0, 1], [4, 0, 2], [4, 0, 1]], [[7, 0, 0], [4, 0, 1], [7, 1, 0]]]]
-instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Coloured squares 2")
+puzzle = [4.0, 4.0, 0, 0, 0, [[[7, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 3]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [7, 0, 1]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
 load_on_start = false
 
-[node name="Coloured squares 2" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-0.75, 0, -6.55671e-08, 0, 0.75, 0, 6.55671e-08, 0, -0.75, 8, 3.125, 9.5)
+[node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(0.6, 0, 3.37508e-14, 0, 0.6, 0, -3.37508e-14, 0, 0.6, 0.3, -3.9, 0)
 script = ExtResource("2")
-puzzle = [5.0, 4.0, 0, 0, 0, [[[7, 1, 0], [4, 0, 0], [1, 0, 3], [7, 1, 2]], [[4, 0, 2], [3, 0, 0], [3, 0, 1], [4, 0, 2]], [[7, 0, 2], [5, 0, 3], [5, 0, 1], [7, 0, 0]], [[4, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2]], [[7, 1, 0], [1, 0, 3], [4, 0, 0], [7, 1, 2]]]]
-instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Coloured squares 3")
+puzzle = [4.0, 4.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 2], [4, 0, 2], [7, 0, 3]], [[4, 0, 1], [3, 0, 1], [3, 0, 0], [4, 0, 1]], [[4, 0, 1], [3, 0, 2], [3, 0, 3], [4, 0, 1]], [[7, 0, 3], [4, 0, 2], [4, 0, 2], [7, 0, 1]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 3
 load_on_start = false
 
-[node name="Coloured squares 3" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-0.6, 0, -5.24537e-08, 0, 0.6, 0, 5.24537e-08, 0, -0.6, 3, 3.2, 9.5)
+[node name="Combiner" type="Node" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("target")]
+script = ExtResource("6_4k3jo")
+num_inputs = 4
+target = NodePath("../../Squares Challenge 1")
+
+[node name="Squares Challenge 1" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 9.5, 3.25, 1.75)
 script = ExtResource("2")
-puzzle = [5.0, 5.0, 0, 0, 0, [[[1, 0, 0], [4, 0, 0], [7, 1, 0], [4, 0, 0], [7, 0, 0]], [[4, 0, 2], [3, 0, 1], [4, 0, 0], [3, 0, 0], [4, 0, 0]], [[1, 1, 0], [4, 0, 2], [7, 0, 0], [4, 0, 0], [1, 1, 0]], [[4, 0, 2], [3, 0, 2], [4, 0, 0], [3, 0, 3], [4, 0, 0]], [[7, 0, 0], [4, 0, 0], [7, 1, 0], [4, 0, 0], [1, 0, 0]]]]
+puzzle = [6.0, 6.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 1], [3, 0, 0], [4, 0, 3], [3, 0, 1], [7, 0, 2]], [[3, 0, 0], [3, 0, 2], [3, 0, 3], [4, 0, 3], [3, 0, 2], [1, 0, 1]], [[3, 0, 3], [1, 0, 1], [3, 0, 1], [4, 0, 3], [4, 0, 0], [4, 0, 0]], [[4, 0, 0], [4, 0, 0], [4, 0, 3], [3, 0, 3], [1, 0, 3], [3, 0, 1]], [[1, 0, 3], [3, 0, 0], [4, 0, 3], [3, 0, 1], [3, 0, 0], [3, 0, 2]], [[7, 0, 2], [3, 0, 3], [4, 0, 3], [3, 0, 2], [4, 0, 1], [7, 0, 2]]]]
 instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Key puzzles 1")
+on_complete = NodePath("../Squares Challenge 2")
 load_on_start = false
 
-[node name="Key puzzles 1" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2, 3, 9.5)
+[node name="Reset" type="CSGMesh3D" parent="Courtyard/Puzzles/Tutorial"]
+transform = Transform3D(-2.18557e-08, -0.5, 2.18557e-08, 0, -2.18557e-08, -0.5, 0.5, -2.18557e-08, 9.55347e-16, 9.5, 2, 5)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_7amc5")
+
+[node name="Squares Challenge 2" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.87522e-08, 0, -0.429, 0, 0.429, 0, 0.429, 0, -1.87522e-08, 9.5, 3.286, 5.714)
+script = ExtResource("2")
+puzzle = [7.0, 7.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0], [1, 0, 0], [4, 0, 0], [7, 0, 0]], [[3, 0, 1], [3, 0, 0], [3, 0, 1], [4, 0, 0], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2], [3, 0, 3], [3, 0, 2], [3, 0, 3]], [[4, 0, 2], [5, 0, 3], [1, 0, 0], [7, 0, 0], [1, 0, 0], [5, 0, 1], [4, 0, 2]], [[3, 0, 1], [3, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 0], [3, 0, 3], [3, 0, 2], [3, 0, 3]], [[7, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0], [1, 0, 0], [4, 0, 0], [7, 0, 0]]]]
+instance = NodePath("../../../../Tile")
+on_complete = NodePath("../Coloured Squares Intro")
+load_on_start = false
+
+[node name="Coloured Squares Intro" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+transform = Transform3D(-0.429, 0, 3.75044e-08, 0, 0.429, 0, -3.75044e-08, 0, -0.429, 8.5, 3.5, 9.5)
+script = ExtResource("5_t78nx")
+target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Bottom Left"), NodePath("Bottom Right"), NodePath("Top Right")])
+params = Array[int]([0, 0, 0, 0])
+
+[node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.5, -0.5, 0)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [3, 0, 2], [3, 0, 3]], [[7, 1, 1], [4, 0, 1], [7, 1, 1]], [[3, 0, 1], [3, 0, 0], [7, 0, 1]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Node")
+load_on_start = false
+
+[node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4.5, -0.5, 0)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 3], [7, 1, 1]], [[4, 0, 3], [4, 0, 2], [4, 0, 3]], [[7, 0, 1], [4, 0, 3], [7, 1, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Node")
+on_complete_param = 3
+load_on_start = false
+
+[node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0.5, -4.5, 0)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 2], [7, 0, 0]], [[4, 0, 1], [5, 0, 1], [4, 0, 1]], [[7, 0, 0], [4, 0, 2], [7, 1, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Node")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, 4.5, -4.5, 0)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [7, 6, 0], [7, 1, 0]], [[4, 0, 1], [4, 0, 1], [4, 0, 1]], [[7, 0, 0], [7, 6, 0], [7, 1, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Node")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Node" type="Node" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("target")]
+script = ExtResource("6_4k3jo")
+num_inputs = 4
+target = NodePath("../../Coloured Squares Practice")
+
+[node name="Coloured Squares Practice" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+transform = Transform3D(-0.5, 0, 1.49012e-08, 0, 0.5, 0, -1.49012e-08, 0, -0.5, 4.5, 3.5, 9.5)
+script = ExtResource("5_t78nx")
+target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right")])
+params = Array[int]([0, 0, 0, 0])
+
+[node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.3, -0.3, 0)
+script = ExtResource("2")
+puzzle = [5.0, 4.0, 0, 0, 0, [[[7, 1, 0], [4, 0, 0], [1, 0, 3], [7, 1, 2]], [[4, 0, 2], [3, 0, 0], [3, 0, 1], [4, 0, 2]], [[7, 0, 2], [5, 0, 3], [5, 0, 1], [7, 0, 2]], [[4, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2]], [[7, 1, 0], [1, 0, 3], [4, 0, 2], [7, 1, 2]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+load_on_start = false
+
+[node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 3.9, -0.3, 0)
+script = ExtResource("2")
+puzzle = [4.0, 4.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 3], [3, 0, 2], [4, 0, 2]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [7, 1, 2]], [[1, 0, 3], [3, 0, 2], [3, 0, 3], [7, 0, 2]], [[7, 1, 2], [4, 0, 3], [3, 0, 1], [4, 0, 2]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.3, -3.45, 0)
+script = ExtResource("2")
+puzzle = [5.0, 5.0, 0, 0, 0, [[[7, 0, 0], [3, 0, 2], [4, 0, 2], [4, 0, 2], [3, 0, 3]], [[4, 0, 0], [3, 0, 0], [7, 1, 0], [3, 0, 1], [3, 0, 0]], [[1, 0, 0], [4, 0, 1], [7, 6, 0], [4, 0, 1], [7, 6, 0]], [[4, 0, 2], [3, 0, 3], [7, 0, 0], [3, 0, 2], [3, 0, 3]], [[7, 1, 0], [3, 0, 1], [4, 0, 2], [4, 0, 2], [3, 0, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 3.9, -3.45, 0)
+script = ExtResource("2")
+puzzle = [4.0, 5.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 2], [7, 1, 2], [7, 0, 0], [3, 0, 0]], [[4, 0, 1], [3, 0, 1], [3, 0, 0], [4, 0, 2], [3, 0, 3]], [[3, 0, 1], [4, 0, 2], [3, 0, 2], [3, 0, 3], [4, 0, 1]], [[3, 0, 2], [7, 1, 0], [7, 0, 2], [4, 0, 2], [7, 1, 0]]]]
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 3
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("target")]
+script = ExtResource("6_4k3jo")
+num_inputs = 4
+target = NodePath("../../Coloured Squares Challenge")
+
+[node name="Coloured Squares Challenge" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, -1.8, 3.2, 9.5)
+script = ExtResource("2")
+puzzle = [5.0, 5.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 1], [7, 1, 0], [4, 0, 1], [7, 6, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 1], [1, 0, 1], [4, 0, 2], [1, 0, 1], [3, 0, 3]], [[3, 0, 3], [3, 0, 1], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[7, 0, 0], [4, 0, 1], [7, 1, 0], [4, 0, 1], [7, 6, 0]]]]
+instance = NodePath("../../../../Tile")
+on_complete = NodePath("../Key Puzzles Intro")
+
+[node name="Key Puzzles Intro" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+transform = Transform3D(-0.375, 0, -5.66234e-08, 0, 0.375, 0, 5.66234e-08, 0, -0.375, -5.5, 3.5, 9.5)
+script = ExtResource("5_t78nx")
+target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right")])
+params = Array[int]([0, 0, 0, 0])
+
+[node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
 script = ExtResource("2")
 puzzle = [3.0, 3.0, 1.0, 1.0, 1.0, [[[1, 0, 0], [1, 0, 0], [1, 0, 0]], [[1, 0, 0], [2, 0, 0], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
 check_intermediate = true
-instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Key puzzles 2")
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
 load_on_start = false
 
-[node name="Key puzzles 2" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -6.5, 3, 9.5)
+[node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 5.5, -0.5, 1.90735e-05)
 script = ExtResource("2")
-puzzle = [3.0, 3.0, 1.0, 2.0, 1.0, [[[1, 0, 0], [1, 0, 3], [1, 0, 0]], [[4, 0, 2], [3, 0, 1], [4, 0, 0]], [[7, 0, 2], [4, 0, 1], [7, 0, 2]]]]
+puzzle = [3.0, 2.0, 0.0, 1.0, 2.0, [[[7, 0, 1], [4, 0, 1]], [[4, 0, 0], [3, 0, 3]], [[7, 0, 0], [4, 0, 3]]]]
+check_intermediate = true
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -5.5, 0)
+script = ExtResource("2")
+puzzle = [2.0, 3.0, 1.0, 0.0, 1.0, [[[7, 0, 0], [4, 0, 3], [7, 0, 0]], [[4, 0, 0], [3, 0, 3], [4, 0, 2]]]]
+check_intermediate = true
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -5.5, 4.19617e-05)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 1.0, 1.0, 1.0, [[[7, 0, 0], [4, 0, 2], [1, 0, 0]], [[4, 0, 0], [4, 0, 0], [4, 0, 0]], [[1, 0, 3], [4, 0, 2], [7, 0, 0]]]]
+check_intermediate = true
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 3
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("target")]
+script = ExtResource("6_4k3jo")
+num_inputs = 4
+target = NodePath("../../Key Puzzles Practice")
+
+[node name="Right Click Prompt" type="CSGMesh3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro"]
+transform = Transform3D(1, -1.74846e-07, 7.64275e-15, 0, -4.37114e-08, -1, 1.74846e-07, 1, -4.37114e-08, 4, -4, 0)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_0kosb")
+
+[node name="Key Puzzles Practice" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+transform = Transform3D(-1.45559e-08, 0, 0.333, 0, 0.333, 0, -0.333, 0, -1.45559e-08, -9.5, 3.5, 8.5)
+script = ExtResource("5_t78nx")
+target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Bottom Left"), NodePath("Top Right"), NodePath("Bottom Right")])
+params = Array[int]([0, 0, 0, 0])
+
+[node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
+script = ExtResource("2")
+puzzle = [5.0, 3.0, 2.0, 1.0, 1.0, [[[7, 0, 0], [1, 0, 1], [1, 0, 1]], [[4, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 1], [4, 0, 0], [3, 0, 3]], [[3, 0, 3], [3, 0, 1], [4, 0, 0]], [[1, 0, 1], [1, 0, 1], [7, 0, 1]]]]
+check_intermediate = true
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+load_on_start = false
+
+[node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -4.5, 0)
+script = ExtResource("2")
+puzzle = [5.0, 5.0, 2.0, 2.0, 1.0, [[[7, 0, 0], [4, 0, 1], [7, 0, 0], [3, 0, 1], [3, 0, 0]], [[1, 0, 2], [5, 0, 3], [3, 0, 0], [3, 0, 2], [3, 0, 3]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [5, 0, 0], [4, 0, 0]], [[3, 0, 1], [3, 0, 0], [3, 0, 2], [5, 0, 1], [1, 0, 0]], [[3, 0, 2], [3, 0, 3], [7, 0, 0], [4, 0, 1], [7, 0, 0]]]]
+check_intermediate = true
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.5, 0)
+script = ExtResource("2")
+puzzle = [3.0, 3.0, 2.0, 0.0, 2.0, [[[7, 0, 0], [3, 0, 1], [4, 0, 2]], [[3, 0, 1], [5, 0, 2], [3, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0]]]]
+check_intermediate = true
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.50001, -4.5, 0)
+script = ExtResource("2")
+puzzle = [3.0, 5.0, 1.0, 2.0, 1.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 2], [3, 0, 3], [7, 0, 0]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 0], [3, 0, 1]], [[7, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 3], [3, 0, 2]]]]
+check_intermediate = true
+instance = NodePath("../../../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 3
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("target")]
+script = ExtResource("6_4k3jo")
+num_inputs = 4
+target = NodePath("../../Key Puzzles Challenge 1")
+
+[node name="Key Puzzles Challenge 1" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.49999, 3.2, 4.2)
+script = ExtResource("2")
+puzzle = [3.0, 5.0, 0.0, 1.0, 2.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 2], [3, 0, 3], [7, 0, 0]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 0], [3, 0, 1]], [[7, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 3], [3, 0, 2]]]]
 check_intermediate = true
 instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Key puzzles 3")
+on_complete = NodePath("../Key Puzzles Challenge 2")
 load_on_start = false
 
-[node name="Key puzzles 3" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9.5, 3, 8)
-script = ExtResource("2")
-puzzle = [4.0, 3.0, 2.0, 2.0, 2.0, [[[7, 0, 0], [1, 0, 0], [1, 0, 0]], [[4, 0, 0], [4, 0, 0], [3, 0, 0]], [[4, 0, 3], [4, 0, 3], [4, 0, 1]], [[7, 0, 3], [1, 0, 1], [4, 0, 1]]]]
-check_intermediate = true
-instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Key puzzles 4")
-load_on_start = false
-
-[node name="Key puzzles 4" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
-transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.5, 3.2, 1.5)
+[node name="Key Puzzles Challenge 2" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.5, 3.2, 1.4)
 script = ExtResource("2")
 puzzle = [5.0, 5.0, 2.0, 2.0, 2.0, [[[7, 0, 0], [4, 0, 1], [7, 0, 0], [4, 0, 1], [7, 0, 0]], [[3, 0, 0], [3, 0, 2], [5, 0, 0], [3, 0, 3], [3, 0, 1]], [[4, 0, 1], [1, 0, 0], [4, 0, 1], [1, 0, 0], [4, 0, 1]], [[3, 0, 2], [4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 3]], [[1, 0, 3], [3, 0, 1], [4, 0, 2], [3, 0, 0], [1, 0, 3]]]]
 check_intermediate = true
 instance = NodePath("../../../../Tile")
-on_complete = NodePath("../Key puzzles 5")
+on_complete = NodePath("../Key Puzzles Challenge 3")
 load_on_start = false
 
-[node name="Key puzzles 5" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance")]
-transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.5, 3.2, -4)
+[node name="Key Puzzles Challenge 3" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.87522e-08, 0, 0.429, 0, 0.429, 0, -0.429, 0, -1.87522e-08, -9.5, 3.286, -2.514)
 script = ExtResource("2")
-puzzle = [7.0, 5.0, 3.0, 2.0, 1.0, [[[7, 6, 2], [1, 0, 3], [4, 0, 1], [7, 1, 2], [1, 0, 2]], [[1, 0, 2], [3, 0, 1], [5, 0, 2], [3, 0, 0], [1, 0, 0]], [[1, 0, 0], [4, 0, 1], [7, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 0], [5, 0, 1], [4, 0, 0], [5, 0, 3], [3, 0, 2]], [[3, 0, 3], [3, 0, 2], [7, 1, 2], [4, 0, 3], [1, 0, 2]], [[1, 0, 0], [3, 0, 2], [5, 0, 0], [3, 0, 3], [1, 0, 0]], [[1, 0, 2], [7, 0, 2], [4, 0, 3], [1, 0, 0], [7, 6, 2]]]]
+puzzle = [5.0, 7.0, 2.0, 3.0, 0.0, [[[7, 6, 2], [1, 0, 3], [1, 0, 1], [3, 0, 2], [3, 0, 0], [1, 0, 0], [7, 0, 3]], [[1, 0, 2], [3, 0, 1], [4, 0, 0], [5, 0, 0], [3, 0, 2], [3, 0, 0], [1, 0, 0]], [[4, 0, 0], [5, 0, 3], [7, 0, 2], [4, 0, 3], [7, 1, 0], [5, 0, 1], [4, 0, 0]], [[1, 0, 2], [3, 0, 2], [3, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 3], [1, 0, 0]], [[7, 1, 3], [1, 0, 0], [3, 0, 2], [3, 0, 0], [1, 0, 2], [1, 0, 0], [7, 6, 0]]]]
+check_intermediate = true
+instance = NodePath("../../../../Tile")
+on_complete = NodePath("../Key Puzzles Challenge 4")
+load_on_start = false
+
+[node name="Key Puzzles Challenge 4" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance")]
+transform = Transform3D(-1.87522e-08, 0, 0.429, 0, 0.429, 0, -0.429, 0, -1.87522e-08, -9.5, 3.286, -5.714)
+script = ExtResource("2")
+puzzle = [7.0, 7.0, 4.0, 3.0, 0.0, [[[7, 0, 0], [4, 0, 3], [1, 0, 0], [7, 1, 0], [1, 0, 0], [4, 0, 3], [7, 0, 3]], [[3, 0, 0], [3, 0, 2], [4, 0, 2], [5, 0, 0], [4, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 3], [3, 0, 1], [4, 0, 2], [5, 0, 2], [4, 0, 2], [3, 0, 0], [3, 0, 2]], [[3, 0, 3], [5, 0, 3], [7, 0, 0], [4, 0, 3], [7, 1, 3], [4, 0, 3], [1, 0, 2]], [[1, 0, 3], [5, 0, 1], [4, 0, 2], [5, 0, 2], [4, 0, 2], [5, 0, 3], [1, 0, 3]], [[1, 0, 0], [4, 0, 3], [7, 1, 3], [4, 0, 3], [7, 0, 0], [4, 0, 3], [1, 0, 0]], [[1, 0, 0], [3, 0, 2], [4, 0, 2], [5, 0, 0], [4, 0, 2], [3, 0, 3], [1, 0, 0]]]]
 check_intermediate = true
 instance = NodePath("../../../../Tile")
 load_on_start = false
-
-[node name="Control Tutorials" type="Node3D" parent="Courtyard"]
-
-[node name="WASD" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
-transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, -1.1, 0.8, 0)
-mesh = SubResource("PlaneMesh_a654v")
-material = SubResource("StandardMaterial3D_i7apb")
-
-[node name="Mouse Move" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
-transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 0.9, 0.8, 0)
-mesh = SubResource("PlaneMesh_a654v")
-material = SubResource("StandardMaterial3D_2k6b0")
-
-[node name="Space Bar" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
-transform = Transform3D(-2.18557e-08, -0.5, 2.18557e-08, 0, -2.18557e-08, -0.5, 0.5, -2.18557e-08, 9.55343e-16, 9.5, 2, -9)
-mesh = SubResource("PlaneMesh_a654v")
-material = SubResource("StandardMaterial3D_7n4st")
-
-[node name="Left Click" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
-transform = Transform3D(-2.18557e-08, -0.5, 2.18557e-08, 0, -2.18557e-08, -0.5, 0.5, -2.18557e-08, 9.55343e-16, 9.5, 2, -7)
-mesh = SubResource("PlaneMesh_a654v")
-material = SubResource("StandardMaterial3D_3akgm")
-
-[node name="Right Click" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
-transform = Transform3D(-0.5, 4.37114e-08, -1.91069e-15, 0, -2.18557e-08, -0.5, -4.37114e-08, -0.5, 2.18557e-08, -5.5, 2, 9.5)
-mesh = SubResource("PlaneMesh_a654v")
-material = SubResource("StandardMaterial3D_0kosb")
-
-[node name="Reset" type="CSGMesh3D" parent="Courtyard/Control Tutorials"]
-transform = Transform3D(-0.5, 4.37114e-08, -1.91069e-15, 0, -2.18557e-08, -0.5, -4.37114e-08, -0.5, 2.18557e-08, 9, 2, 9.5)
-mesh = SubResource("PlaneMesh_a654v")
-material = SubResource("StandardMaterial3D_7amc5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_j8joh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -0.765146, 0.643857, 0, -0.643857, -0.765146, 0, 7.22089, -12.8683)
+shadow_enabled = true
 
 [connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
