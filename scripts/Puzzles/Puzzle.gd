@@ -1,6 +1,4 @@
-@icon("res://textures/UI/puzzle icon.svg")
 extends Node3D
-
 class_name Puzzle
 
 """
@@ -12,12 +10,24 @@ represents the puzzle - sets which icons go in which cells
 	target_rotation, # The target rotation of the key cell
 ]
 """
-
 @export_group("Puzzle")
 
 @export var puzzle: Array
-# Whether the states between the start and end states need to be valid
-@export var check_intermediate: bool
+
+@export_group("")
+# What object to instance as a tile
+@export var instance: PuzzleTile
+# What object to call the on_puzzle_solve method of when the puzle is solved
+@export var on_complete: Node
+# What parameter to pass to on_puzzle_solve
+@export var on_complete_param: int
+# Whether to load the puzzle immediately on startup
+@export var load_on_start: bool = true
+
+# How long each tile's animation should take
+@export var tile_animation_time := 0.5
+# The offset between tiles' animations
+@export var tile_animation_offset := 0.1
 
 @export_group("Colours")
 
@@ -42,21 +52,6 @@ represents the puzzle - sets which icons go in which cells
 @export var colour_solved_key: Color = Color(0.15, 0.1, 0.9)
 @export var colour_solved_key_hover: Color = Color(0.3, 0.30, 0.85)
 
-@export_group("")
-
-# What object to instance as a tile
-@export var instance: PuzzleTile
-# What object to call the on_puzzle_solve method of when the puzle is solved
-@export var on_complete: Node
-# What parameter to pass to on_puzzle_solve
-@export var on_complete_param: int
-# Whether to load the puzzle immediately on startup
-@export var load_on_start: bool = true
-
-# How long each tile's animation should take
-@export var tile_animation_time := 0.5
-# The offset between tiles' animations
-@export var tile_animation_offset := 0.1
 
 # An array of all the tile load / unloads occuring
 # Each item is of the format [direction, progress] 
@@ -102,6 +97,17 @@ func add_wipe(direction: int, timeout: float):
 		
 	wipes.append([direction, timeout])
 
+# Loads the puzzle with animation
+func load_puzzle():
+	add_wipe(1, 0)
+	
+	if is_solved:
+		solve_puzzle()
+
+# Unloads the puzzle with animation
+func unload_puzzle():
+	add_wipe(-1, 0)
+
 # Loads the puzzle with no animation
 func load_solved(_i: int):
 	# Loop over columns in puzzle
@@ -120,6 +126,40 @@ func load_solved(_i: int):
 			# Add tile to scene tree
 			add_child(tile)
 	reset_tile_colours()
+
+# Called by a cell when it is clicked
+# direction = 1 -> clockwise
+# direction = -1 -> anti-clockwise
+func rotate_cell(x: int, y: int, direction: int):
+	# Update cell's rotation based on the direction
+	# Add extra 4 to get around behaviour of % operator for negative numbers
+	current_state[x][y] += (4 + direction)
+	# Wrap around to 0 if reaches 4
+	current_state[x][y] %= 4
+	
+	# Physically rotate this cell
+	tiles[x][y].icon.rotate(Vector3.FORWARD, direction * PI / 2)
+
+# Sets is_solved to true and calls the next puzzle's on_puzzle_solve callback
+func solve_puzzle():
+	is_solved = true
+	
+	# This will use the solved colours because is_solved is true
+	reset_tile_colours()
+	
+	# Call puzzle solve callback
+	if on_complete != null:
+		on_complete.on_puzzle_solve(on_complete_param)
+
+func unsolve_puzzle():
+	is_solved = false
+	
+	# This will use the unsolved colours because is_solved is false
+	reset_tile_colours()
+	
+	# Call puzzle solve callback
+	if on_complete != null:
+		on_complete.on_puzzle_unsolve(on_complete_param)
 
 # Resets the puzzle
 func reset():
@@ -142,17 +182,6 @@ func reset():
 	
 	add_wipe(-1, 0)
 	add_wipe(1, -tile_animation_time)
-
-# Loads the puzzle with animation
-func load_puzzle():
-	add_wipe(1, 0)
-	
-	if is_solved:
-		solve_puzzle()
-
-# Unloads the puzzle with animation
-func unload_puzzle():
-	add_wipe(-1, 0)
 
 # Creates a new puzzle cell object
 func create_tile(x: int, y: int, cell) -> PuzzleTile:
@@ -195,71 +224,18 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	
 	return node
 
-# Called by a cell when it is clicked
-# direction = 1 -> clockwise
-# direction = -1 -> anti-clockwise
-func rotate_cell(x: int, y: int, direction: int):
-	# Save the cell's current rotation to reset it if the move is invalid
-	var prev_rotation = current_state[x][y]
+# Set all the cells to their base colour
+# Stops a puzzle from looking solved when it's not
+func reset_tile_colours():
 	
-	# Update cell's rotation based on the direction
-	current_state[x][y] += (4 + direction)
-	# Wrap around to 0 if reaches 4
-	current_state[x][y] %= 4
-	
-	# Check whether the solution is valid
-	var solution := SolutionChecker.check_solution(puzzle, current_state)
-	
-	
-	
-	# If intermediate states must be valid, block the move if they aren't 
-	if check_intermediate:
-		if not solution.is_valid:
-			reset_tile_colours()
-			# Set cells to colour on incorrect solution
-			for cell in solution.wrong_cells:
-				if check_intermediate and cell == [puzzle[PuzzleClasses.KEY_X], puzzle[PuzzleClasses.KEY_Y]]:
-					tiles[cell[0]][cell[1]].set_colour(colour_incorrect_key, colour_incorrect_key_hover)
+	# Reset the cells to the base colour
+	for column in tiles:
+		for tile in column:
+			if tile != null:
+				if is_solved:
+					tile.set_colour(colour_solved_base, colour_solved_hover)
 				else:
-					tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
-			
-			current_state[x][y] = prev_rotation
-			
-			return
-		
-		# Check whether the key cell is in the right rotation
-		var key_x = puzzle[PuzzleClasses.KEY_X]
-		var key_y = puzzle[PuzzleClasses.KEY_Y]
-		var key_rotation = current_state[key_x][key_y]
-		var target_rotation = puzzle[PuzzleClasses.KEY_TARGET_ROTATION]
-		
-		is_solved = key_rotation == target_rotation
-	# If intermediate states don't need to be valid, then any valid state is a solution
-	else:
-		is_solved = solution.is_valid
-	
-	# Physically rotate this cell
-	tiles[x][y].icon.rotate(Vector3.FORWARD, direction * PI / 2)
-	
-	reset_tile_colours()
-	
-	if is_solved:
-		solve_puzzle()
-	else:
-		# Call puzzle unsolve callback
-		if on_complete != null:
-			on_complete.on_puzzle_unsolve(on_complete_param)
-
-# Sets is_solved to true and calls the next puzzle's on_puzzle_solve callback
-func solve_puzzle():
-	is_solved = true
-	
-	# This will use the solved colours because is_solved is true
-	reset_tile_colours()
-	
-	# Call puzzle solve callback
-	if on_complete != null:
-		on_complete.on_puzzle_solve(on_complete_param)
+					tile.set_colour(colour_base, colour_hover)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # Handles the puzzle's load and unload animations
@@ -346,6 +322,7 @@ func _process(delta):
 	if len(wipes) > 0:
 		reset_tile_colours()
 
+
 # Callbacks for if this object is used as a PuzzleResponse
 func on_puzzle_solve(_i: int):
 	load_puzzle()
@@ -354,25 +331,3 @@ func on_puzzle_unsolve(_i: int):
 	if on_complete != null:
 		on_complete.on_puzzle_unsolve(on_complete_param)
 	unload_puzzle()
-
-# Set all the cells to their base colour
-# Stops a puzzle from looking solved when it's not
-func reset_tile_colours():
-	# Initialise the cells to the base colour
-	for column in tiles:
-		for tile in column:
-			if tile != null:
-				if is_solved:
-					tile.set_colour(colour_solved_base, colour_solved_hover)
-				else:
-					tile.set_colour(colour_base, colour_hover)
-	
-	if check_intermediate:
-		var key_x = puzzle[PuzzleClasses.KEY_X]
-		var key_y = puzzle[PuzzleClasses.KEY_Y]
-		var key_tile = tiles[key_x][key_y]
-		if key_tile != null:
-			if is_solved:
-				key_tile.set_colour(colour_solved_key, colour_solved_key_hover)
-			else:
-				key_tile.set_colour(colour_key, colour_key_hover)

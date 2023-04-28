@@ -74,8 +74,6 @@ const DONT_RECOLOUR: Array[int] = [
 # The contents of a puzzle
 enum {
 	WIDTH, HEIGHT, # The width and height of the puzzle
-	KEY_X, KEY_Y, # The x and y coordinates of the key cell
-	KEY_TARGET_ROTATION, # The rotation of the key cell which solved the puzzle
 	CELLS, # The icons and starting rotations of the cells
 	# ANOTHER_THING, # Uncomment to force reset in editor
 	ARR_LEN
@@ -91,7 +89,7 @@ enum {
 # What to reset a puzzle to if an invalid state is detected
 # Function rather than a const to prevent aliasing
 static func get_default() -> Array:
-	return [0, 0, 0, 0, 0, [[]]]
+	return [0, 0, [[]]]
 # Gets the default value of a cell
 static func get_default_cell():
 	return [EMPTY, 0, 0]

@@ -1,14 +1,15 @@
-[gd_scene load_steps=46 format=3 uid="uid://cm8astuwgvqxu"]
+[gd_scene load_steps=47 format=3 uid="uid://b7lh4yh0eusdo"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/Puzzle.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/Puzzles/KeyPuzzle.gd" id="4_quw2b"]
 [ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard.glb" id="5"]
 [ext_resource type="Texture2D" uid="uid://jqe3h8eqg8ad" path="res://textures/Object Textures/Control Tutorials/WASD.png" id="5_dj8dl"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseSplitter.gd" id="5_t78nx"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseCombiner.gd" id="6_4k3jo"]
 [ext_resource type="Texture2D" uid="uid://ibv2qcugcvm3" path="res://textures/Object Textures/Control Tutorials/mouse move.png" id="6_dsqpq"]
 [ext_resource type="Texture2D" uid="uid://dgmcj0hui5247" path="res://textures/Object Textures/Control Tutorials/left click.png" id="7_2hhf2"]
+[ext_resource type="Script" path="res://scripts/Puzzles/SymbolPuzzle.gd" id="7_rw1rt"]
 [ext_resource type="Texture2D" uid="uid://d4khqglidoi2x" path="res://textures/Object Textures/Control Tutorials/space bar.png" id="8_njmtl"]
 [ext_resource type="Texture2D" uid="uid://df74abvsml4lp" path="res://textures/Object Textures/Control Tutorials/right click.png" id="9_m1euw"]
 [ext_resource type="Texture2D" uid="uid://dmjcrxvgl0y0q" path="res://textures/Object Textures/Control Tutorials/reset.png" id="10_18o3s"]
@@ -278,9 +279,11 @@ shape = SubResource("47")
 
 [node name="Final Puzzle" type="Node3D" parent="Courtyard" node_paths=PackedStringArray("instance")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.35, 1, 0)
-script = ExtResource("2")
-puzzle = [7.0, 5.0, 3.0, 2.0, 1.0, [[[1, 0, 0], [1, 0, 3], [4, 0, 2], [1, 0, 1], [7, 1, 1]], [[1, 0, 1], [1, 0, 1], [3, 0, 1], [4, 0, 2], [4, 0, 2]], [[1, 0, 0], [3, 0, 1], [3, 0, 3], [3, 0, 1], [7, 1, 0]], [[4, 0, 0], [6, 0, 1], [4, 0, 0], [6, 0, 1], [4, 0, 0]], [[1, 0, 0], [3, 0, 2], [3, 0, 0], [3, 0, 2], [7, 1, 0]], [[1, 0, 0], [1, 0, 0], [3, 0, 2], [4, 0, 2], [4, 0, 2]], [[1, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 1, 0]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 3
+key_y = 2
+key_target_rotation = 1
+puzzle = [7.0, 5.0, [[[1, 0, 0], [1, 0, 0], [4, 0, 3], [1, 0, 0], [7, 0, 1]], [[1, 0, 0], [1, 0, 0], [3, 0, 1], [4, 0, 0], [4, 0, 0]], [[1, 0, 0], [3, 0, 1], [3, 0, 3], [3, 0, 1], [7, 0, 1]], [[4, 0, 0], [6, 0, 0], [4, 0, 0], [6, 0, 0], [4, 0, 0]], [[1, 0, 0], [3, 0, 2], [3, 0, 0], [3, 0, 2], [7, 0, 1]], [[1, 0, 0], [1, 0, 0], [3, 0, 2], [4, 0, 0], [4, 0, 0]], [[1, 0, 0], [1, 0, 0], [4, 0, 3], [1, 0, 0], [7, 0, 1]]]]
 instance = NodePath("../../Tile")
 
 [node name="WASD" type="CSGMesh3D" parent="Courtyard/Final Puzzle"]
@@ -299,8 +302,8 @@ material = SubResource("StandardMaterial3D_2k6b0")
 
 [node name="Controls" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 7.5, 3, -9.5)
-script = ExtResource("2")
-puzzle = [1.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [1.0, 3.0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Squares Intro")
 
@@ -322,16 +325,16 @@ params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
-script = ExtResource("2")
-puzzle = [5.0, 2.0, 0, 0, 0, [[[7, 0, 0], [1, 0, 1]], [[4, 0, 1], [4, 0, 3]], [[1, 0, 0], [7, 0, 0]], [[4, 0, 1], [4, 0, 3]], [[7, 0, 0], [1, 0, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [5.0, 2.0, [[[7, 0, 0], [1, 0, 1]], [[4, 0, 1], [4, 0, 3]], [[1, 0, 0], [7, 0, 0]], [[4, 0, 1], [4, 0, 3]], [[7, 0, 0], [1, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
 
 [node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, -0.5, 0)
-script = ExtResource("2")
-puzzle = [3.0, 3.0, 0, 0, 0, [[[1, 0, 0], [4, 0, 0], [1, 0, 0]], [[7, 0, 0], [4, 0, 1], [7, 0, 0]], [[1, 0, 0], [4, 0, 2], [1, 0, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [3.0, 3.0, [[[1, 0, 0], [4, 0, 0], [1, 0, 0]], [[7, 0, 0], [4, 0, 1], [7, 0, 0]], [[1, 0, 0], [4, 0, 2], [1, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -339,8 +342,8 @@ load_on_start = false
 
 [node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -3.5, 0)
-script = ExtResource("2")
-puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]], [[4, 0, 1], [6, 0, 0], [4, 0, 1]], [[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [3.0, 3.0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]], [[4, 0, 1], [6, 0, 0], [4, 0, 1]], [[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -348,8 +351,8 @@ load_on_start = false
 
 [node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -4.5, 0)
-script = ExtResource("2")
-puzzle = [5.0, 2.0, 0, 0, 0, [[[7, 0, 0], [1, 0, 1]], [[1, 0, 1], [3, 0, 1]], [[3, 0, 0], [3, 0, 2]], [[3, 0, 3], [1, 0, 0]], [[1, 0, 3], [7, 0, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [5.0, 2.0, [[[7, 0, 0], [1, 0, 1]], [[1, 0, 1], [3, 0, 1]], [[3, 0, 0], [3, 0, 2]], [[3, 0, 3], [1, 0, 0]], [[1, 0, 3], [7, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -368,16 +371,16 @@ params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(0.6, 0, 3.37508e-14, 0, 0.6, 0, -3.37508e-14, 0, 0.6, 0.3, -0.3, 0)
-script = ExtResource("2")
-puzzle = [5.0, 5.0, 0, 0, 0, [[[7, 0, 0], [1, 0, 0], [4, 0, 2], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [3, 0, 1], [5, 0, 2], [3, 0, 0], [1, 0, 0]], [[4, 0, 0], [5, 0, 1], [7, 0, 0], [5, 0, 3], [4, 0, 0]], [[1, 0, 0], [3, 0, 2], [5, 0, 0], [3, 0, 3], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [5.0, 5.0, [[[7, 0, 0], [1, 0, 0], [4, 0, 2], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [3, 0, 1], [5, 0, 2], [3, 0, 0], [1, 0, 0]], [[4, 0, 0], [5, 0, 1], [7, 0, 0], [5, 0, 3], [4, 0, 0]], [[1, 0, 0], [3, 0, 2], [5, 0, 0], [3, 0, 3], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
 
 [node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(0.6, 0, 6.21725e-14, 0, 0.6, 0, -6.21725e-14, 0, 0.6, 3.3, -3.3, 0)
-script = ExtResource("2")
-puzzle = [5.0, 5.0, 0, 0, 0, [[[1, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0], [3, 0, 3], [4, 0, 1]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [1, 0, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [5.0, 5.0, [[[1, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0], [3, 0, 3], [4, 0, 1]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [1, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -385,8 +388,8 @@ load_on_start = false
 
 [node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(0.6, 0, 3.37508e-14, 0, 0.6, 0, -3.37508e-14, 0, 0.6, 3.9, -0.3, 0)
-script = ExtResource("2")
-puzzle = [4.0, 4.0, 0, 0, 0, [[[7, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 3]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [7, 0, 1]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [4.0, 4.0, [[[7, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 3]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [7, 0, 1]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -394,8 +397,8 @@ load_on_start = false
 
 [node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(0.6, 0, 3.37508e-14, 0, 0.6, 0, -3.37508e-14, 0, 0.6, 0.3, -3.9, 0)
-script = ExtResource("2")
-puzzle = [4.0, 4.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 2], [4, 0, 2], [7, 0, 3]], [[4, 0, 1], [3, 0, 1], [3, 0, 0], [4, 0, 1]], [[4, 0, 1], [3, 0, 2], [3, 0, 3], [4, 0, 1]], [[7, 0, 3], [4, 0, 2], [4, 0, 2], [7, 0, 1]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [4.0, 4.0, [[[7, 0, 0], [4, 0, 2], [4, 0, 2], [7, 0, 3]], [[4, 0, 1], [3, 0, 1], [3, 0, 0], [4, 0, 1]], [[4, 0, 1], [3, 0, 2], [3, 0, 3], [4, 0, 1]], [[7, 0, 3], [4, 0, 2], [4, 0, 2], [7, 0, 1]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -408,8 +411,8 @@ target = NodePath("../../Squares Challenge 1")
 
 [node name="Squares Challenge 1" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 9.5, 3.25, 1.75)
-script = ExtResource("2")
-puzzle = [6.0, 6.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 1], [3, 0, 0], [4, 0, 3], [3, 0, 1], [7, 0, 2]], [[3, 0, 0], [3, 0, 2], [3, 0, 3], [4, 0, 3], [3, 0, 2], [1, 0, 1]], [[3, 0, 3], [1, 0, 1], [3, 0, 1], [4, 0, 3], [4, 0, 0], [4, 0, 0]], [[4, 0, 0], [4, 0, 0], [4, 0, 3], [3, 0, 3], [1, 0, 3], [3, 0, 1]], [[1, 0, 3], [3, 0, 0], [4, 0, 3], [3, 0, 1], [3, 0, 0], [3, 0, 2]], [[7, 0, 2], [3, 0, 3], [4, 0, 3], [3, 0, 2], [4, 0, 1], [7, 0, 2]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [6.0, 6.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 0], [4, 0, 3], [3, 0, 1], [7, 0, 2]], [[3, 0, 0], [3, 0, 2], [3, 0, 3], [4, 0, 3], [3, 0, 2], [1, 0, 1]], [[3, 0, 3], [1, 0, 1], [3, 0, 1], [4, 0, 3], [4, 0, 0], [4, 0, 0]], [[4, 0, 0], [4, 0, 0], [4, 0, 3], [3, 0, 3], [1, 0, 3], [3, 0, 1]], [[1, 0, 3], [3, 0, 0], [4, 0, 3], [3, 0, 1], [3, 0, 0], [3, 0, 2]], [[7, 0, 2], [3, 0, 3], [4, 0, 3], [3, 0, 2], [4, 0, 1], [7, 0, 2]]]]
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Squares Challenge 2")
 load_on_start = false
@@ -421,8 +424,8 @@ material = SubResource("StandardMaterial3D_7amc5")
 
 [node name="Squares Challenge 2" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(-1.87522e-08, 0, -0.429, 0, 0.429, 0, 0.429, 0, -1.87522e-08, 9.5, 3.286, 5.714)
-script = ExtResource("2")
-puzzle = [7.0, 7.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0], [1, 0, 0], [4, 0, 0], [7, 0, 0]], [[3, 0, 1], [3, 0, 0], [3, 0, 1], [4, 0, 0], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2], [3, 0, 3], [3, 0, 2], [3, 0, 3]], [[4, 0, 2], [5, 0, 3], [1, 0, 0], [7, 0, 0], [1, 0, 0], [5, 0, 1], [4, 0, 2]], [[3, 0, 1], [3, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 0], [3, 0, 3], [3, 0, 2], [3, 0, 3]], [[7, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0], [1, 0, 0], [4, 0, 0], [7, 0, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [7.0, 7.0, [[[7, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0], [1, 0, 0], [4, 0, 0], [7, 0, 0]], [[3, 0, 1], [3, 0, 0], [3, 0, 1], [4, 0, 0], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2], [3, 0, 3], [3, 0, 2], [3, 0, 3]], [[4, 0, 2], [5, 0, 3], [1, 0, 0], [7, 0, 0], [1, 0, 0], [5, 0, 1], [4, 0, 2]], [[3, 0, 1], [3, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 0], [3, 0, 3], [3, 0, 2], [3, 0, 3]], [[7, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0], [1, 0, 0], [4, 0, 0], [7, 0, 0]]]]
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Coloured Squares Intro")
 load_on_start = false
@@ -435,16 +438,16 @@ params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.5, -0.5, 0)
-script = ExtResource("2")
-puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [3, 0, 2], [3, 0, 3]], [[7, 1, 1], [4, 0, 1], [7, 1, 1]], [[3, 0, 1], [3, 0, 0], [7, 0, 1]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [3.0, 3.0, [[[7, 0, 0], [3, 0, 2], [3, 0, 3]], [[7, 1, 1], [4, 0, 1], [7, 1, 1]], [[3, 0, 1], [3, 0, 0], [7, 0, 1]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Node")
 load_on_start = false
 
 [node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4.5, -0.5, 0)
-script = ExtResource("2")
-puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 3], [7, 1, 1]], [[4, 0, 3], [4, 0, 2], [4, 0, 3]], [[7, 0, 1], [4, 0, 3], [7, 1, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [3.0, 3.0, [[[7, 0, 0], [4, 0, 3], [7, 1, 1]], [[4, 0, 3], [4, 0, 2], [4, 0, 3]], [[7, 0, 1], [4, 0, 3], [7, 1, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Node")
 on_complete_param = 3
@@ -452,8 +455,8 @@ load_on_start = false
 
 [node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0.5, -4.5, 0)
-script = ExtResource("2")
-puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 2], [7, 0, 0]], [[4, 0, 1], [5, 0, 1], [4, 0, 1]], [[7, 0, 0], [4, 0, 2], [7, 1, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [3.0, 3.0, [[[7, 0, 0], [4, 0, 2], [7, 0, 0]], [[4, 0, 1], [5, 0, 1], [4, 0, 1]], [[7, 0, 0], [4, 0, 2], [7, 1, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Node")
 on_complete_param = 1
@@ -461,8 +464,8 @@ load_on_start = false
 
 [node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, 4.5, -4.5, 0)
-script = ExtResource("2")
-puzzle = [3.0, 3.0, 0, 0, 0, [[[7, 0, 0], [7, 6, 0], [7, 1, 0]], [[4, 0, 1], [4, 0, 1], [4, 0, 1]], [[7, 0, 0], [7, 6, 0], [7, 1, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [3.0, 3.0, [[[7, 0, 0], [7, 6, 0], [7, 1, 0]], [[4, 0, 1], [4, 0, 1], [4, 0, 1]], [[7, 0, 0], [7, 6, 0], [7, 1, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Node")
 on_complete_param = 2
@@ -481,16 +484,16 @@ params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.3, -0.3, 0)
-script = ExtResource("2")
-puzzle = [5.0, 4.0, 0, 0, 0, [[[7, 1, 0], [4, 0, 0], [1, 0, 3], [7, 1, 2]], [[4, 0, 2], [3, 0, 0], [3, 0, 1], [4, 0, 2]], [[7, 0, 2], [5, 0, 3], [5, 0, 1], [7, 0, 2]], [[4, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2]], [[7, 1, 0], [1, 0, 3], [4, 0, 2], [7, 1, 2]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [5.0, 4.0, [[[7, 1, 0], [4, 0, 0], [1, 0, 3], [7, 1, 2]], [[4, 0, 2], [3, 0, 0], [3, 0, 1], [4, 0, 2]], [[7, 0, 2], [5, 0, 3], [5, 0, 1], [7, 0, 2]], [[4, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2]], [[7, 1, 0], [1, 0, 3], [4, 0, 2], [7, 1, 2]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
 
 [node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 3.9, -0.3, 0)
-script = ExtResource("2")
-puzzle = [4.0, 4.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 3], [3, 0, 2], [4, 0, 2]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [7, 1, 2]], [[1, 0, 3], [3, 0, 2], [3, 0, 3], [7, 0, 2]], [[7, 1, 2], [4, 0, 3], [3, 0, 1], [4, 0, 2]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [4.0, 4.0, [[[7, 0, 0], [4, 0, 3], [3, 0, 2], [4, 0, 2]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [7, 1, 2]], [[1, 0, 3], [3, 0, 2], [3, 0, 3], [7, 0, 2]], [[7, 1, 2], [4, 0, 3], [3, 0, 1], [4, 0, 2]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -498,8 +501,8 @@ load_on_start = false
 
 [node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.3, -3.45, 0)
-script = ExtResource("2")
-puzzle = [5.0, 5.0, 0, 0, 0, [[[7, 0, 0], [3, 0, 2], [4, 0, 2], [4, 0, 2], [3, 0, 3]], [[4, 0, 0], [3, 0, 0], [7, 1, 0], [3, 0, 1], [3, 0, 0]], [[1, 0, 0], [4, 0, 1], [7, 6, 0], [4, 0, 1], [7, 6, 0]], [[4, 0, 2], [3, 0, 3], [7, 0, 0], [3, 0, 2], [3, 0, 3]], [[7, 1, 0], [3, 0, 1], [4, 0, 2], [4, 0, 2], [3, 0, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [5.0, 5.0, [[[7, 0, 0], [3, 0, 2], [4, 0, 2], [4, 0, 2], [3, 0, 3]], [[4, 0, 0], [3, 0, 0], [7, 1, 0], [3, 0, 1], [3, 0, 0]], [[1, 0, 0], [4, 0, 1], [7, 6, 0], [4, 0, 1], [7, 6, 0]], [[4, 0, 2], [3, 0, 3], [7, 0, 0], [3, 0, 2], [3, 0, 3]], [[7, 1, 0], [3, 0, 1], [4, 0, 2], [4, 0, 2], [3, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -507,8 +510,8 @@ load_on_start = false
 
 [node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 3.9, -3.45, 0)
-script = ExtResource("2")
-puzzle = [4.0, 5.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 2], [7, 1, 2], [7, 0, 0], [3, 0, 0]], [[4, 0, 1], [3, 0, 1], [3, 0, 0], [4, 0, 2], [3, 0, 3]], [[3, 0, 1], [4, 0, 2], [3, 0, 2], [3, 0, 3], [4, 0, 1]], [[3, 0, 2], [7, 1, 0], [7, 0, 2], [4, 0, 2], [7, 1, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [4.0, 5.0, [[[7, 0, 0], [4, 0, 2], [7, 1, 2], [7, 0, 0], [3, 0, 0]], [[4, 0, 1], [3, 0, 1], [3, 0, 0], [4, 0, 2], [3, 0, 3]], [[3, 0, 1], [4, 0, 2], [3, 0, 2], [3, 0, 3], [4, 0, 1]], [[3, 0, 2], [7, 1, 0], [7, 0, 2], [4, 0, 2], [7, 1, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -521,8 +524,8 @@ target = NodePath("../../Coloured Squares Challenge")
 
 [node name="Coloured Squares Challenge" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, -1.8, 3.2, 9.5)
-script = ExtResource("2")
-puzzle = [5.0, 5.0, 0, 0, 0, [[[7, 0, 0], [4, 0, 1], [7, 1, 0], [4, 0, 1], [7, 6, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 1], [1, 0, 1], [4, 0, 2], [1, 0, 1], [3, 0, 3]], [[3, 0, 3], [3, 0, 1], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[7, 0, 0], [4, 0, 1], [7, 1, 0], [4, 0, 1], [7, 6, 0]]]]
+script = ExtResource("7_rw1rt")
+puzzle = [5.0, 5.0, [[[7, 0, 0], [4, 0, 1], [7, 1, 0], [4, 0, 1], [7, 6, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 1], [1, 0, 1], [4, 0, 2], [1, 0, 1], [3, 0, 3]], [[3, 0, 3], [3, 0, 1], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[7, 0, 0], [4, 0, 1], [7, 1, 0], [4, 0, 1], [7, 6, 0]]]]
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Key Puzzles Intro")
 
@@ -534,18 +537,21 @@ params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
-script = ExtResource("2")
-puzzle = [3.0, 3.0, 1.0, 1.0, 1.0, [[[1, 0, 0], [1, 0, 0], [1, 0, 0]], [[1, 0, 0], [2, 0, 0], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 1
+key_y = 1
+key_target_rotation = 1
+puzzle = [3.0, 3.0, [[[1, 0, 0], [1, 0, 0], [1, 0, 0]], [[1, 0, 0], [2, 0, 0], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
 
 [node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 5.5, -0.5, 1.90735e-05)
-script = ExtResource("2")
-puzzle = [3.0, 2.0, 0.0, 1.0, 2.0, [[[7, 0, 1], [4, 0, 1]], [[4, 0, 0], [3, 0, 3]], [[7, 0, 0], [4, 0, 3]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_y = 1
+key_target_rotation = 2
+puzzle = [3.0, 2.0, [[[7, 0, 1], [4, 0, 1]], [[4, 0, 0], [3, 0, 3]], [[7, 0, 0], [4, 0, 3]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -553,9 +559,10 @@ load_on_start = false
 
 [node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -5.5, 0)
-script = ExtResource("2")
-puzzle = [2.0, 3.0, 1.0, 0.0, 1.0, [[[7, 0, 0], [4, 0, 3], [7, 0, 0]], [[4, 0, 0], [3, 0, 3], [4, 0, 2]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 1
+key_target_rotation = 1
+puzzle = [2.0, 3.0, [[[7, 0, 0], [4, 0, 3], [7, 0, 0]], [[4, 0, 0], [3, 0, 3], [4, 0, 2]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -563,9 +570,11 @@ load_on_start = false
 
 [node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -5.5, 4.19617e-05)
-script = ExtResource("2")
-puzzle = [3.0, 3.0, 1.0, 1.0, 1.0, [[[7, 0, 0], [4, 0, 2], [1, 0, 0]], [[4, 0, 0], [4, 0, 0], [4, 0, 0]], [[1, 0, 3], [4, 0, 2], [7, 0, 0]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 1
+key_y = 1
+key_target_rotation = 1
+puzzle = [3.0, 3.0, [[[7, 0, 0], [4, 0, 2], [1, 0, 0]], [[4, 0, 0], [4, 0, 0], [4, 0, 0]], [[1, 0, 3], [4, 0, 2], [7, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -586,21 +595,26 @@ transform = Transform3D(-1.45559e-08, 0, 0.333, 0, 0.333, 0, -0.333, 0, -1.45559
 script = ExtResource("5_t78nx")
 target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Bottom Left"), NodePath("Top Right"), NodePath("Bottom Right")])
 params = Array[int]([0, 0, 0, 0])
+load_on_start = true
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
-script = ExtResource("2")
-puzzle = [5.0, 3.0, 2.0, 1.0, 1.0, [[[7, 0, 0], [1, 0, 1], [1, 0, 1]], [[4, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 1], [4, 0, 0], [3, 0, 3]], [[3, 0, 3], [3, 0, 1], [4, 0, 0]], [[1, 0, 1], [1, 0, 1], [7, 0, 1]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 2
+key_y = 1
+key_target_rotation = 1
+puzzle = [5.0, 3.0, [[[7, 0, 0], [1, 0, 1], [1, 0, 1]], [[4, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 1], [4, 0, 0], [3, 0, 3]], [[3, 0, 3], [3, 0, 1], [4, 0, 0]], [[1, 0, 1], [1, 0, 1], [7, 0, 1]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
 
 [node name="Bottom Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -4.5, 0)
-script = ExtResource("2")
-puzzle = [5.0, 5.0, 2.0, 2.0, 1.0, [[[7, 0, 0], [4, 0, 1], [7, 0, 0], [3, 0, 1], [3, 0, 0]], [[1, 0, 2], [5, 0, 3], [3, 0, 0], [3, 0, 2], [3, 0, 3]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [5, 0, 0], [4, 0, 0]], [[3, 0, 1], [3, 0, 0], [3, 0, 2], [5, 0, 1], [1, 0, 0]], [[3, 0, 2], [3, 0, 3], [7, 0, 0], [4, 0, 1], [7, 0, 0]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 2
+key_y = 2
+key_target_rotation = 1
+puzzle = [5.0, 5.0, [[[7, 0, 0], [4, 0, 1], [7, 0, 0], [3, 0, 1], [3, 0, 0]], [[1, 0, 2], [5, 0, 3], [3, 0, 0], [3, 0, 2], [3, 0, 3]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [5, 0, 0], [4, 0, 0]], [[3, 0, 1], [3, 0, 0], [3, 0, 2], [5, 0, 1], [1, 0, 0]], [[3, 0, 2], [3, 0, 3], [7, 0, 0], [4, 0, 1], [7, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -608,9 +622,10 @@ load_on_start = false
 
 [node name="Top Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.5, 0)
-script = ExtResource("2")
-puzzle = [3.0, 3.0, 2.0, 0.0, 2.0, [[[7, 0, 0], [3, 0, 1], [4, 0, 2]], [[3, 0, 1], [5, 0, 2], [3, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 2
+key_target_rotation = 2
+puzzle = [3.0, 3.0, [[[7, 0, 0], [3, 0, 1], [4, 0, 2]], [[3, 0, 1], [5, 0, 2], [3, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -618,9 +633,11 @@ load_on_start = false
 
 [node name="Bottom Right" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.50001, -4.5, 0)
-script = ExtResource("2")
-puzzle = [3.0, 5.0, 1.0, 2.0, 1.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 2], [3, 0, 3], [7, 0, 0]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 0], [3, 0, 1]], [[7, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 3], [3, 0, 2]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 1
+key_y = 2
+key_target_rotation = 1
+puzzle = [3.0, 5.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 2], [3, 0, 3], [7, 0, 0]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 0], [3, 0, 1]], [[7, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 3], [3, 0, 2]]]]
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -633,36 +650,41 @@ target = NodePath("../../Key Puzzles Challenge 1")
 
 [node name="Key Puzzles Challenge 1" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.49999, 3.2, 4.2)
-script = ExtResource("2")
-puzzle = [3.0, 5.0, 0.0, 1.0, 2.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 2], [3, 0, 3], [7, 0, 0]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 0], [3, 0, 1]], [[7, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 3], [3, 0, 2]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_y = 1
+key_target_rotation = 2
+puzzle = [3.0, 5.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 2], [3, 0, 3], [7, 0, 0]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 0], [3, 0, 1]], [[7, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 3], [3, 0, 2]]]]
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Key Puzzles Challenge 2")
 load_on_start = false
 
 [node name="Key Puzzles Challenge 2" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.5, 3.2, 1.4)
-script = ExtResource("2")
-puzzle = [5.0, 5.0, 2.0, 2.0, 2.0, [[[7, 0, 0], [4, 0, 1], [7, 0, 0], [4, 0, 1], [7, 0, 0]], [[3, 0, 0], [3, 0, 2], [5, 0, 0], [3, 0, 3], [3, 0, 1]], [[4, 0, 1], [1, 0, 0], [4, 0, 1], [1, 0, 0], [4, 0, 1]], [[3, 0, 2], [4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 3]], [[1, 0, 3], [3, 0, 1], [4, 0, 2], [3, 0, 0], [1, 0, 3]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 2
+key_y = 2
+key_target_rotation = 2
+puzzle = [5.0, 5.0, [[[7, 0, 0], [4, 0, 1], [7, 0, 0], [4, 0, 1], [7, 0, 0]], [[3, 0, 0], [3, 0, 2], [5, 0, 0], [3, 0, 3], [3, 0, 1]], [[4, 0, 1], [1, 0, 0], [4, 0, 1], [1, 0, 0], [4, 0, 1]], [[3, 0, 2], [4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 3]], [[1, 0, 3], [3, 0, 1], [4, 0, 2], [3, 0, 0], [1, 0, 3]]]]
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Key Puzzles Challenge 3")
 load_on_start = false
 
 [node name="Key Puzzles Challenge 3" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(-1.87522e-08, 0, 0.429, 0, 0.429, 0, -0.429, 0, -1.87522e-08, -9.5, 3.286, -2.514)
-script = ExtResource("2")
-puzzle = [5.0, 7.0, 2.0, 3.0, 0.0, [[[7, 6, 2], [1, 0, 3], [1, 0, 1], [3, 0, 2], [3, 0, 0], [1, 0, 0], [7, 0, 3]], [[1, 0, 2], [3, 0, 1], [4, 0, 0], [5, 0, 0], [3, 0, 2], [3, 0, 0], [1, 0, 0]], [[4, 0, 0], [5, 0, 3], [7, 0, 2], [4, 0, 3], [7, 1, 0], [5, 0, 1], [4, 0, 0]], [[1, 0, 2], [3, 0, 2], [3, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 3], [1, 0, 0]], [[7, 1, 3], [1, 0, 0], [3, 0, 2], [3, 0, 0], [1, 0, 2], [1, 0, 0], [7, 6, 0]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 2
+key_y = 3
+puzzle = [5.0, 7.0, [[[7, 6, 2], [1, 0, 3], [1, 0, 1], [3, 0, 2], [3, 0, 0], [1, 0, 0], [7, 0, 3]], [[1, 0, 2], [3, 0, 1], [4, 0, 0], [5, 0, 0], [3, 0, 2], [3, 0, 0], [1, 0, 0]], [[4, 0, 0], [5, 0, 3], [7, 0, 2], [4, 0, 3], [7, 1, 0], [5, 0, 1], [4, 0, 0]], [[1, 0, 2], [3, 0, 2], [3, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 3], [1, 0, 0]], [[7, 1, 3], [1, 0, 0], [3, 0, 2], [3, 0, 0], [1, 0, 2], [1, 0, 0], [7, 6, 0]]]]
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Key Puzzles Challenge 4")
 load_on_start = false
 
 [node name="Key Puzzles Challenge 4" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("instance")]
 transform = Transform3D(-1.87522e-08, 0, 0.429, 0, 0.429, 0, -0.429, 0, -1.87522e-08, -9.5, 3.286, -5.714)
-script = ExtResource("2")
-puzzle = [7.0, 7.0, 4.0, 3.0, 0.0, [[[7, 0, 0], [4, 0, 3], [1, 0, 0], [7, 1, 0], [1, 0, 0], [4, 0, 3], [7, 0, 3]], [[3, 0, 0], [3, 0, 2], [4, 0, 2], [5, 0, 0], [4, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 3], [3, 0, 1], [4, 0, 2], [5, 0, 2], [4, 0, 2], [3, 0, 0], [3, 0, 2]], [[3, 0, 3], [5, 0, 3], [7, 0, 0], [4, 0, 3], [7, 1, 3], [4, 0, 3], [1, 0, 2]], [[1, 0, 3], [5, 0, 1], [4, 0, 2], [5, 0, 2], [4, 0, 2], [5, 0, 3], [1, 0, 3]], [[1, 0, 0], [4, 0, 3], [7, 1, 3], [4, 0, 3], [7, 0, 0], [4, 0, 3], [1, 0, 0]], [[1, 0, 0], [3, 0, 2], [4, 0, 2], [5, 0, 0], [4, 0, 2], [3, 0, 3], [1, 0, 0]]]]
-check_intermediate = true
+script = ExtResource("4_quw2b")
+key_x = 4
+key_y = 3
+puzzle = [7.0, 7.0, [[[7, 0, 0], [4, 0, 3], [1, 0, 0], [7, 1, 0], [1, 0, 0], [4, 0, 3], [7, 0, 3]], [[3, 0, 0], [3, 0, 2], [4, 0, 2], [5, 0, 0], [4, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 3], [3, 0, 1], [4, 0, 2], [5, 0, 2], [4, 0, 2], [3, 0, 0], [3, 0, 2]], [[3, 0, 3], [5, 0, 3], [7, 0, 0], [4, 0, 3], [7, 1, 3], [4, 0, 3], [1, 0, 2]], [[1, 0, 3], [5, 0, 1], [4, 0, 2], [5, 0, 2], [4, 0, 2], [5, 0, 3], [1, 0, 3]], [[1, 0, 0], [4, 0, 3], [7, 1, 3], [4, 0, 3], [7, 0, 0], [4, 0, 3], [1, 0, 0]], [[1, 0, 0], [3, 0, 2], [4, 0, 2], [5, 0, 0], [4, 0, 2], [3, 0, 3], [1, 0, 0]]]]
 instance = NodePath("../../../../Tile")
 load_on_start = false
 

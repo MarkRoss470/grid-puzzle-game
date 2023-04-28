@@ -23,11 +23,7 @@ func _init():
 const WIDTH_LINE_Y := 0
 const HEIGHT_LINE_Y := WIDTH_LINE_Y + 55
 
-const KEY_X_Y := HEIGHT_LINE_Y + 55
-const KEY_Y_Y := KEY_X_Y + 55
-const KEY_TARGET_Y := KEY_Y_Y + 55
-
-const ICON_GROUP_PICKER_Y := KEY_TARGET_Y + 65
+const ICON_GROUP_PICKER_Y := HEIGHT_LINE_Y + 65
 const ICON_GROUP_PICKER_SIZE := 30
 const ICON_GROUP_PICKER_OFFSET := 40
 
@@ -94,14 +90,6 @@ func init_editor():
 	
 	add_label_and_spinbox("width", "Width: ", WIDTH_LINE_Y, "on_dimension_change", [0])
 	add_label_and_spinbox("height", "Height: ", HEIGHT_LINE_Y, "on_dimension_change", [1])
-	add_label_and_spinbox("key_x", "Key X: ", KEY_X_Y, "on_key_pos_change", [0])
-	add_label_and_spinbox("key_y", "Key Y: ", KEY_Y_Y, "on_key_pos_change", [1])
-	
-	var target_change_items := add_label_and_spinbox("key_target", "Target rotation: ", KEY_TARGET_Y, "on_key_target_change", [])
-	var target_rotation_spinbox: SpinBox = target_change_items[1]
-	# Target rotation should be a value between 0 and 3
-	target_rotation_spinbox.min_value = 0
-	target_rotation_spinbox.max_value = 3
 	
 	# Set up icon group selectors
 	var icon_group_picker := Container.new()
@@ -166,17 +154,6 @@ func init_editor():
 	editor_items.add_child(icon_indicator)
 	
 	populate_grid()
-
-# Callback of key x/y position inputs
-func on_key_pos_change(value: float, axis: int):
-	current_value[PuzzleClasses.KEY_X + axis] = value
-	# Save new state
-	emit_changed("puzzle", current_value)
-
-# Callback of the key target rotation selector
-func on_key_target_change(value: float):
-	current_value[PuzzleClasses.KEY_TARGET_ROTATION] = value
-	emit_changed("puzzle", current_value)
 
 # Callback of icon group selectors
 func set_current_icon_group(event: InputEvent, icon_group: int):
@@ -304,11 +281,6 @@ func update_ui():
 	# Set the value of the width and height selectors
 	editor_items.get_node("width_input").value = current_value[PuzzleClasses.WIDTH]
 	editor_items.get_node("height_input").value = current_value[PuzzleClasses.HEIGHT]
-	# Set the value of the key x and y selectors
-	editor_items.get_node("key_x_input").value = current_value[PuzzleClasses.KEY_X]
-	editor_items.get_node("key_y_input").value = current_value[PuzzleClasses.KEY_Y]
-	# Set the value of the key target rotation selector
-	editor_items.get_node("key_target_input").value = current_value[PuzzleClasses.KEY_TARGET_ROTATION]
 	
 	# Delete current grid and regenerate it
 	editor_items.remove_child(editor_items.get_node("grid"))

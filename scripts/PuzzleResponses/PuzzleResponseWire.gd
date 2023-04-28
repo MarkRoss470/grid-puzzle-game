@@ -12,6 +12,8 @@ extends Path3D
 @export var radius: float = 0.02
 # The distance between edge loops on the wire
 @export var edge_loop_distance: float = 0.1
+# Angles less than this will be merged to reduce geometry
+@export var simplify_angle: float = 0.1
 
 # How long the signal should take to get to the end of the wire
 @export var travel_time: float = 1.0
@@ -69,7 +71,8 @@ func _ready():
 
 	poly.path_interval_type = CSGPolygon3D.PATH_INTERVAL_DISTANCE
 	poly.path_interval = edge_loop_distance
-
+	poly.path_simplify_angle = simplify_angle
+	
 	# Set what path for the polygon to extrude along
 	# self.get_path() returns a NodePath (e.g. "res://...") pointing to this object, which is the path for the wire to follow
 	poly.path_node = self.get_path()
