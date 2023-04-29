@@ -253,11 +253,13 @@ func _process(delta):
 				
 				if tile == null:
 					# If the tile is already null, don't load it just to unload it
-					if direction == -1:
+					# Also don't load NO_CELL tiles
+					var cell = puzzle[PuzzleClasses.CELLS][x][y]
+					if direction == -1 or cell[PuzzleClasses.ICON] == PuzzleClasses.NO_CELL:
 						continue
 					
 					# Create tile
-					tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
+					tile = create_tile(x, y, cell)
 					# Add reference to tile to tiles
 					tiles[x][y] = tile
 					
