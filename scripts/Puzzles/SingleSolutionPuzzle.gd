@@ -1,11 +1,35 @@
 extends Puzzle
 
+class_name SingleSolutionPuzzle
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+@export var solution: Array
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func rotate_cell(cell_x: int, cell_y: int, direction: int):
+	super.rotate_cell(cell_x, cell_y, direction)
+	
+	var is_correct := true
+	
+	var cells: Array = puzzle[PuzzleClasses.CELLS]
+	
+	for x in puzzle[PuzzleClasses.WIDTH]:
+		for y in puzzle[PuzzleClasses.HEIGHT]:
+			match cells[x][y][PuzzleClasses.ICON]:
+				PuzzleClasses.NO_CELL, PuzzleClasses.EMPTY, PuzzleClasses.POINTER_QUADRUPLE:
+					continue
+				PuzzleClasses.POINTER_SINGLE, PuzzleClasses.POINTER_DOUBLE_ANGLE, PuzzleClasses.POINTER_TRIPLE:
+					if solution[x][y] != current_state[x][y]:
+						is_correct = false
+						break
+				PuzzleClasses.POINTER_DOUBLE_STRAIGHT:
+					if solution[x][y] % 2 != current_state[x][y] % 2:
+						is_correct = false
+						break
+					
+		
+		if not is_correct:
+			break
+	
+	if is_correct:
+		solve_puzzle()
+	else:
+		unsolve_puzzle()

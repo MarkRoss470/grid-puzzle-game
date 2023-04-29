@@ -227,7 +227,6 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 # Set all the cells to their base colour
 # Stops a puzzle from looking solved when it's not
 func reset_tile_colours():
-	
 	# Reset the cells to the base colour
 	for column in tiles:
 		for tile in column:
@@ -301,17 +300,17 @@ func _process(delta):
 				
 				# The tile's rotation
 				var rotation := -(1 - animation_proportion) * PI
-
+				
 				# Clear tile's rotation
 				tiles[x][y].set_rotation(Vector3(0, 0, 0))
 				# Rotate to match puzzle state
 				tiles[x][y].rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
 				# Rotate for animation
 				tiles[x][y].rotate(Vector3.RIGHT, rotation)
-
+				
 				# Set tile's scale
 				tiles[x][y].scale = Vector3(animation_proportion, animation_proportion, animation_proportion)
-	
+		
 		# If this wipe is finished, save its index
 		if progress > (puzzle[PuzzleClasses.WIDTH] + puzzle[PuzzleClasses.HEIGHT]) * tile_animation_offset + tile_animation_time:
 			completed_wipe = i
@@ -321,7 +320,6 @@ func _process(delta):
 	
 	if len(wipes) > 0:
 		reset_tile_colours()
-
 
 # Callbacks for if this object is used as a PuzzleResponse
 func on_puzzle_solve(_i: int):
