@@ -115,6 +115,8 @@ func load_solved(_i: int):
 			tiles[x][y] = tile
 			# Add tile to scene tree
 			add_child(tile)
+	
+	last_wipe_direction = 1
 	reset_tile_colours()
 
 # Called by a cell when it is clicked
