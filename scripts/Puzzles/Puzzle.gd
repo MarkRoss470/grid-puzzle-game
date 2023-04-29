@@ -34,23 +34,10 @@ represents the puzzle - sets which icons go in which cells
 # Colours for puzzle's neutral state
 @export var colour_base: Color = Color(0.5, 0.5, 0.5)
 @export var colour_hover: Color = Color(0.8, 0.8, 0.8)
-# Colours for the key cell's neutral state
-@export var colour_key: Color = Color(0.7, 0.8, 0.1)
-@export var colour_key_hover: Color = Color(1, 1, 0.0)
-
-# Colours for an incorrect solution
-@export var colour_incorrect_base: Color = Color(1, 0, 0)
-@export var colour_incorrect_hover: Color = Color(1, 0.5, 0.5)
-# Colours for an incorrect solution on the key cell
-@export var colour_incorrect_key: Color = Color(0.9, 0.55, 0.05)
-@export var colour_incorrect_key_hover: Color = Color(0.95, 0.75, 0.4)
 
 # Colours for a correct solution
 @export var colour_solved_base: Color = Color(0, 1, 0)
 @export var colour_solved_hover: Color = Color(0.5, 1, 0.5)
-# Colours for a correct solution on the key cell
-@export var colour_solved_key: Color = Color(0.15, 0.1, 0.9)
-@export var colour_solved_key_hover: Color = Color(0.3, 0.30, 0.85)
 
 
 # An array of all the tile load / unloads occuring

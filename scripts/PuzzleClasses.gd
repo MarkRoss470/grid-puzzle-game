@@ -29,6 +29,15 @@ const CELL_TEXTURES: Array[Texture2D] = [
 	preload("res://textures/puzzle icons/circle.svg"), # CIRCLE
 ]
 
+# Textures to be used as icons
+const HINT_TEXTURES: Array[Texture2D] = [
+	null, null, # Padding to make the indices match up
+	preload("res://textures/puzzle icons/pointer hint.svg"), # POINTER_SINGLE
+	preload("res://textures/puzzle icons/pointer angle hint.svg"), # POINTER_DOUBLE_ANGLE
+	preload("res://textures/puzzle icons/pointer straight hint.svg"), # POINTER_DOUBLE_STRAIGHT
+	preload("res://textures/puzzle icons/pointer triple hint.svg"), # POINTER_TRIPLE
+]
+
 # Enum for cell icons
 enum {
 	NO_CELL, # There is no cell.
