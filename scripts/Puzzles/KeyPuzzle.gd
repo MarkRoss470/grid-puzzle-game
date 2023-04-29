@@ -22,6 +22,7 @@ func _ready():
 func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	var tile := super.create_tile(x, y, cell)
 	
+	# If this cell is the key cell, add lines to show the target rotation
 	if x == key_x and y == key_y:
 		# Create new instance of template
 		var key_hint := key_hint_tile.duplicate()
@@ -47,7 +48,6 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	
 	return tile
 
-
 func rotate_cell(x: int, y: int, direction: int):
 	super.rotate_cell(x, y, direction)
 	
@@ -69,7 +69,16 @@ func rotate_cell(x: int, y: int, direction: int):
 	
 	var key_rotation = current_state[key_x][key_y]
 	
-	if key_rotation == key_target_rotation:
+	var is_right_rotation: bool
+	
+	# Straight double pointers have 180 degree rotational symmetry,
+	# so they should register as solved when upside-down
+	if puzzle[PuzzleClasses.CELLS][key_x][key_y][PuzzleClasses.ICON] == PuzzleClasses.POINTER_DOUBLE_STRAIGHT:
+		is_right_rotation = (key_rotation % 2) == (key_target_rotation % 2)
+	else:
+		is_right_rotation = key_rotation == key_target_rotation
+	
+	if is_right_rotation:
 		solve_puzzle()
 	else:
 		unsolve_puzzle()
