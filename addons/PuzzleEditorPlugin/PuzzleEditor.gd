@@ -303,7 +303,7 @@ var first_update = true
 # Called whenever the value changes
 # Is not called when changed due to this script calling emit_changed()
 # Is called after initialisation of this script
-func _update_property():	
+func _update_property():
 	# Read the current value from the property.
 	var new_value = get_edited_object()["puzzle"]
 	
