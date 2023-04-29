@@ -6,6 +6,8 @@ class_name KeyPuzzle
 @export var key_y := 0
 @export var key_target_rotation := 0
 
+@export var highlight_wrong_cells := true
+
 @export var key_hint_tile: CSGMesh3D
 
 @export_group("Colours")
@@ -58,9 +60,10 @@ func rotate_cell(x: int, y: int, direction: int):
 		# Undo the rotation as it's not valid
 		super.rotate_cell(x, y, -direction)
 		
-		# Set cells to colour on incorrect solution
-		for cell in solution.wrong_cells:
-			tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
+		if highlight_wrong_cells:
+			# Set cells to colour on incorrect solution
+			for cell in solution.wrong_cells:
+				tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
 		
 		return
 	
