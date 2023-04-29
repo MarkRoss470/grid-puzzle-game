@@ -641,7 +641,6 @@ transform = Transform3D(-0.375, 0, -5.66234e-08, 0, 0.375, 0, 5.66234e-08, 0, -0
 script = ExtResource("5_t78nx")
 target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right"), NodePath("Right Click Prompt")])
 params = Array[int]([0, 0, 0, 0, 0])
-load_on_start = true
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
