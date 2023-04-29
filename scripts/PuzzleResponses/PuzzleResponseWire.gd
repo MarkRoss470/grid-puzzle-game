@@ -21,7 +21,7 @@ extends Node3D
 # Material should have parameter 'signal_travel' from 0 to 1 controlling how much of the wire the signal has travelled
 # It should also have a parameter called 'curve_length' which gives the total length of the curve
 @export var wire_material: Material
-@export_node_path("Path3D") var path: NodePath
+@export_node_path("Path3D") var path: NodePath = "."
 
 # If the puzzle this wire is taking input from is solved
 var completed := false
@@ -51,7 +51,7 @@ func on_puzzle_unsolve(_i: int):
 func _ready():
 	# Duplicate material so as not to interfere with other wires using the same material
 	wire_material = wire_material.duplicate()
-	wire_material.set_shader_parameter("curve_length", self.curve.get_baked_length())
+	wire_material.set_shader_parameter("curve_length", get_node(path).curve.get_baked_length())
 
 	# Create a new polygon
 	var poly := CSGPolygon3D.new()

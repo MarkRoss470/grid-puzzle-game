@@ -242,6 +242,8 @@ shape = SubResource("BoxShape3D_j73v0")
 [node name="Courtyard" parent="." instance=ExtResource("5")]
 
 [node name="Collision" type="StaticBody3D" parent="Courtyard"]
+constant_linear_velocity = Vector3(1.45519e-11, 1.45519e-11, 1.45519e-11)
+constant_angular_velocity = Vector3(2.53979e-13, 2.53979e-13, 2.53979e-13)
 
 [node name="Walls" type="StaticBody3D" parent="Courtyard/Collision"]
 
@@ -364,11 +366,9 @@ edge_loop_distance = 0.02
 simplify_angle = 10.0
 travel_time = 10.0
 wire_material = SubResource("ShaderMaterial_uq5sk")
-path = NodePath(".")
 
-[node name="Left Wire" type="Path3D" parent="Courtyard/Final Puzzle and Doors" node_paths=PackedStringArray("on_complete")]
+[node name="Left Wire" type="Node3D" parent="Courtyard/Final Puzzle and Doors" node_paths=PackedStringArray("on_complete")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-curve = SubResource("Curve3D_uptaw")
 script = ExtResource("7_yhdit")
 on_complete = NodePath("../Left Door")
 edge_loop_distance = 0.02
