@@ -1,4 +1,4 @@
-extends Path3D
+extends Node3D
 
 # What object to call the on_puzzle_solve method of when the signal reaches the end of the wire
 @export var on_complete: Node
@@ -21,6 +21,7 @@ extends Path3D
 # Material should have parameter 'signal_travel' from 0 to 1 controlling how much of the wire the signal has travelled
 # It should also have a parameter called 'curve_length' which gives the total length of the curve
 @export var wire_material: Material
+@export_node_path("Path3D") var path: NodePath
 
 # If the puzzle this wire is taking input from is solved
 var completed := false
@@ -75,7 +76,7 @@ func _ready():
 	
 	# Set what path for the polygon to extrude along
 	# self.get_path() returns a NodePath (e.g. "res://...") pointing to this object, which is the path for the wire to follow
-	poly.path_node = self.get_path()
+	poly.path_node = NodePath("../" + str(path))
 	# Set the polygon's material
 	poly.material = wire_material
 

@@ -1,0 +1,104 @@
+[gd_resource type="VisualShader" load_steps=10 format=3 uid="uid://c4ieflob81x7y"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_2t3qg"]
+parameter_name = "curve_length"
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_fvq0s"]
+parameter_name = "wire_colour_on"
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_847vk"]
+parameter_name = "wire_colour_off"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_kgq5v"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_7prak"]
+
+[sub_resource type="VisualShaderNodeCompare" id="VisualShaderNodeCompare_bojt0"]
+function = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_jkdfc"]
+parameter_name = "signal_travel"
+
+[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_6fp8f"]
+default_input_values = [0, false, 1, Vector3(1, 1, 1), 2, Vector3(0, 0, 0)]
+op_type = 4
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_f38fj"]
+operator = 2
+
+[resource]
+code = "shader_type spatial;
+uniform float signal_travel;
+uniform float curve_length;
+uniform vec4 wire_colour_on : source_color;
+uniform vec4 wire_colour_off : source_color;
+
+
+
+void fragment() {
+// FloatParameter:7
+	float n_out7p0 = signal_travel;
+
+
+// FloatParameter:10
+	float n_out10p0 = curve_length;
+
+
+// FloatOp:9
+	float n_out9p0 = n_out7p0 * n_out10p0;
+
+
+// Input:4
+	vec2 n_out4p0 = UV;
+
+
+// VectorDecompose:5
+	float n_out5p0 = vec3(n_out4p0, 0.0).x;
+	float n_out5p1 = vec3(n_out4p0, 0.0).y;
+	float n_out5p2 = vec3(n_out4p0, 0.0).z;
+
+
+// Compare:6
+	bool n_out6p0 = n_out9p0 > n_out5p0;
+
+
+// ColorParameter:2
+	vec4 n_out2p0 = wire_colour_on;
+
+
+// ColorParameter:3
+	vec4 n_out3p0 = wire_colour_off;
+
+
+	vec3 n_out8p0;
+// Switch:8
+	n_out8p0 = mix(vec3(n_out3p0.xyz), vec3(n_out2p0.xyz), float(n_out6p0));
+
+
+// Output:0
+	ALBEDO = n_out8p0;
+
+
+}
+"
+graph_offset = Vector2(-814.749, -223.943)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_fvq0s")
+nodes/fragment/2/position = Vector2(-1880, 240)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorParameter_847vk")
+nodes/fragment/3/position = Vector2(-1880, 580)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_kgq5v")
+nodes/fragment/4/position = Vector2(-2820, -160)
+nodes/fragment/5/node = SubResource("VisualShaderNodeVectorDecompose_7prak")
+nodes/fragment/5/position = Vector2(-2140, -200)
+nodes/fragment/6/node = SubResource("VisualShaderNodeCompare_bojt0")
+nodes/fragment/6/position = Vector2(-660, -720)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatParameter_jkdfc")
+nodes/fragment/7/position = Vector2(-2500, -980)
+nodes/fragment/8/node = SubResource("VisualShaderNodeSwitch_6fp8f")
+nodes/fragment/8/position = Vector2(-140, 180)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatOp_f38fj")
+nodes/fragment/9/position = Vector2(-1700, -840)
+nodes/fragment/10/node = SubResource("VisualShaderNodeFloatParameter_2t3qg")
+nodes/fragment/10/position = Vector2(-2500, -620)
+nodes/fragment/connections = PackedInt32Array(4, 0, 5, 0, 6, 0, 8, 0, 2, 0, 8, 1, 3, 0, 8, 2, 8, 0, 0, 0, 5, 0, 6, 1, 9, 0, 6, 0, 7, 0, 9, 0, 10, 0, 9, 1)
