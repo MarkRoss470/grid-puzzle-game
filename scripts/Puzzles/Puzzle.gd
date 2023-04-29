@@ -43,6 +43,14 @@ represents the puzzle - sets which icons go in which cells
 # An array of all the tile load / unloads occuring
 # Each item is of the format [direction, progress] 
 var wipes := []
+# The direction of a queued wipe
+# 0 = no wipe queued
+# 1 = load
+# -1 = unload
+var next_wipe_direction := 0
+# The direction of the most recent wipe, or the next one queued
+# This is used to prevent load wipes when the puzzle is already loaded
+var last_wipe_direction := -1
 
 # Array[x][y] of the direction of cells
 # 0 = up, 1 = right etc
@@ -67,33 +75,28 @@ func _ready():
 	# Load puzzles that should always be active
 	if load_on_start: load_solved(0)
 
-func add_wipe(direction: int, timeout: float):
-	if len(wipes) != 0:
-		var last_wipe_time = wipes[-1][1]
-		var last_wipe_direction = wipes[-1][0]
-		
-		# If this wipe is less than tile_animation_time seconds after the wipe before it,
-		# delay it to make it so that animation issues don't occur
-		# - not + in this calculation because time counts up, so to get a future time you subtract
-		if timeout > last_wipe_time - tile_animation_time:
-			timeout = last_wipe_time - tile_animation_time
-		
-		# Don't add a wipe if it has the same direction as the one before it
-		if direction == last_wipe_direction:
-			return
-		
-	wipes.append([direction, timeout])
+func add_wipe(direction: int):
+	last_wipe_direction = direction
+	
+	if len(wipes) == 0 or wipes[-1][1] > tile_animation_time:
+		wipes.append([direction, 0.0])
+	else:
+		next_wipe_direction = direction
 
 # Loads the puzzle with animation
 func load_puzzle():
-	add_wipe(1, 0)
+	# Don't load the puzzle if it's already loaded
+	if last_wipe_direction != 1:
+		add_wipe(1)
 	
 	if is_solved:
 		solve_puzzle()
 
 # Unloads the puzzle with animation
 func unload_puzzle():
-	add_wipe(-1, 0)
+	# Don't unload the puzzle if it's already not loaded
+	if last_wipe_direction != -1:
+		add_wipe(-1)
 
 # Loads the puzzle with no animation
 func load_solved(_i: int):
@@ -167,8 +170,8 @@ func reset():
 	if on_complete != null:
 		on_complete.on_puzzle_unsolve(on_complete_param)
 	
-	add_wipe(-1, 0)
-	add_wipe(1, -tile_animation_time)
+	add_wipe(-1)
+	add_wipe(1)
 
 # Creates a new puzzle cell object
 func create_tile(x: int, y: int, cell) -> PuzzleTile:
@@ -304,6 +307,10 @@ func _process(delta):
 	
 	if completed_wipe != -1:
 		wipes.remove_at(completed_wipe)
+
+	if len(wipes) != 0 and wipes[-1][1] > tile_animation_time and next_wipe_direction != 0:
+		wipes.append([next_wipe_direction, 0])
+		next_wipe_direction = 0
 	
 	if len(wipes) > 0:
 		reset_tile_colours()
