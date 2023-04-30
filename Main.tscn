@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://b7lh4yh0eusdo"]
+[gd_scene load_steps=56 format=3 uid="uid://b7lh4yh0eusdo"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dmjcrxvgl0y0q" path="res://textures/Object Textures/Control Tutorials/reset.png" id="10_18o3s"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" id="13_2mdim"]
 [ext_resource type="Script" path="res://scripts/Puzzles/SingleSolutionPuzzle.gd" id="17_6486b"]
+[ext_resource type="PackedScene" uid="uid://kjoth08mmteq" path="res://models/cube statue.glb" id="18_xx0p1"]
 
 [sub_resource type="CapsuleShape3D" id="4"]
 height = 1.5
@@ -124,7 +125,7 @@ size = Vector3(0.1, 4, 6.5)
 size = Vector3(0.1, 4, 6.5)
 
 [sub_resource type="BoxShape3D" id="36"]
-size = Vector3(20, 0.001, 20)
+size = Vector3(80, 0.001, 80)
 
 [sub_resource type="BoxShape3D" id="47"]
 size = Vector3(5, 2, 5)
@@ -820,19 +821,58 @@ transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, 
 mesh = SubResource("PlaneMesh_a654v")
 material = SubResource("StandardMaterial3D_2k6b0")
 
-[node name="Fountain North-East Side" type="Node3D" parent="Courtyard"]
-transform = Transform3D(0.0707107, 0, 0.0707107, 0, 0.1, 0, -0.0707107, 0, 0.0707107, 0.354, 3, -2.854)
+[node name="Fountain Puzzles" type="Node3D" parent="Courtyard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2.5)
 
-[node name="Wire Puzzle" type="Node3D" parent="Courtyard/Fountain North-East Side" node_paths=PackedStringArray("instance")]
+[node name="North-East Side" type="Node3D" parent="Courtyard/Fountain Puzzles"]
+transform = Transform3D(0.0707107, 0, 0.0707107, 0, 0.1, 0, -0.0707107, 0, 0.0707107, 0.354, 0, -0.354)
+
+[node name="Wire Puzzle" type="Node3D" parent="Courtyard/Fountain Puzzles/North-East Side" node_paths=PackedStringArray("instance")]
 transform = Transform3D(0.003328, -0.000161548, 0.999995, -0.00209669, 0.999998, 0.000168526, -0.999992, -0.00209724, 0.0033277, 0.00999832, -2.5, 3.5)
 script = ExtResource("17_6486b")
 solution = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [3, 1, 0, 0, 0, 0, 1, 0], [1, 3, 0, 0, 2, 2, 3, 0], [2, 0, 0, 0, 1, 0, 0, 0], [0, 2, 0, 0, 3, 0, 1, 0], [2, 0, 0, 0, 0, 0, 3, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
 puzzle = [8.0, 8.0, [[[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]], [[3, 1, 1], [4, 1, 0], [4, 1, 0], [4, 1, 0], [4, 1, 0], [4, 1, 0], [3, 1, 0], [1, 0, 0]], [[3, 1, 2], [3, 1, 3], [4, 1, 3], [4, 1, 3], [3, 1, 1], [1, 0, 0], [4, 1, 3], [1, 0, 0]], [[3, 1, 0], [3, 1, 1], [0, 0, 0], [0, 0, 0], [3, 1, 2], [4, 1, 0], [3, 1, 0], [1, 0, 0]], [[3, 1, 3], [3, 1, 2], [0, 0, 0], [0, 0, 0], [3, 1, 1], [4, 1, 0], [3, 1, 3], [1, 0, 0]], [[3, 1, 1], [3, 1, 0], [4, 1, 3], [4, 1, 3], [3, 1, 2], [1, 0, 0], [4, 1, 1], [1, 0, 0]], [[3, 1, 2], [4, 1, 2], [4, 1, 2], [4, 1, 2], [4, 1, 2], [4, 1, 2], [3, 1, 3], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
-instance = NodePath("../../../Tile")
+instance = NodePath("../../../../Tile")
 colour_base = Color(0, 0, 0, 1)
-colour_hover = Color(0.0470588, 0.0470588, 0.0470588, 1)
+colour_hover = Color(0, 0, 0, 1)
 colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
-colour_solved_hover = Color(0, 0, 0.768627, 1)
+colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
+
+[node name="North-West Side" type="Node3D" parent="Courtyard/Fountain Puzzles"]
+transform = Transform3D(-0.141421, 0, -0.141421, 0, 0.2, 0, 0.141421, 0, -0.141421, -0.354, 0, -0.354)
+
+[node name="Top Cube Puzzle" type="Node3D" parent="Courtyard/Fountain Puzzles/North-West Side" node_paths=PackedStringArray("instance")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -1, 0)
+script = ExtResource("17_6486b")
+solution = [[0, 2, 0, 2], [3, 0, 0, 1], [0, 0, 0, 2], [2, 3, 2, 0]]
+puzzle = [4.0, 4.0, [[[3, 1, 1], [3, 1, 0], [3, 1, 1], [3, 1, 0]], [[3, 1, 2], [0, 0, 0], [0, 0, 0], [3, 1, 3]], [[3, 1, 1], [0, 0, 0], [0, 0, 0], [3, 1, 0]], [[3, 1, 2], [3, 1, 3], [3, 1, 2], [3, 1, 3]]]]
+instance = NodePath("../../../../Tile")
+colour_base = Color(0, 0, 0, 1)
+colour_hover = Color(0, 0, 0, 1)
+colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
+colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
+
+[node name="Middle Cube Puzzle" type="Node3D" parent="Courtyard/Fountain Puzzles/North-West Side" node_paths=PackedStringArray("instance")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -5.5, 0)
+script = ExtResource("17_6486b")
+solution = [[0, 2, 0, 0], [2, 0, 2, 3], [0, 2, 0, 1], [2, 3, 2, 2]]
+puzzle = [4.0, 4.0, [[[3, 1, 1], [0, 1, 0], [0, 1, 0], [3, 1, 0]], [[3, 1, 2], [3, 1, 3], [3, 1, 2], [3, 1, 3]], [[3, 1, 1], [3, 1, 0], [3, 1, 1], [3, 1, 0]], [[3, 1, 2], [0, 1, 0], [0, 1, 0], [3, 1, 3]]]]
+instance = NodePath("../../../../Tile")
+colour_base = Color(0, 0, 0, 1)
+colour_hover = Color(0, 0, 0, 1)
+colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
+colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
+
+[node name="Bottom Cube Puzzle" type="Node3D" parent="Courtyard/Fountain Puzzles/North-West Side" node_paths=PackedStringArray("instance")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -10, 0)
+script = ExtResource("17_6486b")
+solution = [[0, 1, 3, 0], [2, 3, 1, 3], [1, 0, 2, 0], [2, 3, 1, 2]]
+puzzle = [4.0, 4.0, [[[0, 0, 0], [3, 1, 0], [3, 1, 1], [0, 0, 0]], [[3, 1, 2], [3, 1, 3], [3, 1, 2], [3, 1, 3]], [[3, 1, 1], [3, 1, 0], [3, 1, 1], [3, 1, 0]], [[0, 0, 0], [3, 1, 3], [3, 1, 2], [0, 0, 0]]]]
+instance = NodePath("../../../../Tile")
+colour_base = Color(0, 0, 0, 1)
+colour_hover = Color(0, 0, 0, 1)
+colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
+colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_j8joh")
@@ -840,6 +880,9 @@ environment = SubResource("Environment_j8joh")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -0.765146, 0.643857, 0, -0.643857, -0.765146, 0, 3.22089, -7.8683)
 shadow_enabled = true
+
+[node name="cube statue" parent="." instance=ExtResource("18_xx0p1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
 
 [connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
