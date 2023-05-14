@@ -14,6 +14,11 @@ func _ready():
 	puzzle = get_edited_object()["puzzle"]
 	solution = get_edited_object()["solution"]
 	
+	# Stops an odd bug from happening
+	# Which does not occur if the array is created manually
+	if solution == []:
+		return
+	
 	var width: int = puzzle[PuzzleClasses.WIDTH]
 	var height: int = puzzle[PuzzleClasses.HEIGHT]
 	var puzzle_cells: Array = puzzle[PuzzleClasses.CELLS]
@@ -121,6 +126,9 @@ func resize_arrays(target_width: int, target_height: int):
 	
 	# Loop through all columns and resize them
 	for x in target_width:
+		if cells[x] == null:
+			cells[x] = []
+		
 		# Get current height of this column
 		var current_height := len(cells[x])
 		# If too long, slice it

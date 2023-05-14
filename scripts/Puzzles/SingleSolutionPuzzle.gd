@@ -2,7 +2,7 @@ extends Puzzle
 
 class_name SingleSolutionPuzzle
 
-@export var solution: Array
+@export var solution: Array = []
 
 func rotate_cell(cell_x: int, cell_y: int, direction: int):
 	super.rotate_cell(cell_x, cell_y, direction)
