@@ -6,3 +6,4 @@ exports/*
 
 # Godot 4 editor files
 .godot/
+**/*.blend1
