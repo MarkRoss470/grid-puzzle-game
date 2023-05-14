@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://csn454ypieo0h"
-path="res://.godot/imported/courtyard.glb-6ce49a4991249ad6997de651c8cf3891.scn"
+path="res://.godot/imported/courtyard.glb-8caece5d25207cd3e6299eb8da0947df.scn"
 
 [deps]
 
-source_file="res://models/courtyard.glb"
-dest_files=["res://.godot/imported/courtyard.glb-6ce49a4991249ad6997de651c8cf3891.scn"]
+source_file="res://models/courtyard/courtyard.glb"
+dest_files=["res://.godot/imported/courtyard.glb-8caece5d25207cd3e6299eb8da0947df.scn"]
 
 [params]
 

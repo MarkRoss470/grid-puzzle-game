@@ -1,9 +1,9 @@
-[gd_scene load_steps=56 format=3 uid="uid://b7lh4yh0eusdo"]
+[gd_scene load_steps=56 format=3 uid="uid://c58qbxisqorpl"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
 [ext_resource type="Script" path="res://scripts/Puzzles/KeyPuzzle.gd" id="4_quw2b"]
-[ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard.glb" id="5"]
+[ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard/courtyard.glb" id="5"]
 [ext_resource type="Texture2D" uid="uid://jqe3h8eqg8ad" path="res://textures/Object Textures/Control Tutorials/WASD.png" id="5_dj8dl"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseSplitter.gd" id="5_t78nx"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseCombiner.gd" id="6_4k3jo"]
@@ -17,7 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dmjcrxvgl0y0q" path="res://textures/Object Textures/Control Tutorials/reset.png" id="10_18o3s"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" id="13_2mdim"]
 [ext_resource type="Script" path="res://scripts/Puzzles/SingleSolutionPuzzle.gd" id="17_6486b"]
-[ext_resource type="PackedScene" uid="uid://kjoth08mmteq" path="res://models/cube statue.glb" id="18_xx0p1"]
+[ext_resource type="PackedScene" uid="uid://kjoth08mmteq" path="res://models/cube statue/cube statue.glb" id="18_xx0p1"]
 
 [sub_resource type="CapsuleShape3D" id="4"]
 height = 1.5
