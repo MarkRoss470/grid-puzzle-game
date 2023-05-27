@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cf7bv2f7tgxel"
-path="res://.godot/imported/pointer straight hint.svg-308435889666f651e45ffe7d9278da05.ctex"
+path="res://.godot/imported/pointer straight hint.svg-3ee399f134eedbece844f8035b8e283f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/puzzle icons/pointer straight hint.svg"
-dest_files=["res://.godot/imported/pointer straight hint.svg-308435889666f651e45ffe7d9278da05.ctex"]
+source_file="res://textures/puzzle icons/pointers/pointer straight hint.svg"
+dest_files=["res://.godot/imported/pointer straight hint.svg-3ee399f134eedbece844f8035b8e283f.ctex"]
 
 [params]
 

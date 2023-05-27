@@ -20,11 +20,11 @@ const COLOURS: Array[Color] = [
 const CELL_TEXTURES: Array[Texture2D] = [
 	preload("res://textures/puzzle icons/diamond.svg"), 
 	preload("res://textures/puzzle icons/empty.jpg"), # EMPTY
-	preload("res://textures/puzzle icons/pointer.svg"), # POINTER_SINGLE
-	preload("res://textures/puzzle icons/pointer angle.svg"), # POINTER_DOUBLE_ANGLE
-	preload("res://textures/puzzle icons/pointer straight.svg"), # POINTER_DOUBLE_STRAIGHT
-	preload("res://textures/puzzle icons/pointer triple.svg"), # POINTER_TRIPLE
-	preload("res://textures/puzzle icons/pointer quadruple.svg"), # POINTER_QUADRAPLE
+	preload("res://textures/puzzle icons/pointers/pointer.svg"), # POINTER_SINGLE
+	preload("res://textures/puzzle icons/pointers/pointer angle.svg"), # POINTER_DOUBLE_ANGLE
+	preload("res://textures/puzzle icons/pointers/pointer straight.svg"), # POINTER_DOUBLE_STRAIGHT
+	preload("res://textures/puzzle icons/pointers/pointer triple.svg"), # POINTER_TRIPLE
+	preload("res://textures/puzzle icons/pointers/pointer quadruple.svg"), # POINTER_QUADRAPLE
 	preload("res://textures/puzzle icons/square.svg"), # SQUARE
 	preload("res://textures/puzzle icons/circle.svg"), # CIRCLE
 ]
@@ -32,10 +32,10 @@ const CELL_TEXTURES: Array[Texture2D] = [
 # Textures to be used as icons
 const HINT_TEXTURES: Array[Texture2D] = [
 	null, null, # Padding to make the indices match up
-	preload("res://textures/puzzle icons/pointer hint.svg"), # POINTER_SINGLE
-	preload("res://textures/puzzle icons/pointer angle hint.svg"), # POINTER_DOUBLE_ANGLE
-	preload("res://textures/puzzle icons/pointer straight hint.svg"), # POINTER_DOUBLE_STRAIGHT
-	preload("res://textures/puzzle icons/pointer triple hint.svg"), # POINTER_TRIPLE
+	preload("res://textures/puzzle icons/pointers/pointer hint.svg"), # POINTER_SINGLE
+	preload("res://textures/puzzle icons/pointers/pointer angle hint.svg"), # POINTER_DOUBLE_ANGLE
+	preload("res://textures/puzzle icons/pointers/pointer straight hint.svg"), # POINTER_DOUBLE_STRAIGHT
+	preload("res://textures/puzzle icons/pointers/pointer triple hint.svg"), # POINTER_TRIPLE
 ]
 
 # Enum for cell icons

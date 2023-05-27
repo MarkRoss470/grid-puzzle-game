@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmwwlfuhlbxay"
-path="res://.godot/imported/pointer straight.svg-d98eb124cce36d4aa114f93e82a66a09.ctex"
+uid="uid://knqulp0d4wkb"
+path="res://.godot/imported/pointer quadruple.svg-b77d0d7b5c197876b1af707574bfb8ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/puzzle icons/pointer straight.svg"
-dest_files=["res://.godot/imported/pointer straight.svg-d98eb124cce36d4aa114f93e82a66a09.ctex"]
+source_file="res://textures/puzzle icons/pointers/pointer quadruple.svg"
+dest_files=["res://.godot/imported/pointer quadruple.svg-b77d0d7b5c197876b1af707574bfb8ca.ctex"]
 
 [params]
 

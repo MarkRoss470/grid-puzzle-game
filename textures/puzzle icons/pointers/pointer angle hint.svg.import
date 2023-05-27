@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bagouveynryv1"
-path="res://.godot/imported/pointer angle hint.svg-2c645494129fb12d0e1d73b737469b13.ctex"
+path="res://.godot/imported/pointer angle hint.svg-9c2bbace5738d0f3fc36782668143201.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/puzzle icons/pointer angle hint.svg"
-dest_files=["res://.godot/imported/pointer angle hint.svg-2c645494129fb12d0e1d73b737469b13.ctex"]
+source_file="res://textures/puzzle icons/pointers/pointer angle hint.svg"
+dest_files=["res://.godot/imported/pointer angle hint.svg-9c2bbace5738d0f3fc36782668143201.ctex"]
 
 [params]
 
