@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://c58qbxisqorpl"]
+[gd_scene load_steps=66 format=3 uid="uid://c58qbxisqorpl"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://dmjcrxvgl0y0q" path="res://textures/Object Textures/Control Tutorials/reset.png" id="10_18o3s"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" id="13_2mdim"]
 [ext_resource type="Script" path="res://scripts/Puzzles/SingleSolutionPuzzle.gd" id="17_6486b"]
-[ext_resource type="Script" path="res://scripts/Puzzles/Puzzle.gd" id="18_l8jbw"]
 [ext_resource type="PackedScene" uid="uid://kjoth08mmteq" path="res://models/cube statue/cube statue.glb" id="18_xx0p1"]
 [ext_resource type="PackedScene" uid="uid://uuwbhhgm6oqp" path="res://models/islands/islands.glb" id="19_1ow4l"]
 
@@ -914,10 +913,10 @@ colour_hover = Color(0, 0, 0, 1)
 colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
 
-[node name="Puzzle" type="Node3D" parent="Courtyard" node_paths=PackedStringArray("instance")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63888, 4.17498, 0)
-script = ExtResource("18_l8jbw")
-puzzle = [3.0, 3.0, [[[10, 0, 0], [1, 0, 0], [1, 0, 0]], [[1, 0, 0], [9, 0, 0], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
+[node name="SymbolPuzzle" type="Node3D" parent="Courtyard" node_paths=PackedStringArray("instance")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 6, 0)
+script = ExtResource("7_rw1rt")
+puzzle = [5.0, 5.0, [[[7, 0, 3], [5, 0, 1], [5, 0, 1], [5, 0, 1], [7, 0, 0]], [[5, 0, 1], [5, 0, 3], [1, 0, 1], [5, 0, 1], [3, 0, 0]], [[5, 0, 3], [1, 0, 1], [9, 0, 0], [1, 0, 0], [5, 0, 1]], [[3, 0, 2], [3, 0, 2], [1, 0, 2], [3, 0, 2], [3, 0, 2]], [[7, 1, 3], [3, 0, 3], [4, 0, 1], [3, 0, 2], [7, 1, 3]]]]
 instance = NodePath("../../Tile")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

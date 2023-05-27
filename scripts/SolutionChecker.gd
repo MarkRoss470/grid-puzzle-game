@@ -29,8 +29,22 @@ class Region:
 	# This is because each cell is divided into 4 when calculating regions
 	var cells: Array[Array]
 	
+	# The furthest filled in cell in each direction
+	var bounding_box_l: int
+	var bounding_box_r: int
+	var bounding_box_u: int
+	var bounding_box_d: int
+	
+	
 	# Creates a new region with the specified width and height.
 	func _init(width: int, height: int):
+		# Set bounding box values to impossible values
+		# so that they will get the right value when the first cell is added
+		bounding_box_l = width
+		bounding_box_r = 0
+		bounding_box_u = height
+		bounding_box_d = 0
+		
 		cells = []
 		for x in width:
 			cells.append([])
@@ -44,6 +58,12 @@ class Region:
 	# Adds the given cell to the region
 	func add_cell(x: int, y: int):
 		cells[x][y] = true
+		
+		# Add the cell to the bounding box values
+		bounding_box_l = min(bounding_box_l, x)
+		bounding_box_r = max(bounding_box_r, x)
+		bounding_box_u = min(bounding_box_u, y)
+		bounding_box_d = max(bounding_box_d, y)
 	
 	# Gets whether all subcells are true
 	func is_full() -> bool:
@@ -66,13 +86,14 @@ class Region:
 	func fill_from(other: Region):
 		for x in len(cells):
 			for y in len(cells[x]):
-				cells[x][y] = cells[x][y] or other.cells[x][y]
+				if other.cells[x][y]:
+					add_cell(x, y)
 	
 	# Recursively fill this region starting from the given coordinate, bounded by:
 	# * true cells in `other`
 	# * edges in `edges_horizontal` and `edges_vertical`
 	func floodfill_from(other: Region, edges_horizontal: Array[Array], edges_vertical: Array[Array], x: int, y: int):
-		cells[x][y] = true
+		self.add_cell(x, y)
 		
 		# Check cell to the left
 		if not (x == 0 
@@ -122,6 +143,14 @@ class Region:
 		
 		for line in lines:
 			print(line)
+		
+		print(
+			"bounding box: ",
+			"left=", bounding_box_l,
+			", right=", bounding_box_r,
+			", up=", bounding_box_u,
+			", down=", bounding_box_d
+		)
 	
 	# Whether a cell in this Region contains the given icon
 	# Only checks the top-left subcell of each cell
@@ -135,8 +164,28 @@ class Region:
 					if puzzle_icon[PuzzleClasses.ICON] == icon and puzzle_icon[PuzzleClasses.COLOUR] == colour:
 						return [x, y]
 		return []
+	
+	# Tests the region's horizontal and vertical symmetry.
+	# Returns whether the region is symmetric around each axis
+	func test_symmetry() -> Array[bool]:
+		var to_sub_x := bounding_box_l + bounding_box_r
+		var to_sub_y := bounding_box_u + bounding_box_d
+		
+		var symmetrical_horizontal := true
+		var symmetrical_vertical := true
+		
+		# TODO: lots of repeated work here, optimise if necessary
+		for x in range(bounding_box_l, bounding_box_r + 1):
+			for y in range(bounding_box_u, bounding_box_d + 1):
+				if cells[x][y] != cells[to_sub_x - x][y]:
+					symmetrical_horizontal = false
+				if cells[x][y] != cells[x][to_sub_y - y]:
+					symmetrical_vertical = false
+		
+		return [symmetrical_horizontal, symmetrical_vertical]
 
-static func init_2d_array(width: int, height: int, fill) -> Array[Array]:
+# Initialises a 2d array of the given dimensions with the given item
+static func init_2d_array(width: int, height: int, fill: Variant) -> Array[Array]:
 	var arr: Array[Array] = []
 	for x in width:
 		arr.append([])
@@ -153,6 +202,9 @@ static func check_solution(puzzle: Array, state: Array[Array]) -> Solution:
 	
 	var regions := calculate_regions(puzzle, state)
 	
+	for region in regions:
+		region.pretty_print()
+	
 	for x in len(puzzle_cells):
 		for y in len(puzzle_cells[x]):
 			var containing_region: Region
@@ -166,11 +218,21 @@ static func check_solution(puzzle: Array, state: Array[Array]) -> Solution:
 				PuzzleClasses.SQUARE:
 					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.SQUARE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y):
 						result.add_wrong(x, y)
+				# Circles have to be in the same region as another circle of the same colour
 				PuzzleClasses.CIRCLE:
 					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.CIRCLE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y):
 						pass
 					else:
 						result.add_wrong(x, y)
+				# Symmetry icons have to be in a region which is symmetrical along a given axis.
+				# The icon does not have to be on the axis of symmetry.
+				PuzzleClasses.SYMMETRY_HORIZONTAL:
+					if not containing_region.test_symmetry()[0]:
+						result.add_wrong(x, y)
+				PuzzleClasses.SYMMETRY_VERTICAL:
+					if not containing_region.test_symmetry()[1]:
+						result.add_wrong(x, y)
+				
 
 	return result
 
