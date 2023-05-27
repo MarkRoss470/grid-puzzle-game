@@ -122,7 +122,14 @@ func load_solved(_i: int):
 # Called by a cell when it is clicked
 # direction = 1 -> clockwise
 # direction = -1 -> anti-clockwise
-func rotate_cell(x: int, y: int, direction: int):
+
+# Returns true if the rotation was successful, false if not
+func rotate_cell(x: int, y: int, direction: int) -> bool:
+	
+	# Only icons in the ROTATABLE list should be able to be rotated
+	if not puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] in PuzzleClasses.ROTATABLE:
+		return false
+	
 	# Update cell's rotation based on the direction
 	# Add extra 4 to get around behaviour of % operator for negative numbers
 	current_state[x][y] += (4 + direction)
@@ -131,6 +138,8 @@ func rotate_cell(x: int, y: int, direction: int):
 	
 	# Physically rotate this cell
 	tiles[x][y].icon.rotate(Vector3.FORWARD, direction * PI / 2)
+	
+	return true
 
 # Sets is_solved to true and calls the next puzzle's on_puzzle_solve callback
 func solve_puzzle():

@@ -48,8 +48,10 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	
 	return tile
 
-func rotate_cell(x: int, y: int, direction: int):
-	super.rotate_cell(x, y, direction)
+func rotate_cell(x: int, y: int, direction: int) -> bool:
+	# If super.rotate_cell fails, return false immediately
+	if not super.rotate_cell(x, y, direction):
+		return false
 	
 	# Check whether the solution is valid
 	var solution := SolutionChecker.check_solution(puzzle, current_state)
@@ -65,7 +67,8 @@ func rotate_cell(x: int, y: int, direction: int):
 			for cell in solution.wrong_cells:
 				tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
 		
-		return
+		# The rotation was invalid, so return false
+		return false
 	
 	var key_rotation = current_state[key_x][key_y]
 	
@@ -82,3 +85,5 @@ func rotate_cell(x: int, y: int, direction: int):
 		solve_puzzle()
 	else:
 		unsolve_puzzle()
+	
+	return true

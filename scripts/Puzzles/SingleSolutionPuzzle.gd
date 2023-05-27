@@ -4,8 +4,10 @@ class_name SingleSolutionPuzzle
 
 @export var solution: Array = []
 
-func rotate_cell(cell_x: int, cell_y: int, direction: int):
-	super.rotate_cell(cell_x, cell_y, direction)
+func rotate_cell(cell_x: int, cell_y: int, direction: int) -> bool:
+	# If super.rotate_cell fails, return false immediately
+	if not super.rotate_cell(cell_x, cell_y, direction):
+		return false
 	
 	var is_correct := true
 	
@@ -25,7 +27,6 @@ func rotate_cell(cell_x: int, cell_y: int, direction: int):
 						is_correct = false
 						break
 					
-		
 		if not is_correct:
 			break
 	
@@ -33,3 +34,5 @@ func rotate_cell(cell_x: int, cell_y: int, direction: int):
 		solve_puzzle()
 	else:
 		unsolve_puzzle()
+	
+	return true

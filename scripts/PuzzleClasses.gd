@@ -112,6 +112,15 @@ const POINTERS: Array[int] = [
 	POINTER_QUADRUPLE,
 ]
 
+# Which icons the player can rotate
+const ROTATABLE: Array[int] = [
+	POINTER_SINGLE,
+	POINTER_DOUBLE_ANGLE,
+	POINTER_DOUBLE_STRAIGHT,
+	POINTER_TRIPLE,
+	POINTER_QUADRUPLE,
+]
+
 # Which directions each pointer icon points in
 const POINT_DIRECTIONS := {
 # Whether the pointer points    [up,    right, down,  left ]
