@@ -27,6 +27,9 @@ const CELL_TEXTURES: Array[Texture2D] = [
 	preload("res://textures/puzzle icons/pointers/pointer quadruple.svg"), # POINTER_QUADRAPLE
 	preload("res://textures/puzzle icons/square.svg"), # SQUARE
 	preload("res://textures/puzzle icons/circle.svg"), # CIRCLE
+	preload("res://textures/puzzle icons/symmetry icons/horizontal.svg"), # SYMMETRY_HORIZONTAL
+	preload("res://textures/puzzle icons/symmetry icons/vertical.svg"), # SYMMETRY_VERTICAL
+	
 ]
 
 # Textures to be used as icons
@@ -42,6 +45,7 @@ const HINT_TEXTURES: Array[Texture2D] = [
 enum {
 	NO_CELL, # There is no cell.
 	EMPTY, # An empty cell
+	
 	POINTER_SINGLE, # One pointer. 
 		# A rotation of 0 means up.
 	POINTER_DOUBLE_ANGLE, # Two pointers at 90 degrees from each other.
@@ -51,8 +55,12 @@ enum {
 	POINTER_TRIPLE, # Three pointers, each at 90 degrees from each other.
 		# A rotation of 0 means up-left-down.
 	POINTER_QUADRUPLE, # Four pointers, each at 90 degrees from each other.
+	
 	SQUARE,
-	CIRCLE
+	CIRCLE,
+	
+	SYMMETRY_HORIZONTAL,
+	SYMMETRY_VERTICAL,
 }
 
 # Groups of icons for the puzzle editor
@@ -66,11 +74,15 @@ const ICON_GROUPS: Array[Array] = [
 		POINTER_DOUBLE_ANGLE,
 		POINTER_DOUBLE_STRAIGHT,
 		POINTER_TRIPLE,
-		POINTER_QUADRUPLE
+		POINTER_QUADRUPLE,
 	],
-	[
+	[ # Group of icons which require presence / absence of other symbols in same region
 		SQUARE,
-		CIRCLE
+		CIRCLE,
+	],
+	[ # Group of symmetry icons
+		SYMMETRY_HORIZONTAL,
+		SYMMETRY_VERTICAL,
 	],
 ]
 
