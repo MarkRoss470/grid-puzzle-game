@@ -20,16 +20,24 @@ const COLOURS: Array[Color] = [
 const CELL_TEXTURES: Array[Texture2D] = [
 	preload("res://textures/puzzle icons/diamond.svg"), 
 	preload("res://textures/puzzle icons/empty.jpg"), # EMPTY
+	
 	preload("res://textures/puzzle icons/pointers/pointer.svg"), # POINTER_SINGLE
 	preload("res://textures/puzzle icons/pointers/pointer angle.svg"), # POINTER_DOUBLE_ANGLE
 	preload("res://textures/puzzle icons/pointers/pointer straight.svg"), # POINTER_DOUBLE_STRAIGHT
 	preload("res://textures/puzzle icons/pointers/pointer triple.svg"), # POINTER_TRIPLE
 	preload("res://textures/puzzle icons/pointers/pointer quadruple.svg"), # POINTER_QUADRAPLE
+	
 	preload("res://textures/puzzle icons/square.svg"), # SQUARE
 	preload("res://textures/puzzle icons/circle.svg"), # CIRCLE
+	
 	preload("res://textures/puzzle icons/symmetry icons/horizontal.svg"), # SYMMETRY_HORIZONTAL
 	preload("res://textures/puzzle icons/symmetry icons/vertical.svg"), # SYMMETRY_VERTICAL
 	
+	preload("res://textures/puzzle icons/fixed pointers/pointer.svg"), # FIXED_POINTER_SINGLE
+	preload("res://textures/puzzle icons/fixed pointers/pointer angle.svg"), # FIXED_POINTER_DOUBLE_ANGLE
+	preload("res://textures/puzzle icons/fixed pointers/pointer straight.svg"), # FIXED_POINTER_DOUBLE_STRAIGHT
+	preload("res://textures/puzzle icons/fixed pointers/pointer triple.svg"), # FIXED_POINTER_TRIPLE
+	preload("res://textures/puzzle icons/fixed pointers/pointer quadruple.svg"), # FIXED_POINTER_QUADRAPLE
 ]
 
 # Textures to be used as icons
@@ -61,6 +69,13 @@ enum {
 	
 	SYMMETRY_HORIZONTAL,
 	SYMMETRY_VERTICAL,
+	
+	# Same as pointers but not player rotateable
+	FIXED_POINTER_SINGLE,
+	FIXED_POINTER_DOUBLE_ANGLE,
+	FIXED_POINTER_DOUBLE_STRAIGHT,
+	FIXED_POINTER_TRIPLE,
+	FIXED_POINTER_QUADRUPLE,
 }
 
 # Groups of icons for the puzzle editor
@@ -75,6 +90,13 @@ const ICON_GROUPS: Array[Array] = [
 		POINTER_DOUBLE_STRAIGHT,
 		POINTER_TRIPLE,
 		POINTER_QUADRUPLE,
+	],
+	[ # Group of fixed pointers
+		FIXED_POINTER_SINGLE,
+		FIXED_POINTER_DOUBLE_ANGLE,
+		FIXED_POINTER_DOUBLE_STRAIGHT,
+		FIXED_POINTER_TRIPLE,
+		FIXED_POINTER_QUADRUPLE,
 	],
 	[ # Group of icons which require presence / absence of other symbols in same region
 		SQUARE,
@@ -122,6 +144,12 @@ const POINTERS: Array[int] = [
 	POINTER_DOUBLE_STRAIGHT,
 	POINTER_TRIPLE,
 	POINTER_QUADRUPLE,
+	
+	FIXED_POINTER_SINGLE,
+	FIXED_POINTER_DOUBLE_ANGLE,
+	FIXED_POINTER_DOUBLE_STRAIGHT,
+	FIXED_POINTER_TRIPLE,
+	FIXED_POINTER_QUADRUPLE,
 ]
 
 # Which icons the player can rotate
@@ -141,4 +169,10 @@ const POINT_DIRECTIONS := {
 	POINTER_DOUBLE_STRAIGHT:    [true,  false, true,  false],
 	POINTER_TRIPLE:             [true,  true,  true,  false],
 	POINTER_QUADRUPLE:          [true,  true,  true,  true ],
+	
+	FIXED_POINTER_SINGLE:             [true,  false, false, false],
+	FIXED_POINTER_DOUBLE_ANGLE:       [true,  true,  false, false],
+	FIXED_POINTER_DOUBLE_STRAIGHT:    [true,  false, true,  false],
+	FIXED_POINTER_TRIPLE:             [true,  true,  true,  false],
+	FIXED_POINTER_QUADRUPLE:          [true,  true,  true,  true ],
 }

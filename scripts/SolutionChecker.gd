@@ -202,8 +202,8 @@ static func check_solution(puzzle: Array, state: Array[Array]) -> Solution:
 	
 	var regions := calculate_regions(puzzle, state)
 	
-	for region in regions:
-		region.pretty_print()
+	#for region in regions:
+	#	region.pretty_print()
 	
 	for x in len(puzzle_cells):
 		for y in len(puzzle_cells[x]):
