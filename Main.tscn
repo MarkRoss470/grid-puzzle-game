@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://c58qbxisqorpl"]
+[gd_scene load_steps=67 format=3 uid="uid://c58qbxisqorpl"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
@@ -19,8 +19,7 @@
 [ext_resource type="Script" path="res://scripts/Puzzles/SingleSolutionPuzzle.gd" id="17_6486b"]
 [ext_resource type="PackedScene" uid="uid://kjoth08mmteq" path="res://models/cube statue/cube statue.glb" id="18_xx0p1"]
 [ext_resource type="PackedScene" uid="uid://uuwbhhgm6oqp" path="res://models/islands/islands.glb" id="19_1ow4l"]
-[ext_resource type="Script" path="res://scripts/PauseMenu.gd" id="20_nia7b"]
-[ext_resource type="Texture2D" uid="uid://boggi27cieviy" path="res://textures/UI/selection triangle.svg" id="21_51hi6"]
+[ext_resource type="PackedScene" uid="uid://wik7t7vdg62d" path="res://PauseMenu.tscn" id="20_s0jil"]
 
 [sub_resource type="CapsuleShape3D" id="4"]
 height = 1.5
@@ -228,9 +227,6 @@ size = Vector3(8, 1, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h8qgg"]
 size = Vector3(3, 1, 3)
-
-[sub_resource type="Theme" id="Theme_xj6mo"]
-default_font_size = 30
 
 [node name="Node3D" type="Node3D"]
 metadata/movie_file = "test"
@@ -1005,103 +1001,8 @@ shape = SubResource("BoxShape3D_6hxf1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_h8qgg")
 
-[node name="PauseMenu" type="CanvasLayer" parent="."]
-process_mode = 3
-script = ExtResource("20_nia7b")
-
-[node name="Control" type="Control" parent="PauseMenu"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="PauseMenu/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.847059)
-
-[node name="Pause" type="VBoxContainer" parent="PauseMenu/Control"]
-custom_minimum_size = Vector2(100, 1.45519e-11)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="Save and Quit" type="Label" parent="PauseMenu/Control/Pause"]
-layout_mode = 2
-mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
-text = "Save and Quit"
-
-[node name="Save Game" type="Label" parent="PauseMenu/Control/Pause"]
-layout_mode = 2
-mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
-text = "Save Game"
-
-[node name="Settings" type="Label" parent="PauseMenu/Control/Pause"]
-layout_mode = 2
-mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
-text = "Settings"
-
-[node name="Return to Game" type="Label" parent="PauseMenu/Control/Pause"]
-layout_mode = 2
-mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
-text = "Return to Game"
-
-[node name="Settings" type="VBoxContainer" parent="PauseMenu/Control"]
-visible = false
-custom_minimum_size = Vector2(100, 1.45519e-11)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="Exit" type="Label" parent="PauseMenu/Control/Settings"]
-layout_mode = 2
-mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
-text = "Exit"
-
-[node name="Selection Triangle" type="TextureRect" parent="PauseMenu/Control"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -26.0
-offset_top = -13.0
-offset_right = 230.0
-offset_bottom = 243.0
-grow_vertical = 2
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("21_51hi6")
+[node name="PauseMenu" parent="." instance=ExtResource("20_s0jil")]
 
 [connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
 [connection signal="mouse_exited" from="Tile/Area3D" to="Tile" method="mouse_exit"]
-[connection signal="gui_input" from="PauseMenu/Control/Pause/Save and Quit" to="PauseMenu" method="on_menu_item_gui_input" binds= [0]]
-[connection signal="mouse_entered" from="PauseMenu/Control/Pause/Save and Quit" to="PauseMenu" method="on_menu_item_mouse_entered" binds= [0]]
-[connection signal="gui_input" from="PauseMenu/Control/Pause/Save Game" to="PauseMenu" method="on_menu_item_gui_input" binds= [1]]
-[connection signal="mouse_entered" from="PauseMenu/Control/Pause/Save Game" to="PauseMenu" method="on_menu_item_mouse_entered" binds= [1]]
-[connection signal="gui_input" from="PauseMenu/Control/Pause/Settings" to="PauseMenu" method="on_menu_item_gui_input" binds= [2]]
-[connection signal="mouse_entered" from="PauseMenu/Control/Pause/Settings" to="PauseMenu" method="on_menu_item_mouse_entered" binds= [2]]
-[connection signal="gui_input" from="PauseMenu/Control/Pause/Return to Game" to="PauseMenu" method="on_menu_item_gui_input" binds= [3]]
-[connection signal="mouse_entered" from="PauseMenu/Control/Pause/Return to Game" to="PauseMenu" method="on_menu_item_mouse_entered" binds= [3]]
-[connection signal="gui_input" from="PauseMenu/Control/Settings/Exit" to="PauseMenu" method="on_menu_item_gui_input" binds= [0]]
-[connection signal="mouse_entered" from="PauseMenu/Control/Settings/Exit" to="PauseMenu" method="on_menu_item_mouse_entered" binds= [0]]
