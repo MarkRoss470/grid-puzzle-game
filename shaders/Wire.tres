@@ -29,6 +29,8 @@ operator = 2
 
 [resource]
 code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
 uniform float signal_travel;
 uniform float curve_length;
 uniform vec4 wire_colour_on : source_color;
