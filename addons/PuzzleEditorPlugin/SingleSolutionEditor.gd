@@ -1,3 +1,4 @@
+@tool
 extends EditorProperty
 
 const GRID_CELL_OFFSET := 40

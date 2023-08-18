@@ -1,3 +1,4 @@
+@tool
 extends EditorNode3DGizmoPlugin
 
 func get_name():
@@ -8,6 +9,9 @@ func _has_gizmo(spatial):
 
 func _init():
 	create_material("main", Color(1, 0, 0))
+
+func _get_gizmo_name() -> String:
+	return "PuzzleOutlines"
 
 func _redraw(gizmo):
 	# Clear the lines which were drawn last time

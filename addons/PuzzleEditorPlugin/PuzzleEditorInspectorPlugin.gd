@@ -1,3 +1,4 @@
+@tool
 # EditorInspectorPlugin to load a custom editor for puzzles
 extends EditorInspectorPlugin
 
@@ -12,7 +13,7 @@ func _can_handle(object: Object) -> bool:
 	# Check type of object - only load editor into nodes of type Puzzle
 	return object is Puzzle
 
-func _parse_property(object: Object, type: Variant.Type, path: String, hint: PropertyHint, hint_text: String, usage: PropertyUsageFlags, wide: bool) -> bool:
+func _parse_property(object: Object, type: Variant.Type, path: String, hint: PropertyHint, hint_text: String, usage: int, wide: bool) -> bool:
 	# Only override editor for 'puzzle' property
 	if path == "puzzle":
 		# Load editor
