@@ -12,9 +12,9 @@ extends Node
 
 # Called if the puzzle was loaded as solved from a saved game
 # Should have the same effect as on_puzzle_solve but instantly
-func load_solved(_i: int):
+func on_puzzle_solve_immediate(_i: int):
 	for i in len(targets):
-		targets[i].load_solved(params[i])
+		targets[i].on_puzzle_solve_immediate(params[i])
 
 # Called on correct solution
 func on_puzzle_solve(_i: int):
@@ -29,7 +29,7 @@ func on_puzzle_unsolve(_i: int):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if load_on_start:
-		load_solved(0)
+		on_puzzle_solve_immediate(0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

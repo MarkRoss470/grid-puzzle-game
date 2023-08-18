@@ -21,7 +21,7 @@ var transform_progress := 0.0
 
 # Called if the puzzle was loaded as solved from a saved game
 # Should have the same effect as on_puzzle_solve but instantly
-func load_solved(_i: int):
+func on_puzzle_solve_immediate(_i: int):
 	transform = end_transform
 	solved = true
 

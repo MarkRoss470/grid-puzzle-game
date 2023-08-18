@@ -30,10 +30,10 @@ var signal_travel := 0.0
 
 # Called if the puzzle was loaded as solved from a saved game
 # Should have the same effect as on_puzzle_solve but instantly
-func load_solved(_i: int):
+func on_puzzle_solve_immediate(_i: int):
 	completed = true
 	signal_travel = 1
-	on_complete.load_solved(on_complete_param)
+	on_complete.on_puzzle_solve_immediate(on_complete_param)
 	wire_material.set_shader_parameter("signal_travel", signal_travel)
 
 # Called on correct solution

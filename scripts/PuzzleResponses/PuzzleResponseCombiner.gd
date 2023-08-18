@@ -10,18 +10,18 @@ var solved_prevs: Array[bool] = []
 
 # Called if the puzzle was loaded as solved from a saved game
 # Should have the same effect as on_puzzle_solve but instantly
-func load_solved(i: int):
+func on_puzzle_solve_immediate(i: int):
 	solved_prevs[i] = true
 	
-	# If all the inputs are true, call the target's load_solved
+	# If all the inputs are true, call the target's on_puzzle_solve_immediate
 	if solved_prevs.all(func(b): return b):
-		target.load_solved(target_param)
+		target.on_puzzle_solve_immediate(target_param)
 
 # Called on correct solution
 func on_puzzle_solve(i: int):
 	solved_prevs[i] = true
 	
-	# If all the inputs are true, call the target's load_solved
+	# If all the inputs are true, call the target's on_puzzle_solve_immediate
 	if solved_prevs.all(func(b): return b):
 		target.on_puzzle_solve(target_param)
 
