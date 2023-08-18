@@ -16,22 +16,22 @@ enum SettingsMenuItems {
 	EXIT,
 }
 
-@onready
-var menus := [
-	$Control/Pause,
-	$Control/Settings,
-]
-
 var is_paused := false
 var selected := 0
 var current_menu := Menu.PAUSE
+
+@onready
+var menus: Array[VBoxContainer] = [
+	$Control/Pause,
+	$Control/Settings,
+]
 
 @onready
 var selection_triangle := $"Control/Selection Triangle"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	set_pointer_position()
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -65,7 +65,7 @@ func _process(delta):
 		set_pointer_position()
 	
 	if Input.is_action_just_pressed("ui_accept"):
-		select_item(selected)
+		select_item()
 
 func pause():
 	get_tree().paused = true
@@ -74,15 +74,6 @@ func pause():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	set_menu(Menu.PAUSE)
-
-func set_menu(menu: int):
-	selected = 0
-	current_menu = menu
-	
-	for i in len(menus):
-		menus[i].visible = i == current_menu
-	
-	set_pointer_position()
 
 func unpause():
 	get_tree().paused = false
@@ -93,32 +84,42 @@ func unpause():
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+func set_menu(menu: int):
+	selected = 0
+	current_menu = menu
+	
+	for i in len(menus):
+		menus[i].visible = i == current_menu
+	
+	set_pointer_position()
+
 func set_pointer_position():
 	selection_triangle.reparent(menus[current_menu].get_child(selected), false)
 
-func select_item(selected_item: int):
+func select_item():
 	if current_menu == Menu.PAUSE:
-		match selected_item:
+		match selected:
 			PauseMenuItems.SAVE_AND_QUIT:
-				pass
+				# TODO: save game first
+				get_tree().quit()
 			PauseMenuItems.SAVE_GAME:
-				pass
+				pass # TODO: save game
 			PauseMenuItems.SETTINGS:
 				set_menu(Menu.SETTINGS)
 			PauseMenuItems.RETURN_TO_GAME:
 				unpause()
 	elif current_menu == Menu.SETTINGS:
-		match selected_item:
+		match selected:
 			SettingsMenuItems.EXIT:
 				set_menu(Menu.PAUSE)
-
 
 func on_menu_item_mouse_entered(menu_item: int):
 	selected = menu_item
 	set_pointer_position()
 
-func on_menu_item_gui_input(event, menu_item):
+func on_menu_item_gui_input(event: InputEvent, menu_item: int):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			select_item(menu_item)
+			selected = menu_item
+			select_item()
 
