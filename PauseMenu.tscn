@@ -1,10 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://wik7t7vdg62d"]
+[gd_scene load_steps=6 format=3 uid="uid://wik7t7vdg62d"]
 
 [ext_resource type="Script" path="res://scripts/PauseMenu.gd" id="1_v8y3b"]
 [ext_resource type="Texture2D" uid="uid://boggi27cieviy" path="res://textures/UI/selection triangle.svg" id="2_jk6ob"]
+[ext_resource type="Texture2D" uid="uid://ccv0esxc3hmdb" path="res://textures/UI/slider_thumb.tres" id="2_kffsq"]
 
-[sub_resource type="Theme" id="Theme_xj6mo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vav6"]
+bg_color = Color(1, 1, 1, 1)
+border_color = Color(0.741176, 0.815686, 0.839216, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="Theme" id="Theme_2dsvw"]
 default_font_size = 30
+HSlider/icons/grabber = ExtResource("2_kffsq")
+HSlider/icons/grabber_highlight = ExtResource("2_kffsq")
+HSlider/styles/slider = SubResource("StyleBoxFlat_4vav6")
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
@@ -17,6 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_2dsvw")
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 layout_mode = 1
@@ -28,6 +43,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.847059)
 
 [node name="Pause" type="VBoxContainer" parent="Control"]
+visible = false
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -41,29 +57,24 @@ alignment = 1
 [node name="Save and Quit" type="Label" parent="Control/Pause"]
 layout_mode = 2
 mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
 text = "Save and Quit"
 
 [node name="Save Game" type="Label" parent="Control/Pause"]
 layout_mode = 2
 mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
 text = "Save Game"
 
 [node name="Settings" type="Label" parent="Control/Pause"]
 layout_mode = 2
 mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
 text = "Settings"
 
 [node name="Return to Game" type="Label" parent="Control/Pause"]
 layout_mode = 2
 mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
 text = "Return to Game"
 
 [node name="Settings" type="VBoxContainer" parent="Control"]
-visible = false
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -74,10 +85,33 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
+[node name="Mouse Sensitivity" type="Label" parent="Control/Settings"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 0
+text = "Mouse Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="Control/Settings/Mouse Sensitivity"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 31.0
+offset_top = -7.5
+offset_right = 182.0
+offset_bottom = 8.5
+grow_horizontal = 0
+grow_vertical = 2
+min_value = 0.0005
+max_value = 0.1
+step = 0.0005
+value = 0.0005
+
 [node name="Exit" type="Label" parent="Control/Settings"]
 layout_mode = 2
 mouse_filter = 0
-theme = SubResource("Theme_xj6mo")
 text = "Exit"
 
 [node name="Selection Triangle" type="TextureRect" parent="Control"]
@@ -101,5 +135,8 @@ texture = ExtResource("2_jk6ob")
 [connection signal="mouse_entered" from="Control/Pause/Settings" to="." method="on_menu_item_mouse_entered" binds= [2]]
 [connection signal="gui_input" from="Control/Pause/Return to Game" to="." method="on_menu_item_gui_input" binds= [3]]
 [connection signal="mouse_entered" from="Control/Pause/Return to Game" to="." method="on_menu_item_mouse_entered" binds= [3]]
-[connection signal="gui_input" from="Control/Settings/Exit" to="." method="on_menu_item_gui_input" binds= [0]]
-[connection signal="mouse_entered" from="Control/Settings/Exit" to="." method="on_menu_item_mouse_entered" binds= [0]]
+[connection signal="gui_input" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_gui_input" binds= [0]]
+[connection signal="mouse_entered" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_mouse_entered" binds= [0]]
+[connection signal="value_changed" from="Control/Settings/Mouse Sensitivity/HSlider" to="." method="on_menu_item_slider_input" binds= [0]]
+[connection signal="gui_input" from="Control/Settings/Exit" to="." method="on_menu_item_gui_input" binds= [1]]
+[connection signal="mouse_entered" from="Control/Settings/Exit" to="." method="on_menu_item_mouse_entered" binds= [1]]

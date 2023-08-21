@@ -13,6 +13,7 @@ enum PauseMenuItems {
 }
 
 enum SettingsMenuItems {
+	MOUSE_SENSITIVITY,
 	EXIT,
 }
 
@@ -26,12 +27,30 @@ var menus: Array[VBoxContainer] = [
 	$Control/Settings,
 ]
 
+const settings := [
+	"mouse_sensitivity",
+]
+
+enum SettingType {
+	Slider,
+}
+
+const setting_types := [
+	SettingType.Slider,
+	
+	null, # The EXIT option
+]
+
 @onready
 var selection_triangle := $"Control/Selection Triangle"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	for i in len(setting_types):
+		if setting_types[i] == SettingType.Slider:
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(i).get_child(0)
+			var setting_value = Settings.get_setting(settings[i])
+			slider.value = setting_value
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -66,6 +85,22 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		select_item()
+	
+	if current_menu == Menu.SETTINGS and setting_types[selected] == SettingType.Slider:
+		# These updates triggers a value_changed event,
+		# so there's no need to manually call on_menu_item_slider_input
+		if Input.is_action_pressed("ui_right"):
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_child(0)
+			slider.value += slider.step
+		
+		if Input.is_action_pressed("ui_left"):
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_child(0)
+			slider.value -= slider.step
+		
+		if Input.is_action_just_pressed("reset"):
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_child(0)
+			var reset_value = Settings.reset_setting(settings[selected])
+			slider.value = reset_value
 
 func pause():
 	get_tree().paused = true
@@ -123,3 +158,5 @@ func on_menu_item_gui_input(event: InputEvent, menu_item: int):
 			selected = menu_item
 			select_item()
 
+func on_menu_item_slider_input(value: float, menu_item: int):
+	Settings.set_setting(settings[menu_item], value)

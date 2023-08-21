@@ -29,6 +29,10 @@ var y_velocity := 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	Settings.register_callback("mouse_sensitivity", func(new_value):
+		mouse_sensitivity = new_value
+	)
 
 # Called on input events
 # Rotation is calculated here, movement is calculated in _physics_process
