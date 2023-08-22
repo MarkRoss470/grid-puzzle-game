@@ -190,6 +190,8 @@ cull_mode = 2
 albedo_texture = ExtResource("6_dsqpq")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8xkuk"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Sky" id="Sky_ryqrm"]
 sky_material = SubResource("ProceduralSkyMaterial_8xkuk")
@@ -864,8 +866,8 @@ script = ExtResource("17_6486b")
 solution = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [3, 1, 0, 0, 0, 0, 1, 0], [1, 3, 0, 0, 2, 2, 3, 0], [2, 0, 0, 0, 1, 0, 0, 0], [0, 2, 0, 0, 3, 0, 1, 0], [2, 0, 0, 0, 0, 0, 3, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
 puzzle = [8.0, 8.0, [[[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]], [[3, 1, 1], [4, 1, 0], [4, 1, 0], [4, 1, 0], [4, 1, 0], [4, 1, 0], [3, 1, 0], [1, 0, 0]], [[3, 1, 2], [3, 1, 3], [4, 1, 3], [4, 1, 3], [3, 1, 1], [1, 0, 0], [4, 1, 3], [1, 0, 0]], [[3, 1, 0], [3, 1, 1], [0, 0, 0], [0, 0, 0], [3, 1, 2], [4, 1, 0], [3, 1, 0], [1, 0, 0]], [[3, 1, 3], [3, 1, 2], [0, 0, 0], [0, 0, 0], [3, 1, 1], [4, 1, 0], [3, 1, 3], [1, 0, 0]], [[3, 1, 1], [3, 1, 0], [4, 1, 3], [4, 1, 3], [3, 1, 2], [1, 0, 0], [4, 1, 1], [1, 0, 0]], [[3, 1, 2], [4, 1, 2], [4, 1, 2], [4, 1, 2], [4, 1, 2], [4, 1, 2], [3, 1, 3], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
 instance = NodePath("../../../../Tile")
-colour_base = Color(0, 0, 0, 1)
-colour_hover = Color(0, 0, 0, 1)
+colour_base = Color(0, 0, 0, 0)
+colour_hover = Color(0, 0, 0, 0)
 colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
 
@@ -875,8 +877,8 @@ script = ExtResource("17_6486b")
 solution = [[0, 3], [2, 0], [1, 2], [1, 1]]
 puzzle = [4.0, 2.0, [[[5, 1, 2], [3, 1, 1]], [[3, 1, 0], [5, 1, 1]], [[3, 1, 3], [5, 1, 1]], [[4, 1, 2], [3, 1, 2]]]]
 instance = NodePath("../../../../Tile")
-colour_base = Color(0, 0, 0, 1)
-colour_hover = Color(0, 0, 0, 1)
+colour_base = Color(0, 0, 0, 0)
+colour_hover = Color(0, 0, 0, 0)
 colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
 
@@ -921,7 +923,6 @@ environment = SubResource("Environment_j8joh")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, -0.765146, 0.643857, 0, -0.643857, -0.765146, 0, 3.22089, -7.8683)
-shadow_enabled = true
 
 [node name="Islands" parent="." instance=ExtResource("19_1ow4l")]
 

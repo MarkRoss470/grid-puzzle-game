@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cd2mr6p3vngbm"]
+
+[ext_resource type="Shader" uid="uid://b2tdalkg35gyp" path="res://shaders/EdgeDetect.tres" id="1_rnl6i"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_rnl6i")
+shader_parameter/EdgeWidth = 4.0
+shader_parameter/MainColour = Color(1, 1, 1, 1)
+shader_parameter/EdgeColour = Color(0, 0.321569, 0.145098, 1)
