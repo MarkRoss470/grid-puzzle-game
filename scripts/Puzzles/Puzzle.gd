@@ -337,6 +337,4 @@ func on_puzzle_solve(_i: int):
 	load_puzzle()
 
 func on_puzzle_unsolve(_i: int):
-	if on_complete != null:
-		on_complete.on_puzzle_unsolve(on_complete_param)
-	unload_puzzle()
+	pass
