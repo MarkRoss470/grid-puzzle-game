@@ -3,5 +3,8 @@
 [ext_resource type="Script" path="res://scripts/EdgeDetectMaterial.gd" id="1_4ndvh"]
 
 [resource]
-albedo_color = Color(0.105882, 0.32549, 0, 1)
+albedo_color = Color(0.110859, 0.287296, 0, 1)
+emission_enabled = true
+emission = Color(0.0156863, 0.443137, 0.0745098, 1)
+emission_energy_multiplier = 0.0
 script = ExtResource("1_4ndvh")

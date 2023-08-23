@@ -138,10 +138,12 @@ cull_mode = 2
 albedo_texture = ExtResource("6_dsqpq")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8xkuk"]
-sky_top_color = Color(0.2, 0.2, 0.2, 1)
+sky_top_color = Color(0.364706, 0.435294, 0.552941, 1)
 sky_horizon_color = Color(0.199732, 0.199732, 0.199732, 1)
-ground_bottom_color = Color(0.199732, 0.199732, 0.199732, 1)
+sky_curve = 0.0861525
+ground_bottom_color = Color(0.113725, 0.113725, 0.113725, 1)
 ground_horizon_color = Color(0.199732, 0.199732, 0.199732, 1)
+ground_curve = 0.309099
 sun_angle_max = 0.0
 
 [sub_resource type="Sky" id="Sky_ryqrm"]

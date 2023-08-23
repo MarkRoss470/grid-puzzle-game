@@ -32,8 +32,8 @@ represents the puzzle - sets which icons go in which cells
 @export_group("Colours")
 
 # Colours for puzzle's neutral state
-@export var colour_base: Color = Color(0.9, 0.9, 0.9)
-@export var colour_hover: Color = Color(0.8, 0.8, 0.8)
+@export var colour_base: Color = Color(0.8, 0.8, 0.8)
+@export var colour_hover: Color = Color(0.7, 0.7, 0.7)
 
 # Colours for a correct solution
 @export var colour_solved_base: Color = Color(0.6, 1, 0.6)
