@@ -11,19 +11,15 @@ var SingleSolutionEditor := preload("res://addons/PuzzleEditorPlugin/SingleSolut
 # Checks whether to check the properties of an object
 func _can_handle(object: Object) -> bool:
 	# Check type of object - only load editor into nodes of type Puzzle
-	return object is Puzzle
+	return object is PuzzleDesign or object is SingleSolutionPuzzle
 
-func _parse_property(object: Object, type: Variant.Type, path: String, hint: PropertyHint, hint_text: String, usage: int, wide: bool) -> bool:
-	# Only override editor for 'puzzle' property
-	if path == "puzzle":
-		# Load editor
-		add_custom_control(PuzzleEditor.new())
-		return true
+func _parse_begin(object):
+	if object is PuzzleDesign:
+		add_property_editor_for_multiple_properties(
+			"puzzle",
+			["width", "height", "icons"],
+			PuzzleEditor.new()
+		)
 	
-	if object is SingleSolutionPuzzle and path == "solution":
-		pass
+	if object is SingleSolutionPuzzle:
 		add_custom_control(SingleSolutionEditor.new())
-	
-	# Tells editor to remove default editor
-	return false
-	

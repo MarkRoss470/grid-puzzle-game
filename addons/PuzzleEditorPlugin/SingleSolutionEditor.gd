@@ -8,7 +8,7 @@ const GRID_CELL_SIZE := 30
 var editor_items := Panel.new()
 
 var solution: Array
-var puzzle: Array
+var puzzle: PuzzleDesign
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,9 +20,9 @@ func _ready():
 	if solution == []:
 		return
 	
-	var width: int = puzzle[PuzzleClasses.WIDTH]
-	var height: int = puzzle[PuzzleClasses.HEIGHT]
-	var puzzle_cells: Array = puzzle[PuzzleClasses.CELLS]
+	var width: int = puzzle.width
+	var height: int = puzzle.height
+	var puzzle_cells: Array[Array] = puzzle.icons
 	
 	resize_arrays(width, height)
 	
@@ -91,7 +91,7 @@ func rotate_cell(event: InputEvent, x: int, y: int):
 		
 		emit_changed("solution", solution)
 		
-		if puzzle[PuzzleClasses.CELLS][x][y][0] == PuzzleClasses.EMPTY:
+		if puzzle.icons[x][y].icon == PuzzleClasses.EMPTY:
 			return
 		
 		var icon := editor_items.get_node("row-" + str(y) + "/icon-" + str(x))
