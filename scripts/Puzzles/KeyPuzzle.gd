@@ -35,12 +35,13 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 		
 		# Make copy of material
 		var mat_override: Material = key_hint.get_material().duplicate()
+		mat_override.next_pass = mat_override.next_pass.duplicate()
 		
 		# Set texture
 		var key_icon = puzzle[PuzzleClasses.CELLS][key_x][key_y][0]
-		mat_override.set_shader_parameter("icon_texture", PuzzleClasses.HINT_TEXTURES[key_icon])
+		mat_override.next_pass.set_shader_parameter("icon_texture", PuzzleClasses.HINT_TEXTURES[key_icon])
 		# Set colour
-		mat_override.set_shader_parameter("icon_colour", key_hint_colour)
+		mat_override.next_pass.set_shader_parameter("icon_colour", key_hint_colour)
 		# Set icon to use this material
 		key_hint.set_material_override(mat_override)
 		

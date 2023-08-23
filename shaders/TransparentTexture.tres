@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c7lpntk7ouvgd"]
+
+[ext_resource type="Shader" uid="uid://jlbxct50ismw" path="res://shaders/TransparantTextureShader.tres" id="1_4f2ax"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8mctn"]
+render_priority = 0
+shader = ExtResource("1_4f2ax")
+shader_parameter/icon_colour = null
+
+[resource]
+next_pass = SubResource("ShaderMaterial_8mctn")
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0)

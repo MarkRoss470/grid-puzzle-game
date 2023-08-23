@@ -1,10 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://brexppiw46ne"]
+[gd_resource type="StandardMaterial3D" script_class="EdgeDetectMaterial" load_steps=2 format=3 uid="uid://bntpvkgh12x48"]
 
-[ext_resource type="Shader" uid="uid://b2tdalkg35gyp" path="res://shaders/EdgeDetect.tres" id="1_rnl6i"]
+[ext_resource type="Script" path="res://scripts/EdgeDetectMaterial.gd" id="1_lkhu6"]
 
 [resource]
-render_priority = 0
-shader = ExtResource("1_rnl6i")
-shader_parameter/EdgeWidth = 2.0
-shader_parameter/MainColour = Color(1, 1, 1, 1)
-shader_parameter/EdgeColour = Color(0.592157, 0.313726, 0.0901961, 1)
+albedo_color = Color(0.592157, 0.313726, 0.0901961, 1)
+script = ExtResource("1_lkhu6")

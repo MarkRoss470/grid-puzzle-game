@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" script_class="EdgeDetectMaterial" load_steps=2 format=3 uid="uid://c0c8jbsclo403"]
+
+[ext_resource type="Script" path="res://scripts/EdgeDetectMaterial.gd" id="1_x6i65"]
+
+[resource]
+resource_name = "Meta puzzle"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.5
+script = ExtResource("1_x6i65")

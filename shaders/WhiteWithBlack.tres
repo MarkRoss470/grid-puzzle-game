@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" script_class="EdgeDetectMaterial" load_steps=2 format=3 uid="uid://hdvxy54cbvy3"]
+
+[ext_resource type="Script" path="res://scripts/EdgeDetectMaterial.gd" id="1_rocah"]
+
+[resource]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+script = ExtResource("1_rocah")

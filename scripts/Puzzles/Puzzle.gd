@@ -32,11 +32,11 @@ represents the puzzle - sets which icons go in which cells
 @export_group("Colours")
 
 # Colours for puzzle's neutral state
-@export var colour_base: Color = Color(0.5, 0.5, 0.5)
+@export var colour_base: Color = Color(0.9, 0.9, 0.9)
 @export var colour_hover: Color = Color(0.8, 0.8, 0.8)
 
 # Colours for a correct solution
-@export var colour_solved_base: Color = Color(0, 1, 0)
+@export var colour_solved_base: Color = Color(0.6, 1, 0.6)
 @export var colour_solved_hover: Color = Color(0.5, 1, 0.5)
 
 
@@ -213,10 +213,12 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	if cell[PuzzleClasses.ICON] != PuzzleClasses.EMPTY:
 		# Make copy of material
 		var mat_override := icon.get_material().duplicate()
+		mat_override.next_pass = mat_override.next_pass.duplicate()
+		
 		# Set texture
-		mat_override.set_shader_parameter("icon_texture", PuzzleClasses.CELL_TEXTURES[cell[0]])
+		mat_override.next_pass.set_shader_parameter("icon_texture", PuzzleClasses.CELL_TEXTURES[cell[0]])
 		# Set colour
-		mat_override.set_shader_parameter("icon_colour", PuzzleClasses.COLOURS[cell[1]])
+		mat_override.next_pass.set_shader_parameter("icon_colour", PuzzleClasses.COLOURS[cell[1]])
 		# Set icon to use this material
 		icon.set_material_override(mat_override)
 	# If the puzzle cell has no icon, hide the icon plane

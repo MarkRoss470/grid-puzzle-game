@@ -33,20 +33,20 @@ func set_colour(colour: Color, colour_h: Color):
 	
 	# If mouse currently over tile, set colour to hover colour
 	if mouse_over_tile:
-		mat_override.albedo_color = colour_hover
+		mat_override.next_pass.set_shader_parameter("MainColour", colour_hover)
 	# Otherwise, set colour to base colour
 	else:
-		mat_override.albedo_color = colour_base
+		mat_override.next_pass.set_shader_parameter("MainColour", colour_base)
 
 # Called when the mouse enters the tile
 func mouse_enter():
 	mouse_over_tile = true
-	mat_override.albedo_color = colour_hover
+	mat_override.next_pass.set_shader_parameter("MainColour", colour_hover)
 
 # Called when the mouse exits the tile
 func mouse_exit():
 	mouse_over_tile = false
-	mat_override.albedo_color = colour_base
+	mat_override.next_pass.set_shader_parameter("MainColour", colour_base)
 
 # Called when an input related to this object occurs
 func input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int):
@@ -70,7 +70,9 @@ func _ready():
 	backplane = get_node(backplane_path)
 	# Create a new material override so that colour changes only apply to this cell
 	mat_override = backplane.get_material().duplicate()
+	mat_override.next_pass = mat_override.next_pass.duplicate()
+	
 	backplane.set_material_override(mat_override)
-	mat_override.albedo_color = colour_base
+	mat_override.next_pass.set_shader_parameter("MainColour", colour_base)
 
 	icon = get_node(icon_path)

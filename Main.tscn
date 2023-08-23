@@ -1,13 +1,15 @@
-[gd_scene load_steps=67 format=3 uid="uid://c58qbxisqorpl"]
+[gd_scene load_steps=64 format=3 uid="uid://c58qbxisqorpl"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
+[ext_resource type="Material" uid="uid://c7lpntk7ouvgd" path="res://shaders/TransparentTexture.tres" id="4_ab2e4"]
 [ext_resource type="Script" path="res://scripts/Puzzles/KeyPuzzle.gd" id="4_quw2b"]
 [ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard/courtyard.glb" id="5"]
 [ext_resource type="Texture2D" uid="uid://jqe3h8eqg8ad" path="res://textures/Object Textures/Control Tutorials/WASD.png" id="5_dj8dl"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseSplitter.gd" id="5_t78nx"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseCombiner.gd" id="6_4k3jo"]
 [ext_resource type="Texture2D" uid="uid://ibv2qcugcvm3" path="res://textures/Object Textures/Control Tutorials/mouse move.png" id="6_dsqpq"]
+[ext_resource type="Material" uid="uid://hdvxy54cbvy3" path="res://shaders/WhiteWithBlack.tres" id="6_gkpfb"]
 [ext_resource type="Texture2D" uid="uid://dgmcj0hui5247" path="res://textures/Object Textures/Control Tutorials/left click.png" id="7_2hhf2"]
 [ext_resource type="Script" path="res://scripts/Puzzles/SymbolPuzzle.gd" id="7_rw1rt"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseWire.gd" id="7_yhdit"]
@@ -24,76 +26,14 @@
 [sub_resource type="CapsuleShape3D" id="4"]
 height = 1.5
 
-[sub_resource type="PlaneMesh" id="8"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_odr6k"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ibgf7"]
-cull_mode = 2
-
-[sub_resource type="VisualShaderNodeTexture2DParameter" id="19"]
-parameter_name = "icon_texture"
-color_default = 2
-
-[sub_resource type="VisualShaderNodeColorParameter" id="35"]
-parameter_name = "icon_colour"
-
-[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_5t5qw"]
-source = 5
-
-[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_ppw8i"]
-default_input_values = [0, Quaternion(0, 0, 0, 0)]
-op_type = 2
-
-[sub_resource type="VisualShader" id="12"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
-
-uniform vec4 icon_colour : source_color;
-uniform sampler2D icon_texture : hint_default_transparent;
-
-
-
-void fragment() {
-// ColorParameter:4
-	vec4 n_out4p0 = icon_colour;
-
-
-	vec4 n_out5p0;
-// Texture2D:5
-	n_out5p0 = texture(icon_texture, UV);
-
-
-// VectorDecompose:6
-	float n_out6p0 = n_out5p0.x;
-	float n_out6p1 = n_out5p0.y;
-	float n_out6p2 = n_out5p0.z;
-	float n_out6p3 = n_out5p0.w;
-
-
-// Output:0
-	ALBEDO = vec3(n_out4p0.xyz);
-	ALPHA = n_out6p3;
-
-
-}
-"
-nodes/fragment/0/position = Vector2(760, 80)
-nodes/fragment/3/node = SubResource("19")
-nodes/fragment/3/position = Vector2(-1100, 260)
-nodes/fragment/4/node = SubResource("35")
-nodes/fragment/4/position = Vector2(-620, -180)
-nodes/fragment/5/node = SubResource("VisualShaderNodeTexture_5t5qw")
-nodes/fragment/5/position = Vector2(-340, 340)
-nodes/fragment/6/node = SubResource("VisualShaderNodeVectorDecompose_ppw8i")
-nodes/fragment/6/position = Vector2(152.53, 585.335)
-nodes/fragment/connections = PackedInt32Array(3, 0, 5, 2, 5, 0, 6, 0, 6, 3, 0, 1, 4, 0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="9"]
-render_priority = 0
-shader = SubResource("12")
-shader_parameter/icon_colour = null
+[sub_resource type="PlaneMesh" id="PlaneMesh_6llfe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j73v0"]
 size = Vector3(1, 0.05, 0.9)
+
+[sub_resource type="PlaneMesh" id="8"]
 
 [sub_resource type="BoxShape3D" id="37"]
 size = Vector3(20, 4, 0.25)
@@ -142,10 +82,10 @@ size = Vector3(5, 4, 0.2)
 
 [sub_resource type="Curve3D" id="Curve3D_uptaw"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 1.45519e-11, 1.45519e-11, 1.45519e-11, 1.45519e-11, 1.45519e-11, -8.75, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, -8.75, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, -6.25, 0, 0, 0, 0, 0, 0, 3.75, 1.45519e-11, -6.25, 0, 0, 0, 0, 0, 0, 3.75, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 6.26, 0, 0, 0, 0, 0, 0, 6.25, 1.45519e-11, 6.25, 0, 0, 0, 0, 0, 0, 6.26, 1.45519e-11, -8.75, 0, 0, 0, 0, 0, 0, 3.75, 1.45519e-11, -8.75, 0, 0, 0, 0, 0, 0, 3.75, 1.45519e-11, -10, 0, 0, 0, 0, 0, 0, 5, 1.45519e-11, -10),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 1.45519e-11, 1.45519e-11, -8.75, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, -8.75, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, -6.25, 0, 0, 0, 0, 0, 0, 3.75, 1.45519e-11, -6.25, 0, 0, 0, 0, 0, 0, 3.75, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 1.25, 0, 0, 0, 0, 0, 0, 1.25, 1.45519e-11, 6.26, 0, 0, 0, 0, 0, 0, 6.25, 1.45519e-11, 6.25, 0, 0, 0, 0, 0, 0, 6.26, 1.45519e-11, -8.75, 0, 0, 0, 0, 0, 0, 3.75, 1.45519e-11, -8.75, 0, 0, 0, 0, 0, 0, 3.75, 1.45519e-11, -10, 0, 0, 0, 0, 0, 0, 5, 1.45519e-11, -10),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 12
+point_count = 18
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uq5sk"]
 render_priority = 0
@@ -158,12 +98,16 @@ shader_parameter/wire_colour_off = null
 [sub_resource type="PlaneMesh" id="PlaneMesh_a654v"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7n4st"]
-transparency = 1
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 albedo_texture = ExtResource("8_njmtl")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3akgm"]
-transparency = 1
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 albedo_texture = ExtResource("7_2hhf2")
 
@@ -180,18 +124,25 @@ cull_mode = 2
 albedo_texture = ExtResource("9_m1euw")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i7apb"]
-transparency = 1
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 albedo_texture = ExtResource("5_dj8dl")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2k6b0"]
-transparency = 1
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
 cull_mode = 2
 albedo_texture = ExtResource("6_dsqpq")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8xkuk"]
-sky_top_color = Color(1, 1, 1, 1)
-sky_horizon_color = Color(1, 1, 1, 1)
+sky_top_color = Color(0.2, 0.2, 0.2, 1)
+sky_horizon_color = Color(0.199732, 0.199732, 0.199732, 1)
+ground_bottom_color = Color(0.199732, 0.199732, 0.199732, 1)
+ground_horizon_color = Color(0.199732, 0.199732, 0.199732, 1)
+sun_angle_max = 0.0
 
 [sub_resource type="Sky" id="Sky_ryqrm"]
 sky_material = SubResource("ProceduralSkyMaterial_8xkuk")
@@ -258,13 +209,13 @@ icon_path = NodePath("Icon")
 
 [node name="Backplane" type="CSGMesh3D" parent="Tile"]
 transform = Transform3D(-0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0)
-mesh = SubResource("8")
-material = SubResource("StandardMaterial3D_ibgf7")
+mesh = SubResource("PlaneMesh_odr6k")
+material = ExtResource("6_gkpfb")
 
 [node name="Icon" type="CSGMesh3D" parent="Tile"]
-transform = Transform3D(0.5, -4.37114e-08, 4.37114e-08, 4.37114e-08, -2.18557e-08, -0.5, 4.37114e-08, 0.5, -2.18557e-08, 0, 0, 0.002)
-mesh = SubResource("8")
-material = SubResource("9")
+transform = Transform3D(0.5, -4.37114e-08, 4.37114e-08, 4.37114e-08, -2.18557e-08, -0.5, 4.37114e-08, 0.5, -2.18557e-08, 0, 0, 0.00199997)
+mesh = SubResource("PlaneMesh_6llfe")
+material = ExtResource("4_ab2e4")
 
 [node name="Area3D" type="Area3D" parent="Tile"]
 transform = Transform3D(-1, -1.50996e-07, -6.60024e-15, 0, -4.37114e-08, 1, -1.50996e-07, 1, 4.37114e-08, 1.1228e-24, 0, -0.00672182)
@@ -278,7 +229,7 @@ shape = SubResource("BoxShape3D_j73v0")
 transform = Transform3D(0.5, -4.37114e-08, 4.37114e-08, 4.37114e-08, -2.18557e-08, -0.5, 4.37114e-08, 0.5, -2.18557e-08, 0, 0, 0.001)
 visible = false
 mesh = SubResource("8")
-material = SubResource("9")
+material = ExtResource("4_ab2e4")
 
 [node name="Courtyard" parent="." instance=ExtResource("5")]
 
@@ -377,6 +328,7 @@ end_rotation = Vector3(1.45519e-11, 90, 1.45519e-11)
 [node name="CSGBox3D" type="CSGBox3D" parent="Courtyard/Final Puzzle and Doors/Left Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0, 0)
 size = Vector3(5, 4, 0.2)
+material = ExtResource("6_gkpfb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Courtyard/Final Puzzle and Doors/Left Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0, 0)
@@ -391,6 +343,7 @@ end_rotation = Vector3(1.45519e-11, -90, 1.45519e-11)
 [node name="CSGBox3D" type="CSGBox3D" parent="Courtyard/Final Puzzle and Doors/Right Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0, 0)
 size = Vector3(5, 4, 0.2)
+material = ExtResource("6_gkpfb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Courtyard/Final Puzzle and Doors/Right Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0, 0)
@@ -855,10 +808,10 @@ mesh = SubResource("PlaneMesh_a654v")
 material = SubResource("StandardMaterial3D_2k6b0")
 
 [node name="Fountain Puzzles" type="Node3D" parent="Courtyard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2.5)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 3, -2.5)
 
 [node name="North-East Side" type="Node3D" parent="Courtyard/Fountain Puzzles"]
-transform = Transform3D(0.0707107, 0, 0.0707107, 0, 0.1, 0, -0.0707107, 0, 0.0707107, 0.354, 0, -0.354)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.5, 0, 0)
 
 [node name="Wire Puzzle" type="Node3D" parent="Courtyard/Fountain Puzzles/North-East Side" node_paths=PackedStringArray("instance")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00999832, -2.5, 3.5)
@@ -883,7 +836,7 @@ colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
 
 [node name="North-West Side" type="Node3D" parent="Courtyard/Fountain Puzzles"]
-transform = Transform3D(-0.141421, 0, -0.141421, 0, 0.2, 0, 0.141421, 0, -0.141421, -0.354, 0, -0.354)
+transform = Transform3D(-0.2, 0, -1.74845e-08, 0, 0.2, 0, 1.74845e-08, 0, -0.2, 0, 0, -0.5)
 
 [node name="Top Cube Puzzle" type="Node3D" parent="Courtyard/Fountain Puzzles/North-West Side" node_paths=PackedStringArray("instance")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -1, 0)
@@ -920,9 +873,6 @@ colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_j8joh")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, -0.765146, 0.643857, 0, -0.643857, -0.765146, 0, 3.22089, -7.8683)
 
 [node name="Islands" parent="." instance=ExtResource("19_1ow4l")]
 
