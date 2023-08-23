@@ -1,0 +1,130 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=23 format=3 uid="uid://cud1tri32mff"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_q0qk0"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="1_rc1tc"]
+
+[sub_resource type="Resource" id="Resource_ggxwe"]
+script = ExtResource("1_q0qk0")
+icon = 7
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_beli2"]
+script = ExtResource("1_q0qk0")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_qsdkl"]
+script = ExtResource("1_q0qk0")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_gp077"]
+script = ExtResource("1_q0qk0")
+icon = 7
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_x1jin"]
+script = ExtResource("1_q0qk0")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_eepro"]
+script = ExtResource("1_q0qk0")
+icon = 3
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_ogd1w"]
+script = ExtResource("1_q0qk0")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_q5pmj"]
+script = ExtResource("1_q0qk0")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_7yxgd"]
+script = ExtResource("1_q0qk0")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_m0c08"]
+script = ExtResource("1_q0qk0")
+icon = 5
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_k0hl1"]
+script = ExtResource("1_q0qk0")
+icon = 5
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_rps7t"]
+script = ExtResource("1_q0qk0")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_2nclk"]
+script = ExtResource("1_q0qk0")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_lw30s"]
+script = ExtResource("1_q0qk0")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_ywtes"]
+script = ExtResource("1_q0qk0")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_8l0vh"]
+script = ExtResource("1_q0qk0")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_rmvu4"]
+script = ExtResource("1_q0qk0")
+icon = 7
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_1rtay"]
+script = ExtResource("1_q0qk0")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_f0uk8"]
+script = ExtResource("1_q0qk0")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_be8ye"]
+script = ExtResource("1_q0qk0")
+icon = 7
+colour = 1
+rotation = 0
+
+[resource]
+script = ExtResource("1_rc1tc")
+width = 5
+height = 4
+icons = Array[Array]([[SubResource("Resource_ggxwe"), SubResource("Resource_beli2"), SubResource("Resource_qsdkl"), SubResource("Resource_gp077")], [SubResource("Resource_x1jin"), SubResource("Resource_eepro"), SubResource("Resource_ogd1w"), SubResource("Resource_q5pmj")], [SubResource("Resource_7yxgd"), SubResource("Resource_m0c08"), SubResource("Resource_k0hl1"), SubResource("Resource_rps7t")], [SubResource("Resource_2nclk"), SubResource("Resource_lw30s"), SubResource("Resource_ywtes"), SubResource("Resource_8l0vh")], [SubResource("Resource_rmvu4"), SubResource("Resource_1rtay"), SubResource("Resource_f0uk8"), SubResource("Resource_be8ye")]])

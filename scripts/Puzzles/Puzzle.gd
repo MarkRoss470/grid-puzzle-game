@@ -10,9 +10,12 @@ represents the puzzle - sets which icons go in which cells
 	target_rotation, # The target rotation of the key cell
 ]
 """
+
+
 @export_group("Puzzle")
 
 @export var puzzle: Array
+@export var puzzle_design := PuzzleDesign.new()
 
 @export_group("")
 # What object to instance as a tile

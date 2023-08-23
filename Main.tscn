@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://c58qbxisqorpl"]
+[gd_scene load_steps=98 format=3 uid="uid://c58qbxisqorpl"]
 
 [ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="3"]
@@ -17,11 +17,45 @@
 [ext_resource type="Texture2D" uid="uid://d4khqglidoi2x" path="res://textures/Object Textures/Control Tutorials/space bar.png" id="8_njmtl"]
 [ext_resource type="Texture2D" uid="uid://df74abvsml4lp" path="res://textures/Object Textures/Control Tutorials/right click.png" id="9_m1euw"]
 [ext_resource type="Texture2D" uid="uid://dmjcrxvgl0y0q" path="res://textures/Object Textures/Control Tutorials/reset.png" id="10_18o3s"]
+[ext_resource type="Resource" uid="uid://dcg3bn65pnqqe" path="res://puzzles/courtyard/walls/01. controls.tres" id="12_74koj"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" id="13_2mdim"]
+[ext_resource type="Resource" uid="uid://cy7jghdxowgt2" path="res://puzzles/courtyard/walls/02. squares intro/top left.tres" id="15_c24ya"]
+[ext_resource type="Resource" uid="uid://ci53qe5sia7rg" path="res://puzzles/courtyard/walls/02. squares intro/top right.tres" id="16_1qhmi"]
 [ext_resource type="Script" path="res://scripts/Puzzles/SingleSolutionPuzzle.gd" id="17_6486b"]
+[ext_resource type="Resource" uid="uid://btbt3tjgdsjvf" path="res://puzzles/courtyard/walls/02. squares intro/bottom left.tres" id="17_yvs50"]
+[ext_resource type="Resource" uid="uid://by47nk7yqqqts" path="res://puzzles/courtyard/walls/02. squares intro/bottom right.tres" id="18_d8j5x"]
 [ext_resource type="PackedScene" uid="uid://kjoth08mmteq" path="res://models/cube statue/cube statue.glb" id="18_xx0p1"]
 [ext_resource type="PackedScene" uid="uid://uuwbhhgm6oqp" path="res://models/islands/islands.glb" id="19_1ow4l"]
+[ext_resource type="Resource" uid="uid://bwixsauqjprb1" path="res://puzzles/courtyard/walls/03. squares practice/top left.tres" id="20_cpisx"]
 [ext_resource type="PackedScene" uid="uid://wik7t7vdg62d" path="res://PauseMenu.tscn" id="20_s0jil"]
+[ext_resource type="Resource" uid="uid://dg0y6boa8s2mq" path="res://puzzles/courtyard/walls/03. squares practice/bottom right.tres" id="21_k54lv"]
+[ext_resource type="Resource" uid="uid://cquaxni1j3xwq" path="res://puzzles/courtyard/walls/03. squares practice/top right.tres" id="22_fr1oj"]
+[ext_resource type="Resource" uid="uid://c1d8xads4t62n" path="res://puzzles/courtyard/walls/03. squares practice/bottom left.tres" id="23_dsa4l"]
+[ext_resource type="Resource" uid="uid://c1ivyig3ofhx6" path="res://puzzles/courtyard/walls/04. squares challenges/left.tres" id="24_f7u7a"]
+[ext_resource type="Resource" uid="uid://dillv6oyfcbl4" path="res://puzzles/courtyard/walls/04. squares challenges/right.tres" id="25_aetgw"]
+[ext_resource type="Resource" uid="uid://dbvxdv4jldt5u" path="res://puzzles/courtyard/walls/05. coloured squares intro/top left.tres" id="27_enkq1"]
+[ext_resource type="Resource" uid="uid://ceo0n17isl3oj" path="res://puzzles/courtyard/walls/05. coloured squares intro/top right.tres" id="28_c2wen"]
+[ext_resource type="Resource" uid="uid://bnwysyl0tewgf" path="res://puzzles/courtyard/walls/05. coloured squares intro/bottom left.tres" id="29_a86dp"]
+[ext_resource type="Resource" uid="uid://db6wodih8tvo7" path="res://puzzles/courtyard/walls/05. coloured squares intro/bottom right.tres" id="30_sk1vf"]
+[ext_resource type="Resource" uid="uid://cud1tri32mff" path="res://puzzles/courtyard/walls/06. coloured squares practice/top left.tres" id="31_3ioqs"]
+[ext_resource type="Resource" uid="uid://dshmoxl2j2elk" path="res://puzzles/courtyard/walls/06. coloured squares practice/top right.tres" id="32_fd53f"]
+[ext_resource type="Resource" uid="uid://cxvfgassutf86" path="res://puzzles/courtyard/walls/06. coloured squares practice/bottom left.tres" id="33_2knxm"]
+[ext_resource type="Resource" uid="uid://c6a33vmco0mfn" path="res://puzzles/courtyard/walls/06. coloured squares practice/bottom right.tres" id="34_d6is4"]
+[ext_resource type="Resource" uid="uid://chv3h083f4e00" path="res://puzzles/courtyard/walls/07. coloured squares challenge.tres" id="35_f0lgt"]
+[ext_resource type="Resource" uid="uid://5kgr5iwgamhb" path="res://puzzles/courtyard/walls/08. key puzzles intro/top left.tres" id="36_hf62t"]
+[ext_resource type="Resource" uid="uid://wuenqwq82yig" path="res://puzzles/courtyard/walls/08. key puzzles intro/top right.tres" id="37_7w07d"]
+[ext_resource type="Resource" uid="uid://rjhx44qsff3c" path="res://puzzles/courtyard/walls/08. key puzzles intro/bottom left.tres" id="38_c7snn"]
+[ext_resource type="Resource" uid="uid://bjwfse6f7ysqf" path="res://puzzles/courtyard/walls/08. key puzzles intro/bottom right.tres" id="39_tcvsn"]
+[ext_resource type="Resource" uid="uid://ctgg4ctvw4jpe" path="res://puzzles/courtyard/walls/09. key puzzles practice/top left.tres" id="41_6s866"]
+[ext_resource type="Resource" uid="uid://d3dkkmey0xo3o" path="res://puzzles/courtyard/walls/09. key puzzles practice/bottom right.tres" id="42_un65t"]
+[ext_resource type="Resource" uid="uid://bqvujjbr2m5i2" path="res://puzzles/courtyard/walls/09. key puzzles practice/top right.tres" id="43_bqky0"]
+[ext_resource type="Resource" uid="uid://dscelf8eg11h6" path="res://puzzles/courtyard/walls/10. key puzzles challenge 1.tres" id="44_kr7ws"]
+[ext_resource type="Resource" uid="uid://cceq2bdqpdvnd" path="res://puzzles/courtyard/walls/11. key puzzles challenge 2.tres" id="45_3k0kp"]
+[ext_resource type="Resource" uid="uid://n0h8ua6bhyrk" path="res://puzzles/courtyard/fountain/wires.tres" id="49_32k2d"]
+[ext_resource type="Resource" uid="uid://cid1wj2yatq4m" path="res://puzzles/courtyard/fountain/island 2 under shape.tres" id="50_cykbl"]
+[ext_resource type="Resource" uid="uid://cdh6prk4lovox" path="res://puzzles/courtyard/fountain/cube top.tres" id="51_nhrnn"]
+[ext_resource type="Resource" uid="uid://8j8kh806slpo" path="res://puzzles/courtyard/fountain/cube middle.tres" id="52_5cgbw"]
+[ext_resource type="Resource" uid="uid://cr15j1spdkyhw" path="res://puzzles/courtyard/fountain/cube bottom.tres" id="53_50xge"]
 
 [sub_resource type="CapsuleShape3D" id="4"]
 height = 1.5
@@ -383,6 +417,7 @@ path = NodePath("../Right Wire")
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 7.5, 3, -9.5)
 script = ExtResource("7_rw1rt")
 puzzle = [1.0, 3.0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
+puzzle_design = ExtResource("12_74koj")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Squares Intro")
 
@@ -406,6 +441,7 @@ params = Array[int]([0, 0, 0, 0])
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [5.0, 2.0, [[[7, 0, 0], [1, 0, 0]], [[4, 0, 1], [4, 0, 3]], [[1, 0, 0], [7, 0, 0]], [[4, 0, 1], [4, 0, 3]], [[7, 0, 0], [1, 0, 0]]]]
+puzzle_design = ExtResource("15_c24ya")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
@@ -414,6 +450,7 @@ load_on_start = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, -0.5, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [3.0, 3.0, [[[1, 0, 0], [4, 0, 0], [1, 0, 0]], [[7, 0, 0], [4, 0, 1], [7, 0, 0]], [[1, 0, 0], [4, 0, 2], [1, 0, 0]]]]
+puzzle_design = ExtResource("16_1qhmi")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -423,6 +460,7 @@ load_on_start = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -3.5, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [3.0, 3.0, [[[7, 0, 0], [4, 0, 0], [7, 0, 0]], [[4, 0, 1], [6, 0, 0], [4, 0, 1]], [[7, 0, 0], [4, 0, 0], [7, 0, 0]]]]
+puzzle_design = ExtResource("17_yvs50")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -432,6 +470,7 @@ load_on_start = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -4.5, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [5.0, 2.0, [[[7, 0, 0], [1, 0, 1]], [[1, 0, 1], [3, 0, 1]], [[3, 0, 0], [3, 0, 2]], [[3, 0, 3], [1, 0, 0]], [[1, 0, 3], [7, 0, 0]]]]
+puzzle_design = ExtResource("18_d8j5x")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -452,6 +491,7 @@ params = Array[int]([0, 0, 0, 0])
 transform = Transform3D(0.6, 0, 3.37508e-14, 0, 0.6, 0, -3.37508e-14, 0, 0.6, 0.3, -0.3, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [5.0, 5.0, [[[7, 0, 0], [1, 0, 0], [4, 0, 2], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [3, 0, 1], [5, 0, 2], [3, 0, 0], [1, 0, 0]], [[4, 0, 0], [5, 0, 1], [7, 0, 0], [5, 0, 3], [4, 0, 0]], [[1, 0, 0], [3, 0, 2], [5, 0, 0], [3, 0, 3], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]]]]
+puzzle_design = ExtResource("20_cpisx")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
@@ -460,6 +500,7 @@ load_on_start = false
 transform = Transform3D(0.6, 0, 6.21725e-14, 0, 0.6, 0, -6.21725e-14, 0, 0.6, 3.3, -3.3, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [5.0, 5.0, [[[1, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0]], [[1, 0, 0], [1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0], [3, 0, 3], [4, 0, 1]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0], [1, 0, 0]], [[7, 0, 0], [1, 0, 0], [4, 0, 0], [1, 0, 0], [1, 0, 0]]]]
+puzzle_design = ExtResource("21_k54lv")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -469,6 +510,7 @@ load_on_start = false
 transform = Transform3D(0.6, 0, 3.37508e-14, 0, 0.6, 0, -3.37508e-14, 0, 0.6, 3.9, -0.3, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [4.0, 4.0, [[[7, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 0]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [1, 0, 0]], [[1, 0, 0], [3, 0, 2], [3, 0, 3], [1, 0, 3]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [7, 0, 1]]]]
+puzzle_design = ExtResource("22_fr1oj")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -478,6 +520,7 @@ load_on_start = false
 transform = Transform3D(0.6, 0, 3.37508e-14, 0, 0.6, 0, -3.37508e-14, 0, 0.6, 0.3, -3.9, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [4.0, 4.0, [[[7, 0, 0], [4, 0, 2], [4, 0, 2], [7, 0, 3]], [[4, 0, 1], [3, 0, 1], [3, 0, 0], [4, 0, 1]], [[4, 0, 1], [3, 0, 2], [3, 0, 3], [4, 0, 1]], [[7, 0, 3], [4, 0, 2], [4, 0, 2], [7, 0, 1]]]]
+puzzle_design = ExtResource("23_dsa4l")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -498,6 +541,7 @@ params = Array[int]([0, 0, 0])
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.25, -0.25, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [6.0, 6.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 0], [4, 0, 3], [3, 0, 1], [7, 0, 2]], [[3, 0, 0], [3, 0, 2], [3, 0, 3], [4, 0, 3], [3, 0, 2], [1, 0, 1]], [[3, 0, 3], [1, 0, 1], [3, 0, 1], [4, 0, 3], [4, 0, 0], [4, 0, 0]], [[4, 0, 0], [4, 0, 0], [4, 0, 3], [3, 0, 3], [1, 0, 3], [3, 0, 1]], [[1, 0, 3], [3, 0, 0], [4, 0, 3], [3, 0, 1], [3, 0, 0], [3, 0, 2]], [[7, 0, 2], [3, 0, 3], [4, 0, 3], [3, 0, 2], [4, 0, 1], [7, 0, 2]]]]
+puzzle_design = ExtResource("24_f7u7a")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
@@ -506,6 +550,7 @@ load_on_start = false
 transform = Transform3D(0.429, 0, 0, 0, 0.429, 0, 0, 0, 0.429, 4.214, -0.214, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [7.0, 7.0, [[[7, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0], [1, 0, 0], [4, 0, 0], [7, 0, 0]], [[3, 0, 1], [3, 0, 0], [3, 0, 1], [4, 0, 0], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2], [3, 0, 3], [3, 0, 2], [3, 0, 3]], [[4, 0, 2], [5, 0, 3], [1, 0, 0], [7, 0, 0], [1, 0, 0], [5, 0, 1], [4, 0, 2]], [[3, 0, 1], [3, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 0], [3, 0, 3], [3, 0, 2], [3, 0, 3]], [[7, 0, 0], [4, 0, 0], [1, 0, 0], [7, 0, 0], [1, 0, 0], [4, 0, 0], [7, 0, 0]]]]
+puzzle_design = ExtResource("25_aetgw")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -535,6 +580,7 @@ params = Array[int]([0, 0, 0, 0])
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.5, -0.5, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [3.0, 3.0, [[[7, 0, 0], [3, 0, 2], [3, 0, 3]], [[7, 1, 1], [4, 0, 1], [7, 1, 1]], [[3, 0, 1], [3, 0, 0], [7, 0, 1]]]]
+puzzle_design = ExtResource("27_enkq1")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Node")
 load_on_start = false
@@ -543,6 +589,7 @@ load_on_start = false
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4.5, -0.5, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [3.0, 3.0, [[[7, 0, 0], [4, 0, 3], [7, 1, 1]], [[4, 0, 3], [4, 0, 2], [4, 0, 3]], [[7, 0, 1], [4, 0, 3], [7, 1, 0]]]]
+puzzle_design = ExtResource("28_c2wen")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Node")
 on_complete_param = 3
@@ -552,6 +599,7 @@ load_on_start = false
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0.5, -4.5, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [3.0, 3.0, [[[7, 0, 0], [4, 0, 2], [7, 0, 0]], [[4, 0, 1], [5, 0, 1], [4, 0, 1]], [[7, 0, 0], [4, 0, 2], [7, 1, 0]]]]
+puzzle_design = ExtResource("29_a86dp")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Node")
 on_complete_param = 1
@@ -561,6 +609,7 @@ load_on_start = false
 transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, 4.5, -4.5, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [3.0, 3.0, [[[7, 0, 0], [7, 6, 0], [7, 1, 0]], [[4, 0, 1], [4, 0, 1], [4, 0, 1]], [[7, 0, 0], [7, 6, 0], [7, 1, 0]]]]
+puzzle_design = ExtResource("30_sk1vf")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Node")
 on_complete_param = 2
@@ -581,6 +630,7 @@ params = Array[int]([0, 0, 0, 0])
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.3, -0.3, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [5.0, 4.0, [[[7, 1, 0], [4, 0, 0], [1, 0, 3], [7, 1, 2]], [[4, 0, 2], [3, 0, 0], [3, 0, 1], [4, 0, 2]], [[7, 0, 2], [5, 0, 3], [5, 0, 1], [7, 0, 2]], [[4, 0, 2], [3, 0, 3], [3, 0, 2], [4, 0, 2]], [[7, 1, 0], [1, 0, 3], [4, 0, 2], [7, 1, 2]]]]
+puzzle_design = ExtResource("31_3ioqs")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
@@ -589,6 +639,7 @@ load_on_start = false
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 3.9, -0.3, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [4.0, 4.0, [[[7, 0, 0], [4, 0, 3], [3, 0, 2], [4, 0, 2]], [[1, 0, 0], [3, 0, 1], [3, 0, 0], [7, 1, 2]], [[1, 0, 3], [3, 0, 2], [3, 0, 3], [7, 0, 2]], [[7, 1, 2], [4, 0, 3], [3, 0, 1], [4, 0, 2]]]]
+puzzle_design = ExtResource("32_fd53f")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -598,6 +649,7 @@ load_on_start = false
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.3, -3.45, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [5.0, 5.0, [[[7, 0, 0], [3, 0, 2], [4, 0, 2], [4, 0, 2], [3, 0, 3]], [[4, 0, 0], [3, 0, 0], [7, 1, 0], [3, 0, 1], [3, 0, 0]], [[1, 0, 0], [4, 0, 1], [7, 6, 0], [4, 0, 1], [7, 6, 0]], [[4, 0, 2], [3, 0, 3], [7, 0, 0], [3, 0, 2], [3, 0, 3]], [[7, 1, 0], [3, 0, 1], [4, 0, 2], [4, 0, 2], [3, 0, 0]]]]
+puzzle_design = ExtResource("33_2knxm")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -607,6 +659,7 @@ load_on_start = false
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 3.9, -3.45, 0)
 script = ExtResource("7_rw1rt")
 puzzle = [4.0, 5.0, [[[7, 0, 0], [4, 0, 2], [7, 1, 2], [7, 0, 0], [3, 0, 0]], [[4, 0, 1], [3, 0, 1], [3, 0, 0], [4, 0, 2], [3, 0, 3]], [[3, 0, 1], [4, 0, 2], [3, 0, 2], [3, 0, 3], [4, 0, 1]], [[3, 0, 2], [7, 1, 0], [7, 0, 2], [4, 0, 2], [7, 1, 0]]]]
+puzzle_design = ExtResource("34_d6is4")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -621,6 +674,7 @@ target = NodePath("../../Coloured Squares Challenge")
 transform = Transform3D(-0.6, 0, -9.05975e-08, 0, 0.6, 0, 9.05975e-08, 0, -0.6, -1.8, 3.2, 9.5)
 script = ExtResource("7_rw1rt")
 puzzle = [5.0, 5.0, [[[7, 0, 0], [4, 0, 1], [7, 1, 0], [4, 0, 1], [7, 6, 0]], [[3, 0, 2], [3, 0, 3], [3, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 1], [1, 0, 1], [4, 0, 2], [1, 0, 1], [3, 0, 3]], [[3, 0, 3], [3, 0, 1], [3, 0, 0], [3, 0, 1], [3, 0, 0]], [[7, 0, 0], [4, 0, 1], [7, 1, 0], [4, 0, 1], [7, 6, 0]]]]
+puzzle_design = ExtResource("35_f0lgt")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Key Puzzles Intro")
 load_on_start = false
@@ -639,6 +693,7 @@ key_y = 1
 key_target_rotation = 1
 key_hint_tile = NodePath("../../../../../Key Hint Tile")
 puzzle = [3.0, 3.0, [[[1, 0, 0], [1, 0, 0], [1, 0, 0]], [[1, 0, 0], [2, 0, 0], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
+puzzle_design = ExtResource("36_hf62t")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
@@ -650,6 +705,7 @@ key_y = 1
 key_target_rotation = 2
 key_hint_tile = NodePath("../../../../../Key Hint Tile")
 puzzle = [3.0, 2.0, [[[7, 0, 1], [4, 0, 1]], [[4, 0, 0], [3, 0, 3]], [[7, 0, 0], [4, 0, 3]]]]
+puzzle_design = ExtResource("37_7w07d")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -662,6 +718,7 @@ key_x = 1
 key_target_rotation = 1
 key_hint_tile = NodePath("../../../../../Key Hint Tile")
 puzzle = [2.0, 3.0, [[[7, 0, 0], [4, 0, 3], [7, 0, 0]], [[4, 0, 0], [3, 0, 3], [4, 0, 2]]]]
+puzzle_design = ExtResource("38_c7snn")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -675,6 +732,7 @@ key_y = 1
 key_target_rotation = 1
 key_hint_tile = NodePath("../../../../../Key Hint Tile")
 puzzle = [3.0, 3.0, [[[7, 0, 0], [4, 0, 2], [1, 0, 0]], [[4, 0, 0], [4, 0, 0], [4, 0, 0]], [[1, 0, 3], [4, 0, 2], [7, 0, 0]]]]
+puzzle_design = ExtResource("39_tcvsn")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -708,6 +766,7 @@ key_y = 1
 key_target_rotation = 1
 key_hint_tile = NodePath("../../../../../Key Hint Tile")
 puzzle = [5.0, 3.0, [[[7, 0, 0], [1, 0, 1], [1, 0, 1]], [[4, 0, 2], [3, 0, 3], [3, 0, 1]], [[3, 0, 1], [4, 0, 0], [3, 0, 3]], [[3, 0, 3], [3, 0, 1], [4, 0, 0]], [[1, 0, 1], [1, 0, 1], [7, 0, 1]]]]
+puzzle_design = ExtResource("41_6s866")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 load_on_start = false
@@ -720,6 +779,7 @@ key_y = 2
 key_target_rotation = 1
 key_hint_tile = NodePath("../../../../../Key Hint Tile")
 puzzle = [5.0, 5.0, [[[7, 0, 0], [4, 0, 1], [7, 0, 0], [3, 0, 1], [3, 0, 0]], [[1, 0, 2], [5, 0, 3], [3, 0, 0], [3, 0, 2], [3, 0, 3]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [5, 0, 0], [4, 0, 0]], [[3, 0, 1], [3, 0, 0], [3, 0, 2], [5, 0, 1], [1, 0, 0]], [[3, 0, 2], [3, 0, 3], [7, 0, 0], [4, 0, 1], [7, 0, 0]]]]
+puzzle_design = ExtResource("42_un65t")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
@@ -732,6 +792,7 @@ key_x = 2
 key_target_rotation = 2
 key_hint_tile = NodePath("../../../../../Key Hint Tile")
 puzzle = [3.0, 3.0, [[[7, 0, 0], [3, 0, 1], [4, 0, 2]], [[3, 0, 1], [5, 0, 2], [3, 0, 0]], [[4, 0, 1], [3, 0, 1], [7, 0, 0]]]]
+puzzle_design = ExtResource("43_bqky0")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
@@ -745,6 +806,7 @@ key_y = 2
 key_target_rotation = 1
 key_hint_tile = NodePath("../../../../../Key Hint Tile")
 puzzle = [3.0, 5.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 2], [3, 0, 3], [7, 0, 0]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 0], [3, 0, 1]], [[7, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 3], [3, 0, 2]]]]
+puzzle_design = ExtResource("42_un65t")
 instance = NodePath("../../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
@@ -762,6 +824,7 @@ key_y = 1
 key_target_rotation = 2
 key_hint_tile = NodePath("../../../../Key Hint Tile")
 puzzle = [3.0, 5.0, [[[7, 0, 0], [4, 0, 1], [3, 0, 2], [3, 0, 3], [7, 0, 0]], [[4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 0], [3, 0, 1]], [[7, 0, 0], [3, 0, 1], [4, 0, 2], [3, 0, 3], [3, 0, 2]]]]
+puzzle_design = ExtResource("44_kr7ws")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Key Puzzles Challenge 2")
 load_on_start = false
@@ -774,6 +837,7 @@ key_y = 2
 key_target_rotation = 2
 key_hint_tile = NodePath("../../../../Key Hint Tile")
 puzzle = [5.0, 5.0, [[[7, 0, 0], [4, 0, 1], [7, 0, 0], [4, 0, 1], [7, 0, 0]], [[3, 0, 0], [3, 0, 2], [5, 0, 0], [3, 0, 3], [3, 0, 1]], [[4, 0, 1], [1, 0, 0], [4, 0, 1], [1, 0, 0], [4, 0, 1]], [[3, 0, 2], [4, 0, 0], [5, 0, 2], [4, 0, 0], [3, 0, 3]], [[1, 0, 3], [3, 0, 1], [4, 0, 2], [3, 0, 0], [1, 0, 3]]]]
+puzzle_design = ExtResource("45_3k0kp")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Key Puzzles Challenge 3")
 load_on_start = false
@@ -820,6 +884,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0099
 script = ExtResource("17_6486b")
 solution = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [3, 1, 0, 0, 0, 0, 1, 0], [1, 3, 0, 0, 2, 2, 3, 0], [2, 0, 0, 0, 1, 0, 0, 0], [0, 2, 0, 0, 3, 0, 1, 0], [2, 0, 0, 0, 0, 0, 3, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
 puzzle = [8.0, 8.0, [[[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]], [[3, 1, 1], [4, 1, 0], [4, 1, 0], [4, 1, 0], [4, 1, 0], [4, 1, 0], [3, 1, 0], [1, 0, 0]], [[3, 1, 2], [3, 1, 3], [4, 1, 3], [4, 1, 3], [3, 1, 1], [1, 0, 0], [4, 1, 3], [1, 0, 0]], [[3, 1, 0], [3, 1, 1], [0, 0, 0], [0, 0, 0], [3, 1, 2], [4, 1, 0], [3, 1, 0], [1, 0, 0]], [[3, 1, 3], [3, 1, 2], [0, 0, 0], [0, 0, 0], [3, 1, 1], [4, 1, 0], [3, 1, 3], [1, 0, 0]], [[3, 1, 1], [3, 1, 0], [4, 1, 3], [4, 1, 3], [3, 1, 2], [1, 0, 0], [4, 1, 1], [1, 0, 0]], [[3, 1, 2], [4, 1, 2], [4, 1, 2], [4, 1, 2], [4, 1, 2], [4, 1, 2], [3, 1, 3], [1, 0, 0]], [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]]]
+puzzle_design = ExtResource("49_32k2d")
 instance = NodePath("../../../../Tile")
 colour_base = Color(0, 0, 0, 0)
 colour_hover = Color(0, 0, 0, 0)
@@ -831,6 +896,7 @@ transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0.01, 
 script = ExtResource("17_6486b")
 solution = [[0, 3], [2, 0], [1, 2], [1, 1]]
 puzzle = [4.0, 2.0, [[[5, 1, 2], [3, 1, 1]], [[3, 1, 0], [5, 1, 1]], [[3, 1, 3], [5, 1, 1]], [[4, 1, 2], [3, 1, 2]]]]
+puzzle_design = ExtResource("50_cykbl")
 instance = NodePath("../../../../Tile")
 colour_base = Color(0, 0, 0, 0)
 colour_hover = Color(0, 0, 0, 0)
@@ -845,6 +911,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -1, 0)
 script = ExtResource("17_6486b")
 solution = [[0, 2, 0, 2], [3, 0, 0, 1], [0, 0, 0, 2], [2, 3, 2, 0]]
 puzzle = [4.0, 4.0, [[[3, 1, 1], [3, 1, 0], [3, 1, 1], [3, 1, 0]], [[3, 1, 2], [0, 0, 0], [0, 0, 0], [3, 1, 3]], [[3, 1, 1], [0, 0, 0], [0, 0, 0], [3, 1, 0]], [[3, 1, 2], [3, 1, 3], [3, 1, 2], [3, 1, 3]]]]
+puzzle_design = ExtResource("51_nhrnn")
 instance = NodePath("../../../../Tile")
 colour_base = Color(0, 0, 0, 1)
 colour_hover = Color(0, 0, 0, 1)
@@ -856,6 +923,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -5.5, 0)
 script = ExtResource("17_6486b")
 solution = [[0, 2, 0, 0], [2, 0, 2, 3], [0, 2, 0, 1], [2, 3, 2, 2]]
 puzzle = [4.0, 4.0, [[[3, 1, 1], [0, 1, 0], [0, 1, 0], [3, 1, 0]], [[3, 1, 2], [3, 1, 3], [3, 1, 2], [3, 1, 3]], [[3, 1, 1], [3, 1, 0], [3, 1, 1], [3, 1, 0]], [[3, 1, 2], [0, 1, 0], [0, 1, 0], [3, 1, 3]]]]
+puzzle_design = ExtResource("52_5cgbw")
 instance = NodePath("../../../../Tile")
 colour_base = Color(0, 0, 0, 1)
 colour_hover = Color(0, 0, 0, 1)
@@ -867,6 +935,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -10, 0)
 script = ExtResource("17_6486b")
 solution = [[0, 1, 3, 0], [2, 3, 1, 3], [1, 0, 2, 0], [2, 3, 1, 2]]
 puzzle = [4.0, 4.0, [[[0, 0, 0], [3, 1, 0], [3, 1, 1], [0, 0, 0]], [[3, 1, 2], [3, 1, 3], [3, 1, 2], [3, 1, 3]], [[3, 1, 1], [3, 1, 0], [3, 1, 1], [3, 1, 0]], [[0, 0, 0], [3, 1, 3], [3, 1, 2], [0, 0, 0]]]]
+puzzle_design = ExtResource("53_50xge")
 instance = NodePath("../../../../Tile")
 colour_base = Color(0, 0, 0, 1)
 colour_hover = Color(0, 0, 0, 1)

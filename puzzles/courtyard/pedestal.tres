@@ -1,0 +1,220 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=38 format=3 uid="uid://chs2xktgt0eut"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_33gd6"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="1_qdrx7"]
+
+[sub_resource type="Resource" id="Resource_87mnc"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_nbnjo"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_jierc"]
+script = ExtResource("1_33gd6")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_7tuh5"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_khhkp"]
+script = ExtResource("1_33gd6")
+icon = 7
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_e2o23"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_hqp22"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_780dy"]
+script = ExtResource("1_33gd6")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_cjo5o"]
+script = ExtResource("1_33gd6")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_n3cb2"]
+script = ExtResource("1_33gd6")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_8kfrc"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_fck3b"]
+script = ExtResource("1_33gd6")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_d5343"]
+script = ExtResource("1_33gd6")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_at2ou"]
+script = ExtResource("1_33gd6")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_rfh1a"]
+script = ExtResource("1_33gd6")
+icon = 7
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_txfqo"]
+script = ExtResource("1_33gd6")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_ntnna"]
+script = ExtResource("1_33gd6")
+icon = 6
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_nlr5s"]
+script = ExtResource("1_33gd6")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_8lcny"]
+script = ExtResource("1_33gd6")
+icon = 6
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_dipf4"]
+script = ExtResource("1_33gd6")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_qojp7"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_aggp8"]
+script = ExtResource("1_33gd6")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_gv3h3"]
+script = ExtResource("1_33gd6")
+icon = 3
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_2d0n7"]
+script = ExtResource("1_33gd6")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_w1ilf"]
+script = ExtResource("1_33gd6")
+icon = 7
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_0nhd1"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_a0q2q"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_k4o34"]
+script = ExtResource("1_33gd6")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_yu1gp"]
+script = ExtResource("1_33gd6")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_lm5r7"]
+script = ExtResource("1_33gd6")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_4eugq"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_rkgyg"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_avltt"]
+script = ExtResource("1_33gd6")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_o0ecn"]
+script = ExtResource("1_33gd6")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_l4lln"]
+script = ExtResource("1_33gd6")
+icon = 7
+colour = 0
+rotation = 1
+
+[resource]
+script = ExtResource("1_qdrx7")
+width = 7
+height = 5
+icons = Array[Array]([[SubResource("Resource_87mnc"), SubResource("Resource_nbnjo"), SubResource("Resource_jierc"), SubResource("Resource_7tuh5"), SubResource("Resource_khhkp")], [SubResource("Resource_e2o23"), SubResource("Resource_hqp22"), SubResource("Resource_780dy"), SubResource("Resource_cjo5o"), SubResource("Resource_n3cb2")], [SubResource("Resource_8kfrc"), SubResource("Resource_fck3b"), SubResource("Resource_d5343"), SubResource("Resource_at2ou"), SubResource("Resource_rfh1a")], [SubResource("Resource_txfqo"), SubResource("Resource_ntnna"), SubResource("Resource_nlr5s"), SubResource("Resource_8lcny"), SubResource("Resource_dipf4")], [SubResource("Resource_qojp7"), SubResource("Resource_aggp8"), SubResource("Resource_gv3h3"), SubResource("Resource_2d0n7"), SubResource("Resource_w1ilf")], [SubResource("Resource_0nhd1"), SubResource("Resource_a0q2q"), SubResource("Resource_k4o34"), SubResource("Resource_yu1gp"), SubResource("Resource_lm5r7")], [SubResource("Resource_4eugq"), SubResource("Resource_rkgyg"), SubResource("Resource_avltt"), SubResource("Resource_o0ecn"), SubResource("Resource_l4lln")]])

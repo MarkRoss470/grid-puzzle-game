@@ -1,0 +1,160 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=28 format=3 uid="uid://cceq2bdqpdvnd"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="1_bbi5b"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_qx47b"]
+
+[sub_resource type="Resource" id="Resource_bkxx4"]
+script = ExtResource("1_qx47b")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_mqq84"]
+script = ExtResource("1_qx47b")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_e20x8"]
+script = ExtResource("1_qx47b")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_7es2v"]
+script = ExtResource("1_qx47b")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_gotpr"]
+script = ExtResource("1_qx47b")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_cgpjv"]
+script = ExtResource("1_qx47b")
+icon = 3
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_jon0m"]
+script = ExtResource("1_qx47b")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_f3xwu"]
+script = ExtResource("1_qx47b")
+icon = 5
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_lqgv2"]
+script = ExtResource("1_qx47b")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_78m56"]
+script = ExtResource("1_qx47b")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_rwdf6"]
+script = ExtResource("1_qx47b")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_nyqiv"]
+script = ExtResource("1_qx47b")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_j0d26"]
+script = ExtResource("1_qx47b")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_rrhe1"]
+script = ExtResource("1_qx47b")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_jpwgk"]
+script = ExtResource("1_qx47b")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_h2xc5"]
+script = ExtResource("1_qx47b")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_b8wy6"]
+script = ExtResource("1_qx47b")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_n0ggw"]
+script = ExtResource("1_qx47b")
+icon = 5
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_7aoir"]
+script = ExtResource("1_qx47b")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_3xy56"]
+script = ExtResource("1_qx47b")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_y1o8e"]
+script = ExtResource("1_qx47b")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_e57ku"]
+script = ExtResource("1_qx47b")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_wcxfn"]
+script = ExtResource("1_qx47b")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_mwwuo"]
+script = ExtResource("1_qx47b")
+icon = 3
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_k5e4p"]
+script = ExtResource("1_qx47b")
+icon = 1
+colour = 0
+rotation = 0
+
+[resource]
+script = ExtResource("1_bbi5b")
+width = 5
+height = 5
+icons = Array[Array]([[SubResource("Resource_bkxx4"), SubResource("Resource_mqq84"), SubResource("Resource_e20x8"), SubResource("Resource_7es2v"), SubResource("Resource_gotpr")], [SubResource("Resource_cgpjv"), SubResource("Resource_jon0m"), SubResource("Resource_f3xwu"), SubResource("Resource_lqgv2"), SubResource("Resource_78m56")], [SubResource("Resource_rwdf6"), SubResource("Resource_nyqiv"), SubResource("Resource_j0d26"), SubResource("Resource_rrhe1"), SubResource("Resource_jpwgk")], [SubResource("Resource_h2xc5"), SubResource("Resource_b8wy6"), SubResource("Resource_n0ggw"), SubResource("Resource_7aoir"), SubResource("Resource_3xy56")], [SubResource("Resource_y1o8e"), SubResource("Resource_e57ku"), SubResource("Resource_wcxfn"), SubResource("Resource_mwwuo"), SubResource("Resource_k5e4p")]])

@@ -1,0 +1,160 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=28 format=3 uid="uid://cxvfgassutf86"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="1_144ri"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_i5au8"]
+
+[sub_resource type="Resource" id="Resource_a57n1"]
+script = ExtResource("1_i5au8")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_hmna6"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_myn5e"]
+script = ExtResource("1_i5au8")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_c6kry"]
+script = ExtResource("1_i5au8")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_5w4v1"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_voypt"]
+script = ExtResource("1_i5au8")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_m7g2w"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_eca4i"]
+script = ExtResource("1_i5au8")
+icon = 7
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_70xr8"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_rkxcc"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_847im"]
+script = ExtResource("1_i5au8")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_j7344"]
+script = ExtResource("1_i5au8")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_jel5c"]
+script = ExtResource("1_i5au8")
+icon = 7
+colour = 6
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_sv3xh"]
+script = ExtResource("1_i5au8")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_ms1mb"]
+script = ExtResource("1_i5au8")
+icon = 7
+colour = 6
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_ycefu"]
+script = ExtResource("1_i5au8")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_8r3i5"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_j32fv"]
+script = ExtResource("1_i5au8")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_1ky8w"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_x1goy"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_v206v"]
+script = ExtResource("1_i5au8")
+icon = 7
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_5kwwx"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_l3oih"]
+script = ExtResource("1_i5au8")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_u6kg3"]
+script = ExtResource("1_i5au8")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_ng6na"]
+script = ExtResource("1_i5au8")
+icon = 3
+colour = 0
+rotation = 0
+
+[resource]
+script = ExtResource("1_144ri")
+width = 5
+height = 5
+icons = Array[Array]([[SubResource("Resource_a57n1"), SubResource("Resource_hmna6"), SubResource("Resource_myn5e"), SubResource("Resource_c6kry"), SubResource("Resource_5w4v1")], [SubResource("Resource_voypt"), SubResource("Resource_m7g2w"), SubResource("Resource_eca4i"), SubResource("Resource_70xr8"), SubResource("Resource_rkxcc")], [SubResource("Resource_847im"), SubResource("Resource_j7344"), SubResource("Resource_jel5c"), SubResource("Resource_sv3xh"), SubResource("Resource_ms1mb")], [SubResource("Resource_ycefu"), SubResource("Resource_8r3i5"), SubResource("Resource_j32fv"), SubResource("Resource_1ky8w"), SubResource("Resource_x1goy")], [SubResource("Resource_v206v"), SubResource("Resource_5kwwx"), SubResource("Resource_l3oih"), SubResource("Resource_u6kg3"), SubResource("Resource_ng6na")]])

@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=9 format=3 uid="uid://rjhx44qsff3c"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_bq3sb"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_3ulbk"]
+
+[sub_resource type="Resource" id="Resource_hm7jm"]
+script = ExtResource("1_bq3sb")
+icon = 7
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_kulol"]
+script = ExtResource("1_bq3sb")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_q2msx"]
+script = ExtResource("1_bq3sb")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_lwh1g"]
+script = ExtResource("1_bq3sb")
+icon = 4
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_cmsv1"]
+script = ExtResource("1_bq3sb")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_5holi"]
+script = ExtResource("1_bq3sb")
+icon = 4
+colour = 0
+rotation = 0
+
+[resource]
+script = ExtResource("2_3ulbk")
+width = 2
+height = 3
+icons = Array[Array]([[SubResource("Resource_hm7jm"), SubResource("Resource_kulol"), SubResource("Resource_q2msx")], [SubResource("Resource_lwh1g"), SubResource("Resource_cmsv1"), SubResource("Resource_5holi")]])

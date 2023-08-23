@@ -1,0 +1,106 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=19 format=3 uid="uid://dshmoxl2j2elk"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="1_1jfmr"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_hrigf"]
+
+[sub_resource type="Resource" id="Resource_1bxol"]
+script = ExtResource("1_hrigf")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_o1xne"]
+script = ExtResource("1_hrigf")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_bqhxt"]
+script = ExtResource("1_hrigf")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_ja8f6"]
+script = ExtResource("1_hrigf")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_vyr3k"]
+script = ExtResource("1_hrigf")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_s8efn"]
+script = ExtResource("1_hrigf")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_4ph64"]
+script = ExtResource("1_hrigf")
+icon = 3
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_2v465"]
+script = ExtResource("1_hrigf")
+icon = 7
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_nknah"]
+script = ExtResource("1_hrigf")
+icon = 1
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_6tuc6"]
+script = ExtResource("1_hrigf")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_j0vbo"]
+script = ExtResource("1_hrigf")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_hfpuy"]
+script = ExtResource("1_hrigf")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_3bv6g"]
+script = ExtResource("1_hrigf")
+icon = 7
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_5ow2s"]
+script = ExtResource("1_hrigf")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_r4tqx"]
+script = ExtResource("1_hrigf")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_w2mcn"]
+script = ExtResource("1_hrigf")
+icon = 4
+colour = 0
+rotation = 2
+
+[resource]
+script = ExtResource("1_1jfmr")
+width = 4
+height = 4
+icons = Array[Array]([[SubResource("Resource_1bxol"), SubResource("Resource_o1xne"), SubResource("Resource_bqhxt"), SubResource("Resource_ja8f6")], [SubResource("Resource_vyr3k"), SubResource("Resource_s8efn"), SubResource("Resource_4ph64"), SubResource("Resource_2v465")], [SubResource("Resource_nknah"), SubResource("Resource_6tuc6"), SubResource("Resource_j0vbo"), SubResource("Resource_hfpuy")], [SubResource("Resource_3bv6g"), SubResource("Resource_5ow2s"), SubResource("Resource_r4tqx"), SubResource("Resource_w2mcn")]])
