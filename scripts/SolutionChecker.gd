@@ -160,8 +160,8 @@ class Region:
 		for x in len(puzzle):
 			for y in len(puzzle[x]):
 				if cells[x * 2][y * 2] and [x, y] != [exclude_x, exclude_y]:
-					var puzzle_icon = puzzle[x][y]
-					if puzzle_icon[PuzzleClasses.ICON] == icon and puzzle_icon[PuzzleClasses.COLOUR] == colour:
+					var puzzle_icon: PuzzleDesignIcon = puzzle[x][y]
+					if puzzle_icon.icon == icon and puzzle_icon.colour == colour:
 						return [x, y]
 		return []
 	
@@ -195,8 +195,8 @@ static func init_2d_array(width: int, height: int, fill: Variant) -> Array[Array
 
 # Check the rules of cells in a puzzle
 # Determines whether the player is allowed to make a certain move or not
-static func check_solution(puzzle: Array, state: Array[Array]) -> Solution:
-	var puzzle_cells: Array = puzzle[PuzzleClasses.CELLS]
+static func check_solution(puzzle: PuzzleDesign, state: Array[Array]) -> Solution:
+	var puzzle_cells: Array[Array] = puzzle.icons
 	# A Solution to add results into
 	var result = Solution.new()
 	
@@ -213,14 +213,14 @@ static func check_solution(puzzle: Array, state: Array[Array]) -> Solution:
 					containing_region = region
 					break
 			
-			match puzzle_cells[x][y][PuzzleClasses.ICON]:
+			match puzzle_cells[x][y].icon:
 				# Squares can't be in the same region as another square of the same colour
 				PuzzleClasses.SQUARE:
-					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.SQUARE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y):
+					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.SQUARE, puzzle_cells[x][y].colour, x, y):
 						result.add_wrong(x, y)
 				# Circles have to be in the same region as another circle of the same colour
 				PuzzleClasses.CIRCLE:
-					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.CIRCLE, puzzle_cells[x][y][PuzzleClasses.COLOUR], x, y):
+					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.CIRCLE, puzzle_cells[x][y].colour, x, y):
 						pass
 					else:
 						result.add_wrong(x, y)
@@ -242,12 +242,12 @@ static func pretty_print_array(arr: Array[Array]):
 		print(item)
 	print()
 
-static func calculate_regions(puzzle: Array, state: Array[Array]) -> Array[Region]:
+static func calculate_regions(puzzle: PuzzleDesign, state: Array[Array]) -> Array[Region]:
 	var regions: Array[Region] = []
 	
 	# The width and height in subcells
-	var width = puzzle[PuzzleClasses.WIDTH] * 2
-	var height = puzzle[PuzzleClasses.HEIGHT] * 2
+	var width = puzzle.width * 2
+	var height = puzzle.height * 2
 	
 	# Which edges have a pointer blocking them
 	var edges_horizontal := init_2d_array(width, height + 1, false)
@@ -258,8 +258,8 @@ static func calculate_regions(puzzle: Array, state: Array[Array]) -> Array[Regio
 	# Calculate which subcell edges are filled with a pointer
 	for x in width / 2:
 		for y in height / 2:
-			var cell = puzzle[PuzzleClasses.CELLS][x][y]
-			var icon = cell[PuzzleClasses.ICON]
+			var cell = puzzle.icons[x][y]
+			var icon = cell.icon
 			var rotation = state[x][y]
 			if icon in PuzzleClasses.POINTERS:
 				# 4, 5, 6, 7 are used as bases rather than 0, 1, 2, 3, 4

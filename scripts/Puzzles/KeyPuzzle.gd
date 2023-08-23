@@ -27,7 +27,7 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 		# Create new instance of template
 		var key_hint := key_hint_tile.duplicate()
 		key_hint.name = "key-hint-tile"
-		var key_start_rotation = puzzle[PuzzleClasses.CELLS][key_x][key_y][PuzzleClasses.ROTATION]
+		var key_start_rotation = puzzle_design.icons[key_x][key_y].rotation
 		key_hint.rotate(Vector3.FORWARD, (key_target_rotation - key_start_rotation) * PI / 2)
 		
 		# Make the node visible
@@ -38,7 +38,7 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 		mat_override.next_pass = mat_override.next_pass.duplicate()
 		
 		# Set texture
-		var key_icon = puzzle[PuzzleClasses.CELLS][key_x][key_y][0]
+		var key_icon = puzzle_design.icons[key_x][key_y].icon
 		mat_override.next_pass.set_shader_parameter("icon_texture", PuzzleClasses.HINT_TEXTURES[key_icon])
 		# Set colour
 		mat_override.next_pass.set_shader_parameter("icon_colour", key_hint_colour)
@@ -55,7 +55,7 @@ func rotate_cell(x: int, y: int, direction: int) -> bool:
 		return false
 	
 	# Check whether the solution is valid
-	var solution := SolutionChecker.check_solution(puzzle, current_state)
+	var solution := SolutionChecker.check_solution(puzzle_design, current_state)
 	
 	reset_tile_colours()
 	
@@ -77,7 +77,7 @@ func rotate_cell(x: int, y: int, direction: int) -> bool:
 	
 	# Straight double pointers have 180 degree rotational symmetry,
 	# so they should register as solved when upside-down
-	if puzzle[PuzzleClasses.CELLS][key_x][key_y][PuzzleClasses.ICON] == PuzzleClasses.POINTER_DOUBLE_STRAIGHT:
+	if puzzle_design.icons[key_x][key_y].icon == PuzzleClasses.POINTER_DOUBLE_STRAIGHT:
 		is_right_rotation = (key_rotation % 2) == (key_target_rotation % 2)
 	else:
 		is_right_rotation = key_rotation == key_target_rotation

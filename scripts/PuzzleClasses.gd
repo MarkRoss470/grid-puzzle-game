@@ -114,21 +114,6 @@ const DONT_RECOLOUR: Array[int] = [
 	EMPTY
 ]
 
-# The contents of a puzzle
-enum {
-	WIDTH, HEIGHT, # The width and height of the puzzle
-	CELLS, # The icons and starting rotations of the cells
-	# ANOTHER_THING, # Uncomment to force reset in editor
-	ARR_LEN
-}
-
-# The contents of a cell
-enum {
-	ICON, # The type of icon
-	COLOUR, # The colour of the icon
-	ROTATION # The starting rotation of the cell
-}
-
 # What to reset a puzzle to if an invalid state is detected
 # Function rather than a const to prevent aliasing
 static func get_default() -> Array:

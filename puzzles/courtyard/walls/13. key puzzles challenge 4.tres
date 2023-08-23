@@ -1,304 +1,304 @@
 [gd_resource type="Resource" script_class="PuzzleDesign" load_steps=52 format=3 uid="uid://bt4s80kjbksx8"]
 
-[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_1ys84"]
-[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="1_qdfuo"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_8igcy"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_6j6av"]
 
-[sub_resource type="Resource" id="Resource_p776b"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_rek7r"]
+script = ExtResource("1_8igcy")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_nxujo"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_02p7l"]
+script = ExtResource("1_8igcy")
 icon = 4
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_mx3vr"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_k3k2e"]
+script = ExtResource("1_8igcy")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_xckid"]
-script = ExtResource("1_1ys84")
-icon = 7
-colour = 1
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_7er7g"]
-script = ExtResource("1_1ys84")
-icon = 1
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_msgtr"]
-script = ExtResource("1_1ys84")
-icon = 4
-colour = 0
-rotation = 3
-
-[sub_resource type="Resource" id="Resource_aatck"]
-script = ExtResource("1_1ys84")
-icon = 7
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_rio52"]
-script = ExtResource("1_1ys84")
-icon = 3
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_y3fcg"]
-script = ExtResource("1_1ys84")
-icon = 3
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_bf1dl"]
-script = ExtResource("1_1ys84")
-icon = 4
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_jssc8"]
-script = ExtResource("1_1ys84")
-icon = 5
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_wd7is"]
-script = ExtResource("1_1ys84")
-icon = 4
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_i4nlg"]
-script = ExtResource("1_1ys84")
-icon = 3
-colour = 0
-rotation = 3
-
-[sub_resource type="Resource" id="Resource_dqeeg"]
-script = ExtResource("1_1ys84")
-icon = 3
-colour = 0
-rotation = 1
-
-[sub_resource type="Resource" id="Resource_v14g0"]
-script = ExtResource("1_1ys84")
-icon = 3
-colour = 0
-rotation = 3
-
-[sub_resource type="Resource" id="Resource_el13j"]
-script = ExtResource("1_1ys84")
-icon = 3
-colour = 0
-rotation = 1
-
-[sub_resource type="Resource" id="Resource_nge6h"]
-script = ExtResource("1_1ys84")
-icon = 4
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_dccnv"]
-script = ExtResource("1_1ys84")
-icon = 5
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_8vi85"]
-script = ExtResource("1_1ys84")
-icon = 4
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_lgoen"]
-script = ExtResource("1_1ys84")
-icon = 3
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_4qvo5"]
-script = ExtResource("1_1ys84")
-icon = 3
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_vnbgy"]
-script = ExtResource("1_1ys84")
-icon = 3
-colour = 0
-rotation = 3
-
-[sub_resource type="Resource" id="Resource_rne01"]
-script = ExtResource("1_1ys84")
-icon = 4
-colour = 0
-rotation = 1
-
-[sub_resource type="Resource" id="Resource_3g5ti"]
-script = ExtResource("1_1ys84")
-icon = 7
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_qloru"]
-script = ExtResource("1_1ys84")
-icon = 1
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_8ayw0"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_ogier"]
+script = ExtResource("1_8igcy")
 icon = 7
 colour = 1
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_8kao0"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_fq1vr"]
+script = ExtResource("1_8igcy")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_8g2m7"]
+script = ExtResource("1_8igcy")
 icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_cl6dh"]
+script = ExtResource("1_8igcy")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_tm81o"]
+script = ExtResource("1_8igcy")
+icon = 3
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_eudeh"]
+script = ExtResource("1_8igcy")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_vlmti"]
+script = ExtResource("1_8igcy")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_1hqb7"]
+script = ExtResource("1_8igcy")
+icon = 5
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_kyg65"]
+script = ExtResource("1_8igcy")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_3upaw"]
+script = ExtResource("1_8igcy")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_a03m8"]
+script = ExtResource("1_8igcy")
+icon = 3
 colour = 0
 rotation = 1
 
-[sub_resource type="Resource" id="Resource_bq8cb"]
-script = ExtResource("1_1ys84")
-icon = 1
+[sub_resource type="Resource" id="Resource_t08hb"]
+script = ExtResource("1_8igcy")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_fhpfl"]
+script = ExtResource("1_8igcy")
+icon = 3
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_obvfh"]
+script = ExtResource("1_8igcy")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_5oqm5"]
+script = ExtResource("1_8igcy")
+icon = 5
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_qli4w"]
+script = ExtResource("1_8igcy")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_q5k2k"]
+script = ExtResource("1_8igcy")
+icon = 3
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_3myxo"]
-script = ExtResource("1_1ys84")
-icon = 1
+[sub_resource type="Resource" id="Resource_njiui"]
+script = ExtResource("1_8igcy")
+icon = 3
 colour = 0
-rotation = 0
+rotation = 2
 
-[sub_resource type="Resource" id="Resource_xo0vr"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_s5j32"]
+script = ExtResource("1_8igcy")
+icon = 3
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_0fplm"]
+script = ExtResource("1_8igcy")
 icon = 5
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_bnxgc"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_x5scp"]
+script = ExtResource("1_8igcy")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_5kt02"]
+script = ExtResource("1_8igcy")
 icon = 4
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_ljo4w"]
-script = ExtResource("1_1ys84")
-icon = 5
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_uafo7"]
-script = ExtResource("1_1ys84")
-icon = 4
-colour = 0
-rotation = 2
-
-[sub_resource type="Resource" id="Resource_gr8i6"]
-script = ExtResource("1_1ys84")
-icon = 5
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_yvbwn"]
-script = ExtResource("1_1ys84")
-icon = 1
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_6iwu7"]
-script = ExtResource("1_1ys84")
-icon = 1
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_71e55"]
-script = ExtResource("1_1ys84")
-icon = 4
-colour = 0
-rotation = 1
-
-[sub_resource type="Resource" id="Resource_ryeta"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_qhv0t"]
+script = ExtResource("1_8igcy")
 icon = 7
 colour = 1
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_rhw25"]
-script = ExtResource("1_1ys84")
-icon = 1
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_pj1nd"]
-script = ExtResource("1_1ys84")
-icon = 7
-colour = 0
-rotation = 0
-
-[sub_resource type="Resource" id="Resource_gmhxw"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_umga8"]
+script = ExtResource("1_8igcy")
 icon = 4
 colour = 0
 rotation = 1
 
-[sub_resource type="Resource" id="Resource_3tdbx"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_qauol"]
+script = ExtResource("1_8igcy")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_qdrtn"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_yd0fv"]
+script = ExtResource("1_8igcy")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_webeu"]
-script = ExtResource("1_1ys84")
-icon = 3
+[sub_resource type="Resource" id="Resource_wrfls"]
+script = ExtResource("1_8igcy")
+icon = 5
 colour = 0
-rotation = 2
+rotation = 1
 
-[sub_resource type="Resource" id="Resource_odugx"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_u4se1"]
+script = ExtResource("1_8igcy")
 icon = 4
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_jv2b8"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_4xyqa"]
+script = ExtResource("1_8igcy")
+icon = 5
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_iluab"]
+script = ExtResource("1_8igcy")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_yyxra"]
+script = ExtResource("1_8igcy")
+icon = 5
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_17flv"]
+script = ExtResource("1_8igcy")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_tadsk"]
+script = ExtResource("1_8igcy")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_ejuu4"]
+script = ExtResource("1_8igcy")
+icon = 4
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_k1ekh"]
+script = ExtResource("1_8igcy")
+icon = 7
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_6mfw2"]
+script = ExtResource("1_8igcy")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_olbcb"]
+script = ExtResource("1_8igcy")
+icon = 7
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_wivfh"]
+script = ExtResource("1_8igcy")
+icon = 4
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_0e8ak"]
+script = ExtResource("1_8igcy")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_m5k1b"]
+script = ExtResource("1_8igcy")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_gs1c4"]
+script = ExtResource("1_8igcy")
+icon = 3
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_nogah"]
+script = ExtResource("1_8igcy")
+icon = 4
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_g3jwt"]
+script = ExtResource("1_8igcy")
 icon = 5
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_7w2t7"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_3f8jt"]
+script = ExtResource("1_8igcy")
 icon = 4
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_5s7j1"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_12oca"]
+script = ExtResource("1_8igcy")
 icon = 3
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_kfa2b"]
-script = ExtResource("1_1ys84")
+[sub_resource type="Resource" id="Resource_gl52i"]
+script = ExtResource("1_8igcy")
 icon = 1
 colour = 0
 rotation = 0
 
 [resource]
-script = ExtResource("1_qdfuo")
+script = ExtResource("2_6j6av")
 width = 7
 height = 7
-icons = Array[Array]([[SubResource("Resource_p776b"), SubResource("Resource_nxujo"), SubResource("Resource_mx3vr"), SubResource("Resource_xckid"), SubResource("Resource_7er7g"), SubResource("Resource_msgtr"), SubResource("Resource_aatck")], [SubResource("Resource_rio52"), SubResource("Resource_y3fcg"), SubResource("Resource_bf1dl"), SubResource("Resource_jssc8"), SubResource("Resource_wd7is"), SubResource("Resource_i4nlg"), SubResource("Resource_dqeeg")], [SubResource("Resource_v14g0"), SubResource("Resource_el13j"), SubResource("Resource_nge6h"), SubResource("Resource_dccnv"), SubResource("Resource_8vi85"), SubResource("Resource_lgoen"), SubResource("Resource_4qvo5")], [SubResource("Resource_vnbgy"), SubResource("Resource_rne01"), SubResource("Resource_3g5ti"), SubResource("Resource_qloru"), SubResource("Resource_8ayw0"), SubResource("Resource_8kao0"), SubResource("Resource_bq8cb")], [SubResource("Resource_3myxo"), SubResource("Resource_xo0vr"), SubResource("Resource_bnxgc"), SubResource("Resource_ljo4w"), SubResource("Resource_uafo7"), SubResource("Resource_gr8i6"), SubResource("Resource_yvbwn")], [SubResource("Resource_6iwu7"), SubResource("Resource_71e55"), SubResource("Resource_ryeta"), SubResource("Resource_rhw25"), SubResource("Resource_pj1nd"), SubResource("Resource_gmhxw"), SubResource("Resource_3tdbx")], [SubResource("Resource_qdrtn"), SubResource("Resource_webeu"), SubResource("Resource_odugx"), SubResource("Resource_jv2b8"), SubResource("Resource_7w2t7"), SubResource("Resource_5s7j1"), SubResource("Resource_kfa2b")]])
+icons = Array[Array]([[SubResource("Resource_rek7r"), SubResource("Resource_02p7l"), SubResource("Resource_k3k2e"), SubResource("Resource_ogier"), SubResource("Resource_fq1vr"), SubResource("Resource_8g2m7"), SubResource("Resource_cl6dh")], [SubResource("Resource_tm81o"), SubResource("Resource_eudeh"), SubResource("Resource_vlmti"), SubResource("Resource_1hqb7"), SubResource("Resource_kyg65"), SubResource("Resource_3upaw"), SubResource("Resource_a03m8")], [SubResource("Resource_t08hb"), SubResource("Resource_fhpfl"), SubResource("Resource_obvfh"), SubResource("Resource_5oqm5"), SubResource("Resource_qli4w"), SubResource("Resource_q5k2k"), SubResource("Resource_njiui")], [SubResource("Resource_s5j32"), SubResource("Resource_0fplm"), SubResource("Resource_x5scp"), SubResource("Resource_5kt02"), SubResource("Resource_qhv0t"), SubResource("Resource_umga8"), SubResource("Resource_qauol")], [SubResource("Resource_yd0fv"), SubResource("Resource_wrfls"), SubResource("Resource_u4se1"), SubResource("Resource_4xyqa"), SubResource("Resource_iluab"), SubResource("Resource_yyxra"), SubResource("Resource_17flv")], [SubResource("Resource_tadsk"), SubResource("Resource_ejuu4"), SubResource("Resource_k1ekh"), SubResource("Resource_6mfw2"), SubResource("Resource_olbcb"), SubResource("Resource_wivfh"), SubResource("Resource_0e8ak")], [SubResource("Resource_m5k1b"), SubResource("Resource_gs1c4"), SubResource("Resource_nogah"), SubResource("Resource_g3jwt"), SubResource("Resource_3f8jt"), SubResource("Resource_12oca"), SubResource("Resource_gl52i")]])

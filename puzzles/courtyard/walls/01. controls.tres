@@ -3,19 +3,19 @@
 [ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_ofxa2"]
 [ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="1_t8eek"]
 
-[sub_resource type="Resource" id="Resource_immkj"]
+[sub_resource type="Resource" id="Resource_urjo1"]
 script = ExtResource("1_ofxa2")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_mquax"]
+[sub_resource type="Resource" id="Resource_wy42x"]
 script = ExtResource("1_ofxa2")
 icon = 4
 colour = 0
-rotation = 1
+rotation = 0
 
-[sub_resource type="Resource" id="Resource_gvvcj"]
+[sub_resource type="Resource" id="Resource_x5d2v"]
 script = ExtResource("1_ofxa2")
 icon = 7
 colour = 0
@@ -25,4 +25,4 @@ rotation = 0
 script = ExtResource("1_t8eek")
 width = 1
 height = 3
-icons = Array[Array]([[SubResource("Resource_immkj"), SubResource("Resource_mquax"), SubResource("Resource_gvvcj")]])
+icons = Array[Array]([[SubResource("Resource_urjo1"), SubResource("Resource_wy42x"), SubResource("Resource_x5d2v")]])

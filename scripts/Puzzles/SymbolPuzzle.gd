@@ -7,7 +7,7 @@ func rotate_cell(x: int, y: int, direction: int):
 	super.rotate_cell(x, y, direction)
 	
 	# Check whether the solution is valid
-	var solution := SolutionChecker.check_solution(puzzle, current_state)
+	var solution := SolutionChecker.check_solution(puzzle_design, current_state)
 	
 	reset_tile_colours()
 	

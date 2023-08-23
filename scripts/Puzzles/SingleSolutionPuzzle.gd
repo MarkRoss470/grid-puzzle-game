@@ -11,11 +11,11 @@ func rotate_cell(cell_x: int, cell_y: int, direction: int) -> bool:
 	
 	var is_correct := true
 	
-	var cells: Array = puzzle[PuzzleClasses.CELLS]
+	var cells: Array = puzzle_design.icons
 	
-	for x in puzzle[PuzzleClasses.WIDTH]:
-		for y in puzzle[PuzzleClasses.HEIGHT]:
-			match cells[x][y][PuzzleClasses.ICON]:
+	for x in puzzle_design.width:
+		for y in puzzle_design.height:
+			match cells[x][y].icon:
 				PuzzleClasses.NO_CELL, PuzzleClasses.EMPTY, PuzzleClasses.POINTER_QUADRUPLE:
 					continue
 				PuzzleClasses.POINTER_SINGLE, PuzzleClasses.POINTER_DOUBLE_ANGLE, PuzzleClasses.POINTER_TRIPLE:

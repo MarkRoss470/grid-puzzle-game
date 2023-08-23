@@ -1,160 +1,160 @@
 [gd_resource type="Resource" script_class="PuzzleDesign" load_steps=28 format=3 uid="uid://cddhhs74ttmgn"]
 
-[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_76n63"]
-[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="1_boeev"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_4cwig"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_b0j3u"]
 
-[sub_resource type="Resource" id="Resource_aflnx"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_dgeyr"]
+script = ExtResource("1_4cwig")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_gcut0"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_uek3k"]
+script = ExtResource("1_4cwig")
 icon = 4
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_umu1p"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_rjo0s"]
+script = ExtResource("1_4cwig")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_ya14a"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_u08x4"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 1
 
-[sub_resource type="Resource" id="Resource_4xptl"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_qpjya"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_d4wgy"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_ns4o0"]
+script = ExtResource("1_4cwig")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_yajph"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_mwc4l"]
+script = ExtResource("1_4cwig")
 icon = 5
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_6hbub"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_0yfh7"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_t2n1n"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_r0ca6"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_6khmx"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_ik6hv"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_4lnna"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_6mnns"]
+script = ExtResource("1_4cwig")
 icon = 4
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_62bjw"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_xsgky"]
+script = ExtResource("1_4cwig")
 icon = 5
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_bu71y"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_5jefj"]
+script = ExtResource("1_4cwig")
 icon = 4
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_1tkoa"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_ctla0"]
+script = ExtResource("1_4cwig")
 icon = 5
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_wflss"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_l042s"]
+script = ExtResource("1_4cwig")
 icon = 4
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_dko2u"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_0xhuu"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 1
 
-[sub_resource type="Resource" id="Resource_5knul"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_2wl8m"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_jxwau"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_hwxmx"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_u777t"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_13myb"]
+script = ExtResource("1_4cwig")
 icon = 5
 colour = 0
 rotation = 1
 
-[sub_resource type="Resource" id="Resource_c8gu4"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_w5egs"]
+script = ExtResource("1_4cwig")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_7r1ow"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_nowtk"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_6nr3c"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_u6k2o"]
+script = ExtResource("1_4cwig")
 icon = 3
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_0oabf"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_eea00"]
+script = ExtResource("1_4cwig")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_ty4py"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_a87xx"]
+script = ExtResource("1_4cwig")
 icon = 4
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_ksrl2"]
-script = ExtResource("1_76n63")
+[sub_resource type="Resource" id="Resource_sksfc"]
+script = ExtResource("1_4cwig")
 icon = 7
 colour = 0
 rotation = 0
 
 [resource]
-script = ExtResource("1_boeev")
+script = ExtResource("2_b0j3u")
 width = 5
 height = 5
-icons = Array[Array]([[SubResource("Resource_aflnx"), SubResource("Resource_gcut0"), SubResource("Resource_umu1p"), SubResource("Resource_ya14a"), SubResource("Resource_4xptl")], [SubResource("Resource_d4wgy"), SubResource("Resource_yajph"), SubResource("Resource_6hbub"), SubResource("Resource_t2n1n"), SubResource("Resource_6khmx")], [SubResource("Resource_4lnna"), SubResource("Resource_62bjw"), SubResource("Resource_bu71y"), SubResource("Resource_1tkoa"), SubResource("Resource_wflss")], [SubResource("Resource_dko2u"), SubResource("Resource_5knul"), SubResource("Resource_jxwau"), SubResource("Resource_u777t"), SubResource("Resource_c8gu4")], [SubResource("Resource_7r1ow"), SubResource("Resource_6nr3c"), SubResource("Resource_0oabf"), SubResource("Resource_ty4py"), SubResource("Resource_ksrl2")]])
+icons = Array[Array]([[SubResource("Resource_dgeyr"), SubResource("Resource_uek3k"), SubResource("Resource_rjo0s"), SubResource("Resource_u08x4"), SubResource("Resource_qpjya")], [SubResource("Resource_ns4o0"), SubResource("Resource_mwc4l"), SubResource("Resource_0yfh7"), SubResource("Resource_r0ca6"), SubResource("Resource_ik6hv")], [SubResource("Resource_6mnns"), SubResource("Resource_xsgky"), SubResource("Resource_5jefj"), SubResource("Resource_ctla0"), SubResource("Resource_l042s")], [SubResource("Resource_0xhuu"), SubResource("Resource_2wl8m"), SubResource("Resource_hwxmx"), SubResource("Resource_13myb"), SubResource("Resource_w5egs")], [SubResource("Resource_nowtk"), SubResource("Resource_u6k2o"), SubResource("Resource_eea00"), SubResource("Resource_a87xx"), SubResource("Resource_sksfc")]])

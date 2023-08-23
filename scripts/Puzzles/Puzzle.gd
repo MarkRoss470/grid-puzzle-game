@@ -14,7 +14,6 @@ represents the puzzle - sets which icons go in which cells
 
 @export_group("Puzzle")
 
-@export var puzzle: Array
 @export var puzzle_design := PuzzleDesign.new()
 
 @export_group("")
@@ -68,12 +67,12 @@ func _ready():
 	# TODO: load puzzle state from saved game
 	
 	# Initialise tiles and current_state
-	for x in puzzle[PuzzleClasses.WIDTH]:
+	for x in puzzle_design.width:
 		tiles.append([])
 		current_state.append([])
-		for y in puzzle[PuzzleClasses.HEIGHT]:
+		for y in puzzle_design.height:
 			tiles[x].append(null)
-			current_state[x].append(puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ROTATION])
+			current_state[x].append(puzzle_design.icons[x][y].rotation)
 	
 	# Load puzzles that should always be active
 	if load_on_start: on_puzzle_solve_immediate(0)
@@ -104,14 +103,14 @@ func unload_puzzle():
 # Loads the puzzle with no animation
 func on_puzzle_solve_immediate(_i: int):
 	# Loop over columns in puzzle
-	for x in puzzle[PuzzleClasses.WIDTH]:
+	for x in puzzle_design.width:
 		# Loop over cells in column
-		for y in puzzle[PuzzleClasses.HEIGHT]:
-			if puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] == PuzzleClasses.NO_CELL:
+		for y in puzzle_design.height:
+			if puzzle_design.icons[x][y].icon == PuzzleClasses.NO_CELL:
 				continue
 
 			# Create new tile
-			var tile = create_tile(x, y, puzzle[PuzzleClasses.CELLS][x][y])
+			var tile = create_tile(x, y, puzzle_design.icons[x][y])
 			# Rotate to match puzzle state
 			tile.rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
 			# Add reference to tile to tiles
@@ -130,7 +129,7 @@ func on_puzzle_solve_immediate(_i: int):
 func rotate_cell(x: int, y: int, direction: int) -> bool:
 	
 	# Only icons in the ROTATABLE list should be able to be rotated
-	if not puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] in PuzzleClasses.ROTATABLE:
+	if not puzzle_design.icons[x][y].icon in PuzzleClasses.ROTATABLE:
 		return false
 	
 	# Update cell's rotation based on the direction
@@ -174,9 +173,9 @@ func reset():
 		return
 	
 	# Reset tiles and current state
-	for x in puzzle[PuzzleClasses.WIDTH]:
-		for y in puzzle[PuzzleClasses.HEIGHT]:
-			current_state[x][y] = puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ROTATION]
+	for x in puzzle_design.width:
+		for y in puzzle_design.height:
+			current_state[x][y] = puzzle_design.icons[x][y].rotation
 	
 	is_solved = false
 	
@@ -213,15 +212,15 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	# Get the node's icon plane
 	var icon: CSGMesh3D = node.get_node(node.icon_path)
 	# If the puzzle cell has an icon, set the right image
-	if cell[PuzzleClasses.ICON] != PuzzleClasses.EMPTY:
+	if cell.icon != PuzzleClasses.EMPTY:
 		# Make copy of material
 		var mat_override := icon.get_material().duplicate()
 		mat_override.next_pass = mat_override.next_pass.duplicate()
 		
 		# Set texture
-		mat_override.next_pass.set_shader_parameter("icon_texture", PuzzleClasses.CELL_TEXTURES[cell[0]])
+		mat_override.next_pass.set_shader_parameter("icon_texture", PuzzleClasses.CELL_TEXTURES[cell.icon])
 		# Set colour
-		mat_override.next_pass.set_shader_parameter("icon_colour", PuzzleClasses.COLOURS[cell[1]])
+		mat_override.next_pass.set_shader_parameter("icon_colour", PuzzleClasses.COLOURS[cell.colour])
 		# Set icon to use this material
 		icon.set_material_override(mat_override)
 	# If the puzzle cell has no icon, hide the icon plane
@@ -256,8 +255,8 @@ func _process(delta):
 		wipes[i][1] = progress
 		
 		# Update rotation + scale of every tile
-		for x in puzzle[PuzzleClasses.WIDTH]:
-			for y in puzzle[PuzzleClasses.HEIGHT]:
+		for x in puzzle_design.width:
+			for y in puzzle_design.height:
 				
 				var tile_animation_start = (x + y) * tile_animation_offset
 				var tile_animation_end = (x + y) * tile_animation_offset + tile_animation_time
@@ -270,8 +269,8 @@ func _process(delta):
 				if tile == null:
 					# If the tile is already null, don't load it just to unload it
 					# Also don't load NO_CELL tiles
-					var cell = puzzle[PuzzleClasses.CELLS][x][y]
-					if direction == -1 or cell[PuzzleClasses.ICON] == PuzzleClasses.NO_CELL:
+					var cell: PuzzleDesignIcon = puzzle_design.icons[x][y]
+					if direction == -1 or cell.icon == PuzzleClasses.NO_CELL:
 						continue
 					
 					# Create tile
@@ -320,7 +319,7 @@ func _process(delta):
 				tiles[x][y].scale = Vector3(animation_proportion, animation_proportion, animation_proportion)
 		
 		# If this wipe is finished, save its index
-		if progress > (puzzle[PuzzleClasses.WIDTH] + puzzle[PuzzleClasses.HEIGHT]) * tile_animation_offset + tile_animation_time:
+		if progress > (puzzle_design.width + puzzle_design.height) * tile_animation_offset + tile_animation_time:
 			completed_wipe = i
 	
 	if completed_wipe != -1:
