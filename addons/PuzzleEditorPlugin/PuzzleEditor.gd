@@ -23,14 +23,14 @@ const WIDTH_LINE_Y := 0
 const HEIGHT_LINE_Y := WIDTH_LINE_Y + 55
 
 const ICON_GROUP_PICKER_Y := HEIGHT_LINE_Y + 65
-const ICON_GROUP_PICKER_SIZE := 30
-const ICON_GROUP_PICKER_OFFSET := 40
+const ICON_GROUP_PICKER_SIZE := 45
+const ICON_GROUP_PICKER_OFFSET := 55
 
-const ICON_PICKER_Y := ICON_GROUP_PICKER_Y + 50
-const ICON_PICKER_SIZE := 30
-const ICON_PICKER_OFFSET := 40
+const ICON_PICKER_Y := ICON_GROUP_PICKER_Y + 70
+const ICON_PICKER_SIZE := 45
+const ICON_PICKER_OFFSET := 55
 
-const COLOUR_PICKER_Y := ICON_PICKER_Y + 50
+const COLOUR_PICKER_Y := ICON_PICKER_Y + 70
 const COLOUR_PICKER_SIZE := 30
 const COLOUR_PICKER_OFFSET := 40
 
@@ -66,11 +66,16 @@ func add_label_and_spinbox(name: String, label_text: String, y: float, callback:
 
 # Creates and returns a TextureRect
 func create_texture_rect(name: String, texture: Texture2D, size: int, x: int, scale_x: int = 1) -> TextureRect:
+	var background = create_colour_rect(name + "_background", Color.GRAY, texture.get_width(), texture.get_height(), 0)
+	background.z_index = -1
+	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var rect := TextureRect.new()
 	rect.name = name
 	rect.texture = texture
 	rect.scale = Vector2(1.0 / texture.get_width(), 1.0 / texture.get_height()) * Vector2(size * scale_x, size)
 	rect.set_position(Vector2(x, 0))
+	rect.z_index = 1
+	rect.add_child(background)
 	return rect
 
 # Creates and returns a ColorRect
@@ -102,8 +107,8 @@ func init_editor():
 		var icon := create_texture_rect (
 			"icon_group_picker-" + str(i),
 			PuzzleClasses.CELL_TEXTURES[PuzzleClasses.ICON_GROUPS[i][0]],
-			ICON_PICKER_SIZE,
-			ICON_PICKER_OFFSET * i
+			ICON_GROUP_PICKER_SIZE,
+			ICON_GROUP_PICKER_OFFSET * i
 		)
 		
 		icon.connect("gui_input", Callable(self, "set_current_icon_group").bind(i))
@@ -121,8 +126,8 @@ func init_editor():
 		var icon := create_colour_rect (
 			"colour_picker-" + str(i),
 			PuzzleClasses.COLOURS[i],
-			ICON_PICKER_SIZE, ICON_GROUP_PICKER_SIZE,
-			ICON_GROUP_PICKER_OFFSET * i
+			COLOUR_PICKER_SIZE, COLOUR_PICKER_SIZE,
+			COLOUR_PICKER_OFFSET * i
 		)
 		icon.connect("gui_input", Callable(self, "set_current_colour").bind(i))
 		colour_picker.add_child(icon)
@@ -147,7 +152,7 @@ func init_editor():
 	var icon_indicator := create_colour_rect (
 		"icon_indicator",
 		Color.WHITE,
-		ICON_GROUP_PICKER_SIZE, 10,
+		ICON_PICKER_SIZE, 10,
 		0
 	)
 	editor_items.add_child(icon_indicator)
@@ -295,9 +300,6 @@ func update_ui():
 	editor_items.remove_child(editor_items.get_node("grid"))
 	populate_grid()
 	
-	# Move the icon indicator under the right icon
-	editor_items.get_node("icon_indicator").set_position(Vector2(ICON_PICKER_OFFSET * current_icon_in_group, ICON_PICKER_Y + ICON_PICKER_SIZE))
-	
 	update_icons()
 
 	# Set the container to the right size for the grid
@@ -377,35 +379,38 @@ func update_icons():
 	for i in len(PuzzleClasses.ICON_GROUPS[current_icon_group]):
 		var icon_index: int = PuzzleClasses.ICON_GROUPS[current_icon_group][i]
 
-		# Set up icon
-		var icon := TextureRect.new()
-		icon.name = "icon_picker-" + str(i)
-
-		icon.texture = PuzzleClasses.CELL_TEXTURES[PuzzleClasses.ICON_GROUPS[current_icon_group][i]]
+		var icon := create_texture_rect(
+			"icon_picker-" + str(i),
+			PuzzleClasses.CELL_TEXTURES[PuzzleClasses.ICON_GROUPS[current_icon_group][i]],
+			ICON_PICKER_SIZE,
+			ICON_PICKER_OFFSET * i
+		)
+		
 		# Don't change the colour of group 0 because they're special icons
 		if current_icon_group != 0:
-			icon.modulate = PuzzleClasses.COLOURS[current_icon.colour]
+			icon.self_modulate = PuzzleClasses.COLOURS[current_icon.colour]
 		
-		icon.scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * ICON_PICKER_SIZE
 		icon.set_rotation(current_icon.rotation * PI / 2)
-		
-		var icon_position := Vector2(ICON_PICKER_OFFSET * i, 0)
+
 		# Add an offset to icon_position to make icons line up even when rotated
 		match current_icon.rotation:
 			0:
 				pass
 			1:
-				icon_position += Vector2(ICON_GROUP_PICKER_SIZE, 0)
+				icon.position += Vector2(ICON_GROUP_PICKER_SIZE, 0)
 			2:
-				icon_position += Vector2(ICON_GROUP_PICKER_SIZE, ICON_GROUP_PICKER_SIZE)
+				icon.position += Vector2(ICON_GROUP_PICKER_SIZE, ICON_GROUP_PICKER_SIZE)
 			3:
-				icon_position += Vector2(0, ICON_GROUP_PICKER_SIZE)
-		icon.set_position(icon_position)
+				icon.position += Vector2(0, ICON_GROUP_PICKER_SIZE)
+
 		icon.connect("gui_input", Callable(self, "set_current_icon").bind(i))
 		
 		icon_picker.add_child(icon)
 	
 	editor_items.add_child(icon_picker)
+	
+	# Move the icon indicator under the right icon
+	editor_items.get_node("icon_indicator").set_position(Vector2(ICON_PICKER_OFFSET * current_icon_in_group, ICON_PICKER_Y + ICON_PICKER_SIZE))
 
 # Resets the puzzle's state, but not any UI.
 func reset_state():
