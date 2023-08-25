@@ -19,9 +19,9 @@ func _redraw(gizmo):
 	
 	# Get the width and height of the puzzle to draw the rectangle with the right dimensions
 	var spatial: Puzzle = gizmo.get_node_3d()
-	var puzzle = spatial.puzzle
-	var puzzle_width = puzzle[PuzzleClasses.WIDTH]
-	var puzzle_height = puzzle[PuzzleClasses.HEIGHT]
+	var puzzle := spatial.puzzle_design
+	var puzzle_width = puzzle.width
+	var puzzle_height = puzzle.height
 	
 	# Initialise an array of points
 	# Each pair of points in the PoolVector3Array is one line that will be drawn
@@ -29,7 +29,7 @@ func _redraw(gizmo):
 	
 	for x in puzzle_width:
 		for y in puzzle_height:
-			if puzzle[PuzzleClasses.CELLS][x][y][PuzzleClasses.ICON] != PuzzleClasses.NO_CELL:
+			if puzzle.icons[x][y].icon != PuzzleClasses.NO_CELL:
 	
 				# Integer coords are the centres of tiles
 				# So offsets of 0.5 are used to have the rectangle surround the whole puzzle
