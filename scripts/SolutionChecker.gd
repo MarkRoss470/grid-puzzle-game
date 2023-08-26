@@ -233,7 +233,10 @@ static func check_solution(puzzle: PuzzleDesign, state: Array[Array]) -> Solutio
 					if not containing_region.test_symmetry()[1]:
 						result.add_wrong(x, y)
 				
-
+				PuzzleClasses.LASER, PuzzleClasses.LASER_FIXED:
+					if !check_laser(puzzle, state, x, y):
+						result.add_wrong(x, y)
+	
 	return result
 
 # Pretty prints a 2d array
@@ -289,3 +292,93 @@ static func calculate_regions(puzzle: PuzzleDesign, state: Array[Array]) -> Arra
 		assigned_subcells.fill_from(region)
 		regions.append(region)
 	return regions
+
+# Checks whether a laser or fixed laser icon is solved
+static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: int) -> bool:
+	var colour = puzzle.icons[x][y].colour
+	
+	var search_x = x
+	var search_y = y
+	var search_direction = state[x][y]
+	
+	var i = 0
+	
+	while true:
+		# Protection agains infinite loops - this should never be triggered.
+		# If I ever make a really really big puzzle this number might need to be increased
+		# But back of the envelope this should be fine for puzzles smaller than 20x20
+		i += 1
+		if i == 1000: 
+			push_error("Laser loop limit reached")
+			push_error("x: ", x, ", y: ", y)
+			push_error("search_x: ", search_x, ", search_y: ", search_y)
+			return false
+		
+		# search_direction might have been increased below 0 or above 4 last iteration
+		search_direction = (search_direction + 4) % 4
+		
+		# Move in the direction of search_direction and stop if the edge of the puzle is reached
+		match search_direction:
+			0: # UP
+				search_y -= 1
+				if search_y < 0: return false
+			1: # RIGHT
+				search_x += 1
+				if search_x >= puzzle.width: return false
+			2: # DOWN
+				search_y +=1 
+				if search_y >= puzzle.height: return false
+			3: # LEFT
+				search_x -= 1
+				if search_x < 0: return false
+		
+		var icon: PuzzleDesignIcon = puzzle.icons[search_x][search_y]
+		# Get the rotation of the current cell
+		var rotation = state[search_x][search_y]
+		# Get which face the beam is entering the cell
+		# e.g. relative_rotation = 0 means the beam is entering the top of the cell, 1 = right etc.
+		# This is relative to the rotation of the cell itself
+		var relative_rotation = (search_direction - rotation + 6) % 4
+		
+		# Pointers of the same colour as the beam are ignored
+		if icon.icon in PuzzleClasses.POINTERS and icon.colour == colour:
+			continue
+		
+		match icon.icon:
+			# NO_CELL tiles don't transmit the beam
+			PuzzleClasses.NO_CELL: return false
+			# EMPTY cells transmit the beam unaltered
+			PuzzleClasses.EMPTY: pass
+			# Correctly coloured and rotated lasers mean the rule is followed
+			PuzzleClasses.LASER, PuzzleClasses.LASER_FIXED:
+				print(rotation, ", ", search_direction)
+				# If the lasers are the same colour and the other laser is facing toward search_direction
+				if icon.colour == colour and relative_rotation == 0:
+					return true
+				else:
+					return false
+			# Single pointers need to be aligned
+			PuzzleClasses.POINTER_SINGLE, PuzzleClasses.FIXED_POINTER_SINGLE:
+				if not relative_rotation in [0, 2]: return false
+			# Straight double pointers need to be aligned
+			PuzzleClasses.POINTER_DOUBLE_STRAIGHT, PuzzleClasses.FIXED_POINTER_DOUBLE_STRAIGHT:
+				if not relative_rotation in [0, 2]: return false
+			# Angled double pointers change the direction of the beam
+			PuzzleClasses.POINTER_DOUBLE_ANGLE, PuzzleClasses.FIXED_POINTER_DOUBLE_ANGLE:
+				if relative_rotation == 0: search_direction -= 1
+				elif relative_rotation == 1: search_direction += 1
+				else: return false
+			# Triple pointers need to be aligned
+			PuzzleClasses.POINTER_TRIPLE, PuzzleClasses.FIXED_POINTER_TRIPLE:
+				if not relative_rotation in [0, 2]: return false
+			# Quadruple pointers don't affect the beam
+			PuzzleClasses.POINTER_QUADRUPLE, PuzzleClasses.FIXED_POINTER_QUADRUPLE:
+				pass
+			
+			# Any other cells don't transmit the beam
+			_: return false
+	
+	# This while loop should never exit exept with a return statement so this code should never be reached
+	# However it is needed for the function to type-check 
+	push_error("Laser loop broken")
+	return false

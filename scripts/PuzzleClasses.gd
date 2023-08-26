@@ -38,6 +38,9 @@ const CELL_TEXTURES: Array[Texture2D] = [
 	preload("res://textures/puzzle icons/fixed pointers/pointer straight.svg"), # FIXED_POINTER_DOUBLE_STRAIGHT
 	preload("res://textures/puzzle icons/fixed pointers/pointer triple.svg"), # FIXED_POINTER_TRIPLE
 	preload("res://textures/puzzle icons/fixed pointers/pointer quadruple.svg"), # FIXED_POINTER_QUADRAPLE
+	
+	preload("res://textures/puzzle icons/arrow.svg"), # LASER
+	preload("res://textures/puzzle icons/arrow fixed.svg"), # LASER_FIXED
 ]
 
 # Textures to be used as icons
@@ -76,6 +79,9 @@ enum {
 	FIXED_POINTER_DOUBLE_STRAIGHT,
 	FIXED_POINTER_TRIPLE,
 	FIXED_POINTER_QUADRUPLE,
+	
+	LASER,
+	LASER_FIXED,
 }
 
 # Groups of icons for the puzzle editor
@@ -98,13 +104,13 @@ const ICON_GROUPS: Array[Array] = [
 		FIXED_POINTER_TRIPLE,
 		FIXED_POINTER_QUADRUPLE,
 	],
-	[ # Group of icons which require presence / absence of other symbols in same region
+	[ # Group of active icons
 		SQUARE,
 		CIRCLE,
-	],
-	[ # Group of symmetry icons
 		SYMMETRY_HORIZONTAL,
 		SYMMETRY_VERTICAL,
+		LASER,
+		LASER_FIXED,
 	],
 ]
 
@@ -144,6 +150,7 @@ const ROTATABLE: Array[int] = [
 	POINTER_DOUBLE_STRAIGHT,
 	POINTER_TRIPLE,
 	POINTER_QUADRUPLE,
+	LASER,
 ]
 
 # Which directions each pointer icon points in
