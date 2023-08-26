@@ -224,7 +224,7 @@ size = Vector3(3, 1, 3)
 [node name="Node3D" type="Node3D"]
 metadata/movie_file = "test"
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera") groups=["savable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
 axis_lock_angular_x = true
 axis_lock_angular_z = true

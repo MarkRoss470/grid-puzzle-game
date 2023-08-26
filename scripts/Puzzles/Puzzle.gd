@@ -66,6 +66,9 @@ var tiles: Array[Array]
 func _ready():
 	# TODO: load puzzle state from saved game
 	
+	self.add_to_group("puzzles")
+	self.add_to_group("savable")
+	
 	# Initialise tiles and current_state
 	for x in puzzle_design.width:
 		tiles.append([])
