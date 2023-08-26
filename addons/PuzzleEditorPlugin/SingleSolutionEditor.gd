@@ -43,14 +43,14 @@ func _ready():
 			cell.connect("gui_input", Callable(self, "rotate_cell").bind(x, y))
 			
 			# If cell has an icon, add it on top
-			var cell_icon = puzzle_cells[x][y]
-			if cell_icon[PuzzleClasses.ICON] != PuzzleClasses.EMPTY:
+			var cell_icon: PuzzleDesignIcon = puzzle_cells[x][y]
+			if cell_icon.icon != PuzzleClasses.EMPTY:
 				# Set up icon
 				var icon := TextureRect.new()
-				icon.texture = PuzzleClasses.CELL_TEXTURES[cell_icon[PuzzleClasses.ICON]]
+				icon.texture = PuzzleClasses.CELL_TEXTURES[cell_icon.icon]
 				# Don't change the colour of group 0 because they're special icons
-				if not cell_icon[PuzzleClasses.ICON] in PuzzleClasses.DONT_RECOLOUR:
-					icon.modulate = PuzzleClasses.COLOURS[cell_icon[PuzzleClasses.COLOUR]]
+				if not cell_icon.icon in PuzzleClasses.DONT_RECOLOUR:
+					icon.modulate = PuzzleClasses.COLOURS[cell_icon.colour]
 				
 				icon.scale = Vector2(1.0 / icon.texture.get_height(), 1.0 / icon.texture.get_height()) * GRID_CELL_SIZE
 				icon.name = "icon-" + str(x)
