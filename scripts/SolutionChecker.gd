@@ -12,6 +12,8 @@ class Solution:
 	# It's the cells whose rules are broken because of a cell in the wrong rotation
 	var wrong_cells: Array[Array]
 	
+	var regions: Array[Region]
+	
 	# Simple constructor
 	func _init():
 		is_valid = true
@@ -51,7 +53,7 @@ class Region:
 			for y in height:
 				cells[x].append(false)
 	
-	# Gets whether the region contains the given cell
+	# Gets whether the region contains the given sub-cell
 	func contains_cell(x: int, y: int) -> bool:
 		return cells[x][y]
 	
@@ -183,6 +185,9 @@ class Region:
 					symmetrical_vertical = false
 		
 		return [symmetrical_horizontal, symmetrical_vertical]
+		
+	func equals(other: Region) -> bool:
+		return cells == other.cells
 
 # Initialises a 2d array of the given dimensions with the given item
 static func init_2d_array(width: int, height: int, fill: Variant) -> Array[Array]:
@@ -237,6 +242,7 @@ static func check_solution(puzzle: PuzzleDesign, state: Array[Array]) -> Solutio
 					if !check_laser(puzzle, state, x, y):
 						result.add_wrong(x, y)
 	
+	result.regions = regions
 	return result
 
 # Pretty prints a 2d array

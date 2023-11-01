@@ -41,7 +41,6 @@ represents the puzzle - sets which icons go in which cells
 @export var colour_solved_base: Color = Color(0.6, 1, 0.6)
 @export var colour_solved_hover: Color = Color(0.5, 1, 0.5)
 
-
 # An array of all the tile load / unloads occuring
 # Each item is of the format [direction, progress] 
 var wipes := []
@@ -212,23 +211,7 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 	# Make the node visible
 	node.set_visible(true)
 
-	# Get the node's icon plane
-	var icon: CSGMesh3D = node.get_node(node.icon_path)
-	# If the puzzle cell has an icon, set the right image
-	if cell.icon != PuzzleClasses.EMPTY:
-		# Make copy of material
-		var mat_override := icon.get_material().duplicate()
-		mat_override.next_pass = mat_override.next_pass.duplicate()
-		
-		# Set texture
-		mat_override.next_pass.set_shader_parameter("icon_texture", PuzzleClasses.CELL_TEXTURES[cell.icon])
-		# Set colour
-		mat_override.next_pass.set_shader_parameter("icon_colour", PuzzleClasses.COLOURS[cell.colour])
-		# Set icon to use this material
-		icon.set_material_override(mat_override)
-	# If the puzzle cell has no icon, hide the icon plane
-	else:
-		icon.set_visible(false)
+	node.set_icon(puzzle_design.icons[x][y])
 	
 	return node
 
