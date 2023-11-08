@@ -400,9 +400,9 @@ material = ExtResource("6_gkpfb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0, 0)
 shape = SubResource("BoxShape3D_2v0sw")
 
-[node name="Splitter" type="Node" parent="Courtyard/Final Puzzle and Doors"]
+[node name="Splitter" type="Node" parent="Courtyard/Final Puzzle and Doors" node_paths=PackedStringArray("targets")]
 script = ExtResource("5_t78nx")
-target_paths = Array[NodePath]([NodePath("../Left Wire"), NodePath("../Right Wire")])
+targets = [NodePath("../Left Wire"), NodePath("../Right Wire")]
 params = Array[int]([0, 0])
 
 [node name="Right Wire" type="Path3D" parent="Courtyard/Final Puzzle and Doors" node_paths=PackedStringArray("on_complete")]
@@ -445,10 +445,10 @@ transform = Transform3D(0.5, -1.99053e-20, -1.27061e-22, 0, -2.18557e-08, -0.5, 
 mesh = SubResource("PlaneMesh_a654v")
 material = SubResource("StandardMaterial3D_3akgm")
 
-[node name="Squares Intro" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+[node name="Squares Intro" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("targets")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 9.5, 3.5, -8.5)
 script = ExtResource("5_t78nx")
-target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right")])
+targets = [NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right")]
 params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
@@ -491,10 +491,10 @@ script = ExtResource("6_4k3jo")
 num_inputs = 4
 target = NodePath("../../Squares Practice")
 
-[node name="Squares Practice" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+[node name="Squares Practice" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("targets")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 9.5, 3.5, -2.5)
 script = ExtResource("5_t78nx")
-target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Bottom Right"), NodePath("Top Right"), NodePath("Bottom Left")])
+targets = [NodePath("Top Left"), NodePath("Bottom Right"), NodePath("Top Right"), NodePath("Bottom Left")]
 params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
@@ -537,10 +537,10 @@ script = ExtResource("6_4k3jo")
 num_inputs = 4
 target = NodePath("../../Squares Challenges")
 
-[node name="Squares Challenges" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+[node name="Squares Challenges" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("targets")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.5, 3.5, 1.5)
 script = ExtResource("5_t78nx")
-target_paths = Array[NodePath]([NodePath("Left"), NodePath("Right"), NodePath("Reset Prompt")])
+targets = [NodePath("Left"), NodePath("Right"), NodePath("Reset Prompt")]
 params = Array[int]([0, 0, 0])
 
 [node name="Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Squares Challenges" node_paths=PackedStringArray("instance", "on_complete")]
@@ -574,10 +574,10 @@ transform_time = 0.5
 script = ExtResource("6_4k3jo")
 target = NodePath("../../Coloured Squares Intro")
 
-[node name="Coloured Squares Intro" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+[node name="Coloured Squares Intro" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("targets")]
 transform = Transform3D(-0.429, 0, 3.75044e-08, 0, 0.429, 0, -3.75044e-08, 0, -0.429, 8.5, 3.5, 9.5)
 script = ExtResource("5_t78nx")
-target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Bottom Left"), NodePath("Bottom Right"), NodePath("Top Right")])
+targets = [NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right")]
 params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
@@ -620,10 +620,10 @@ script = ExtResource("6_4k3jo")
 num_inputs = 4
 target = NodePath("../../Coloured Squares Practice")
 
-[node name="Coloured Squares Practice" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+[node name="Coloured Squares Practice" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("targets")]
 transform = Transform3D(-0.5, 0, 1.49012e-08, 0, 0.5, 0, -1.49012e-08, 0, -0.5, 4.5, 3.5, 9.5)
 script = ExtResource("5_t78nx")
-target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right")])
+targets = [NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right")]
 params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Coloured Squares Practice" node_paths=PackedStringArray("instance", "on_complete")]
@@ -674,10 +674,10 @@ instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Key Puzzles Intro")
 load_on_start = false
 
-[node name="Key Puzzles Intro" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+[node name="Key Puzzles Intro" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("targets")]
 transform = Transform3D(-0.375, 0, -5.66234e-08, 0, 0.375, 0, 5.66234e-08, 0, -0.375, -5.5, 3.5, 9.5)
 script = ExtResource("5_t78nx")
-target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right"), NodePath("Right Click Prompt")])
+targets = [NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right"), NodePath("Right Click Prompt")]
 params = Array[int]([0, 0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
@@ -786,10 +786,10 @@ script = ExtResource("6_4k3jo")
 num_inputs = 4
 target = NodePath("../../Key Puzzles Practice")
 
-[node name="Key Puzzles Practice" type="Node3D" parent="Courtyard/Puzzles/Tutorial"]
+[node name="Key Puzzles Practice" type="Node3D" parent="Courtyard/Puzzles/Tutorial" node_paths=PackedStringArray("targets")]
 transform = Transform3D(-1.45559e-08, 0, 0.333, 0, 0.333, 0, -0.333, 0, -1.45559e-08, -9.5, 3.5, 8.5)
 script = ExtResource("5_t78nx")
-target_paths = Array[NodePath]([NodePath("Top Left"), NodePath("Bottom Left"), NodePath("Top Right"), NodePath("Bottom Right")])
+targets = [NodePath("Top Left"), NodePath("Bottom Left"), NodePath("Top Right"), NodePath("Bottom Right")]
 params = Array[int]([0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Courtyard/Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
@@ -972,6 +972,7 @@ colour_incorrect_hover = null
 puzzle_design = ExtResource("48_2l0wa")
 instance = NodePath("../../../../Tile")
 on_complete_param = null
+load_on_start = false
 tile_animation_time = null
 tile_animation_offset = null
 colour_base = null

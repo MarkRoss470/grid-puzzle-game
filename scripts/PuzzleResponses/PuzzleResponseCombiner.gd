@@ -15,7 +15,7 @@ func on_puzzle_solve_immediate(i: int):
 	
 	# If all the inputs are true, call the target's on_puzzle_solve_immediate
 	if solved_prevs.all(func(b): return b):
-		target.on_puzzle_solve_immediate(target_param)
+		(func(): target.on_puzzle_solve_immediate(target_param)).call_deferred()
 
 # Called on correct solution
 func on_puzzle_solve(i: int):

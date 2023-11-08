@@ -3,6 +3,7 @@ extends Puzzle
 
 class_name SymbolPuzzle
 
+# The regions of the current state
 var regions: Array[SolutionChecker.Region]
 
 func _ready():
@@ -29,18 +30,18 @@ func check_state() -> bool:
 	for previous_region in regions:
 		# Whether the region has changed (there is an exact match for it in the new state)
 		var matches := false
-		
+
 		for current_region in solution.regions:
 			if previous_region.equals(current_region):
 				matches = true
 				break
-		
+
 		# Loop over all cells in the region
 		for x in len(tiles):
 			for y in len(tiles[x]):
 				if previous_region.contains_cell(x * 2, y * 2):
 					var icon_design: PuzzleDesignIcon = puzzle_design.icons[x][y]
-					
+
 					match icon_design.icon:
 						PuzzleClasses.SQUARE:
 							# If the region has changed, flash the square

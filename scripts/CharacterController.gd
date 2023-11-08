@@ -28,6 +28,19 @@ var y_velocity := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.add_to_group("savable")
+	
+	if SaveManager.contains_key("player"):
+		var saved_state = SaveManager.get_state("player")
+		
+		position.x = saved_state.position[0]
+		position.y = saved_state.position[1]
+		position.z = saved_state.position[2]
+		
+		camera.rotation.x = saved_state.rotation[0]
+		camera.rotation.y = saved_state.rotation[1]
+		camera.rotation.z = saved_state.rotation[2]
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	Settings.register_callback("mouse_sensitivity", func(new_value):
@@ -116,3 +129,9 @@ func _process(_delta):
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			mouse_is_free = true
+
+func save():
+	SaveManager.set_state("player", {
+		"position": [position.x, position.y, position.z],
+		"rotation": [camera.rotation.x, camera.rotation.y, camera.rotation.z],
+	})

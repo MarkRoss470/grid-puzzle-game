@@ -41,6 +41,8 @@ represents the puzzle - sets which icons go in which cells
 @export var colour_solved_base: Color = Color(0.6, 1, 0.6)
 @export var colour_solved_hover: Color = Color(0.5, 1, 0.5)
 
+var loaded := false
+
 # An array of all the tile load / unloads occuring
 # Each item is of the format [direction, progress] 
 var wipes := []
@@ -63,8 +65,6 @@ var tiles: Array[Array]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# TODO: load puzzle state from saved game
-	
 	self.add_to_group("puzzles")
 	self.add_to_group("savable")
 	
@@ -74,10 +74,27 @@ func _ready():
 		current_state.append([])
 		for y in puzzle_design.height:
 			tiles[x].append(null)
-			current_state[x].append(puzzle_design.icons[x][y].rotation)
+			current_state[x].append(0)
+	
+	if SaveManager.contains_key(get_unique_string()):
+		var saved_state = SaveManager.get_state(get_unique_string())
+		
+		for x in puzzle_design.width:
+			for y in puzzle_design.height:
+				current_state[x][y] = int(saved_state.rotations[x][y])
+		
+		is_solved = saved_state.solved
+		
+		if is_solved:
+			on_puzzle_solve_immediate(0)
+	else:
+		for x in puzzle_design.width:
+			for y in puzzle_design.height:
+				current_state[x][y] = puzzle_design.icons[x][y].rotation
 	
 	# Load puzzles that should always be active
-	if load_on_start: on_puzzle_solve_immediate(0)
+	if load_on_start:
+		on_puzzle_solve_immediate(0)
 
 func add_wipe(direction: int):
 	last_wipe_direction = direction
@@ -89,6 +106,8 @@ func add_wipe(direction: int):
 
 # Loads the puzzle with animation
 func load_puzzle():
+	loaded = true
+	
 	# Don't load the puzzle if it's already loaded
 	if last_wipe_direction != 1:
 		add_wipe(1)
@@ -98,19 +117,26 @@ func load_puzzle():
 
 # Unloads the puzzle with animation
 func unload_puzzle():
+	loaded = false
+	
 	# Don't unload the puzzle if it's already not loaded
 	if last_wipe_direction != -1:
 		add_wipe(-1)
 
 # Loads the puzzle with no animation
 func on_puzzle_solve_immediate(_i: int):
+	# Don't load the puzzle more than once
+	if loaded: return
+	
+	loaded = true
+	
 	# Loop over columns in puzzle
 	for x in puzzle_design.width:
 		# Loop over cells in column
 		for y in puzzle_design.height:
 			if puzzle_design.icons[x][y].icon == PuzzleClasses.NO_CELL:
 				continue
-
+			
 			# Create new tile
 			var tile = create_tile(x, y, puzzle_design.icons[x][y])
 			# Rotate to match puzzle state
@@ -122,6 +148,9 @@ func on_puzzle_solve_immediate(_i: int):
 	
 	last_wipe_direction = 1
 	reset_tile_colours()
+	
+	if is_solved and on_complete != null:
+		(func(): on_complete.on_puzzle_solve_immediate(on_complete_param)).call_deferred()
 
 # Called by a cell when it is clicked
 # direction = 1 -> clockwise
@@ -324,3 +353,18 @@ func on_puzzle_solve(_i: int):
 
 func on_puzzle_unsolve(_i: int):
 	pass
+
+func get_unique_string() -> String:
+	return "puzzle_" + puzzle_design.resource_path
+
+func save():
+	# Don't save puzzles which are not loaded 
+	# in order not to pollute the save file with unneeded data
+	if !loaded: return
+	
+	var puzzle_state = {
+		"rotations": current_state,
+		"solved": is_solved,
+	}
+	
+	SaveManager.set_state(get_unique_string(), puzzle_state)

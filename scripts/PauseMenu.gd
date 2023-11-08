@@ -135,10 +135,10 @@ func select_item():
 	if current_menu == Menu.PAUSE:
 		match selected:
 			PauseMenuItems.SAVE_AND_QUIT:
-				# TODO: save game first
+				SaveManager.save_all()
 				get_tree().quit()
 			PauseMenuItems.SAVE_GAME:
-				pass # TODO: save game
+				SaveManager.save_all()
 			PauseMenuItems.SETTINGS:
 				set_menu(Menu.SETTINGS)
 			PauseMenuItems.RETURN_TO_GAME:
