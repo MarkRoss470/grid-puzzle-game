@@ -33,7 +33,7 @@ var signal_travel := 0.0
 func on_puzzle_solve_immediate(_i: int):
 	completed = true
 	signal_travel = 1
-	(func(): on_complete.on_puzzle_solve_immediate(on_complete_param)).call_deferred()
+	(func(): if on_complete != null: on_complete.on_puzzle_solve_immediate(on_complete_param)).call_deferred()
 	wire_material.set_shader_parameter("signal_travel", signal_travel)
 
 # Called on correct solution
