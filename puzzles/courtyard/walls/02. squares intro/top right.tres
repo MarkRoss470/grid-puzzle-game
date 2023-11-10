@@ -3,55 +3,55 @@
 [ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_a1csd"]
 [ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="1_e21xp"]
 
-[sub_resource type="Resource" id="Resource_ok84y"]
+[sub_resource type="Resource" id="Resource_e3byi"]
 script = ExtResource("1_a1csd")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_ihmsy"]
+[sub_resource type="Resource" id="Resource_oiu7i"]
 script = ExtResource("1_a1csd")
 icon = 4
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_hfadv"]
+[sub_resource type="Resource" id="Resource_rt54i"]
 script = ExtResource("1_a1csd")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_564r4"]
+[sub_resource type="Resource" id="Resource_s8vjw"]
 script = ExtResource("1_a1csd")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_4hths"]
+[sub_resource type="Resource" id="Resource_k3tty"]
 script = ExtResource("1_a1csd")
-icon = 4
+icon = 6
 colour = 0
-rotation = 1
+rotation = 0
 
-[sub_resource type="Resource" id="Resource_jo4h4"]
+[sub_resource type="Resource" id="Resource_4g0qh"]
 script = ExtResource("1_a1csd")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_1h6wa"]
+[sub_resource type="Resource" id="Resource_7lyq3"]
 script = ExtResource("1_a1csd")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_mkybx"]
+[sub_resource type="Resource" id="Resource_gcuyb"]
 script = ExtResource("1_a1csd")
 icon = 4
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_fb6a6"]
+[sub_resource type="Resource" id="Resource_n8bvh"]
 script = ExtResource("1_a1csd")
 icon = 1
 colour = 0
@@ -61,4 +61,4 @@ rotation = 0
 script = ExtResource("1_e21xp")
 width = 3
 height = 3
-icons = Array[Array]([[SubResource("Resource_ok84y"), SubResource("Resource_ihmsy"), SubResource("Resource_hfadv")], [SubResource("Resource_564r4"), SubResource("Resource_4hths"), SubResource("Resource_jo4h4")], [SubResource("Resource_1h6wa"), SubResource("Resource_mkybx"), SubResource("Resource_fb6a6")]])
+icons = Array[Array]([[SubResource("Resource_e3byi"), SubResource("Resource_oiu7i"), SubResource("Resource_rt54i")], [SubResource("Resource_s8vjw"), SubResource("Resource_k3tty"), SubResource("Resource_4g0qh")], [SubResource("Resource_7lyq3"), SubResource("Resource_gcuyb"), SubResource("Resource_n8bvh")]])

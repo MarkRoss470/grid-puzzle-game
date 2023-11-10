@@ -3,97 +3,97 @@
 [ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_jnv2x"]
 [ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_p6hws"]
 
-[sub_resource type="Resource" id="Resource_xgfsp"]
+[sub_resource type="Resource" id="Resource_x3ytk"]
 script = ExtResource("1_jnv2x")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_w43oj"]
+[sub_resource type="Resource" id="Resource_paygq"]
 script = ExtResource("1_jnv2x")
 icon = 3
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_ndycs"]
+[sub_resource type="Resource" id="Resource_ja0g6"]
 script = ExtResource("1_jnv2x")
 icon = 3
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_u2ho8"]
+[sub_resource type="Resource" id="Resource_rxib1"]
 script = ExtResource("1_jnv2x")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_wkwqi"]
+[sub_resource type="Resource" id="Resource_lw3y4"]
 script = ExtResource("1_jnv2x")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_kdcxx"]
+[sub_resource type="Resource" id="Resource_g7nqq"]
 script = ExtResource("1_jnv2x")
 icon = 3
 colour = 0
 rotation = 1
 
-[sub_resource type="Resource" id="Resource_8y573"]
+[sub_resource type="Resource" id="Resource_bvl8v"]
 script = ExtResource("1_jnv2x")
 icon = 3
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_sxgfb"]
+[sub_resource type="Resource" id="Resource_hsnwg"]
 script = ExtResource("1_jnv2x")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_be4yk"]
+[sub_resource type="Resource" id="Resource_apqkl"]
 script = ExtResource("1_jnv2x")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_phh6p"]
+[sub_resource type="Resource" id="Resource_yjotd"]
 script = ExtResource("1_jnv2x")
 icon = 3
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_8gvuu"]
+[sub_resource type="Resource" id="Resource_oq8pc"]
 script = ExtResource("1_jnv2x")
 icon = 3
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_0ng0f"]
+[sub_resource type="Resource" id="Resource_gkcvj"]
 script = ExtResource("1_jnv2x")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_8k7gx"]
+[sub_resource type="Resource" id="Resource_pqlq1"]
 script = ExtResource("1_jnv2x")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_cynyo"]
+[sub_resource type="Resource" id="Resource_fh5hu"]
 script = ExtResource("1_jnv2x")
 icon = 3
 colour = 0
 rotation = 1
 
-[sub_resource type="Resource" id="Resource_6ku7q"]
+[sub_resource type="Resource" id="Resource_doc4s"]
 script = ExtResource("1_jnv2x")
 icon = 3
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_33q1q"]
+[sub_resource type="Resource" id="Resource_eb4ol"]
 script = ExtResource("1_jnv2x")
 icon = 7
 colour = 0
@@ -103,4 +103,4 @@ rotation = 0
 script = ExtResource("2_p6hws")
 width = 4
 height = 4
-icons = Array[Array]([[SubResource("Resource_xgfsp"), SubResource("Resource_w43oj"), SubResource("Resource_ndycs"), SubResource("Resource_u2ho8")], [SubResource("Resource_wkwqi"), SubResource("Resource_kdcxx"), SubResource("Resource_8y573"), SubResource("Resource_sxgfb")], [SubResource("Resource_be4yk"), SubResource("Resource_phh6p"), SubResource("Resource_8gvuu"), SubResource("Resource_0ng0f")], [SubResource("Resource_8k7gx"), SubResource("Resource_cynyo"), SubResource("Resource_6ku7q"), SubResource("Resource_33q1q")]])
+icons = Array[Array]([[SubResource("Resource_x3ytk"), SubResource("Resource_paygq"), SubResource("Resource_ja0g6"), SubResource("Resource_rxib1")], [SubResource("Resource_lw3y4"), SubResource("Resource_g7nqq"), SubResource("Resource_bvl8v"), SubResource("Resource_hsnwg")], [SubResource("Resource_apqkl"), SubResource("Resource_yjotd"), SubResource("Resource_oq8pc"), SubResource("Resource_gkcvj")], [SubResource("Resource_pqlq1"), SubResource("Resource_fh5hu"), SubResource("Resource_doc4s"), SubResource("Resource_eb4ol")]])

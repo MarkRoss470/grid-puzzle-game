@@ -3,151 +3,151 @@
 [ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_08obg"]
 [ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_tvtot"]
 
-[sub_resource type="Resource" id="Resource_g0kjf"]
+[sub_resource type="Resource" id="Resource_qgpgf"]
 script = ExtResource("1_08obg")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_blcf6"]
+[sub_resource type="Resource" id="Resource_0tuar"]
 script = ExtResource("1_08obg")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_m1p87"]
+[sub_resource type="Resource" id="Resource_0dnoh"]
 script = ExtResource("1_08obg")
 icon = 4
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_fayv1"]
+[sub_resource type="Resource" id="Resource_ym34s"]
 script = ExtResource("1_08obg")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_yelr7"]
+[sub_resource type="Resource" id="Resource_8mlac"]
 script = ExtResource("1_08obg")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_p47gb"]
+[sub_resource type="Resource" id="Resource_ydtn5"]
 script = ExtResource("1_08obg")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_ltrhu"]
+[sub_resource type="Resource" id="Resource_oxhfy"]
 script = ExtResource("1_08obg")
 icon = 3
 colour = 0
 rotation = 1
 
-[sub_resource type="Resource" id="Resource_p78gy"]
+[sub_resource type="Resource" id="Resource_i1tdf"]
 script = ExtResource("1_08obg")
 icon = 5
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_sskey"]
+[sub_resource type="Resource" id="Resource_6eh60"]
 script = ExtResource("1_08obg")
 icon = 3
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_opn1n"]
+[sub_resource type="Resource" id="Resource_oqj07"]
 script = ExtResource("1_08obg")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_bhcve"]
+[sub_resource type="Resource" id="Resource_h3il1"]
 script = ExtResource("1_08obg")
 icon = 4
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_hab68"]
+[sub_resource type="Resource" id="Resource_w10co"]
 script = ExtResource("1_08obg")
 icon = 5
 colour = 0
 rotation = 1
 
-[sub_resource type="Resource" id="Resource_okbed"]
+[sub_resource type="Resource" id="Resource_ylqan"]
 script = ExtResource("1_08obg")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_v5ren"]
+[sub_resource type="Resource" id="Resource_ftepe"]
 script = ExtResource("1_08obg")
 icon = 5
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_nqcnm"]
+[sub_resource type="Resource" id="Resource_cw0f8"]
 script = ExtResource("1_08obg")
 icon = 4
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_fjxgu"]
+[sub_resource type="Resource" id="Resource_dba6y"]
 script = ExtResource("1_08obg")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_7vvxa"]
+[sub_resource type="Resource" id="Resource_6kknv"]
 script = ExtResource("1_08obg")
 icon = 3
 colour = 0
 rotation = 2
 
-[sub_resource type="Resource" id="Resource_maupm"]
+[sub_resource type="Resource" id="Resource_5igpg"]
 script = ExtResource("1_08obg")
 icon = 5
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_641wo"]
+[sub_resource type="Resource" id="Resource_kyomf"]
 script = ExtResource("1_08obg")
 icon = 3
 colour = 0
 rotation = 3
 
-[sub_resource type="Resource" id="Resource_ndafn"]
+[sub_resource type="Resource" id="Resource_gb463"]
 script = ExtResource("1_08obg")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_xim6m"]
+[sub_resource type="Resource" id="Resource_3paw6"]
 script = ExtResource("1_08obg")
 icon = 7
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_pakw1"]
+[sub_resource type="Resource" id="Resource_4draj"]
 script = ExtResource("1_08obg")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_gbkmk"]
+[sub_resource type="Resource" id="Resource_k7xc7"]
 script = ExtResource("1_08obg")
 icon = 4
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_cus0r"]
+[sub_resource type="Resource" id="Resource_4yvf1"]
 script = ExtResource("1_08obg")
 icon = 1
 colour = 0
 rotation = 0
 
-[sub_resource type="Resource" id="Resource_l4ck1"]
+[sub_resource type="Resource" id="Resource_s1r6l"]
 script = ExtResource("1_08obg")
 icon = 7
 colour = 0
@@ -157,4 +157,4 @@ rotation = 0
 script = ExtResource("2_tvtot")
 width = 5
 height = 5
-icons = Array[Array]([[SubResource("Resource_g0kjf"), SubResource("Resource_blcf6"), SubResource("Resource_m1p87"), SubResource("Resource_fayv1"), SubResource("Resource_yelr7")], [SubResource("Resource_p47gb"), SubResource("Resource_ltrhu"), SubResource("Resource_p78gy"), SubResource("Resource_sskey"), SubResource("Resource_opn1n")], [SubResource("Resource_bhcve"), SubResource("Resource_hab68"), SubResource("Resource_okbed"), SubResource("Resource_v5ren"), SubResource("Resource_nqcnm")], [SubResource("Resource_fjxgu"), SubResource("Resource_7vvxa"), SubResource("Resource_maupm"), SubResource("Resource_641wo"), SubResource("Resource_ndafn")], [SubResource("Resource_xim6m"), SubResource("Resource_pakw1"), SubResource("Resource_gbkmk"), SubResource("Resource_cus0r"), SubResource("Resource_l4ck1")]])
+icons = Array[Array]([[SubResource("Resource_qgpgf"), SubResource("Resource_0tuar"), SubResource("Resource_0dnoh"), SubResource("Resource_ym34s"), SubResource("Resource_8mlac")], [SubResource("Resource_ydtn5"), SubResource("Resource_oxhfy"), SubResource("Resource_i1tdf"), SubResource("Resource_6eh60"), SubResource("Resource_oqj07")], [SubResource("Resource_h3il1"), SubResource("Resource_w10co"), SubResource("Resource_ylqan"), SubResource("Resource_ftepe"), SubResource("Resource_cw0f8")], [SubResource("Resource_dba6y"), SubResource("Resource_6kknv"), SubResource("Resource_5igpg"), SubResource("Resource_kyomf"), SubResource("Resource_gb463")], [SubResource("Resource_3paw6"), SubResource("Resource_4draj"), SubResource("Resource_k7xc7"), SubResource("Resource_4yvf1"), SubResource("Resource_s1r6l")]])
