@@ -2,6 +2,21 @@ extends Node
 
 class_name SolutionChecker
 
+# Class representing the path of a laser beam in a solution
+class LaserPath:
+	# The colour of the beam
+	var colour: int
+	
+	# Whether the path connects at the other end
+	var valid: bool
+	
+	# The coordinates of the cells the path goes through
+	var path: Array[Array]
+	
+	func equals(other: LaserPath) -> bool:
+		if self.colour != other.colour: return false
+		return self.path == other.path
+
 # Class representing a solution
 class Solution:
 	# Whether the solution is a valid puzzle state
@@ -12,7 +27,10 @@ class Solution:
 	# It's the cells whose rules are broken because of a cell in the wrong rotation
 	var wrong_cells: Array[Array]
 	
+	# The regions of the puzzle
 	var regions: Array[Region]
+	# The paths of lasers
+	var laser_paths: Array[LaserPath]
 	
 	# Simple constructor
 	func _init():
@@ -239,8 +257,13 @@ static func check_solution(puzzle: PuzzleDesign, state: Array[Array]) -> Solutio
 						result.add_wrong(x, y)
 				
 				PuzzleClasses.LASER, PuzzleClasses.LASER_FIXED:
-					if !check_laser(puzzle, state, x, y):
+					var path := check_laser(puzzle, state, x, y)
+					
+					if !path.valid:
 						result.add_wrong(x, y)
+					
+					# Add the path to the list even if it's not valid so that SymbolPuzzle can flash icons based on it
+					result.laser_paths.append(path)
 	
 	result.regions = regions
 	return result
@@ -300,7 +323,7 @@ static func calculate_regions(puzzle: PuzzleDesign, state: Array[Array]) -> Arra
 	return regions
 
 # Checks whether a laser or fixed laser icon is solved
-static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: int) -> bool:
+static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: int) -> LaserPath:
 	var colour = puzzle.icons[x][y].colour
 	
 	var search_x = x
@@ -308,6 +331,11 @@ static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: in
 	var search_direction = state[x][y]
 	
 	var i = 0
+	
+	var path := LaserPath.new()
+	path.valid = false
+	path.colour = puzzle.icons[x][y].colour
+	path.path.append([search_x, search_y])
 	
 	while true:
 		# Protection agains infinite loops - this should never be triggered.
@@ -318,7 +346,7 @@ static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: in
 			push_error("Laser loop limit reached")
 			push_error("x: ", x, ", y: ", y)
 			push_error("search_x: ", search_x, ", search_y: ", search_y)
-			return false
+			return path
 		
 		# search_direction might have been increased below 0 or above 4 last iteration
 		search_direction = (search_direction + 4) % 4
@@ -327,16 +355,18 @@ static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: in
 		match search_direction:
 			0: # UP
 				search_y -= 1
-				if search_y < 0: return false
+				if search_y < 0: return path
 			1: # RIGHT
 				search_x += 1
-				if search_x >= puzzle.width: return false
+				if search_x >= puzzle.width: return path
 			2: # DOWN
 				search_y +=1 
-				if search_y >= puzzle.height: return false
+				if search_y >= puzzle.height: return path
 			3: # LEFT
 				search_x -= 1
-				if search_x < 0: return false
+				if search_x < 0: return path
+		
+		path.path.append([search_x, search_y])
 		
 		var icon: PuzzleDesignIcon = puzzle.icons[search_x][search_y]
 		# Get the rotation of the current cell
@@ -352,7 +382,7 @@ static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: in
 		
 		match icon.icon:
 			# NO_CELL tiles don't transmit the beam
-			PuzzleClasses.NO_CELL: return false
+			PuzzleClasses.NO_CELL: return null
 			# EMPTY cells transmit the beam unaltered
 			PuzzleClasses.EMPTY: pass
 			# Correctly coloured and rotated lasers mean the rule is followed
@@ -360,31 +390,32 @@ static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: in
 				print(rotation, ", ", search_direction)
 				# If the lasers are the same colour and the other laser is facing toward search_direction
 				if icon.colour == colour and relative_rotation == 0:
-					return true
+					path.valid = true
+					return path
 				else:
-					return false
+					return path
 			# Single pointers need to be aligned
 			PuzzleClasses.POINTER_SINGLE, PuzzleClasses.FIXED_POINTER_SINGLE:
-				if not relative_rotation in [0, 2]: return false
+				if not relative_rotation in [0, 2]: return path
 			# Straight double pointers need to be aligned
 			PuzzleClasses.POINTER_DOUBLE_STRAIGHT, PuzzleClasses.FIXED_POINTER_DOUBLE_STRAIGHT:
-				if not relative_rotation in [0, 2]: return false
+				if not relative_rotation in [0, 2]: return path
 			# Angled double pointers change the direction of the beam
 			PuzzleClasses.POINTER_DOUBLE_ANGLE, PuzzleClasses.FIXED_POINTER_DOUBLE_ANGLE:
 				if relative_rotation == 0: search_direction -= 1
 				elif relative_rotation == 1: search_direction += 1
-				else: return false
+				else: return path
 			# Triple pointers need to be aligned
 			PuzzleClasses.POINTER_TRIPLE, PuzzleClasses.FIXED_POINTER_TRIPLE:
-				if not relative_rotation in [0, 2]: return false
+				if not relative_rotation in [0, 2]: return path
 			# Quadruple pointers don't affect the beam
 			PuzzleClasses.POINTER_QUADRUPLE, PuzzleClasses.FIXED_POINTER_QUADRUPLE:
 				pass
 			
 			# Any other cells don't transmit the beam
-			_: return false
+			_: return path
 	
 	# This while loop should never exit exept with a return statement so this code should never be reached
 	# However it is needed for the function to type-check 
 	push_error("Laser loop broken")
-	return false
+	return null

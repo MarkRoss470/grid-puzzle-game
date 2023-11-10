@@ -5,6 +5,8 @@ class_name SymbolPuzzle
 
 # The regions of the current state
 var regions: Array[SolutionChecker.Region]
+# The laser paths of the current state
+var laser_paths: Array[SolutionChecker.LaserPath]
 
 func _ready():
 	super._ready()
@@ -52,7 +54,32 @@ func check_state() -> bool:
 								tiles[x][y].end_flash()
 	
 	regions = solution.regions
+
+	for previous_path in laser_paths:
+		var matches := false
+		
+		for current_path in solution.laser_paths:
+			if previous_path.equals(current_path):
+				matches = true
+				break
+		
+		var x = previous_path.path[0][0]
+		var y = previous_path.path[0][1]
+		
+		var icon_design: PuzzleDesignIcon = puzzle_design.icons[x][y]
+		
+		if !matches:
+			tiles[x][y].flash(PuzzleClasses.COLOURS[icon_design.colour].lerp(Color.GRAY, 0.5), 0.5)
+		else:
+			tiles[x][y].end_flash()
+	
+	laser_paths = solution.laser_paths
 	
 	reset_tile_colours()
+	
+#	print("[")
+#	for path in solution.laser_paths:
+#		print("    ", path.path, ",")
+#	print("]")
 	
 	return solution.is_valid
