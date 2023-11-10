@@ -387,7 +387,6 @@ static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: in
 			PuzzleClasses.EMPTY: pass
 			# Correctly coloured and rotated lasers mean the rule is followed
 			PuzzleClasses.LASER, PuzzleClasses.LASER_FIXED:
-				print(rotation, ", ", search_direction)
 				# If the lasers are the same colour and the other laser is facing toward search_direction
 				if icon.colour == colour and relative_rotation == 0:
 					path.valid = true

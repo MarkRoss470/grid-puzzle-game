@@ -12,9 +12,6 @@ extends Node
 # Called if the puzzle was loaded as solved from a saved game
 # Should have the same effect as on_puzzle_solve but instantly
 func on_puzzle_solve_immediate(_i: int):
-	print("Splitting immediately (", self.get_path(), ")")
-	print(targets)
-	
 	for i in len(targets):
 		(func(): targets[i].on_puzzle_solve_immediate(params[i])).call_deferred()
 
