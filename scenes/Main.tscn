@@ -88,7 +88,7 @@ script = ExtResource("1_r0yla")
 max_fall_speed = 1.0
 mouse_sensitivity = 0.005
 camera = NodePath("PlayerCamera")
-mode_indicator = NodePath("")
+mode_indicator = NodePath("../Mode indicator")
 
 [node name="PlayerCapsule" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
@@ -255,12 +255,58 @@ shape = SubResource("BoxShape3D_eejtu")
 
 [node name="Islands" parent="." instance=ExtResource("5_5yoom")]
 
-[node name="PauseMenu" parent="." instance=ExtResource("7_1u80p")]
-
 [node name="Courtyard" parent="." instance=ExtResource("10_rybfv")]
 
 [node name="laser area" parent="." instance=ExtResource("11_x2vnp")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -40, 0, -6)
+
+[node name="Mode indicator" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Container" type="Control" parent="Mode indicator"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Left" type="ColorRect" parent="Mode indicator/Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_right = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Right" type="ColorRect" parent="Mode indicator/Container"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Top" type="ColorRect" parent="Mode indicator/Container"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 25.0
+grow_horizontal = 2
+
+[node name="Bottom" type="ColorRect" parent="Mode indicator/Container"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PauseMenu" parent="." instance=ExtResource("7_1u80p")]
 
 [connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]

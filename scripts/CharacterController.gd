@@ -15,13 +15,15 @@ class_name CharacterController
 
 # The player camera
 @export var camera: Camera3D
+# The node which shows that the player is in puzzle mode
+@export var mode_indicator: Node
 
 # Whether to make the game fullscreen
 @export var fullscreen := true
 
 # Whether the mouse is free (when interacting with a puzzle)
 # Controls whether mouse and keyboard inputs move the player
-var mouse_is_free := false
+var in_puzzle_mode := false
 
 # The vertical velocity
 var y_velocity := 0.0
@@ -53,7 +55,7 @@ func _input(event: InputEvent):
 	# Turn camera on mouse motion
 	if event is InputEventMouseMotion:
 		# Don't turn if interacting with a puzzle
-		if mouse_is_free: return
+		if in_puzzle_mode: return
 		
 		# Calculate current up/down view angle (angle to up vector)
 		var current_angle := camera.transform.basis.z.angle_to(Vector3.UP)
@@ -74,7 +76,7 @@ func _input(event: InputEvent):
 # Movement is calculated here, rotation is calculated in _input
 func _physics_process(delta: float):
 	# Dont move if interacting with a puzzle
-	if not mouse_is_free:
+	if not in_puzzle_mode:
 		# Stores direction player will move in
 		var direction := Vector3.ZERO
 
@@ -122,13 +124,15 @@ func _process(_delta):
 	# If 'free_mouse' input was just pressed, update mouse mode
 	if Input.is_action_just_pressed("free_mouse"):
 		# If mouse is currently free, capture it
-		if mouse_is_free:
+		if in_puzzle_mode:
+			mode_indicator.visible = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			mouse_is_free = false
+			in_puzzle_mode = false
 		# If mouse is currently captured, free it
 		else:
+			mode_indicator.visible = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			mouse_is_free = true
+			in_puzzle_mode = true
 
 func save():
 	SaveManager.set_state("player", {

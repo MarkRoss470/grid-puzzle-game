@@ -114,7 +114,7 @@ func unpause():
 	get_tree().paused = false
 	is_paused = false
 	
-	if get_node("/root/Node3D/Player").mouse_is_free:
+	if get_node("/root/Node3D/Player").in_puzzle_mode:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
