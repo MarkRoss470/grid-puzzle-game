@@ -1,0 +1,437 @@
+[gd_scene load_steps=44 format=3 uid="uid://n707pql7suy0"]
+
+[ext_resource type="PackedScene" uid="uid://bejkb47sxk6pc" path="res://models/laser area/laser area.glb" id="1_up0nh"]
+[ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="1_vkic5"]
+[ext_resource type="Material" uid="uid://hdvxy54cbvy3" path="res://shaders/WhiteWithBlack.tres" id="2_m6d0j"]
+[ext_resource type="Material" uid="uid://c7lpntk7ouvgd" path="res://shaders/TransparentTexture.tres" id="3_dm2xp"]
+[ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseSplitter.gd" id="5_1dynp"]
+[ext_resource type="Script" path="res://scripts/Puzzles/SymbolPuzzle.gd" id="5_advon"]
+[ext_resource type="Resource" uid="uid://b7q2b23rl0frj" path="res://puzzles/lasers/01. intro/intro 1.tres" id="6_5l5rl"]
+[ext_resource type="Resource" uid="uid://bi6kb5iisx55" path="res://puzzles/lasers/01. intro/intro 2.tres" id="7_5vp84"]
+[ext_resource type="Resource" uid="uid://beoxrxvbslupt" path="res://puzzles/lasers/01. intro/intro 3.tres" id="8_8i7ox"]
+[ext_resource type="Resource" uid="uid://cashuw3d4krt4" path="res://puzzles/lasers/02. blocking/blocking 1.tres" id="8_safa7"]
+[ext_resource type="Resource" uid="uid://b0suhqwjxfuk2" path="res://puzzles/lasers/02. blocking/blocking 2.tres" id="9_7ruir"]
+[ext_resource type="Resource" uid="uid://8t4fykhgbusi" path="res://puzzles/lasers/01. intro/intro 4.tres" id="10_61mxa"]
+[ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseCombiner.gd" id="10_rj55s"]
+[ext_resource type="Resource" uid="uid://bsetymcc0dqd0" path="res://puzzles/lasers/02. blocking/blocking 3.tres" id="14_nsmny"]
+[ext_resource type="Resource" uid="uid://bn1rew0tdawrj" path="res://puzzles/lasers/03. blocking practise.tres" id="15_of2oc"]
+[ext_resource type="Resource" uid="uid://cflihhncblnu8" path="res://puzzles/lasers/04. routing/routing 1.tres" id="16_ds32u"]
+[ext_resource type="Resource" uid="uid://bt3vtkaybiani" path="res://puzzles/lasers/04. routing/routing 2.tres" id="17_3phx7"]
+[ext_resource type="Resource" uid="uid://cgtlikbg7n3y0" path="res://puzzles/lasers/04. routing/routing 3.tres" id="18_ak181"]
+[ext_resource type="Resource" uid="uid://cgsvsg072q3fg" path="res://puzzles/lasers/04. routing/routing 4.tres" id="19_t1j4x"]
+[ext_resource type="Resource" uid="uid://ih3dwxka51i6" path="res://puzzles/lasers/05. routing practise 1.tres" id="20_w62jk"]
+[ext_resource type="Resource" uid="uid://c8ydqgvmwcv5d" path="res://puzzles/lasers/06. routing practise 2.tres" id="21_lio04"]
+[ext_resource type="Resource" uid="uid://b0ml4xiv3a1os" path="res://puzzles/lasers/07. colour pairing/colour pairing 1.tres" id="22_7wcws"]
+[ext_resource type="Resource" uid="uid://btrmh0ue3rliy" path="res://puzzles/lasers/07. colour pairing/colour pairing 2.tres" id="23_4vyc7"]
+[ext_resource type="Resource" uid="uid://dwudnr71qarxw" path="res://puzzles/lasers/07. colour pairing/colour pairing 3.tres" id="24_50y1m"]
+[ext_resource type="Resource" uid="uid://b7vuqns0uiy8h" path="res://puzzles/lasers/07. colour pairing/colour pairing 4.tres" id="25_7oph0"]
+[ext_resource type="Resource" uid="uid://cqs40jiiu687r" path="res://puzzles/lasers/08. colour pairing practise.tres" id="26_q7168"]
+[ext_resource type="Resource" uid="uid://7jin51p7vxg5" path="res://puzzles/lasers/09. coloured routing/coloured routing 1.tres" id="27_1utga"]
+[ext_resource type="Resource" uid="uid://dhgukq16x4jaj" path="res://puzzles/lasers/09. coloured routing/coloured routing 2.tres" id="28_fm4oh"]
+[ext_resource type="Resource" uid="uid://h4okvvhidvf7" path="res://puzzles/lasers/09. coloured routing/coloured routing 3.tres" id="29_0s5b8"]
+[ext_resource type="Resource" uid="uid://dfkq0wamsjcca" path="res://puzzles/lasers/09. coloured routing/coloured routing 4.tres" id="30_w4tb7"]
+[ext_resource type="Resource" uid="uid://2rvbbxqv138w" path="res://puzzles/lasers/09. coloured routing/coloured routing 5.tres" id="31_taatg"]
+[ext_resource type="Resource" uid="uid://cy7s8llj63shc" path="res://puzzles/lasers/10. coloured routing practise/coloured routing practise 1.tres" id="32_two56"]
+[ext_resource type="Resource" uid="uid://crp44rofqniu8" path="res://puzzles/lasers/10. coloured routing practise/coloured routing practise 2.tres" id="33_fqafb"]
+[ext_resource type="Resource" uid="uid://b85ctex0c2ak1" path="res://puzzles/lasers/11. challenge 1.tres" id="34_aexm6"]
+[ext_resource type="Resource" uid="uid://dyjtwwoopsg24" path="res://puzzles/lasers/12. challenge 2.tres" id="35_wwotm"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3c676"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_voo65"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_btcsb"]
+size = Vector3(1, 0.05, 0.9)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_eu75k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_22lnv"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gcss7"]
+size = Vector3(7.4, 4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p36y1"]
+size = Vector3(6, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4hy30"]
+size = Vector3(1, 4, 8.5)
+
+[node name="laser area" type="Node3D"]
+
+[node name="Tile" type="Node3D" parent="."]
+visible = false
+script = ExtResource("1_vkic5")
+backplane_path = NodePath("Backplane")
+icon_path = NodePath("Icon")
+
+[node name="Backplane" type="CSGMesh3D" parent="Tile"]
+transform = Transform3D(-0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_3c676")
+material = ExtResource("2_m6d0j")
+
+[node name="Icon" type="CSGMesh3D" parent="Tile"]
+transform = Transform3D(0.5, -4.37114e-08, 4.37114e-08, 4.37114e-08, -2.18557e-08, -0.5, 4.37114e-08, 0.5, -2.18557e-08, 0, 0, 0.00199997)
+mesh = SubResource("PlaneMesh_voo65")
+material = ExtResource("3_dm2xp")
+
+[node name="Area3D" type="Area3D" parent="Tile"]
+transform = Transform3D(-1, -1.50996e-07, -6.60024e-15, 0, -4.37114e-08, 1, -1.50996e-07, 1, 4.37114e-08, 1.1228e-24, 0, -0.00672182)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/Area3D"]
+shape = SubResource("BoxShape3D_btcsb")
+
+[node name="Key Hint Tile" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.5, -4.37114e-08, 4.37114e-08, 4.37114e-08, -2.18557e-08, -0.5, 4.37114e-08, 0.5, -2.18557e-08, 0, 0, 0.001)
+visible = false
+mesh = SubResource("PlaneMesh_eu75k")
+material = ExtResource("3_dm2xp")
+
+[node name="laser area" parent="." instance=ExtResource("1_up0nh")]
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="Floor" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_22lnv")
+
+[node name="Entrance right wall" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2, 2, 3.8)
+shape = SubResource("BoxShape3D_gcss7")
+
+[node name="Entrance left wall" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2, 2, -3.8)
+shape = SubResource("BoxShape3D_gcss7")
+
+[node name="First room back right wall" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 2, 3.6)
+shape = SubResource("BoxShape3D_gcss7")
+
+[node name="First room back left wall" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 2, -3.6)
+shape = SubResource("BoxShape3D_gcss7")
+
+[node name="First room right wall" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.92879, 0, 6.54438)
+shape = SubResource("BoxShape3D_p36y1")
+
+[node name="First room left wall" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.92879, 0, -6.55562)
+shape = SubResource("BoxShape3D_p36y1")
+
+[node name="First room inner wall" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.75, 1, 0)
+shape = SubResource("BoxShape3D_4hy30")
+
+[node name="Puzzles" type="Node3D" parent="."]
+
+[node name="Lasers intro" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("targets")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3, 1.6, 0)
+script = ExtResource("5_1dynp")
+targets = [NodePath("Intro 1"), NodePath("Intro 2"), NodePath("Intro 3"), NodePath("Intro 4")]
+params = Array[int]([0, 0, 0, 0])
+load_on_start = true
+
+[node name="Intro 1" type="Node3D" parent="Puzzles/Lasers intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.5299e-08, 0, -0.35, 0, 0.35, 0, 0.35, 0, -1.5299e-08, 0, 1.1, -1.1)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("6_5l5rl")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+load_on_start = false
+
+[node name="Intro 2" type="Node3D" parent="Puzzles/Lasers intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.5299e-08, 0, -0.35, 0, 0.35, 0, 0.35, 0, -1.5299e-08, 0, 1.1, 0.4)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("7_5vp84")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Intro 3" type="Node3D" parent="Puzzles/Lasers intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.5299e-08, 0, -0.35, 0, 0.35, 0, 0.35, 0, -1.5299e-08, 0, -0.4, -1.1)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("8_8i7ox")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Intro 4" type="Node3D" parent="Puzzles/Lasers intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.5299e-08, 0, -0.35, 0, 0.35, 0, 0.35, 0, -1.5299e-08, 0, -0.4, 0.4)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("10_61mxa")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 3
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Puzzles/Lasers intro" node_paths=PackedStringArray("target")]
+script = ExtResource("10_rj55s")
+num_inputs = 4
+target = NodePath("../../Blocking intro")
+
+[node name="Blocking intro" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("targets")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3, 1.6, 3)
+script = ExtResource("5_1dynp")
+targets = [NodePath("Blocking 1"), NodePath("Blocking 2"), NodePath("Blocking 3")]
+params = Array[int]([0, 0, 0])
+
+[node name="Blocking 1" type="Node3D" parent="Puzzles/Blocking intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.5299e-08, 0, -0.35, 0, 0.35, 0, 0.35, 0, -1.5299e-08, 0, 1.1, -0.9)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("8_safa7")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+load_on_start = false
+
+[node name="Blocking 2" type="Node3D" parent="Puzzles/Blocking intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.5299e-08, 0, -0.35, 0, 0.35, 0, 0.35, 0, -1.5299e-08, 0, 1.1, -0.2)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("9_7ruir")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Blocking 3" type="Node3D" parent="Puzzles/Blocking intro" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(2.64243e-08, 0, -0.35, 0, 0.35, 0, 0.35, 0, 2.64243e-08, 0, -0.4, -0.9)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("14_nsmny")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Puzzles/Blocking intro" node_paths=PackedStringArray("target")]
+script = ExtResource("10_rj55s")
+num_inputs = 3
+target = NodePath("../../Blocking practise")
+
+[node name="Blocking practise" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, -10.3, 2.625, -3.825)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("15_of2oc")
+instance = NodePath("../../Tile")
+on_complete = NodePath("../Routing")
+load_on_start = false
+
+[node name="Routing" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("targets")]
+transform = Transform3D(-1.45703e-08, 0, 0.33333, 0, 0.33333, 0, -0.33333, 0, -1.45703e-08, -9.2, 1.6, 1.41561e-07)
+script = ExtResource("5_1dynp")
+targets = [NodePath("Routing 1"), NodePath("Routing 2"), NodePath("Routing 3"), NodePath("Routing 4")]
+params = Array[int]([0, 0, 0, 0])
+
+[node name="Routing 1" type="Node3D" parent="Puzzles/Routing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.50001, 2, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("16_ds32u")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+load_on_start = false
+
+[node name="Routing 2" type="Node3D" parent="Puzzles/Routing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49998, 2, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("17_3phx7")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Routing 3" type="Node3D" parent="Puzzles/Routing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.50001, 0, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("18_ak181")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Routing 4" type="Node3D" parent="Puzzles/Routing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49998, -1, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("19_t1j4x")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 3
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Puzzles/Routing" node_paths=PackedStringArray("target")]
+script = ExtResource("10_rj55s")
+num_inputs = 4
+target = NodePath("../../Routing practise 1")
+
+[node name="Routing practise 1" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, -9.2, 2.233, -2.033)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("20_w62jk")
+instance = NodePath("../../Tile")
+on_complete = NodePath("../Routing practise 2")
+load_on_start = false
+
+[node name="Routing practise 2" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.31134e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.31134e-08, -9.2, 2.233, 3.567)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("21_lio04")
+instance = NodePath("../../Tile")
+on_complete = NodePath("../Colour pairing")
+load_on_start = false
+
+[node name="Colour pairing" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("targets")]
+transform = Transform3D(-0.3, 0, -4.52987e-08, 0, 0.3, 0, 4.52987e-08, 0, -0.3, -8.5, 1.6, 5.8)
+script = ExtResource("5_1dynp")
+targets = [NodePath("Colour pairing 1"), NodePath("Colour pairing 2"), NodePath("Colour pairing 3"), NodePath("Colour pairing 4")]
+params = Array[int]([0, 0, 0, 0])
+
+[node name="Colour pairing 1" type="Node3D" parent="Puzzles/Colour pairing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -1, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("22_7wcws")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+load_on_start = false
+
+[node name="Colour pairing 2" type="Node3D" parent="Puzzles/Colour pairing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 3, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("23_4vyc7")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Colour pairing 3" type="Node3D" parent="Puzzles/Colour pairing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("24_50y1m")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Colour pairing 4" type="Node3D" parent="Puzzles/Colour pairing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("25_7oph0")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 3
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Puzzles/Colour pairing" node_paths=PackedStringArray("target")]
+script = ExtResource("10_rj55s")
+num_inputs = 4
+target = NodePath("../../Colour pairing practise")
+
+[node name="Colour pairing practise" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, -10.3, 2.3, 5.8)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("26_q7168")
+instance = NodePath("../../Tile")
+on_complete = NodePath("../Coloured routing")
+load_on_start = false
+
+[node name="Coloured routing" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("targets")]
+transform = Transform3D(0.25, 0, 5.96046e-08, 0, 0.25, 0, -5.96046e-08, 0, 0.25, -11.1, 1.6, -5.9)
+script = ExtResource("5_1dynp")
+targets = [NodePath("Coloured routing 1"), NodePath("Coloured routing 2"), NodePath("Coloured routing 3"), NodePath("Coloured routing 4"), NodePath("Coloured routing 5")]
+params = Array[int]([0, 0, 0, 0, 0])
+
+[node name="Coloured routing 1" type="Node3D" parent="Puzzles/Coloured routing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, -2.84217e-14, 0, 1, 0, 2.84217e-14, 0, 1, -1.5, 1.5, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("27_1utga")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+load_on_start = false
+
+[node name="Coloured routing 2" type="Node3D" parent="Puzzles/Coloured routing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, -1.5, 4.5, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("28_fm4oh")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Coloured routing 3" type="Node3D" parent="Puzzles/Coloured routing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, -2.84217e-14, 0, 1, 0, 2.84217e-14, 0, 1, -1.5, -3.5, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("29_0s5b8")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 2
+load_on_start = false
+
+[node name="Coloured routing 4" type="Node3D" parent="Puzzles/Coloured routing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, -2.84217e-14, 0, 1, 0, 2.84217e-14, 0, 1, -4.5, 1.5, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("30_w4tb7")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 3
+load_on_start = false
+
+[node name="Coloured routing 5" type="Node3D" parent="Puzzles/Coloured routing" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, -2.84217e-14, 0, 1, 0, 2.84217e-14, 0, 1, 3.5, 1.5, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("31_taatg")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 4
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Puzzles/Coloured routing" node_paths=PackedStringArray("target")]
+script = ExtResource("10_rj55s")
+num_inputs = 5
+target = NodePath("../../Coloured routing practise")
+
+[node name="Coloured routing practise" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("targets")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -8.4, 1.6, -5.9)
+script = ExtResource("5_1dynp")
+targets = [NodePath("Coloured routing practise 1"), NodePath("Coloured routing practise 2")]
+params = Array[int]([0, 0])
+
+[node name="Coloured routing practise 1" type="Node3D" parent="Puzzles/Coloured routing practise" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 4, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("32_two56")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+load_on_start = false
+
+[node name="Coloured routing practise 2" type="Node3D" parent="Puzzles/Coloured routing practise" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -1, 0)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("33_fqafb")
+instance = NodePath("../../../Tile")
+on_complete = NodePath("../Combiner")
+on_complete_param = 1
+load_on_start = false
+
+[node name="Combiner" type="Node" parent="Puzzles/Coloured routing practise" node_paths=PackedStringArray("target")]
+script = ExtResource("10_rj55s")
+target = NodePath("../../Challenge 1")
+
+[node name="Challenge 1" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(7.00946e-08, 0, -0.36, 0, 0.36, 0, 0.36, 0, 7.00946e-08, -7.1, 2.27, -5.4)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("34_aexm6")
+instance = NodePath("../../Tile")
+on_complete = NodePath("../Challenge 2")
+load_on_start = false
+
+[node name="Challenge 2" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance")]
+transform = Transform3D(5.84122e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, 5.84122e-08, -7.1, 2.3, -3.3)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("35_wwotm")
+instance = NodePath("../../Tile")
+load_on_start = false
+
+[connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
+[connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
+[connection signal="mouse_exited" from="Tile/Area3D" to="Tile" method="mouse_exit"]

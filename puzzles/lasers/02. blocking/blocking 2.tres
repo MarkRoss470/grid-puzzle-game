@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=12 format=3 uid="uid://b0suhqwjxfuk2"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_40teu"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_8ngy8"]
+
+[sub_resource type="Resource" id="Resource_cr1fw"]
+script = ExtResource("1_40teu")
+icon = 16
+colour = 1
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_oohg2"]
+script = ExtResource("1_40teu")
+icon = 16
+colour = 1
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_irbsu"]
+script = ExtResource("1_40teu")
+icon = 16
+colour = 1
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_blpo3"]
+script = ExtResource("1_40teu")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_r0v2g"]
+script = ExtResource("1_40teu")
+icon = 13
+colour = 0
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_noo5y"]
+script = ExtResource("1_40teu")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_33bj7"]
+script = ExtResource("1_40teu")
+icon = 16
+colour = 1
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_l2duw"]
+script = ExtResource("1_40teu")
+icon = 16
+colour = 1
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_k1tn5"]
+script = ExtResource("1_40teu")
+icon = 16
+colour = 1
+rotation = 3
+
+[resource]
+script = ExtResource("2_8ngy8")
+width = 3
+height = 3
+icons = Array[Array]([[SubResource("Resource_cr1fw"), SubResource("Resource_oohg2"), SubResource("Resource_irbsu")], [SubResource("Resource_blpo3"), SubResource("Resource_r0v2g"), SubResource("Resource_noo5y")], [SubResource("Resource_33bj7"), SubResource("Resource_l2duw"), SubResource("Resource_k1tn5")]])

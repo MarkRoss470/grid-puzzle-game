@@ -1,0 +1,82 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=15 format=3 uid="uid://b0ml4xiv3a1os"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_bh3b8"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_68ce3"]
+
+[sub_resource type="Resource" id="Resource_lxxyh"]
+script = ExtResource("1_bh3b8")
+icon = 16
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_nccgn"]
+script = ExtResource("1_bh3b8")
+icon = 16
+colour = 0
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_2qit2"]
+script = ExtResource("1_bh3b8")
+icon = 0
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_svvt2"]
+script = ExtResource("1_bh3b8")
+icon = 16
+colour = 1
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_x766p"]
+script = ExtResource("1_bh3b8")
+icon = 16
+colour = 1
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_l0n17"]
+script = ExtResource("1_bh3b8")
+icon = 0
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_gd4cw"]
+script = ExtResource("1_bh3b8")
+icon = 0
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_4wyo4"]
+script = ExtResource("1_bh3b8")
+icon = 16
+colour = 1
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_8r8pc"]
+script = ExtResource("1_bh3b8")
+icon = 16
+colour = 1
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_mggwg"]
+script = ExtResource("1_bh3b8")
+icon = 0
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_rapjc"]
+script = ExtResource("1_bh3b8")
+icon = 16
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_38c0y"]
+script = ExtResource("1_bh3b8")
+icon = 16
+colour = 0
+rotation = 3
+
+[resource]
+script = ExtResource("2_68ce3")
+width = 4
+height = 3
+icons = Array[Array]([[SubResource("Resource_lxxyh"), SubResource("Resource_nccgn"), SubResource("Resource_2qit2")], [SubResource("Resource_svvt2"), SubResource("Resource_x766p"), SubResource("Resource_l0n17")], [SubResource("Resource_gd4cw"), SubResource("Resource_4wyo4"), SubResource("Resource_8r8pc")], [SubResource("Resource_mggwg"), SubResource("Resource_rapjc"), SubResource("Resource_38c0y")]])

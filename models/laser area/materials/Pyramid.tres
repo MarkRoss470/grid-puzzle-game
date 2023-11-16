@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" script_class="EdgeDetectMaterial" load_steps=2 format=3 uid="uid://c0jydce173xcy"]
+
+[ext_resource type="Script" path="res://scripts/EdgeDetectMaterial.gd" id="1_fft8u"]
+
+[resource]
+resource_name = "Pyramid"
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.659599, 0.611745, 0.502318, 1)
+roughness = 0.5
+script = ExtResource("1_fft8u")

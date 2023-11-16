@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=12 format=3 uid="uid://beoxrxvbslupt"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_20opi"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_fy0s7"]
+
+[sub_resource type="Resource" id="Resource_tghqj"]
+script = ExtResource("1_20opi")
+icon = 16
+colour = 1
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_rm52y"]
+script = ExtResource("1_20opi")
+icon = 1
+colour = 1
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_axegy"]
+script = ExtResource("1_20opi")
+icon = 16
+colour = 1
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_4hf0v"]
+script = ExtResource("1_20opi")
+icon = 0
+colour = 1
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_5fowb"]
+script = ExtResource("1_20opi")
+icon = 1
+colour = 1
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_k15gf"]
+script = ExtResource("1_20opi")
+icon = 0
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_jnam7"]
+script = ExtResource("1_20opi")
+icon = 16
+colour = 1
+rotation = 1
+
+[sub_resource type="Resource" id="Resource_7aess"]
+script = ExtResource("1_20opi")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_f0gdo"]
+script = ExtResource("1_20opi")
+icon = 16
+colour = 1
+rotation = 1
+
+[resource]
+script = ExtResource("2_fy0s7")
+width = 3
+height = 3
+icons = Array[Array]([[SubResource("Resource_tghqj"), SubResource("Resource_rm52y"), SubResource("Resource_axegy")], [SubResource("Resource_4hf0v"), SubResource("Resource_5fowb"), SubResource("Resource_k15gf")], [SubResource("Resource_jnam7"), SubResource("Resource_7aess"), SubResource("Resource_f0gdo")]])

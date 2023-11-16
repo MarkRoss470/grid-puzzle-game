@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="PuzzleDesign" load_steps=6 format=3 uid="uid://cashuw3d4krt4"]
+
+[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_yyh1w"]
+[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_sw0td"]
+
+[sub_resource type="Resource" id="Resource_xyuln"]
+script = ExtResource("1_yyh1w")
+icon = 16
+colour = 1
+rotation = 2
+
+[sub_resource type="Resource" id="Resource_sro4k"]
+script = ExtResource("1_yyh1w")
+icon = 4
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_bkt24"]
+script = ExtResource("1_yyh1w")
+icon = 16
+colour = 1
+rotation = 0
+
+[resource]
+script = ExtResource("2_sw0td")
+width = 1
+height = 3
+icons = Array[Array]([[SubResource("Resource_xyuln"), SubResource("Resource_sro4k"), SubResource("Resource_bkt24")]])
