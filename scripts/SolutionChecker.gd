@@ -15,6 +15,7 @@ class LaserPath:
 	
 	func equals(other: LaserPath) -> bool:
 		if self.colour != other.colour: return false
+		if self.valid != other.valid: return false
 		return self.path == other.path
 
 # Class representing a solution
@@ -382,7 +383,7 @@ static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: in
 		
 		match icon.icon:
 			# NO_CELL tiles don't transmit the beam
-			PuzzleClasses.NO_CELL: return null
+			PuzzleClasses.NO_CELL: return path
 			# EMPTY cells transmit the beam unaltered
 			PuzzleClasses.EMPTY: pass
 			# Correctly coloured and rotated lasers mean the rule is followed
