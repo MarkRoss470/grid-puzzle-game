@@ -76,18 +76,23 @@ func _ready():
 			tiles[x].append(null)
 			current_state[x].append(0)
 	
+	var has_valid_save := false
+	
 	if SaveManager.contains_key(get_unique_string()):
 		var saved_state = SaveManager.get_state(get_unique_string())
 		
-		for x in puzzle_design.width:
-			for y in puzzle_design.height:
-				current_state[x][y] = int(saved_state.rotations[x][y])
-		
-		is_solved = saved_state.solved
-		
-		if is_solved:
-			on_puzzle_solve_immediate(0)
-	else:
+		if len(saved_state.rotations) == puzzle_design.width and len(saved_state.rotations[0]) == puzzle_design.height:
+			for x in puzzle_design.width:
+				for y in puzzle_design.height:
+					current_state[x][y] = int(saved_state.rotations[x][y])
+			
+			is_solved = saved_state.solved
+			
+			if is_solved:
+				on_puzzle_solve_immediate(0)
+			
+			has_valid_save = true
+	if !has_valid_save:
 		for x in puzzle_design.width:
 			for y in puzzle_design.height:
 				current_state[x][y] = puzzle_design.icons[x][y].rotation
