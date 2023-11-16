@@ -83,3 +83,11 @@ func check_state() -> bool:
 #	print("]")
 	
 	return solution.is_valid
+
+func reset():
+	super.reset()
+	
+	# Call check_state twice. The first call will update `regions` and `laser_paths`
+	check_state()
+	# The second call will cancel all the icon flashes.
+	check_state()
