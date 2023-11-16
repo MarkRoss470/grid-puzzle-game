@@ -1,7 +1,7 @@
-[gd_scene load_steps=44 format=3 uid="uid://n707pql7suy0"]
+[gd_scene load_steps=46 format=3 uid="uid://n707pql7suy0"]
 
 [ext_resource type="PackedScene" uid="uid://bejkb47sxk6pc" path="res://models/laser area/laser area.glb" id="1_up0nh"]
-[ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="1_vkic5"]
+[ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="1_vkic5"]
 [ext_resource type="Material" uid="uid://hdvxy54cbvy3" path="res://shaders/WhiteWithBlack.tres" id="2_m6d0j"]
 [ext_resource type="Material" uid="uid://c7lpntk7ouvgd" path="res://shaders/TransparentTexture.tres" id="3_dm2xp"]
 [ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseSplitter.gd" id="5_1dynp"]
@@ -50,6 +50,12 @@ size = Vector3(40, 1, 40)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gcss7"]
 size = Vector3(7.4, 4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ni08r"]
+size = Vector3(5.2, 4, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bo1ve"]
+size = Vector3(5.2, 4, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p36y1"]
 size = Vector3(6, 4, 1)
@@ -107,11 +113,11 @@ shape = SubResource("BoxShape3D_gcss7")
 
 [node name="First room back right wall" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 2, 3.6)
-shape = SubResource("BoxShape3D_gcss7")
+shape = SubResource("BoxShape3D_ni08r")
 
 [node name="First room back left wall" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 2, -3.6)
-shape = SubResource("BoxShape3D_gcss7")
+shape = SubResource("BoxShape3D_bo1ve")
 
 [node name="First room right wall" type="CollisionShape3D" parent="Collision"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.92879, 0, 6.54438)

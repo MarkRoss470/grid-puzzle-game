@@ -54,7 +54,7 @@
 [ext_resource type="Resource" uid="uid://cdh6prk4lovox" path="res://puzzles/courtyard/fountain/cube top.tres" id="52_maoud"]
 [ext_resource type="Resource" uid="uid://8j8kh806slpo" path="res://puzzles/courtyard/fountain/cube middle.tres" id="53_fee4j"]
 [ext_resource type="Resource" uid="uid://cr15j1spdkyhw" path="res://puzzles/courtyard/fountain/cube bottom.tres" id="54_meis6"]
-[ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="55_emptg"]
+[ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="55_emptg"]
 [ext_resource type="Material" uid="uid://c7lpntk7ouvgd" path="res://shaders/TransparentTexture.tres" id="56_44tfl"]
 
 [sub_resource type="BoxShape3D" id="37"]

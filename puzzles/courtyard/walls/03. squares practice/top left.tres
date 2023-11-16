@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PuzzleDesign" load_steps=28 format=3 uid="uid://bwixsauqjprb1"]
 
-[ext_resource type="Script" path="res://scripts/PuzzleDesignIcon.gd" id="1_08obg"]
-[ext_resource type="Script" path="res://scripts/PuzzleDesign.gd" id="2_tvtot"]
+[ext_resource type="Script" path="res://scripts/Puzzles/PuzzleDesignIcon.gd" id="1_08obg"]
+[ext_resource type="Script" path="res://scripts/Puzzles/PuzzleDesign.gd" id="2_tvtot"]
 
 [sub_resource type="Resource" id="Resource_qgpgf"]
 script = ExtResource("1_08obg")

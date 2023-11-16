@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://wik7t7vdg62d"]
 
-[ext_resource type="Script" path="res://scripts/PauseMenu.gd" id="1_v8y3b"]
+[ext_resource type="Script" path="res://scripts/Player and UI/PauseMenu.gd" id="1_v8y3b"]
 [ext_resource type="Texture2D" uid="uid://boggi27cieviy" path="res://textures/UI/selection triangle.svg" id="2_jk6ob"]
 [ext_resource type="Texture2D" uid="uid://ccv0esxc3hmdb" path="res://textures/UI/slider_thumb.tres" id="2_kffsq"]
 

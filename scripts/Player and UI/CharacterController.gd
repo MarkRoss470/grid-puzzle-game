@@ -16,7 +16,7 @@ class_name CharacterController
 # The player camera
 @export var camera: Camera3D
 # The node which shows that the player is in puzzle mode
-@export var mode_indicator: Node
+@export var mode_indicator: ScreenBorder
 
 # Whether to make the game fullscreen
 @export var fullscreen := true
@@ -125,12 +125,14 @@ func _process(_delta):
 	if Input.is_action_just_pressed("free_mouse"):
 		# If mouse is currently free, capture it
 		if in_puzzle_mode:
-			mode_indicator.visible = false
+			# Hide the screen border
+			mode_indicator.hide_border()
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			in_puzzle_mode = false
 		# If mouse is currently captured, free it
 		else:
-			mode_indicator.visible = true
+			# Show the screen border
+			mode_indicator.show_border()
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			in_puzzle_mode = true
 

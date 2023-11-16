@@ -1,12 +1,13 @@
-[gd_scene load_steps=30 format=3 uid="uid://c58qbxisqorpl"]
+[gd_scene load_steps=31 format=3 uid="uid://c58qbxisqorpl"]
 
-[ext_resource type="Script" path="res://scripts/CharacterController.gd" id="1_r0yla"]
-[ext_resource type="Script" path="res://scripts/PuzzleTile.gd" id="2_f1f6w"]
+[ext_resource type="Script" path="res://scripts/Player and UI/CharacterController.gd" id="1_8d8a1"]
+[ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="2_77gl7"]
 [ext_resource type="Material" uid="uid://hdvxy54cbvy3" path="res://shaders/WhiteWithBlack.tres" id="3_wbij0"]
 [ext_resource type="Material" uid="uid://c7lpntk7ouvgd" path="res://shaders/TransparentTexture.tres" id="4_41ra1"]
 [ext_resource type="PackedScene" uid="uid://uuwbhhgm6oqp" path="res://models/islands/islands.glb" id="5_5yoom"]
 [ext_resource type="PackedScene" uid="uid://kjoth08mmteq" path="res://models/cube statue/cube statue.glb" id="6_jkarq"]
 [ext_resource type="PackedScene" uid="uid://wik7t7vdg62d" path="res://PauseMenu.tscn" id="7_1u80p"]
+[ext_resource type="Script" path="res://scripts/Player and UI/ScreenBorder.gd" id="9_qgk6o"]
 [ext_resource type="PackedScene" uid="uid://t8hmwt7q6oy" path="res://scenes/courtyard.tscn" id="10_rybfv"]
 [ext_resource type="PackedScene" uid="uid://n707pql7suy0" path="res://scenes/laser area.tscn" id="11_x2vnp"]
 
@@ -84,7 +85,7 @@ metadata/movie_file = "test"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-script = ExtResource("1_r0yla")
+script = ExtResource("1_8d8a1")
 max_fall_speed = 1.0
 mouse_sensitivity = 0.005
 camera = NodePath("PlayerCamera")
@@ -100,7 +101,7 @@ current = true
 
 [node name="Tile" type="Node3D" parent="."]
 visible = false
-script = ExtResource("2_f1f6w")
+script = ExtResource("2_77gl7")
 backplane_path = NodePath("Backplane")
 icon_path = NodePath("Icon")
 
@@ -260,8 +261,9 @@ shape = SubResource("BoxShape3D_eejtu")
 [node name="laser area" parent="." instance=ExtResource("11_x2vnp")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -40, 0, -6)
 
-[node name="Mode indicator" type="CanvasLayer" parent="."]
-visible = false
+[node name="Mode indicator" type="CanvasLayer" parent="." node_paths=PackedStringArray("container")]
+script = ExtResource("9_qgk6o")
+container = NodePath("Container")
 
 [node name="Container" type="Control" parent="Mode indicator"]
 layout_mode = 3
@@ -270,12 +272,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Left" type="ColorRect" parent="Mode indicator/Container"]
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 1.0
+offset_top = 25.0
 offset_right = 25.0
+offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -286,6 +291,8 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -25.0
+offset_top = 25.0
+offset_bottom = -25.0
 grow_horizontal = 0
 grow_vertical = 2
 
@@ -307,6 +314,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_1u80p")]
+visible = false
 
 [connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
