@@ -3,6 +3,7 @@ extends CanvasLayer
 enum Menu {
 	PAUSE,
 	SETTINGS,
+	RESET_CONFIRMATION,
 }
 
 enum PauseMenuItems {
@@ -10,11 +11,17 @@ enum PauseMenuItems {
 	SAVE_GAME,
 	SETTINGS,
 	RETURN_TO_GAME,
+	RESET_SAVE,
 }
 
 enum SettingsMenuItems {
 	MOUSE_SENSITIVITY,
 	EXIT,
+}
+
+enum ResetConfirmationItems {
+	CONFIRM,
+	CANCEL,
 }
 
 var is_paused := false
@@ -25,6 +32,7 @@ var current_menu := Menu.PAUSE
 var menus: Array[VBoxContainer] = [
 	$Control/Pause,
 	$Control/Settings,
+	$"Control/Reset Save Confirmation"
 ]
 
 const settings := [
@@ -62,7 +70,7 @@ func _process(delta):
 		else:
 			if current_menu == Menu.PAUSE:
 				unpause()
-			elif current_menu == Menu.SETTINGS:
+			else:
 				set_menu(Menu.PAUSE)
 	
 	# Don't process other actions unless the game is paused
@@ -143,9 +151,26 @@ func select_item():
 				set_menu(Menu.SETTINGS)
 			PauseMenuItems.RETURN_TO_GAME:
 				unpause()
+			PauseMenuItems.RESET_SAVE:
+				set_menu(Menu.RESET_CONFIRMATION)
 	elif current_menu == Menu.SETTINGS:
 		match selected:
 			SettingsMenuItems.EXIT:
+				set_menu(Menu.PAUSE)
+	elif current_menu == Menu.RESET_CONFIRMATION:
+		match selected:
+			ResetConfirmationItems.CONFIRM:
+				SaveManager.reset_save()
+				# Restart the application
+				
+				# Find the executable which is running for this game
+				var executable_path = OS.get_executable_path()
+				# Start a new instance of the game
+				OS.create_process(executable_path, [])
+				# Quit the current instance of the game
+				get_tree().quit()
+				
+			ResetConfirmationItems.CANCEL:
 				set_menu(Menu.PAUSE)
 
 func on_menu_item_mouse_entered(menu_item: int):

@@ -20,8 +20,8 @@ func _ready():
 	# Otherwise, use the default settings
 	else:
 		# Read the default save
-		var default_settings_file := FileAccess.open(default_save_path, FileAccess.READ)
-		var default_save: Dictionary = JSON.parse_string(default_settings_file.get_as_text())
+		var default_save_file := FileAccess.open(default_save_path, FileAccess.READ)
+		var default_save: Dictionary = JSON.parse_string(default_save_file.get_as_text())
 		states = default_save.duplicate()
 
 # Gets whether the given key is in the save file
@@ -57,3 +57,6 @@ func _process(delta):
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		SaveManager.save_all()
+
+func reset_save():
+	DirAccess.remove_absolute(save_path)

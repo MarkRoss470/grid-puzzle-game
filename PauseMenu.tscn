@@ -74,7 +74,13 @@ layout_mode = 2
 mouse_filter = 0
 text = "Return to Game"
 
+[node name="Reset Save" type="Label" parent="Control/Pause"]
+layout_mode = 2
+mouse_filter = 0
+text = "Reset Save"
+
 [node name="Settings" type="VBoxContainer" parent="Control"]
+visible = false
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -114,6 +120,27 @@ layout_mode = 2
 mouse_filter = 0
 text = "Exit"
 
+[node name="Reset Save Confirmation" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(100, 1.45519e-11)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Confirm" type="Label" parent="Control/Reset Save Confirmation"]
+layout_mode = 2
+mouse_filter = 0
+text = "Confirm"
+
+[node name="Cancel" type="Label" parent="Control/Reset Save Confirmation"]
+layout_mode = 2
+mouse_filter = 0
+text = "Cancel"
+
 [node name="Selection Triangle" type="TextureRect" parent="Control"]
 layout_mode = 1
 anchors_preset = 4
@@ -135,8 +162,14 @@ texture = ExtResource("2_jk6ob")
 [connection signal="mouse_entered" from="Control/Pause/Settings" to="." method="on_menu_item_mouse_entered" binds= [2]]
 [connection signal="gui_input" from="Control/Pause/Return to Game" to="." method="on_menu_item_gui_input" binds= [3]]
 [connection signal="mouse_entered" from="Control/Pause/Return to Game" to="." method="on_menu_item_mouse_entered" binds= [3]]
+[connection signal="gui_input" from="Control/Pause/Reset Save" to="." method="on_menu_item_gui_input" binds= [4]]
+[connection signal="mouse_entered" from="Control/Pause/Reset Save" to="." method="on_menu_item_mouse_entered" binds= [4]]
 [connection signal="gui_input" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_gui_input" binds= [0]]
 [connection signal="mouse_entered" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_mouse_entered" binds= [0]]
 [connection signal="value_changed" from="Control/Settings/Mouse Sensitivity/HSlider" to="." method="on_menu_item_slider_input" binds= [0]]
 [connection signal="gui_input" from="Control/Settings/Exit" to="." method="on_menu_item_gui_input" binds= [1]]
 [connection signal="mouse_entered" from="Control/Settings/Exit" to="." method="on_menu_item_mouse_entered" binds= [1]]
+[connection signal="gui_input" from="Control/Reset Save Confirmation/Confirm" to="." method="on_menu_item_gui_input" binds= [0]]
+[connection signal="mouse_entered" from="Control/Reset Save Confirmation/Confirm" to="." method="on_menu_item_mouse_entered" binds= [0]]
+[connection signal="gui_input" from="Control/Reset Save Confirmation/Cancel" to="." method="on_menu_item_gui_input" binds= [1]]
+[connection signal="mouse_entered" from="Control/Reset Save Confirmation/Cancel" to="." method="on_menu_item_mouse_entered" binds= [1]]
