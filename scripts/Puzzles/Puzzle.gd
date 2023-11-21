@@ -60,8 +60,16 @@ var last_wipe_direction := -1
 var current_state: Array[Array]
 # Whether the puzzle is solved and the solved colours should be used
 var is_solved := false
+# Whether the puzzle has ever been solved. 
+# This is used to determine whether to play a sound when the puzzle is solved.
+var ever_solved := false
 # Stores references to the PuzzleTile nodes of this puzzle
 var tiles: Array[Array]
+
+var audio_player := AudioStreamPlayer3D.new()
+
+@export_group("")
+@export var solve_sound: Sound = Sound.SolveSimple
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -87,11 +95,13 @@ func _ready():
 					current_state[x][y] = int(saved_state.rotations[x][y])
 			
 			is_solved = saved_state.solved
+			ever_solved = saved_state.ever_solved
 			
 			if is_solved:
 				on_puzzle_solve_immediate(0)
 			
 			has_valid_save = true
+	
 	if !has_valid_save:
 		for x in puzzle_design.width:
 			for y in puzzle_design.height:
@@ -100,6 +110,12 @@ func _ready():
 	# Load puzzles that should always be active
 	if load_on_start:
 		on_puzzle_solve_immediate(0)
+	
+	audio_player.position = Vector3(puzzle_design.width / 2, puzzle_design.height / 2, 0)
+	audio_player.bus = "Puzzle Solve"
+	audio_player.panning_strength = 0.8
+	
+	add_child(audio_player)
 
 func add_wipe(direction: int):
 	last_wipe_direction = direction
@@ -145,7 +161,7 @@ func on_puzzle_solve_immediate(_i: int):
 			# Create new tile
 			var tile = create_tile(x, y, puzzle_design.icons[x][y])
 			# Rotate to match puzzle state
-			tile.rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
+			tile.icon.rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
 			# Add reference to tile to tiles
 			tiles[x][y] = tile
 			# Add tile to scene tree
@@ -189,6 +205,12 @@ func solve_puzzle():
 	# Call puzzle solve callback
 	if on_complete != null:
 		on_complete.on_puzzle_solve(on_complete_param)
+	
+	# Only play the sound if this is the first time the puzzle is solved
+	if !ever_solved:
+		play_sound(solve_sound)
+	
+	ever_solved = true
 
 func unsolve_puzzle():
 	is_solved = false
@@ -295,6 +317,8 @@ func _process(delta):
 					
 					# Create tile
 					tile = create_tile(x, y, cell)
+					# Rotate to match puzzle state
+					tile.icon.rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
 					# Add reference to tile to tiles
 					tiles[x][y] = tile
 					
@@ -311,8 +335,7 @@ func _process(delta):
 					else:
 						# Clear rotation
 						tiles[x][y].set_rotation(Vector3(0, 0, 0))
-						# Rotate to match puzzle state
-						tiles[x][y].rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
+
 						# Reset scale
 						tiles[x][y].scale = Vector3(1, 1, 1)
 					continue
@@ -330,8 +353,6 @@ func _process(delta):
 				
 				# Clear tile's rotation
 				tiles[x][y].set_rotation(Vector3(0, 0, 0))
-				# Rotate to match puzzle state
-				tiles[x][y].rotate(Vector3.FORWARD, current_state[x][y] * PI / 2)
 				# Rotate for animation
 				tiles[x][y].rotate(Vector3.RIGHT, rotation)
 				
@@ -370,6 +391,25 @@ func save():
 	var puzzle_state = {
 		"rotations": current_state,
 		"solved": is_solved,
+		"ever_solved": ever_solved,
 	}
 	
 	SaveManager.set_state(get_unique_string(), puzzle_state)
+
+func play_sound(sound: Sound):
+	audio_player.stream = load(sounds[sound])
+	audio_player.play()
+
+enum Sound {
+	SolveSimple,
+	SolveLongHigh,
+	SolveLongLow,
+	Incorrect,
+}
+
+const sounds: Array[String] = [
+	"res://sounds/puzzle solve simple.mp3",
+	"res://sounds/puzzle solve long high.mp3",
+	"res://sounds/puzzle solve long low.mp3",
+	"res://sounds/puzzle incorrect.mp3",
+]

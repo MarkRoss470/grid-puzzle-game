@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c23hj8sp5vr57"
+path="res://.godot/imported/puzzle incorrect.mp3-de8a0f570b7b12e911e31d615b421b06.mp3str"
+
+[deps]
+
+source_file="res://sounds/puzzle incorrect.mp3"
+dest_files=["res://.godot/imported/puzzle incorrect.mp3-de8a0f570b7b12e911e31d615b421b06.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

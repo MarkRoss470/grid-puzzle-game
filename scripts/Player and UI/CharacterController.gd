@@ -17,6 +17,10 @@ class_name CharacterController
 @export var camera: Camera3D
 # The node which shows that the player is in puzzle mode
 @export var mode_indicator: ScreenBorder
+# The audio listener
+@export var listener: AudioListener3D
+# The audio stream for the player's footsteps
+@export var audio_player: AudioStreamPlayer
 
 # Whether to make the game fullscreen
 @export var fullscreen := true
@@ -48,6 +52,12 @@ func _ready():
 	Settings.register_callback("mouse_sensitivity", func(new_value):
 		mouse_sensitivity = new_value
 	)
+	
+	listener.make_current()
+	
+	audio_player.stream_paused = true
+	audio_player.volume_db = -100
+	audio_player.play()
 
 # Called on input events
 # Rotation is calculated here, movement is calculated in _physics_process
@@ -135,6 +145,13 @@ func _process(_delta):
 			mode_indicator.show_border()
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			in_puzzle_mode = true
+	
+	# If the player is moving, play the footsteps sound
+	if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left") or Input.is_action_pressed("move_backward") or Input.is_action_pressed("move_forward"):
+		audio_player.volume_db = 0
+		audio_player.stream_paused = false
+	else:
+		audio_player.stream_paused = true
 
 func save():
 	SaveManager.set_state("player", {
