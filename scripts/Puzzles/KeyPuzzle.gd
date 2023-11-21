@@ -28,7 +28,7 @@ func create_tile(x: int, y: int, cell) -> PuzzleTile:
 		var key_hint := key_hint_tile.duplicate()
 		key_hint.name = "key-hint-tile"
 		var key_start_rotation = puzzle_design.icons[key_x][key_y].rotation
-		key_hint.rotate(Vector3.FORWARD, (key_target_rotation - key_start_rotation) * PI / 2)
+		key_hint.rotate(Vector3.FORWARD, key_target_rotation * PI / 2)
 		
 		# Make the node visible
 		key_hint.set_visible(true)
@@ -66,7 +66,8 @@ func rotate_cell(x: int, y: int, direction: int) -> bool:
 		if highlight_wrong_cells:
 			# Set cells to colour on incorrect solution
 			for cell in solution.wrong_cells:
-				tiles[cell[0]][cell[1]].set_colour(colour_incorrect_base, colour_incorrect_hover)
+				tiles[cell[0]][cell[1]].flash(colour_incorrect_base, 0.5)
+			play_sound(Sound.Incorrect)
 		
 		# The rotation was invalid, so return false
 		return false
