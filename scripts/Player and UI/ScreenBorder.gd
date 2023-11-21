@@ -13,7 +13,9 @@ var showing := false
 var fade_progress := 0.0
 
 # The time for the border to fade in and out, in seconds
-const fade_time := 0.2
+const fade_time := 0.15
+
+const opacity := 0.6
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,15 +25,15 @@ func _ready():
 func _process(delta):
 	# If fading in
 	if showing and fade_progress < 1.0:
-		fade_progress += delta / fade_time
+		fade_progress += delta * opacity / fade_time
 		
 		# If reached full opacity
-		if fade_progress >= 1.0:
-			fade_progress = 1.0
+		if fade_progress >= opacity:
+			fade_progress = opacity
 	
 	# If fading out
 	if !showing and fade_progress > 0.0:
-		fade_progress -= delta / fade_time
+		fade_progress -= delta * opacity / fade_time
 		
 		# If reached full transparency
 		if fade_progress <= 0.0:
