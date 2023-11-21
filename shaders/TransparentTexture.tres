@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://jlbxct50ismw" path="res://shaders/TransparantTextureShader.tres" id="1_4f2ax"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8mctn"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("1_4f2ax")
 shader_parameter/icon_colour = null
 

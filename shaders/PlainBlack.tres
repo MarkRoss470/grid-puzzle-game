@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b3ats6vnvjmgn"]
+
+[ext_resource type="Shader" uid="uid://cas56dpi6smqr" path="res://shaders/SingleColour.tres" id="1_jm0rf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gxcfn"]
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_gxcfn")
+shader = ExtResource("1_jm0rf")
+shader_parameter/Color = null

@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://t8hmwt7q6oy"]
+[gd_scene load_steps=86 format=3 uid="uid://t8hmwt7q6oy"]
 
 [ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard/courtyard.glb" id="1_7csje"]
 [ext_resource type="Script" path="res://scripts/Puzzles/KeyPuzzle.gd" id="2_1oygg"]
@@ -56,6 +56,7 @@
 [ext_resource type="Resource" uid="uid://cr15j1spdkyhw" path="res://puzzles/courtyard/fountain/cube bottom.tres" id="54_meis6"]
 [ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="55_emptg"]
 [ext_resource type="Material" uid="uid://c7lpntk7ouvgd" path="res://shaders/TransparentTexture.tres" id="56_44tfl"]
+[ext_resource type="Material" uid="uid://b3ats6vnvjmgn" path="res://shaders/PlainBlack.tres" id="57_hhtaq"]
 
 [sub_resource type="BoxShape3D" id="37"]
 size = Vector3(20, 4, 0.25)
@@ -234,7 +235,7 @@ shape = SubResource("46")
 shape = SubResource("36")
 
 [node name="Fountain" type="CollisionShape3D" parent="Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, -2.5)
 shape = SubResource("47")
 
 [node name="Pedestal" type="CollisionShape3D" parent="Collision"]
@@ -284,26 +285,17 @@ key_y = 2
 key_target_rotation = 1
 highlight_wrong_cells = false
 key_hint_tile = NodePath("../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("3_3dm6f")
 instance = NodePath("../../../Tile")
 on_complete = NodePath("../../Splitter")
-on_complete_param = null
-load_on_start = null
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
+solve_sound = 1
 
 [node name="Left Door" type="StaticBody3D" parent="Final Puzzle and Doors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9, 2, -10.1)
 script = ExtResource("4_wy272")
 end_position = Vector3(-4.9, 2, -10.1)
 end_rotation = Vector3(1.45519e-11, 90, 1.45519e-11)
+motion_sound = 1
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Final Puzzle and Doors/Left Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0, 0)
@@ -319,6 +311,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, 2, -10.1)
 script = ExtResource("4_wy272")
 end_position = Vector3(4.9, 2, -10.1)
 end_rotation = Vector3(1.45519e-11, -90, 1.45519e-11)
+motion_sound = 1
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Final Puzzle and Doors/Right Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0, 0)
@@ -608,6 +601,7 @@ transform = Transform3D(-0.375, 0, -5.66234e-08, 0, 0.375, 0, 5.66234e-08, 0, -0
 script = ExtResource("6_6gi18")
 targets = [NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right"), NodePath("Right Click Prompt")]
 params = Array[int]([0, 0, 0, 0, 0])
+load_on_start = true
 
 [node name="Top Left" type="Node3D" parent="Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
@@ -615,68 +609,35 @@ script = ExtResource("2_1oygg")
 key_x = 1
 key_y = 1
 key_target_rotation = 1
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("34_5a2qh")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Combiner")
-on_complete_param = null
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Top Right" type="Node3D" parent="Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(1, 0, 2.13163e-14, 0, 1, 0, -2.13163e-14, 0, 1, 5.5, -0.5, 1.90735e-05)
 script = ExtResource("2_1oygg")
-key_x = null
 key_y = 1
 key_target_rotation = 2
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("35_sk0ki")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Bottom Left" type="Node3D" parent="Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -5.5, 0)
 script = ExtResource("2_1oygg")
 key_x = 1
-key_y = null
 key_target_rotation = 1
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("36_tc11b")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Bottom Right" type="Node3D" parent="Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -5.5, 4.19617e-05)
@@ -684,22 +645,12 @@ script = ExtResource("2_1oygg")
 key_x = 1
 key_y = 1
 key_target_rotation = 1
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("37_kho70")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Right Click Prompt" type="CSGMesh3D" parent="Puzzles/Tutorial/Key Puzzles Intro"]
 transform = Transform3D(1.45519e-11, 1.85021e-18, 8.08753e-26, 0, -6.36084e-19, 1.45519e-11, 1.85021e-18, -1.45519e-11, -6.36084e-19, 4, -4, 0)
@@ -727,22 +678,11 @@ script = ExtResource("2_1oygg")
 key_x = 2
 key_y = 1
 key_target_rotation = 1
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("39_h2b85")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Combiner")
-on_complete_param = null
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Bottom Left" type="Node3D" parent="Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -4.5, 0)
@@ -750,45 +690,24 @@ script = ExtResource("2_1oygg")
 key_x = 2
 key_y = 2
 key_target_rotation = 1
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("40_lk1wc")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 1
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Top Right" type="Node3D" parent="Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, -0.5, 0)
 script = ExtResource("2_1oygg")
 key_x = 2
-key_y = null
 key_target_rotation = 2
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("41_a42h6")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 2
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Bottom Right" type="Node3D" parent="Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.50001, -4.5, 0)
@@ -796,22 +715,12 @@ script = ExtResource("2_1oygg")
 key_x = 1
 key_y = 2
 key_target_rotation = 1
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("42_ix8wb")
 instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Combiner" type="Node" parent="Puzzles/Tutorial/Key Puzzles Practice" node_paths=PackedStringArray("target")]
 script = ExtResource("17_47y20")
@@ -821,25 +730,13 @@ target = NodePath("../../Key Puzzles Challenge 1")
 [node name="Key Puzzles Challenge 1" type="Node3D" parent="Puzzles/Tutorial" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.49999, 3.2, 4.2)
 script = ExtResource("2_1oygg")
-key_x = null
 key_y = 1
 key_target_rotation = 2
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("43_w5ao3")
 instance = NodePath("../../../Tile")
 on_complete = NodePath("../Key Puzzles Challenge 2")
-on_complete_param = null
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Key Puzzles Challenge 2" type="Node3D" parent="Puzzles/Tutorial" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(-2.62268e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.62268e-08, -9.5, 3.2, 1.4)
@@ -847,67 +744,32 @@ script = ExtResource("2_1oygg")
 key_x = 2
 key_y = 2
 key_target_rotation = 2
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("44_xfgyb")
 instance = NodePath("../../../Tile")
 on_complete = NodePath("../Key Puzzles Challenge 3")
-on_complete_param = null
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Key Puzzles Challenge 3" type="Node3D" parent="Puzzles/Tutorial" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(-1.87522e-08, 0, 0.429, 0, 0.429, 0, -0.429, 0, -1.87522e-08, -9.5, 3.286, -2.514)
 script = ExtResource("2_1oygg")
 key_x = 2
 key_y = 3
-key_target_rotation = null
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("45_7vybg")
 instance = NodePath("../../../Tile")
 on_complete = NodePath("../Key Puzzles Challenge 4")
-on_complete_param = null
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="Key Puzzles Challenge 4" type="Node3D" parent="Puzzles/Tutorial" node_paths=PackedStringArray("key_hint_tile", "instance")]
 transform = Transform3D(-1.87522e-08, 0, 0.429, 0, 0.429, 0, -0.429, 0, -1.87522e-08, -9.5, 3.286, -5.714)
 script = ExtResource("2_1oygg")
 key_x = 4
 key_y = 3
-key_target_rotation = null
-highlight_wrong_cells = null
 key_hint_tile = NodePath("../../../Key Hint Tile")
-key_hint_colour = null
-colour_incorrect_base = null
-colour_incorrect_hover = null
 puzzle_design = ExtResource("46_jvtek")
 instance = NodePath("../../../Tile")
-on_complete_param = null
 load_on_start = false
-tile_animation_time = null
-tile_animation_offset = null
-colour_base = null
-colour_hover = null
-colour_solved_base = null
-colour_solved_hover = null
 
 [node name="WASD" type="CSGMesh3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, -0.2, 0, 0.2, -8.74228e-09, -1, 0.8, 0)
@@ -930,59 +792,92 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0099
 script = ExtResource("49_rx7b7")
 solution = [[0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0], [3, 1, 0, 0, 0, 0, 1, 0], [1, 3, 0, 0, 2, 2, 3, 0], [2, 0, 0, 0, 1, 0, 0, 0], [0, 2, 0, 0, 3, 0, 1, 0], [2, 0, 0, 0, 0, 0, 3, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
 puzzle_design = ExtResource("50_dljve")
-instance = NodePath("../../../Tile")
+instance = NodePath("../../Fountain Puzzle Tile")
 colour_base = Color(0, 0, 0, 0)
 colour_hover = Color(0, 0, 0, 0)
-colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
+colour_solved_base = Color(0.128728, 5.77569e-07, 0.965952, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
+solve_sound = 2
 
 [node name="Island 2 Under Shape Puzzle" type="Node3D" parent="Fountain Puzzles/North-East Side" node_paths=PackedStringArray("instance")]
 transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0.01, -12, 3)
 script = ExtResource("49_rx7b7")
 solution = [[0, 3], [2, 0], [1, 2], [1, 1]]
 puzzle_design = ExtResource("51_sy0bv")
-instance = NodePath("../../../Tile")
+instance = NodePath("../../Fountain Puzzle Tile")
 colour_base = Color(0, 0, 0, 0)
 colour_hover = Color(0, 0, 0, 0)
-colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
+colour_solved_base = Color(0.128728, 5.77569e-07, 0.965952, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
+solve_sound = 2
 
 [node name="North-West Side" type="Node3D" parent="Fountain Puzzles"]
 transform = Transform3D(-0.2, 0, -1.74845e-08, 0, 0.2, 0, 1.74845e-08, 0, -0.2, 0, 0, -0.5)
 
 [node name="Top Cube Puzzle" type="Node3D" parent="Fountain Puzzles/North-West Side" node_paths=PackedStringArray("instance")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -1, 0)
+transform = Transform3D(1, 0, 1.19209e-07, 0, 1, 0, -1.19209e-07, 0, 1, -1.5, -1, 0.1)
 script = ExtResource("49_rx7b7")
 solution = [[0, 2, 0, 2], [3, 0, 0, 1], [0, 0, 0, 2], [2, 3, 2, 0]]
 puzzle_design = ExtResource("52_maoud")
-instance = NodePath("../../../Tile")
+instance = NodePath("../../Fountain Puzzle Tile")
 colour_base = Color(0, 0, 0, 1)
 colour_hover = Color(0, 0, 0, 1)
-colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
+colour_solved_base = Color(0.128728, 5.77569e-07, 0.965952, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
+solve_sound = 2
 
 [node name="Middle Cube Puzzle" type="Node3D" parent="Fountain Puzzles/North-West Side" node_paths=PackedStringArray("instance")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -5.5, 0)
 script = ExtResource("49_rx7b7")
 solution = [[0, 2, 0, 0], [2, 0, 2, 3], [0, 2, 0, 1], [2, 3, 2, 2]]
 puzzle_design = ExtResource("53_fee4j")
-instance = NodePath("../../../Tile")
+instance = NodePath("../../Fountain Puzzle Tile")
 colour_base = Color(0, 0, 0, 1)
 colour_hover = Color(0, 0, 0, 1)
-colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
+colour_solved_base = Color(0.128728, 5.77569e-07, 0.965952, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
+solve_sound = 2
 
 [node name="Bottom Cube Puzzle" type="Node3D" parent="Fountain Puzzles/North-West Side" node_paths=PackedStringArray("instance")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -10, 0)
 script = ExtResource("49_rx7b7")
 solution = [[0, 1, 3, 0], [2, 3, 1, 3], [1, 0, 2, 0], [2, 3, 1, 2]]
 puzzle_design = ExtResource("54_meis6")
-instance = NodePath("../../../Tile")
+instance = NodePath("../../Fountain Puzzle Tile")
 colour_base = Color(0, 0, 0, 1)
 colour_hover = Color(0, 0, 0, 1)
-colour_solved_base = Color(0.0196078, 0, 0.337255, 1)
+colour_solved_base = Color(0.129412, 0, 0.964706, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
+solve_sound = 2
+
+[node name="Fountain Puzzle Tile" type="Node3D" parent="Fountain Puzzles"]
+visible = false
+script = ExtResource("55_emptg")
+backplane_path = NodePath("Backplane")
+icon_path = NodePath("Icon")
+
+[node name="Backplane" type="CSGMesh3D" parent="Fountain Puzzles/Fountain Puzzle Tile"]
+transform = Transform3D(-0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("PlaneMesh_pu6t8")
+material = ExtResource("57_hhtaq")
+
+[node name="Icon" type="CSGMesh3D" parent="Fountain Puzzles/Fountain Puzzle Tile"]
+transform = Transform3D(0.5, -4.37114e-08, 4.37114e-08, 4.37114e-08, -2.18557e-08, -0.5, 4.37114e-08, 0.5, -2.18557e-08, 0, 0, 0.00199997)
+mesh = SubResource("PlaneMesh_085dq")
+material = ExtResource("56_44tfl")
+
+[node name="Area3D" type="Area3D" parent="Fountain Puzzles/Fountain Puzzle Tile"]
+transform = Transform3D(-1, -1.50996e-07, -6.60024e-15, 0, -4.37114e-08, 1, -1.50996e-07, 1, 4.37114e-08, 1.1228e-24, 0, -0.00672182)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fountain Puzzles/Fountain Puzzle Tile/Area3D"]
+shape = SubResource("BoxShape3D_87st2")
 
 [connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
 [connection signal="mouse_exited" from="Tile/Area3D" to="Tile" method="mouse_exit"]
+[connection signal="input_event" from="Fountain Puzzles/Fountain Puzzle Tile/Area3D" to="Fountain Puzzles/Fountain Puzzle Tile" method="input_event"]
+[connection signal="mouse_entered" from="Fountain Puzzles/Fountain Puzzle Tile/Area3D" to="Fountain Puzzles/Fountain Puzzle Tile" method="mouse_enter"]
+[connection signal="mouse_exited" from="Fountain Puzzles/Fountain Puzzle Tile/Area3D" to="Fountain Puzzles/Fountain Puzzle Tile" method="mouse_exit"]

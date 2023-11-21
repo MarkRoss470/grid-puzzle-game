@@ -4,6 +4,28 @@ class_name SingleSolutionPuzzle
 
 @export var solution: Array = []
 
+func on_puzzle_solve_immediate(i: int):
+	super.on_puzzle_solve_immediate(i)
+	
+	if is_solved:
+		solve_puzzle()
+
+func solve_puzzle():
+	super.solve_puzzle()
+	
+	for x in puzzle_design.width:
+		for y in puzzle_design.height:
+			if tiles[x][y] != null:
+				tiles[x][y].flash(colour_solved_base, INF)
+
+func unsolve_puzzle():
+	super.unsolve_puzzle()
+	
+	for x in puzzle_design.width:
+		for y in puzzle_design.height:
+			if tiles[x][y] != null:
+				tiles[x][y].end_flash()
+
 func rotate_cell(cell_x: int, cell_y: int, direction: int) -> bool:
 	# If super.rotate_cell fails, return false immediately
 	if not super.rotate_cell(cell_x, cell_y, direction):
