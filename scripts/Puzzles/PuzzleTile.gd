@@ -115,6 +115,8 @@ func _process(delta):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.add_to_group("puzzle_tiles")
+	
 	backplane = get_node(backplane_path)
 	# Create a new material override so that colour changes only apply to this cell
 	backplane_mat_override = backplane.get_material().duplicate()

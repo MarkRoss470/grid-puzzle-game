@@ -139,6 +139,7 @@ func _process(_delta):
 			mode_indicator.hide_border()
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			in_puzzle_mode = false
+			get_tree().call_group("puzzle_tiles", "mouse_exit")
 		# If mouse is currently captured, free it
 		else:
 			# Show the screen border
