@@ -16,6 +16,10 @@ class_name KeyPuzzle
 @export var colour_incorrect_base: Color = Color(1, 0, 0)
 @export var colour_incorrect_hover: Color = Color(1, 0.5, 0.5)
 
+# Override default colours for key puzzles
+static func default_colour_base() -> Color: return Color(0.922, 0.761, 0.02)
+static func default_colour_hover() -> Color: return Color(0.804, 0.663, 0.008)
+
 func _ready():
 	super._ready()
 

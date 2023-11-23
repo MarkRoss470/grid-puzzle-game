@@ -33,13 +33,21 @@ represents the puzzle - sets which icons go in which cells
 
 @export_group("Colours")
 
+# Default values for variables can't be overridden in a child class
+# So use static functions to get the default value
+# This way different types of puzzle can have different default colours
+static func default_colour_base() -> Color: return Color(0.8, 0.8, 0.8)
+static func default_colour_hover() -> Color: return Color(0.7, 0.7, 0.7)
+static func default_colour_solved_base() -> Color: return Color(0.6, 1, 0.6)
+static func default_colour_solved_hover() -> Color: return Color(0.5, 1, 0.5)
+
 # Colours for puzzle's neutral state
-@export var colour_base: Color = Color(0.8, 0.8, 0.8)
-@export var colour_hover: Color = Color(0.7, 0.7, 0.7)
+@export var colour_base: Color = default_colour_base()
+@export var colour_hover: Color = default_colour_hover()
 
 # Colours for a correct solution
-@export var colour_solved_base: Color = Color(0.6, 1, 0.6)
-@export var colour_solved_hover: Color = Color(0.5, 1, 0.5)
+@export var colour_solved_base: Color = default_colour_solved_base()
+@export var colour_solved_hover: Color = default_colour_solved_hover()
 
 var loaded := false
 
@@ -97,8 +105,7 @@ func _ready():
 			is_solved = saved_state.solved
 			ever_solved = saved_state.ever_solved
 			
-			if is_solved:
-				on_puzzle_solve_immediate(0)
+			on_puzzle_solve_immediate(0)
 			
 			has_valid_save = true
 	

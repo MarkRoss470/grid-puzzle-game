@@ -7,7 +7,7 @@
    viewBox="0 0 256 256"
    version="1.1"
    id="svg263"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    sodipodi:docname="pointer hint.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -25,13 +25,13 @@
      inkscape:document-units="mm"
      showgrid="true"
      showguides="true"
-     inkscape:zoom="0.34762915"
-     inkscape:cx="-455.94565"
-     inkscape:cy="524.98474"
+     inkscape:zoom="0.98324372"
+     inkscape:cx="272.05869"
+     inkscape:cy="234.93667"
      inkscape:window-width="1536"
      inkscape:window-height="891"
      inkscape:window-x="0"
-     inkscape:window-y="32"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -41,11 +41,11 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ffffff;fill-opacity:1;stroke-width:0.0888553"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.133283"
        id="rect288"
-       width="16"
+       width="36"
        height="50"
-       x="120"
+       x="110"
        y="-5.5511151e-17" />
   </g>
 </svg>
