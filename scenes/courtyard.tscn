@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://t8hmwt7q6oy"]
+[gd_scene load_steps=88 format=3 uid="uid://t8hmwt7q6oy"]
 
 [ext_resource type="PackedScene" uid="uid://csn454ypieo0h" path="res://models/courtyard/courtyard.glb" id="1_7csje"]
 [ext_resource type="Script" path="res://scripts/Puzzles/KeyPuzzle.gd" id="2_1oygg"]
@@ -10,8 +10,9 @@
 [ext_resource type="Shader" uid="uid://c4ieflob81x7y" path="res://shaders/Wire.tres" id="8_7goup"]
 [ext_resource type="Script" path="res://scripts/Puzzles/SymbolPuzzle.gd" id="9_fl3yu"]
 [ext_resource type="Resource" uid="uid://dcg3bn65pnqqe" path="res://puzzles/courtyard/walls/01. controls.tres" id="10_fsktf"]
-[ext_resource type="Texture2D" uid="uid://d4khqglidoi2x" path="res://textures/Object Textures/Control Tutorials/space bar.png" id="11_dafha"]
 [ext_resource type="Texture2D" uid="uid://dgmcj0hui5247" path="res://textures/Object Textures/Control Tutorials/left click.png" id="12_ytb1y"]
+[ext_resource type="Texture2D" uid="uid://cp5s4jccjyy0r" path="res://textures/Object Textures/Control Tutorials/shift.png" id="13_03cix"]
+[ext_resource type="Texture2D" uid="uid://d4khqglidoi2x" path="res://textures/Object Textures/Control Tutorials/space bar.png" id="13_kvirq"]
 [ext_resource type="Resource" uid="uid://cy7jghdxowgt2" path="res://puzzles/courtyard/walls/02. squares intro/top left.tres" id="13_t1yjs"]
 [ext_resource type="Resource" uid="uid://ci53qe5sia7rg" path="res://puzzles/courtyard/walls/02. squares intro/top right.tres" id="14_h0h8n"]
 [ext_resource type="Resource" uid="uid://btbt3tjgdsjvf" path="res://puzzles/courtyard/walls/02. squares intro/bottom left.tres" id="15_6g85l"]
@@ -129,12 +130,12 @@ shader_parameter/wire_colour_off = null
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_a654v"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7n4st"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70tyn"]
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 cull_mode = 2
-albedo_texture = ExtResource("11_dafha")
+albedo_texture = ExtResource("13_kvirq")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3akgm"]
 transparency = 2
@@ -142,6 +143,13 @@ alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 cull_mode = 2
 albedo_texture = ExtResource("12_ytb1y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7n4st"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_texture = ExtResource("13_03cix")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7amc5"]
 transparency = 1
@@ -360,7 +368,7 @@ on_complete = NodePath("../Squares Intro")
 [node name="Space Bar Prompt" type="CSGMesh3D" parent="Puzzles/Tutorial/Controls"]
 transform = Transform3D(0.5, -1.99053e-20, -1.27061e-22, 0, -2.18557e-08, -0.5, 1.99053e-20, 0.5, -2.18557e-08, -1, -1, 0)
 mesh = SubResource("PlaneMesh_a654v")
-material = SubResource("StandardMaterial3D_7n4st")
+material = SubResource("StandardMaterial3D_70tyn")
 
 [node name="Left Click Prompt" type="CSGMesh3D" parent="Puzzles/Tutorial/Controls"]
 transform = Transform3D(0.5, -1.99053e-20, -1.27061e-22, 0, -2.18557e-08, -0.5, 1.99053e-20, 0.5, -2.18557e-08, 1, -1, 0)
@@ -370,8 +378,8 @@ material = SubResource("StandardMaterial3D_3akgm")
 [node name="Squares Intro" type="Node3D" parent="Puzzles/Tutorial" node_paths=PackedStringArray("targets")]
 transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 9.5, 3.5, -8.5)
 script = ExtResource("6_6gi18")
-targets = [NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right")]
-params = Array[int]([0, 0, 0, 0])
+targets = [NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right"), NodePath("Shift Prompt")]
+params = Array[int]([0, 0, 0, 0, 0])
 
 [node name="Top Left" type="Node3D" parent="Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
@@ -407,6 +415,15 @@ instance = NodePath("../../../../Tile")
 on_complete = NodePath("../Combiner")
 on_complete_param = 3
 load_on_start = false
+
+[node name="Shift Prompt" type="CSGMesh3D" parent="Puzzles/Tutorial/Squares Intro"]
+transform = Transform3D(1.45519e-11, 0, 0, 0, -6.36084e-19, 1.45519e-11, 0, -1.45519e-11, -6.36084e-19, 4.99999, -3, 0)
+mesh = SubResource("PlaneMesh_a654v")
+material = SubResource("StandardMaterial3D_7n4st")
+script = ExtResource("4_wy272")
+end_position = Vector3(5, -3, 1.45519e-11)
+end_rotation = Vector3(90, 1.45519e-11, 1.45519e-11)
+end_scale = Vector3(2, 2, 2)
 
 [node name="Combiner" type="Node" parent="Puzzles/Tutorial/Squares Intro" node_paths=PackedStringArray("target")]
 script = ExtResource("17_47y20")
@@ -601,7 +618,6 @@ transform = Transform3D(-0.375, 0, -5.66234e-08, 0, 0.375, 0, 5.66234e-08, 0, -0
 script = ExtResource("6_6gi18")
 targets = [NodePath("Top Left"), NodePath("Top Right"), NodePath("Bottom Left"), NodePath("Bottom Right"), NodePath("Right Click Prompt")]
 params = Array[int]([0, 0, 0, 0, 0])
-load_on_start = true
 
 [node name="Top Left" type="Node3D" parent="Puzzles/Tutorial/Key Puzzles Intro" node_paths=PackedStringArray("key_hint_tile", "instance", "on_complete")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0)
