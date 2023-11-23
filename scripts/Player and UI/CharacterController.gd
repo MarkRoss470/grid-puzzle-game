@@ -53,6 +53,10 @@ func _ready():
 		mouse_sensitivity = new_value
 	)
 	
+	Settings.register_callback("movement_speed", func(new_value):
+		walk_speed = new_value
+	)
+	
 	listener.make_current()
 	
 	audio_player.stream_paused = true

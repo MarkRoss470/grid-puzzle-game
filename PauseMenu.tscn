@@ -1,8 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://wik7t7vdg62d"]
+[gd_scene load_steps=12 format=3 uid="uid://wik7t7vdg62d"]
 
 [ext_resource type="Script" path="res://scripts/Player and UI/PauseMenu.gd" id="1_v8y3b"]
 [ext_resource type="Texture2D" uid="uid://boggi27cieviy" path="res://textures/UI/selection triangle.svg" id="2_jk6ob"]
 [ext_resource type="Texture2D" uid="uid://ccv0esxc3hmdb" path="res://textures/UI/slider_thumb.tres" id="2_kffsq"]
+[ext_resource type="Texture2D" uid="uid://c8ggvbsyk2nc8" path="res://textures/UI/check_button_checked.png" id="2_ps4fx"]
+[ext_resource type="Texture2D" uid="uid://brw71oxjt2dy4" path="res://textures/UI/check_button_unchecked.png" id="3_ia4a5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbs4f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs35c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvmvy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3msc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vav6"]
 bg_color = Color(1, 1, 1, 1)
@@ -16,13 +26,21 @@ expand_margin_bottom = 5.0
 
 [sub_resource type="Theme" id="Theme_2dsvw"]
 default_font_size = 30
+CheckBox/styles/hover = SubResource("StyleBoxFlat_rbs4f")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_bs35c")
+CheckBox/styles/normal = SubResource("StyleBoxFlat_hvmvy")
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_u3msc")
+CheckButton/icons/checked = ExtResource("2_ps4fx")
+CheckButton/icons/unchecked = ExtResource("3_ia4a5")
 HSlider/icons/grabber = ExtResource("2_kffsq")
 HSlider/icons/grabber_highlight = ExtResource("2_kffsq")
 HSlider/styles/slider = SubResource("StyleBoxFlat_4vav6")
 
-[node name="PauseMenu" type="CanvasLayer"]
+[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("background_transparent", "background_opaque")]
 process_mode = 3
 script = ExtResource("1_v8y3b")
+background_transparent = NodePath("Control/Background transparent")
+background_opaque = NodePath("Control/Background opaque")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -33,7 +51,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_2dsvw")
 
-[node name="ColorRect" type="ColorRect" parent="Control"]
+[node name="Background transparent" type="ColorRect" parent="Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,6 +59,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.847059)
+
+[node name="Background opaque" type="ColorRect" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Pause" type="VBoxContainer" parent="Control"]
 visible = false
@@ -80,13 +108,16 @@ mouse_filter = 0
 text = "Reset Save"
 
 [node name="Settings" type="VBoxContainer" parent="Control"]
-visible = false
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -32.0
+offset_right = -64.0
+offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -115,12 +146,55 @@ max_value = 0.1
 step = 0.0005
 value = 0.0005
 
+[node name="Movement Speed" type="Label" parent="Control/Settings"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 0
+text = "Movement Speed"
+
+[node name="HSlider" type="HSlider" parent="Control/Settings/Movement Speed"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 31.0
+offset_top = -7.5
+offset_right = 182.0
+offset_bottom = 8.5
+grow_horizontal = 0
+grow_vertical = 2
+min_value = 0.5
+max_value = 3.0
+step = 0.1
+value = 0.5
+
+[node name="Menu transparency" type="Label" parent="Control/Settings"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 0
+text = "Menu transparency"
+
+[node name="CheckButton" type="CheckButton" parent="Control/Settings/Menu transparency"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.004
+anchor_top = 0.578
+anchor_right = 1.004
+anchor_bottom = 0.578
+offset_left = 18.868
+offset_top = -12.01
+offset_right = 62.868
+offset_bottom = 11.99
+
 [node name="Exit" type="Label" parent="Control/Settings"]
 layout_mode = 2
 mouse_filter = 0
 text = "Exit"
 
 [node name="Reset Save Confirmation" type="VBoxContainer" parent="Control"]
+visible = false
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -167,8 +241,14 @@ texture = ExtResource("2_jk6ob")
 [connection signal="gui_input" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_gui_input" binds= [0]]
 [connection signal="mouse_entered" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_mouse_entered" binds= [0]]
 [connection signal="value_changed" from="Control/Settings/Mouse Sensitivity/HSlider" to="." method="on_menu_item_slider_input" binds= [0]]
-[connection signal="gui_input" from="Control/Settings/Exit" to="." method="on_menu_item_gui_input" binds= [1]]
-[connection signal="mouse_entered" from="Control/Settings/Exit" to="." method="on_menu_item_mouse_entered" binds= [1]]
+[connection signal="gui_input" from="Control/Settings/Movement Speed" to="." method="on_menu_item_gui_input" binds= [1]]
+[connection signal="mouse_entered" from="Control/Settings/Movement Speed" to="." method="on_menu_item_mouse_entered" binds= [1]]
+[connection signal="value_changed" from="Control/Settings/Movement Speed/HSlider" to="." method="on_menu_item_slider_input" binds= [1]]
+[connection signal="gui_input" from="Control/Settings/Menu transparency" to="." method="on_menu_item_gui_input" binds= [2]]
+[connection signal="mouse_entered" from="Control/Settings/Menu transparency" to="." method="on_menu_item_mouse_entered" binds= [2]]
+[connection signal="toggled" from="Control/Settings/Menu transparency/CheckButton" to="." method="on_menu_item_check_button_input" binds= [2]]
+[connection signal="gui_input" from="Control/Settings/Exit" to="." method="on_menu_item_gui_input" binds= [3]]
+[connection signal="mouse_entered" from="Control/Settings/Exit" to="." method="on_menu_item_mouse_entered" binds= [3]]
 [connection signal="gui_input" from="Control/Reset Save Confirmation/Confirm" to="." method="on_menu_item_gui_input" binds= [0]]
 [connection signal="mouse_entered" from="Control/Reset Save Confirmation/Confirm" to="." method="on_menu_item_mouse_entered" binds= [0]]
 [connection signal="gui_input" from="Control/Reset Save Confirmation/Cancel" to="." method="on_menu_item_gui_input" binds= [1]]

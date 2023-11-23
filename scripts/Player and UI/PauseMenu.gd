@@ -14,11 +14,6 @@ enum PauseMenuItems {
 	RESET_SAVE,
 }
 
-enum SettingsMenuItems {
-	MOUSE_SENSITIVITY,
-	EXIT,
-}
-
 enum ResetConfirmationItems {
 	CONFIRM,
 	CANCEL,
@@ -35,30 +30,60 @@ var menus: Array[VBoxContainer] = [
 	$"Control/Reset Save Confirmation"
 ]
 
-const settings := [
-	"mouse_sensitivity",
-]
-
+# A type of setting
 enum SettingType {
 	Slider,
+	CheckButton,
 }
 
+enum SettingsMenuItems {
+	MOUSE_SENSITIVITY,
+	MOVEMENT_SPEED,
+	MENU_TRANSPARENCY,
+	EXIT,
+}
+
+# The names of settings to pass to the Settings class
+const settings := [
+	"mouse_sensitivity",
+	"movement_speed",
+	"menu_transparency",
+]
+
+# What type each setting is
 const setting_types := [
-	SettingType.Slider,
+	SettingType.Slider,      # MOUSE_SENSITIVITY
+	SettingType.Slider,      # MOVEMENT_SPEED
+	SettingType.CheckButton, # MENU_TRANSPARENCY
 	
-	null, # The EXIT option
+	null,                    # EXIT
 ]
 
 @onready
 var selection_triangle := $"Control/Selection Triangle"
 
+@export var background_transparent: Node
+@export var background_opaque: Node
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Set the UI components for settings to match the saved value of the settings
 	for i in len(setting_types):
 		if setting_types[i] == SettingType.Slider:
 			var slider: HSlider = menus[Menu.SETTINGS].get_child(i).get_child(0)
 			var setting_value = Settings.get_setting(settings[i])
 			slider.value = setting_value
+		elif setting_types[i] == SettingType.CheckButton:
+			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(i).get_child(0)
+			var setting_value = Settings.get_setting(settings[i])
+			check_button.button_pressed = setting_value
+	
+	Settings.register_callback("menu_transparency", func(value: bool):
+		# If value is true, this will show the transparent version and hide the opaque
+		# And vice versa if false
+		background_transparent.visible = value
+		background_opaque.visible = !value
+	)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -154,9 +179,13 @@ func select_item():
 			PauseMenuItems.RESET_SAVE:
 				set_menu(Menu.RESET_CONFIRMATION)
 	elif current_menu == Menu.SETTINGS:
-		match selected:
-			SettingsMenuItems.EXIT:
-				set_menu(Menu.PAUSE)
+		if selected == SettingsMenuItems.EXIT:
+			set_menu(Menu.PAUSE)
+		elif setting_types[selected] == SettingType.CheckButton:
+			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(selected).get_child(0)
+			# Don't need to set the actual setting here because that happens in the callback from setting the value
+			check_button.button_pressed = !check_button.button_pressed
+			
 	elif current_menu == Menu.RESET_CONFIRMATION:
 		match selected:
 			ResetConfirmationItems.CONFIRM:
@@ -173,15 +202,22 @@ func select_item():
 			ResetConfirmationItems.CANCEL:
 				set_menu(Menu.PAUSE)
 
+# Callback for when the mouse hovers over a menu item
 func on_menu_item_mouse_entered(menu_item: int):
 	selected = menu_item
 	set_pointer_position()
 
+# Callback for when the player clicks on a menu item
 func on_menu_item_gui_input(event: InputEvent, menu_item: int):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			selected = menu_item
 			select_item()
 
+# Callback for when the value of a slider setting changes
 func on_menu_item_slider_input(value: float, menu_item: int):
+	Settings.set_setting(settings[menu_item], value)
+
+# Callback for when the value of a check button setting changes
+func on_menu_item_check_button_input(value: bool, menu_item: int):
 	Settings.set_setting(settings[menu_item], value)

@@ -1,3 +1,5 @@
 {
 	"mouse_sensitivity": 0.005,
+	"movement_speed": 3.0,
+	"menu_transparency": true,
 }
