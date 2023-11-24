@@ -59,6 +59,7 @@ func _ready():
 			get_window().mode = Window.MODE_FULLSCREEN
 		else:
 			get_window().mode = Window.MODE_MAXIMIZED
+			DisplayServer.window_set_min_size(Vector2i(1280, 720))
 	)
 	
 	listener.make_current()

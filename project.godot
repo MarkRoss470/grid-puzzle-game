@@ -20,6 +20,11 @@ config/icon="res://icon.png"
 Settings="*res://scripts/Settings.gd"
 SaveManager="*res://scripts/SaveManager.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/PuzzleEditorPlugin/plugin.cfg")
