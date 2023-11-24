@@ -22,9 +22,6 @@ class_name CharacterController
 # The audio stream for the player's footsteps
 @export var audio_player: AudioStreamPlayer
 
-# Whether to make the game fullscreen
-@export var fullscreen := true
-
 # Whether the mouse is free (when interacting with a puzzle)
 # Controls whether mouse and keyboard inputs move the player
 var in_puzzle_mode := false
@@ -55,6 +52,13 @@ func _ready():
 	
 	Settings.register_callback("movement_speed", func(new_value):
 		walk_speed = new_value
+	)
+	
+	Settings.register_callback("fullscreen", func(value):
+		if value:
+			get_window().mode = Window.MODE_FULLSCREEN
+		else:
+			get_window().mode = Window.MODE_MAXIMIZED
 	)
 	
 	listener.make_current()
@@ -130,11 +134,6 @@ func _physics_process(delta: float):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	# Set fullscreen on first frame
-	# Prevents graphical artifacts when called in _ready
-	if fullscreen and Engine.get_frames_drawn() == 0:
-		get_window().mode = Window.MODE_MAXIMIZED if (true) else Window.MODE_WINDOWED
-	
 	# If 'free_mouse' input was just pressed, update mouse mode
 	if Input.is_action_just_pressed("free_mouse"):
 		# If mouse is currently free, capture it

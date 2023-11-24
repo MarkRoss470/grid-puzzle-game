@@ -71,7 +71,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Pause" type="VBoxContainer" parent="Control"]
-visible = false
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -87,27 +86,78 @@ layout_mode = 2
 mouse_filter = 0
 text = "Save and Quit"
 
+[node name="ColorRect" type="ColorRect" parent="Control/Pause/Save and Quit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.001
+anchor_right = 1.0
+offset_left = 0.57605
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
+
 [node name="Save Game" type="Label" parent="Control/Pause"]
 layout_mode = 2
 mouse_filter = 0
 text = "Save Game"
+
+[node name="ColorRect" type="ColorRect" parent="Control/Pause/Save Game"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.001
+anchor_right = 1.0
+offset_left = 0.57605
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
 
 [node name="Settings" type="Label" parent="Control/Pause"]
 layout_mode = 2
 mouse_filter = 0
 text = "Settings"
 
+[node name="ColorRect" type="ColorRect" parent="Control/Pause/Settings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.001
+anchor_right = 1.0
+offset_left = 0.57605
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
+
 [node name="Return to Game" type="Label" parent="Control/Pause"]
 layout_mode = 2
 mouse_filter = 0
 text = "Return to Game"
+
+[node name="ColorRect" type="ColorRect" parent="Control/Pause/Return to Game"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.001
+anchor_right = 1.0
+offset_left = 0.57605
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
 
 [node name="Reset Save" type="Label" parent="Control/Pause"]
 layout_mode = 2
 mouse_filter = 0
 text = "Reset Save"
 
+[node name="ColorRect" type="ColorRect" parent="Control/Pause/Reset Save"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.001
+anchor_right = 1.0
+offset_left = 0.57605
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
+
 [node name="Settings" type="VBoxContainer" parent="Control"]
+visible = false
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -188,6 +238,24 @@ offset_top = -12.01
 offset_right = 62.868
 offset_bottom = 11.99
 
+[node name="Fullscreen" type="Label" parent="Control/Settings"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 0
+text = "Fullscreen"
+
+[node name="CheckButton" type="CheckButton" parent="Control/Settings/Fullscreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.004
+anchor_top = 0.578
+anchor_right = 1.004
+anchor_bottom = 0.578
+offset_left = 18.868
+offset_top = -12.01
+offset_right = 62.868
+offset_bottom = 11.99
+
 [node name="Exit" type="Label" parent="Control/Settings"]
 layout_mode = 2
 mouse_filter = 0
@@ -247,8 +315,11 @@ texture = ExtResource("2_jk6ob")
 [connection signal="gui_input" from="Control/Settings/Menu transparency" to="." method="on_menu_item_gui_input" binds= [2]]
 [connection signal="mouse_entered" from="Control/Settings/Menu transparency" to="." method="on_menu_item_mouse_entered" binds= [2]]
 [connection signal="toggled" from="Control/Settings/Menu transparency/CheckButton" to="." method="on_menu_item_check_button_input" binds= [2]]
-[connection signal="gui_input" from="Control/Settings/Exit" to="." method="on_menu_item_gui_input" binds= [3]]
-[connection signal="mouse_entered" from="Control/Settings/Exit" to="." method="on_menu_item_mouse_entered" binds= [3]]
+[connection signal="gui_input" from="Control/Settings/Fullscreen" to="." method="on_menu_item_gui_input" binds= [3]]
+[connection signal="mouse_entered" from="Control/Settings/Fullscreen" to="." method="on_menu_item_mouse_entered" binds= [3]]
+[connection signal="toggled" from="Control/Settings/Fullscreen/CheckButton" to="." method="on_menu_item_check_button_input" binds= [3]]
+[connection signal="gui_input" from="Control/Settings/Exit" to="." method="on_menu_item_gui_input" binds= [4]]
+[connection signal="mouse_entered" from="Control/Settings/Exit" to="." method="on_menu_item_mouse_entered" binds= [4]]
 [connection signal="gui_input" from="Control/Reset Save Confirmation/Confirm" to="." method="on_menu_item_gui_input" binds= [0]]
 [connection signal="mouse_entered" from="Control/Reset Save Confirmation/Confirm" to="." method="on_menu_item_mouse_entered" binds= [0]]
 [connection signal="gui_input" from="Control/Reset Save Confirmation/Cancel" to="." method="on_menu_item_gui_input" binds= [1]]

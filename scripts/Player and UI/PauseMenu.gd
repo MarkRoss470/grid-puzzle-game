@@ -40,6 +40,7 @@ enum SettingsMenuItems {
 	MOUSE_SENSITIVITY,
 	MOVEMENT_SPEED,
 	MENU_TRANSPARENCY,
+	FULLSCREEN,
 	EXIT,
 }
 
@@ -48,6 +49,7 @@ const settings := [
 	"mouse_sensitivity",
 	"movement_speed",
 	"menu_transparency",
+	"fullscreen",
 ]
 
 # What type each setting is
@@ -55,6 +57,7 @@ const setting_types := [
 	SettingType.Slider,      # MOUSE_SENSITIVITY
 	SettingType.Slider,      # MOVEMENT_SPEED
 	SettingType.CheckButton, # MENU_TRANSPARENCY
+	SettingType.CheckButton, # FULLSCREEN
 	
 	null,                    # EXIT
 ]
