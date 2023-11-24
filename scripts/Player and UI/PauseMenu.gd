@@ -69,6 +69,12 @@ var selection_triangle := $"Control/Selection Triangle"
 @export var background_transparent: Node
 @export var background_opaque: Node
 
+# The check mark next to 'Save Game'
+@export var save_game_confirmation: Node
+
+# The tutorial text for resetting settings
+@export var reset_prompt: Node
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set the UI components for settings to match the saved value of the settings
@@ -147,6 +153,7 @@ func _process(delta):
 			var reset_value = Settings.reset_setting(settings[selected])
 			check_button.button_pressed = reset_value
 
+# Show the pause menu and stop the rest of the game from running
 func pause():
 	get_tree().paused = true
 	is_paused = true
@@ -171,6 +178,14 @@ func set_menu(menu: int):
 	for i in len(menus):
 		menus[i].visible = i == current_menu
 	
+	if current_menu == Menu.PAUSE:
+		# Hide the check mark next to 'Save Game'
+		save_game_confirmation.visible = false
+	
+	# Show the reset prompt if the current menu is the settings menu,
+	# and not otherwise
+	reset_prompt.visible = (current_menu == Menu.SETTINGS) 
+	
 	set_pointer_position()
 
 func set_pointer_position():
@@ -184,6 +199,15 @@ func select_item():
 				get_tree().quit()
 			PauseMenuItems.SAVE_GAME:
 				SaveManager.save_all()
+				
+				# Show the checkmark next to the save game option
+				save_game_confirmation.visible = true
+				# Hide the checkmark after a timeout of 1s
+				(func():
+					await get_tree().create_timer(1.0).timeout
+					save_game_confirmation.visible = false
+				).call()
+				
 			PauseMenuItems.SETTINGS:
 				set_menu(Menu.SETTINGS)
 			PauseMenuItems.RETURN_TO_GAME:
