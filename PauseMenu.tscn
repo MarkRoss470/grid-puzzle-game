@@ -32,6 +32,7 @@ CheckBox/styles/normal = SubResource("StyleBoxFlat_hvmvy")
 CheckBox/styles/pressed = SubResource("StyleBoxFlat_u3msc")
 CheckButton/icons/checked = ExtResource("2_ps4fx")
 CheckButton/icons/unchecked = ExtResource("3_ia4a5")
+HSlider/constants/center_grabber = 1
 HSlider/icons/grabber = ExtResource("2_kffsq")
 HSlider/icons/grabber_highlight = ExtResource("2_kffsq")
 HSlider/styles/slider = SubResource("StyleBoxFlat_4vav6")
@@ -71,6 +72,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Pause" type="VBoxContainer" parent="Control"]
+visible = false
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -86,7 +88,7 @@ layout_mode = 2
 mouse_filter = 0
 text = "Save and Quit"
 
-[node name="ColorRect" type="ColorRect" parent="Control/Pause/Save and Quit"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Save and Quit"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -101,7 +103,7 @@ layout_mode = 2
 mouse_filter = 0
 text = "Save Game"
 
-[node name="ColorRect" type="ColorRect" parent="Control/Pause/Save Game"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Save Game"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -116,7 +118,7 @@ layout_mode = 2
 mouse_filter = 0
 text = "Settings"
 
-[node name="ColorRect" type="ColorRect" parent="Control/Pause/Settings"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Settings"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -131,7 +133,7 @@ layout_mode = 2
 mouse_filter = 0
 text = "Return to Game"
 
-[node name="ColorRect" type="ColorRect" parent="Control/Pause/Return to Game"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Return to Game"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -146,7 +148,7 @@ layout_mode = 2
 mouse_filter = 0
 text = "Reset Save"
 
-[node name="ColorRect" type="ColorRect" parent="Control/Pause/Reset Save"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Reset Save"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -157,17 +159,12 @@ mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
 [node name="Settings" type="VBoxContainer" parent="Control"]
-visible = false
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -32.0
-offset_right = -64.0
-offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -178,7 +175,18 @@ size_flags_horizontal = 0
 mouse_filter = 0
 text = "Mouse Sensitivity"
 
-[node name="HSlider" type="HSlider" parent="Control/Settings/Mouse Sensitivity"]
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Mouse Sensitivity"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -9.644
+anchor_right = 8.684
+offset_left = -0.0678711
+offset_right = -0.052002
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
+
+[node name="Slider" type="HSlider" parent="Control/Settings/Mouse Sensitivity"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -186,13 +194,14 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 31.0
-offset_top = -7.5
+offset_top = -9.5
 offset_right = 182.0
-offset_bottom = 8.5
+offset_bottom = 10.5
 grow_horizontal = 0
 grow_vertical = 2
+focus_mode = 0
 min_value = 0.0005
-max_value = 0.1
+max_value = 0.01
 step = 0.0005
 value = 0.0005
 
@@ -202,7 +211,18 @@ size_flags_horizontal = 0
 mouse_filter = 0
 text = "Movement Speed"
 
-[node name="HSlider" type="HSlider" parent="Control/Settings/Movement Speed"]
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Movement Speed"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -9.644
+anchor_right = 8.684
+offset_left = -0.0678711
+offset_right = -0.052002
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
+
+[node name="Slider" type="HSlider" parent="Control/Settings/Movement Speed"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -210,11 +230,12 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = 31.0
-offset_top = -7.5
+offset_top = -9.5
 offset_right = 182.0
-offset_bottom = 8.5
+offset_bottom = 10.5
 grow_horizontal = 0
 grow_vertical = 2
+focus_mode = 0
 min_value = 0.5
 max_value = 3.0
 step = 0.1
@@ -225,6 +246,17 @@ layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 0
 text = "Menu transparency"
+
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Menu transparency"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -9.644
+anchor_right = 8.684
+offset_left = -0.0678711
+offset_right = -0.052002
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
 
 [node name="CheckButton" type="CheckButton" parent="Control/Settings/Menu transparency"]
 layout_mode = 1
@@ -237,12 +269,24 @@ offset_left = 18.868
 offset_top = -12.01
 offset_right = 62.868
 offset_bottom = 11.99
+focus_mode = 0
 
 [node name="Fullscreen" type="Label" parent="Control/Settings"]
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 0
 text = "Fullscreen"
+
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Fullscreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -9.644
+anchor_right = 8.684
+offset_left = -0.0678711
+offset_right = -0.0518799
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
 
 [node name="CheckButton" type="CheckButton" parent="Control/Settings/Fullscreen"]
 layout_mode = 1
@@ -255,11 +299,23 @@ offset_left = 18.868
 offset_top = -12.01
 offset_right = 62.868
 offset_bottom = 11.99
+focus_mode = 0
 
 [node name="Exit" type="Label" parent="Control/Settings"]
 layout_mode = 2
 mouse_filter = 0
 text = "Exit"
+
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Exit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -9.644
+anchor_right = 8.684
+offset_left = -0.0678711
+offset_right = -0.052002
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
 
 [node name="Reset Save Confirmation" type="VBoxContainer" parent="Control"]
 visible = false
@@ -278,10 +334,32 @@ layout_mode = 2
 mouse_filter = 0
 text = "Confirm"
 
+[node name="Selection Area" type="ColorRect" parent="Control/Reset Save Confirmation/Confirm"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -9.644
+anchor_right = 8.684
+offset_left = -0.0678711
+offset_right = -0.052002
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
+
 [node name="Cancel" type="Label" parent="Control/Reset Save Confirmation"]
 layout_mode = 2
 mouse_filter = 0
 text = "Cancel"
+
+[node name="Selection Area" type="ColorRect" parent="Control/Reset Save Confirmation/Cancel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -9.644
+anchor_right = 8.684
+offset_left = -0.0678711
+offset_right = -0.052002
+offset_bottom = 41.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0)
 
 [node name="Selection Triangle" type="TextureRect" parent="Control"]
 layout_mode = 1
@@ -308,10 +386,10 @@ texture = ExtResource("2_jk6ob")
 [connection signal="mouse_entered" from="Control/Pause/Reset Save" to="." method="on_menu_item_mouse_entered" binds= [4]]
 [connection signal="gui_input" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_gui_input" binds= [0]]
 [connection signal="mouse_entered" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_mouse_entered" binds= [0]]
-[connection signal="value_changed" from="Control/Settings/Mouse Sensitivity/HSlider" to="." method="on_menu_item_slider_input" binds= [0]]
+[connection signal="value_changed" from="Control/Settings/Mouse Sensitivity/Slider" to="." method="on_menu_item_slider_input" binds= [0]]
 [connection signal="gui_input" from="Control/Settings/Movement Speed" to="." method="on_menu_item_gui_input" binds= [1]]
 [connection signal="mouse_entered" from="Control/Settings/Movement Speed" to="." method="on_menu_item_mouse_entered" binds= [1]]
-[connection signal="value_changed" from="Control/Settings/Movement Speed/HSlider" to="." method="on_menu_item_slider_input" binds= [1]]
+[connection signal="value_changed" from="Control/Settings/Movement Speed/Slider" to="." method="on_menu_item_slider_input" binds= [1]]
 [connection signal="gui_input" from="Control/Settings/Menu transparency" to="." method="on_menu_item_gui_input" binds= [2]]
 [connection signal="mouse_entered" from="Control/Settings/Menu transparency" to="." method="on_menu_item_mouse_entered" binds= [2]]
 [connection signal="toggled" from="Control/Settings/Menu transparency/CheckButton" to="." method="on_menu_item_check_button_input" binds= [2]]

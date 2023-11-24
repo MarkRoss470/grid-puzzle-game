@@ -41,6 +41,7 @@ enum SettingsMenuItems {
 	MOVEMENT_SPEED,
 	MENU_TRANSPARENCY,
 	FULLSCREEN,
+	
 	EXIT,
 }
 
@@ -73,11 +74,11 @@ func _ready():
 	# Set the UI components for settings to match the saved value of the settings
 	for i in len(setting_types):
 		if setting_types[i] == SettingType.Slider:
-			var slider: HSlider = menus[Menu.SETTINGS].get_child(i).get_child(0)
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(i).get_node("Slider")
 			var setting_value = Settings.get_setting(settings[i])
 			slider.value = setting_value
 		elif setting_types[i] == SettingType.CheckButton:
-			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(i).get_child(0)
+			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(i).get_node("CheckButton")
 			var setting_value = Settings.get_setting(settings[i])
 			check_button.button_pressed = setting_value
 	
@@ -105,14 +106,14 @@ func _process(delta):
 	if !is_paused:
 		return
 	
-	if Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_just_pressed("ui_down") or Input.is_action_just_pressed("move_backward"):
 		selected += 1
 		if selected >= menus[current_menu].get_child_count():
 			selected -= 1
 		
 		set_pointer_position()
 		
-	if Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("move_forward"):
 		selected -= 1
 		if selected < 0:
 			selected += 1
@@ -123,20 +124,28 @@ func _process(delta):
 		select_item()
 	
 	if current_menu == Menu.SETTINGS and setting_types[selected] == SettingType.Slider:
+		var is_even_frame := Engine.get_process_frames() % 4 == 0
+		
 		# These updates triggers a value_changed event,
 		# so there's no need to manually call on_menu_item_slider_input
-		if Input.is_action_pressed("ui_right"):
-			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_child(0)
+		if is_even_frame and (Input.is_action_pressed("ui_right") or Input.is_action_pressed("move_right")):
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_node("Slider")
 			slider.value += slider.step
 		
-		if Input.is_action_pressed("ui_left"):
-			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_child(0)
+		if is_even_frame and (Input.is_action_pressed("ui_left") or Input.is_action_pressed("move_left")):
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_node("Slider")
 			slider.value -= slider.step
 		
 		if Input.is_action_just_pressed("reset"):
-			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_child(0)
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_node("Slider")
 			var reset_value = Settings.reset_setting(settings[selected])
 			slider.value = reset_value
+		
+	if current_menu == Menu.SETTINGS and setting_types[selected] == SettingType.CheckButton:
+		if Input.is_action_just_pressed("reset"):
+			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(selected).get_node("CheckButton")
+			var reset_value = Settings.reset_setting(settings[selected])
+			check_button.button_pressed = reset_value
 
 func pause():
 	get_tree().paused = true
@@ -185,7 +194,7 @@ func select_item():
 		if selected == SettingsMenuItems.EXIT:
 			set_menu(Menu.PAUSE)
 		elif setting_types[selected] == SettingType.CheckButton:
-			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(selected).get_child(0)
+			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(selected).get_node("CheckButton")
 			# Don't need to set the actual setting here because that happens in the callback from setting the value
 			check_button.button_pressed = !check_button.button_pressed
 			
@@ -213,7 +222,7 @@ func on_menu_item_mouse_entered(menu_item: int):
 # Callback for when the player clicks on a menu item
 func on_menu_item_gui_input(event: InputEvent, menu_item: int):
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			selected = menu_item
 			select_item()
 
