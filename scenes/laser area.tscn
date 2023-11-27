@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://n707pql7suy0"]
+[gd_scene load_steps=47 format=3 uid="uid://n707pql7suy0"]
 
 [ext_resource type="PackedScene" uid="uid://bejkb47sxk6pc" path="res://models/laser area/laser area.glb" id="1_up0nh"]
 [ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="1_vkic5"]
@@ -35,6 +35,7 @@
 [ext_resource type="Resource" uid="uid://crp44rofqniu8" path="res://puzzles/lasers/10. coloured routing practise/coloured routing practise 2.tres" id="33_fqafb"]
 [ext_resource type="Resource" uid="uid://b85ctex0c2ak1" path="res://puzzles/lasers/11. challenge 1.tres" id="34_aexm6"]
 [ext_resource type="Resource" uid="uid://dyjtwwoopsg24" path="res://puzzles/lasers/12. challenge 2.tres" id="35_wwotm"]
+[ext_resource type="Resource" uid="uid://dqg6t7esshk08" path="res://puzzles/lasers/13. challenge 3.tres" id="36_7fyuo"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3c676"]
 
@@ -431,10 +432,18 @@ instance = NodePath("../../Tile")
 on_complete = NodePath("../Challenge 2")
 load_on_start = false
 
-[node name="Challenge 2" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance")]
+[node name="Challenge 2" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(5.84122e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, 5.84122e-08, -7.1, 2.3, -3.3)
 script = ExtResource("5_advon")
 puzzle_design = ExtResource("35_wwotm")
+instance = NodePath("../../Tile")
+on_complete = NodePath("../Challenge 3")
+load_on_start = false
+
+[node name="Challenge 3" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance")]
+transform = Transform3D(5.84122e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, 5.84122e-08, -7.1, 2.3, 1.4)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("36_7fyuo")
 instance = NodePath("../../Tile")
 load_on_start = false
 
