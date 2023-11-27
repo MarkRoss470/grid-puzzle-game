@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c58qbxisqorpl"]
+[gd_scene load_steps=30 format=3 uid="uid://c58qbxisqorpl"]
 
 [ext_resource type="Script" path="res://scripts/Player and UI/CharacterController.gd" id="1_8d8a1"]
 [ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="2_77gl7"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://wik7t7vdg62d" path="res://PauseMenu.tscn" id="7_1u80p"]
 [ext_resource type="Script" path="res://scripts/Player and UI/ScreenBorder.gd" id="9_qgk6o"]
 [ext_resource type="PackedScene" uid="uid://t8hmwt7q6oy" path="res://scenes/courtyard.tscn" id="10_rybfv"]
-[ext_resource type="PackedScene" uid="uid://n707pql7suy0" path="res://scenes/laser area.tscn" id="11_x2vnp"]
 
 [sub_resource type="CapsuleShape3D" id="4"]
 height = 1.5
@@ -257,9 +256,6 @@ shape = SubResource("BoxShape3D_eejtu")
 [node name="Islands" parent="." instance=ExtResource("5_5yoom")]
 
 [node name="Courtyard" parent="." instance=ExtResource("10_rybfv")]
-
-[node name="laser area" parent="." instance=ExtResource("11_x2vnp")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -40, 0, -6)
 
 [node name="Mode indicator" type="CanvasLayer" parent="." node_paths=PackedStringArray("container")]
 script = ExtResource("9_qgk6o")

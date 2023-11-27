@@ -2,22 +2,6 @@ extends Node
 
 class_name SolutionChecker
 
-# Class representing the path of a laser beam in a solution
-class LaserPath:
-	# The colour of the beam
-	var colour: int
-	
-	# Whether the path connects at the other end
-	var valid: bool
-	
-	# The coordinates of the cells the path goes through
-	var path: Array[Array]
-	
-	func equals(other: LaserPath) -> bool:
-		if self.colour != other.colour: return false
-		if self.valid != other.valid: return false
-		return self.path == other.path
-
 # Class representing a solution
 class Solution:
 	# Whether the solution is a valid puzzle state
@@ -30,8 +14,6 @@ class Solution:
 	
 	# The regions of the puzzle
 	var regions: Array[Region]
-	# The paths of lasers
-	var laser_paths: Array[LaserPath]
 	
 	# Simple constructor
 	func _init():
@@ -185,25 +167,6 @@ class Region:
 					if puzzle_icon.icon == icon and puzzle_icon.colour == colour:
 						return [x, y]
 		return []
-	
-	# Tests the region's horizontal and vertical symmetry.
-	# Returns whether the region is symmetric around each axis
-	func test_symmetry() -> Array[bool]:
-		var to_sub_x := bounding_box_l + bounding_box_r
-		var to_sub_y := bounding_box_u + bounding_box_d
-		
-		var symmetrical_horizontal := true
-		var symmetrical_vertical := true
-		
-		# TODO: lots of repeated work here, optimise if necessary
-		for x in range(bounding_box_l, bounding_box_r + 1):
-			for y in range(bounding_box_u, bounding_box_d + 1):
-				if cells[x][y] != cells[to_sub_x - x][y]:
-					symmetrical_horizontal = false
-				if cells[x][y] != cells[x][to_sub_y - y]:
-					symmetrical_vertical = false
-		
-		return [symmetrical_horizontal, symmetrical_vertical]
 		
 	func equals(other: Region) -> bool:
 		return cells == other.cells
@@ -242,29 +205,6 @@ static func check_solution(puzzle: PuzzleDesign, state: Array[Array]) -> Solutio
 				PuzzleClasses.SQUARE:
 					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.SQUARE, puzzle_cells[x][y].colour, x, y):
 						result.add_wrong(x, y)
-				# Circles have to be in the same region as another circle of the same colour
-				PuzzleClasses.CIRCLE:
-					if containing_region.contains_icon(puzzle_cells, PuzzleClasses.CIRCLE, puzzle_cells[x][y].colour, x, y):
-						pass
-					else:
-						result.add_wrong(x, y)
-				# Symmetry icons have to be in a region which is symmetrical along a given axis.
-				# The icon does not have to be on the axis of symmetry.
-				PuzzleClasses.SYMMETRY_HORIZONTAL:
-					if not containing_region.test_symmetry()[0]:
-						result.add_wrong(x, y)
-				PuzzleClasses.SYMMETRY_VERTICAL:
-					if not containing_region.test_symmetry()[1]:
-						result.add_wrong(x, y)
-				
-				PuzzleClasses.LASER, PuzzleClasses.LASER_FIXED:
-					var path := check_laser(puzzle, state, x, y)
-					
-					if !path.valid:
-						result.add_wrong(x, y)
-					
-					# Add the path to the list even if it's not valid so that SymbolPuzzle can flash icons based on it
-					result.laser_paths.append(path)
 	
 	result.regions = regions
 	return result
@@ -322,100 +262,3 @@ static func calculate_regions(puzzle: PuzzleDesign, state: Array[Array]) -> Arra
 		assigned_subcells.fill_from(region)
 		regions.append(region)
 	return regions
-
-# Checks whether a laser or fixed laser icon is solved
-static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: int) -> LaserPath:
-	var colour = puzzle.icons[x][y].colour
-	
-	var search_x = x
-	var search_y = y
-	var search_direction = state[x][y]
-	
-	var i = 0
-	
-	var path := LaserPath.new()
-	path.valid = false
-	path.colour = puzzle.icons[x][y].colour
-	path.path.append([search_x, search_y])
-	
-	while true:
-		# Protection agains infinite loops - this should never be triggered.
-		# If I ever make a really really big puzzle this number might need to be increased
-		# But back of the envelope this should be fine for puzzles smaller than 20x20
-		i += 1
-		if i == 1000: 
-			push_error("Laser loop limit reached")
-			push_error("x: ", x, ", y: ", y)
-			push_error("search_x: ", search_x, ", search_y: ", search_y)
-			return path
-		
-		# search_direction might have been increased below 0 or above 4 last iteration
-		search_direction = (search_direction + 4) % 4
-		
-		# Move in the direction of search_direction and stop if the edge of the puzle is reached
-		match search_direction:
-			0: # UP
-				search_y -= 1
-				if search_y < 0: return path
-			1: # RIGHT
-				search_x += 1
-				if search_x >= puzzle.width: return path
-			2: # DOWN
-				search_y +=1 
-				if search_y >= puzzle.height: return path
-			3: # LEFT
-				search_x -= 1
-				if search_x < 0: return path
-		
-		path.path.append([search_x, search_y])
-		
-		var icon: PuzzleDesignIcon = puzzle.icons[search_x][search_y]
-		# Get the rotation of the current cell
-		var rotation = state[search_x][search_y]
-		# Get which face the beam is entering the cell
-		# e.g. relative_rotation = 0 means the beam is entering the top of the cell, 1 = right etc.
-		# This is relative to the rotation of the cell itself
-		var relative_rotation = (search_direction - rotation + 6) % 4
-		
-		# Pointers of the same colour as the beam are ignored
-		if icon.icon in PuzzleClasses.POINTERS and icon.colour == colour:
-			continue
-		
-		match icon.icon:
-			# NO_CELL tiles don't transmit the beam
-			PuzzleClasses.NO_CELL: return path
-			# EMPTY cells transmit the beam unaltered
-			PuzzleClasses.EMPTY: pass
-			# Correctly coloured and rotated lasers mean the rule is followed
-			PuzzleClasses.LASER, PuzzleClasses.LASER_FIXED:
-				# If the lasers are the same colour and the other laser is facing toward search_direction
-				if icon.colour == colour and relative_rotation == 0:
-					path.valid = true
-					return path
-				else:
-					return path
-			# Single pointers need to be aligned
-			PuzzleClasses.POINTER_SINGLE, PuzzleClasses.FIXED_POINTER_SINGLE:
-				if not relative_rotation in [0, 2]: return path
-			# Straight double pointers need to be aligned
-			PuzzleClasses.POINTER_DOUBLE_STRAIGHT, PuzzleClasses.FIXED_POINTER_DOUBLE_STRAIGHT:
-				if not relative_rotation in [0, 2]: return path
-			# Angled double pointers change the direction of the beam
-			PuzzleClasses.POINTER_DOUBLE_ANGLE, PuzzleClasses.FIXED_POINTER_DOUBLE_ANGLE:
-				if relative_rotation == 0: search_direction -= 1
-				elif relative_rotation == 1: search_direction += 1
-				else: return path
-			# Triple pointers need to be aligned
-			PuzzleClasses.POINTER_TRIPLE, PuzzleClasses.FIXED_POINTER_TRIPLE:
-				if not relative_rotation in [0, 2]: return path
-			# Quadruple pointers don't affect the beam
-			PuzzleClasses.POINTER_QUADRUPLE, PuzzleClasses.FIXED_POINTER_QUADRUPLE:
-				pass
-			
-			# Any other cells don't transmit the beam
-			_: return path
-	
-	# This while loop should never exit exept with a return statement so this code should never be reached
-	# However it is needed for the function to type-check 
-	push_error("Laser loop broken")
-	return null
