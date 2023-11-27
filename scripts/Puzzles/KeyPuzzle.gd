@@ -71,7 +71,6 @@ func rotate_cell(x: int, y: int, direction: int) -> bool:
 			# Set cells to colour on incorrect solution
 			for cell in solution.wrong_cells:
 				tiles[cell[0]][cell[1]].flash(colour_incorrect_base, 0.5)
-			play_sound(Sound.Incorrect)
 		
 		# The rotation was invalid, so return false
 		return false
