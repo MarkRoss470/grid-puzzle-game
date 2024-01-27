@@ -186,6 +186,12 @@ grow_vertical = 0
 [node name="PauseMenu" parent="." instance=ExtResource("7_1u80p")]
 visible = false
 
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -16)
+text = "Congratulations!
+You have completed prototype 4!"
+font_size = 100
+
 [connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
 [connection signal="mouse_exited" from="Tile/Area3D" to="Tile" method="mouse_exit"]
