@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://wik7t7vdg62d"]
+[gd_scene load_steps=10 format=3 uid="uid://wik7t7vdg62d"]
 
 [ext_resource type="Script" path="res://scripts/Player and UI/PauseMenu.gd" id="1_v8y3b"]
 [ext_resource type="Texture2D" uid="uid://boggi27cieviy" path="res://textures/UI/selection triangle.svg" id="2_jk6ob"]
@@ -6,14 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c8ggvbsyk2nc8" path="res://textures/UI/check_button_checked.png" id="2_ps4fx"]
 [ext_resource type="Texture2D" uid="uid://brw71oxjt2dy4" path="res://textures/UI/check_button_unchecked.png" id="3_ia4a5"]
 [ext_resource type="Texture2D" uid="uid://dptq74qgt43ep" path="res://textures/UI/save game check.svg" id="5_gr3am"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbs4f"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bs35c"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hvmvy"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3msc"]
+[ext_resource type="FontFile" uid="uid://dv5gfv0nfcalx" path="res://textures/Inter-4.0/extras/otf/Inter-Medium.otf" id="5_r7gi3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vav6"]
 bg_color = Color(1, 1, 1, 1)
@@ -27,16 +20,13 @@ expand_margin_bottom = 5.0
 
 [sub_resource type="Theme" id="Theme_2dsvw"]
 default_font_size = 30
-CheckBox/styles/hover = SubResource("StyleBoxFlat_rbs4f")
-CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_bs35c")
-CheckBox/styles/normal = SubResource("StyleBoxFlat_hvmvy")
-CheckBox/styles/pressed = SubResource("StyleBoxFlat_u3msc")
 CheckButton/icons/checked = ExtResource("2_ps4fx")
 CheckButton/icons/unchecked = ExtResource("3_ia4a5")
 HSlider/constants/center_grabber = 1
 HSlider/icons/grabber = ExtResource("2_kffsq")
 HSlider/icons/grabber_highlight = ExtResource("2_kffsq")
 HSlider/styles/slider = SubResource("StyleBoxFlat_4vav6")
+Label/fonts/font = ExtResource("5_r7gi3")
 
 [node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("background_transparent", "background_opaque", "save_game_confirmation", "reset_prompt")]
 process_mode = 3
@@ -391,7 +381,7 @@ grow_vertical = 2
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_jk6ob")
 
-[node name="Save and Quit" type="Label" parent="Control"]
+[node name="Control Prompt" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
