@@ -296,14 +296,12 @@ key_hint_tile = NodePath("../../../Key Hint Tile")
 puzzle_design = ExtResource("3_3dm6f")
 instance = NodePath("../../../Tile")
 on_complete = NodePath("../../Splitter")
-solve_sound = 1
 
 [node name="Left Door" type="StaticBody3D" parent="Final Puzzle and Doors"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9, 2, -10.1)
 script = ExtResource("4_wy272")
 end_position = Vector3(-4.9, 2, -10.1)
 end_rotation = Vector3(1.45519e-11, 90, 1.45519e-11)
-motion_sound = 1
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Final Puzzle and Doors/Left Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 0, 0)
@@ -319,7 +317,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9, 2, -10.1)
 script = ExtResource("4_wy272")
 end_position = Vector3(4.9, 2, -10.1)
 end_rotation = Vector3(1.45519e-11, -90, 1.45519e-11)
-motion_sound = 1
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Final Puzzle and Doors/Right Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0, 0)
@@ -813,7 +810,6 @@ colour_base = Color(0, 0, 0, 0)
 colour_hover = Color(0, 0, 0, 0)
 colour_solved_base = Color(0.128728, 5.77569e-07, 0.965952, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
-solve_sound = 2
 
 [node name="Island 2 Under Shape Puzzle" type="Node3D" parent="Fountain Puzzles/North-East Side" node_paths=PackedStringArray("instance")]
 transform = Transform3D(-8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 0.01, -12, 3)
@@ -825,7 +821,6 @@ colour_base = Color(0, 0, 0, 0)
 colour_hover = Color(0, 0, 0, 0)
 colour_solved_base = Color(0.128728, 5.77569e-07, 0.965952, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
-solve_sound = 2
 
 [node name="North-West Side" type="Node3D" parent="Fountain Puzzles"]
 transform = Transform3D(-0.2, 0, -1.74845e-08, 0, 0.2, 0, 1.74845e-08, 0, -0.2, 0, 0, -0.5)
@@ -840,7 +835,6 @@ colour_base = Color(0, 0, 0, 1)
 colour_hover = Color(0, 0, 0, 1)
 colour_solved_base = Color(0.128728, 5.77569e-07, 0.965952, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
-solve_sound = 2
 
 [node name="Middle Cube Puzzle" type="Node3D" parent="Fountain Puzzles/North-West Side" node_paths=PackedStringArray("instance")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -5.5, 0)
@@ -852,7 +846,6 @@ colour_base = Color(0, 0, 0, 1)
 colour_hover = Color(0, 0, 0, 1)
 colour_solved_base = Color(0.128728, 5.77569e-07, 0.965952, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
-solve_sound = 2
 
 [node name="Bottom Cube Puzzle" type="Node3D" parent="Fountain Puzzles/North-West Side" node_paths=PackedStringArray("instance")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -10, 0)
@@ -864,7 +857,6 @@ colour_base = Color(0, 0, 0, 1)
 colour_hover = Color(0, 0, 0, 1)
 colour_solved_base = Color(0.129412, 0, 0.964706, 1)
 colour_solved_hover = Color(0.0196078, 0, 0.337255, 1)
-solve_sound = 2
 
 [node name="Fountain Puzzle Tile" type="Node3D" parent="Fountain Puzzles"]
 visible = false
