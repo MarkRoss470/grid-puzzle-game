@@ -1,17 +1,6 @@
 extends Node3D
 class_name Puzzle
 
-"""
-represents the puzzle - sets which icons go in which cells
-[
-	width, height,
-	key_x, key_y, # The x and y positions of the key cell
-	[[PuzzleCell or null; width]; height], # The cells' symbols
-	target_rotation, # The target rotation of the key cell
-]
-"""
-
-
 @export_group("Puzzle")
 
 @export var puzzle_design := PuzzleDesign.new()

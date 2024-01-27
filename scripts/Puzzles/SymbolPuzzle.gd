@@ -55,17 +55,12 @@ func check_state() -> bool:
 	
 	reset_tile_colours()
 	
-#	print("[")
-#	for path in solution.laser_paths:
-#		print("    ", path.path, ",")
-#	print("]")
-	
 	return solution.is_valid
 
 func reset():
 	super.reset()
 	
-	# Call check_state twice. The first call will update `regions` and `laser_paths`
+	# Call check_state twice. The first call will update `regions`
 	check_state()
 	# The second call will cancel all the icon flashes.
 	check_state()
