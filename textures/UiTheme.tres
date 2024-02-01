@@ -1,0 +1,26 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bbuk52teynur5"]
+
+[ext_resource type="Texture2D" uid="uid://c8ggvbsyk2nc8" path="res://textures/UI/check_button_checked.png" id="1_ao5j4"]
+[ext_resource type="Texture2D" uid="uid://brw71oxjt2dy4" path="res://textures/UI/check_button_unchecked.png" id="2_0wde5"]
+[ext_resource type="Texture2D" uid="uid://ccv0esxc3hmdb" path="res://textures/UI/slider_thumb.tres" id="3_c6ano"]
+[ext_resource type="FontFile" uid="uid://dv5gfv0nfcalx" path="res://textures/Inter-4.0/extras/otf/Inter-Medium.otf" id="4_c4upk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vav6"]
+bg_color = Color(1, 1, 1, 1)
+border_color = Color(0.741176, 0.815686, 0.839216, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[resource]
+default_font_size = 30
+CheckButton/icons/checked = ExtResource("1_ao5j4")
+CheckButton/icons/unchecked = ExtResource("2_0wde5")
+HSlider/constants/center_grabber = 1
+HSlider/icons/grabber = ExtResource("3_c6ano")
+HSlider/icons/grabber_highlight = ExtResource("3_c6ano")
+HSlider/styles/slider = SubResource("StyleBoxFlat_4vav6")
+Label/fonts/font = ExtResource("4_c4upk")

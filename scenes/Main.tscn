@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c58qbxisqorpl"]
+[gd_scene load_steps=25 format=3 uid="uid://c58qbxisqorpl"]
 
 [ext_resource type="Script" path="res://scripts/Player and UI/CharacterController.gd" id="1_8d8a1"]
 [ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="2_77gl7"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://uuwbhhgm6oqp" path="res://models/islands/islands.glb" id="5_5yoom"]
 [ext_resource type="PackedScene" uid="uid://wik7t7vdg62d" path="res://PauseMenu.tscn" id="7_1u80p"]
 [ext_resource type="Script" path="res://scripts/Player and UI/ScreenBorder.gd" id="9_qgk6o"]
+[ext_resource type="Theme" uid="uid://bbuk52teynur5" path="res://textures/UiTheme.tres" id="10_b35so"]
+[ext_resource type="Script" path="res://scripts/Player and UI/PausePrompt.gd" id="10_fah3g"]
 [ext_resource type="PackedScene" uid="uid://t8hmwt7q6oy" path="res://scenes/courtyard.tscn" id="10_rybfv"]
 [ext_resource type="PackedScene" uid="uid://n707pql7suy0" path="res://scenes/laser area.tscn" id="11_x2vnp"]
 
@@ -51,10 +53,17 @@ size = Vector3(28, 1, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_gcx3q"]
 size = Vector3(28, 1, 0.2)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ny5iu"]
+bg_color = Color(1, 1, 1, 0.662745)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
 [node name="Node3D" type="Node3D"]
 metadata/movie_file = "test"
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "mode_indicator", "listener", "audio_player")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "mode_indicator", "listener", "audio_player", "input_blocker")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -65,6 +74,7 @@ camera = NodePath("PlayerCamera")
 mode_indicator = NodePath("../Mode indicator")
 listener = NodePath("PlayerCamera/AudioListener3D")
 audio_player = NodePath("AudioStreamPlayer")
+input_blocker = NodePath("Input Blocker/Input Blocker")
 
 [node name="PlayerCapsule" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
@@ -78,6 +88,16 @@ current = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("2_x65xw")
+
+[node name="Input Blocker" type="CanvasLayer" parent="Player"]
+
+[node name="Input Blocker" type="Control" parent="Player/Input Blocker"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Tile" type="Node3D" parent="."]
 visible = false
@@ -144,6 +164,7 @@ shape = SubResource("BoxShape3D_gcx3q")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -40, 0, -6)
 
 [node name="Mode indicator" type="CanvasLayer" parent="." node_paths=PackedStringArray("container")]
+visible = false
 script = ExtResource("9_qgk6o")
 container = NodePath("Container")
 
@@ -197,6 +218,50 @@ grow_vertical = 0
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_1u80p")]
 visible = false
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -16)
+text = "Congratulations!
+You have completed prototype 4!"
+font_size = 100
+
+[node name="Pause Prompt" type="CanvasLayer" parent="."]
+script = ExtResource("10_fah3g")
+
+[node name="Control" type="Control" parent="Pause Prompt"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("10_b35so")
+
+[node name="Panel" type="Panel" parent="Pause Prompt/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -176.0
+offset_top = 32.0
+offset_right = 176.0
+offset_bottom = 83.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ny5iu")
+
+[node name="Label" type="Label" parent="Pause Prompt/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 6.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Press Tab to pause"
+horizontal_alignment = 1
 
 [connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
