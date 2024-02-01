@@ -1,32 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://wik7t7vdg62d"]
+[gd_scene load_steps=5 format=3 uid="uid://wik7t7vdg62d"]
 
 [ext_resource type="Script" path="res://scripts/Player and UI/PauseMenu.gd" id="1_v8y3b"]
+[ext_resource type="Theme" uid="uid://bbuk52teynur5" path="res://textures/UiTheme.tres" id="2_14brh"]
 [ext_resource type="Texture2D" uid="uid://boggi27cieviy" path="res://textures/UI/selection triangle.svg" id="2_jk6ob"]
-[ext_resource type="Texture2D" uid="uid://ccv0esxc3hmdb" path="res://textures/UI/slider_thumb.tres" id="2_kffsq"]
-[ext_resource type="Texture2D" uid="uid://c8ggvbsyk2nc8" path="res://textures/UI/check_button_checked.png" id="2_ps4fx"]
-[ext_resource type="Texture2D" uid="uid://brw71oxjt2dy4" path="res://textures/UI/check_button_unchecked.png" id="3_ia4a5"]
 [ext_resource type="Texture2D" uid="uid://dptq74qgt43ep" path="res://textures/UI/save game check.svg" id="5_gr3am"]
-[ext_resource type="FontFile" uid="uid://dv5gfv0nfcalx" path="res://textures/Inter-4.0/extras/otf/Inter-Medium.otf" id="5_r7gi3"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vav6"]
-bg_color = Color(1, 1, 1, 1)
-border_color = Color(0.741176, 0.815686, 0.839216, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
-
-[sub_resource type="Theme" id="Theme_2dsvw"]
-default_font_size = 30
-CheckButton/icons/checked = ExtResource("2_ps4fx")
-CheckButton/icons/unchecked = ExtResource("3_ia4a5")
-HSlider/constants/center_grabber = 1
-HSlider/icons/grabber = ExtResource("2_kffsq")
-HSlider/icons/grabber_highlight = ExtResource("2_kffsq")
-HSlider/styles/slider = SubResource("StyleBoxFlat_4vav6")
-Label/fonts/font = ExtResource("5_r7gi3")
 
 [node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("background_transparent", "background_opaque", "save_game_confirmation", "reset_prompt")]
 process_mode = 3
@@ -43,7 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_2dsvw")
+theme = ExtResource("2_14brh")
 
 [node name="Background transparent" type="ColorRect" parent="Control"]
 layout_mode = 1
