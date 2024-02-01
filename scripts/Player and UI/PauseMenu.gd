@@ -77,6 +77,10 @@ var selection_triangle := $"Control/Selection Triangle"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Web browsers can't reliably close tabs from scripts, so don't show the 'Save and Quit' option on web.
+	if OS.get_name() == "Web":
+		menus[Menu.PAUSE].get_child(PauseMenuItems.SAVE_AND_QUIT).visible = false
+	
 	# Set the UI components for settings to match the saved value of the settings
 	for i in len(setting_types):
 		if setting_types[i] == SettingType.Slider:
@@ -93,6 +97,13 @@ func _ready():
 		# And vice versa if false
 		background_transparent.visible = value
 		background_opaque.visible = !value
+	)
+	
+	# The 'fullscreen' setting can be set by other code if the user exits fullscreen using system controls.
+	# When this happens, update the check button to the right value
+	Settings.register_callback("fullscreen", func(value: bool):
+		var check_button: CheckButton = menus[Menu.SETTINGS].get_child(SettingsMenuItems.FULLSCREEN).get_node("CheckButton")
+		check_button.button_pressed = value
 	)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -113,16 +124,39 @@ func _process(delta):
 		return
 	
 	if Input.is_action_just_pressed("ui_down") or Input.is_action_just_pressed("move_backward"):
-		selected += 1
-		if selected >= menus[current_menu].get_child_count():
-			selected -= 1
+		var num_children = menus[current_menu].get_child_count()
+		var previous_selected = selected
+		
+		while true:
+			selected += 1
+			
+			# If there are no more items to check, reset to previous state
+			if selected >= num_children:
+				selected = previous_selected
+				break
+			
+			var candidate: Control = menus[current_menu].get_child(selected)
+			# If the node is visible, choose it
+			if candidate.visible:
+				break
 		
 		set_pointer_position()
 		
 	if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("move_forward"):
-		selected -= 1
-		if selected < 0:
-			selected += 1
+		var previous_selected = selected
+		
+		while true:
+			selected -= 1
+			
+			# If there are no more items to check, reset to previous state
+			if selected < 0:
+				selected = previous_selected
+				break
+			
+			var candidate: Control = menus[current_menu].get_child(selected)
+			# If the node is visible, choose it
+			if candidate.visible:
+				break
 		
 		set_pointer_position()
 	
@@ -174,6 +208,12 @@ func unpause():
 func set_menu(menu: int):
 	selected = 0
 	current_menu = menu
+	
+	while true:
+		if menus[current_menu].get_child(selected).visible:
+			break
+		
+		selected += 1
 	
 	for i in len(menus):
 		menus[i].visible = i == current_menu
@@ -227,13 +267,7 @@ func select_item():
 			ResetConfirmationItems.CONFIRM:
 				SaveManager.reset_save()
 				# Restart the application
-				
-				# Find the executable which is running for this game
-				var executable_path = OS.get_executable_path()
-				# Start a new instance of the game
-				OS.create_process(executable_path, [])
-				# Quit the current instance of the game
-				get_tree().quit()
+				GameManager.reload()
 				
 			ResetConfirmationItems.CANCEL:
 				set_menu(Menu.PAUSE)

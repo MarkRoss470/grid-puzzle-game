@@ -22,9 +22,14 @@ class_name CharacterController
 # The audio stream for the player's footsteps
 @export var audio_player: AudioStreamPlayer
 
+# The node which blocks mouse events when the player is in movement mode
+@export var input_blocker: Control
+
 # Whether the mouse is free (when interacting with a puzzle)
 # Controls whether mouse and keyboard inputs move the player
 var in_puzzle_mode := false
+# The time since the player's mode last changed
+var time_since_last_change := 0.0
 
 # The vertical velocity
 var y_velocity := 0.0
@@ -71,10 +76,26 @@ func _ready():
 # Called on input events
 # Rotation is calculated here, movement is calculated in _physics_process
 func _input(event: InputEvent):
+	if event is InputEventMouseButton and not in_puzzle_mode:
+		# Capture the mouse on left-clicks while in movement mode.
+		# This recaptures the mouse if it has been uncaptured e.g. from a window or tab change
+		if event.button_index == 1:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	# Turn camera on mouse motion
 	if event is InputEventMouseMotion:
 		# Don't turn if interacting with a puzzle
 		if in_puzzle_mode: return
+		
+		# If the player switches into movement mode on web while the mouse is moving,
+		# a mouse movement event is generated with the relative coordinates set to the offset that
+		# the mouse moved since the last time the pointer was captured, leading to a jarring rotation.
+		# 
+		# To filter out this event, clamp each axis to the range [-20, 20] pixels if it's less than
+		# half a second since the player switched from puzzle mode.
+		if OS.get_name() == "Web" and not in_puzzle_mode and time_since_last_change < 0.5:
+			event.relative[0] = min(max(event.relative[0], -20), 20)
+			event.relative[1] = min(max(event.relative[1], -20), 20)
 		
 		# Calculate current up/down view angle (angle to up vector)
 		var current_angle := camera.transform.basis.z.angle_to(Vector3.UP)
@@ -90,6 +111,13 @@ func _input(event: InputEvent):
 		camera.rotate_object_local(Vector3.LEFT, current_angle - new_angle)
 		# Apply left/right rotation
 		camera.rotate(Vector3.DOWN, event.relative[0] * mouse_sensitivity)
+	
+	if event is InputEventKey and Input.is_action_just_pressed("free_mouse"):
+		# Enter or leave puzzle mode
+		if in_puzzle_mode:
+			leave_puzzle_mode()
+		else:
+			enter_puzzle_mode()
 
 # Called each frame
 # Movement is calculated here, rotation is calculated in _input
@@ -134,22 +162,17 @@ func _physics_process(delta: float):
 		y_velocity = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(delta):
+	time_since_last_change += delta
+
 	# If 'free_mouse' input was just pressed, update mouse mode
 	if Input.is_action_just_pressed("free_mouse"):
 		# If mouse is currently free, capture it
 		if in_puzzle_mode:
-			# Hide the screen border
-			mode_indicator.hide_border()
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			in_puzzle_mode = false
-			get_tree().call_group("puzzle_tiles", "mouse_exit")
+			enter_puzzle_mode()
 		# If mouse is currently captured, free it
 		else:
-			# Show the screen border
-			mode_indicator.show_border()
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-			in_puzzle_mode = true
+			leave_puzzle_mode()
 	
 	# If the player is moving, play the footsteps sound
 	if Input.is_action_pressed("move_right") or Input.is_action_pressed("move_left") or Input.is_action_pressed("move_backward") or Input.is_action_pressed("move_forward"):
@@ -157,6 +180,32 @@ func _process(_delta):
 		audio_player.stream_paused = false
 	else:
 		audio_player.stream_paused = true
+
+# Enters puzzle mode - shows the screen border and frees the mouse
+func enter_puzzle_mode():
+	time_since_last_change = 0
+	
+	# Show the screen border
+	mode_indicator.show_border()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	in_puzzle_mode = true
+	
+	# Hide the input blocker
+	input_blocker.visible = false
+	
+
+# Leaves puzzle mode - hides the screen border and captures the mouse
+func leave_puzzle_mode():
+	time_since_last_change = 0
+	
+	# Hide the screen border
+	mode_indicator.hide_border()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	in_puzzle_mode = false
+	get_tree().call_group("puzzle_tiles", "mouse_exit")
+	
+	# Show the input blocker
+	input_blocker.visible = true
 
 func save():
 	SaveManager.set_state("player", {
