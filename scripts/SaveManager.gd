@@ -9,7 +9,8 @@ var states: Dictionary
 var time_since_last_save := 0.0
 # Autosave every 2 minutes
 const seconds_between_autosaves := 120.0
-
+# Whether the save file was just deleted
+var just_deleted := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
@@ -55,8 +56,12 @@ func _process(delta):
 		SaveManager.save_all()
 
 func _notification(what):
+	# When the game is closing, save the state
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		SaveManager.save_all()
+		# If this close is the reload after the save file was reset, don't re-write the file.
+		if not just_deleted:
+			SaveManager.save_all()
 
 func reset_save():
 	DirAccess.remove_absolute(save_path)
+	just_deleted = true
