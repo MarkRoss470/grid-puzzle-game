@@ -30,6 +30,8 @@ represents the puzzle - sets which icons go in which cells
 @export var tile_animation_time := 0.5
 # The offset between tiles' animations
 @export var tile_animation_offset := 0.1
+# The total time a wipe will take to complete
+@onready var total_wipe_time := (puzzle_design.width + puzzle_design.height) * tile_animation_offset + tile_animation_time
 
 @export_group("Colours")
 
@@ -51,9 +53,28 @@ static func default_colour_solved_hover() -> Color: return Color(0.5, 1, 0.5)
 
 var loaded := false
 
+class Wipe:
+	# The direction of the wipe (1 = load, -1 = unload)
+	var direction: int
+	# The time in seconds since the wipe began
+	var progress: float
+	# Which cells the wipe has fully processed, as a 2D array of bools
+	var processed_cells: Array[Array]
+	
+	func _init(direction_p: int, x: int, y: int):
+		direction = direction_p
+		progress = 0
+		
+		processed_cells = []
+		
+		for _x in x:
+			processed_cells.append([])
+			for _y in y:
+				processed_cells[-1].append(false)
+
 # An array of all the tile load / unloads occuring
-# Each item is of the format [direction, progress] 
-var wipes := []
+var wipes: Array[Wipe] = []
+
 # The direction of a queued wipe
 # 0 = no wipe queued
 # 1 = load
@@ -127,8 +148,8 @@ func _ready():
 func add_wipe(direction: int):
 	last_wipe_direction = direction
 	
-	if len(wipes) == 0 or wipes[-1][1] > tile_animation_time:
-		wipes.append([direction, 0.0])
+	if len(wipes) == 0 or wipes[-1].progress > tile_animation_time:
+		wipes.append(Wipe.new(direction, puzzle_design.width, puzzle_design.height))
 	else:
 		next_wipe_direction = direction
 
@@ -237,7 +258,7 @@ func reset():
 	if len(wipes) != 0:
 		return
 	
-	# Reset tiles and current state
+	# Reset current state
 	for x in puzzle_design.width:
 		for y in puzzle_design.height:
 			current_state[x][y] = puzzle_design.icons[x][y].rotation
@@ -292,28 +313,29 @@ func reset_tile_colours():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # Handles the puzzle's load and unload animations
-func _process(delta):
+func _process(delta: float):
 	# The index of a completed wipe, if there is one
 	var completed_wipe = -1
 	
 	for i in len(wipes):
 		# 1 if load, -1 if unload
-		var direction = wipes[i][0]
-		var prev_progress = wipes[i][1]
-		var progress = prev_progress + delta
-		wipes[i][1] = progress
+		var direction := wipes[i].direction
+		
+		# Update progress but keep old value in prev_progress
+		var prev_progress := wipes[i].progress
+		var progress := prev_progress + delta
+		wipes[i].progress = progress
 		
 		# Update rotation + scale of every tile
 		for x in puzzle_design.width:
 			for y in puzzle_design.height:
+				var tile_animation_start := (x + y) * tile_animation_offset
+				var tile_animation_end := (x + y) * tile_animation_offset + tile_animation_time
 				
-				var tile_animation_start = (x + y) * tile_animation_offset
-				var tile_animation_end = (x + y) * tile_animation_offset + tile_animation_time
-				
-				if prev_progress > tile_animation_end or progress < tile_animation_start:
+				if wipes[i].processed_cells[x][y] or progress < tile_animation_start:
 					continue
 				
-				var tile = tiles[x][y]
+				var tile: PuzzleTile = tiles[x][y]
 				
 				if tile == null:
 					# If the tile is already null, don't load it just to unload it
@@ -333,7 +355,11 @@ func _process(delta):
 					add_child(tile)
 				
 				# If this is the last frame of animation for the tile, set it to the finishing position
-				if progress > tile_animation_end and tile_animation_end > prev_progress:
+				if progress > tile_animation_end:
+					
+					
+					wipes[i].processed_cells[x][y] = true
+					
 					# If this wipe is an unload, unload the tile
 					if direction == -1:
 						remove_child(tiles[x][y])
@@ -342,9 +368,10 @@ func _process(delta):
 					else:
 						# Clear rotation
 						tiles[x][y].set_rotation(Vector3(0, 0, 0))
-
+						
 						# Reset scale
 						tiles[x][y].scale = Vector3(1, 1, 1)
+					
 					continue
 				
 				# How long this tile has been animating for
@@ -367,15 +394,26 @@ func _process(delta):
 				tiles[x][y].scale = Vector3(animation_proportion, animation_proportion, animation_proportion)
 		
 		# If this wipe is finished, save its index
-		if progress > (puzzle_design.width + puzzle_design.height) * tile_animation_offset + tile_animation_time:
-			completed_wipe = i
+		if progress > total_wipe_time:
+			var all_cells_processed := true
+			
+			# Sanity check that all cells have been processed before marking the wipe as complete
+			# This avoids a situation where some cells are left half-way through their animation.
+			for column in wipes[i].processed_cells:
+				for cell_completed in column:
+					if not cell_completed:
+						all_cells_processed = false
+			
+			if all_cells_processed:
+				completed_wipe = i
 	
 	if completed_wipe != -1:
 		wipes.remove_at(completed_wipe)
 
-	if len(wipes) != 0 and wipes[-1][1] > tile_animation_time and next_wipe_direction != 0:
-		wipes.append([next_wipe_direction, 0])
-		next_wipe_direction = 0
+	if next_wipe_direction != 0:
+		if len(wipes) == 0 or (wipes[-1].progress > tile_animation_time and next_wipe_direction != 0):
+			wipes.append(Wipe.new(next_wipe_direction, puzzle_design.width, puzzle_design.height))
+			next_wipe_direction = 0
 	
 	if len(wipes) > 0:
 		reset_tile_colours()
