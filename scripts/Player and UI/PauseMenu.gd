@@ -24,7 +24,7 @@ var selected := 0
 var current_menu := Menu.PAUSE
 
 @onready
-var menus: Array[VBoxContainer] = [
+var menus: Array[Control] = [
 	$Control/Pause,
 	$Control/Settings,
 	$"Control/Reset Save Confirmation"
@@ -84,11 +84,11 @@ func _ready():
 	# Set the UI components for settings to match the saved value of the settings
 	for i in len(setting_types):
 		if setting_types[i] == SettingType.Slider:
-			var slider: HSlider = menus[Menu.SETTINGS].get_child(i).get_node("Slider")
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(0).get_child(i).get_node("Slider")
 			var setting_value = Settings.get_setting(settings[i])
 			slider.value = setting_value
 		elif setting_types[i] == SettingType.CheckButton:
-			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(i).get_node("CheckButton")
+			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(0).get_child(i).get_node("CheckButton")
 			var setting_value = Settings.get_setting(settings[i])
 			check_button.button_pressed = setting_value
 	
@@ -102,7 +102,7 @@ func _ready():
 	# The 'fullscreen' setting can be set by other code if the user exits fullscreen using system controls.
 	# When this happens, update the check button to the right value
 	Settings.register_callback("fullscreen", func(value: bool):
-		var check_button: CheckButton = menus[Menu.SETTINGS].get_child(SettingsMenuItems.FULLSCREEN).get_node("CheckButton")
+		var check_button: CheckButton = menus[Menu.SETTINGS].get_child(0).get_child(SettingsMenuItems.FULLSCREEN).get_node("CheckButton")
 		check_button.button_pressed = value
 	)
 
@@ -135,7 +135,7 @@ func _process(delta):
 				selected = previous_selected
 				break
 			
-			var candidate: Control = menus[current_menu].get_child(selected)
+			var candidate: Control = menus[current_menu].get_child(0).get_child(selected)
 			# If the node is visible, choose it
 			if candidate.visible:
 				break
@@ -153,7 +153,7 @@ func _process(delta):
 				selected = previous_selected
 				break
 			
-			var candidate: Control = menus[current_menu].get_child(selected)
+			var candidate: Control = menus[current_menu].get_child(0).get_child(selected)
 			# If the node is visible, choose it
 			if candidate.visible:
 				break
@@ -169,21 +169,21 @@ func _process(delta):
 		# These updates triggers a value_changed event,
 		# so there's no need to manually call on_menu_item_slider_input
 		if is_even_frame and (Input.is_action_pressed("ui_right") or Input.is_action_pressed("move_right")):
-			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_node("Slider")
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(0).get_child(selected).get_node("Slider")
 			slider.value += slider.step
 		
 		if is_even_frame and (Input.is_action_pressed("ui_left") or Input.is_action_pressed("move_left")):
-			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_node("Slider")
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(0).get_child(selected).get_node("Slider")
 			slider.value -= slider.step
 		
 		if Input.is_action_just_pressed("reset"):
-			var slider: HSlider = menus[Menu.SETTINGS].get_child(selected).get_node("Slider")
+			var slider: HSlider = menus[Menu.SETTINGS].get_child(0).get_child(selected).get_node("Slider")
 			var reset_value = Settings.reset_setting(settings[selected])
 			slider.value = reset_value
 		
 	if current_menu == Menu.SETTINGS and setting_types[selected] == SettingType.CheckButton:
 		if Input.is_action_just_pressed("reset"):
-			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(selected).get_node("CheckButton")
+			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(0).get_child(selected).get_node("CheckButton")
 			var reset_value = Settings.reset_setting(settings[selected])
 			check_button.button_pressed = reset_value
 
@@ -210,7 +210,7 @@ func set_menu(menu: int):
 	current_menu = menu
 	
 	while true:
-		if menus[current_menu].get_child(selected).visible:
+		if menus[current_menu].get_child(0).get_child(selected).visible:
 			break
 		
 		selected += 1
@@ -229,7 +229,7 @@ func set_menu(menu: int):
 	set_pointer_position()
 
 func set_pointer_position():
-	selection_triangle.reparent(menus[current_menu].get_child(selected), false)
+	selection_triangle.reparent(menus[current_menu].get_child(0).get_child(selected), false)
 
 func select_item():
 	if current_menu == Menu.PAUSE:
@@ -258,7 +258,7 @@ func select_item():
 		if selected == SettingsMenuItems.EXIT:
 			set_menu(Menu.PAUSE)
 		elif setting_types[selected] == SettingType.CheckButton:
-			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(selected).get_node("CheckButton")
+			var check_button: CheckButton = menus[Menu.SETTINGS].get_child(0).get_child(selected).get_node("CheckButton")
 			# Don't need to set the actual setting here because that happens in the callback from setting the value
 			check_button.button_pressed = !check_button.button_pressed
 			
