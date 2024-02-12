@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c58qbxisqorpl"]
+[gd_scene load_steps=35 format=3 uid="uid://c58qbxisqorpl"]
 
 [ext_resource type="Script" path="res://scripts/Player and UI/CharacterController.gd" id="1_8d8a1"]
 [ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="2_77gl7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://hdvxy54cbvy3" path="res://shaders/WhiteWithBlack.tres" id="3_wbij0"]
 [ext_resource type="Material" uid="uid://c7lpntk7ouvgd" path="res://shaders/TransparentTexture.tres" id="4_41ra1"]
 [ext_resource type="PackedScene" uid="uid://uuwbhhgm6oqp" path="res://models/islands/islands.glb" id="5_5yoom"]
+[ext_resource type="PackedScene" uid="uid://kjoth08mmteq" path="res://models/cube statue/cube statue.glb" id="6_jkarq"]
 [ext_resource type="PackedScene" uid="uid://wik7t7vdg62d" path="res://PauseMenu.tscn" id="7_1u80p"]
 [ext_resource type="Script" path="res://scripts/Player and UI/ScreenBorder.gd" id="9_qgk6o"]
 [ext_resource type="Theme" uid="uid://bbuk52teynur5" path="res://textures/UiTheme.tres" id="10_b35so"]
@@ -51,7 +52,34 @@ size = Vector3(28, 1, 28)
 size = Vector3(28, 1, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gcx3q"]
-size = Vector3(28, 1, 0.2)
+size = Vector3(12, 1, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cdt6f"]
+size = Vector3(4, 1, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w1mt8"]
+size = Vector3(0.5, 1, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_miwep"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rqimw"]
+size = Vector3(20, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6hxf1"]
+size = Vector3(8, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h8qgg"]
+size = Vector3(3, 1, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2d8g5"]
+size = Vector3(4, 1, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k3klu"]
+size = Vector3(0.5, 1, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eejtu"]
+size = Vector3(0.5, 1, 12.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ny5iu"]
 bg_color = Color(1, 1, 1, 0.662745)
@@ -88,6 +116,7 @@ current = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("2_x65xw")
+bus = &"Player"
 
 [node name="Input Blocker" type="CanvasLayer" parent="Player"]
 
@@ -152,9 +181,107 @@ shape = SubResource("BoxShape3D_yive7")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 14.1, 0.5, 3.7998e-07)
 shape = SubResource("BoxShape3D_yive7")
 
-[node name="North Wall" type="CollisionShape3D" parent="Collision/Island 1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -14.1)
+[node name="North-West Wall" type="CollisionShape3D" parent="Collision/Island 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, -14.1)
 shape = SubResource("BoxShape3D_gcx3q")
+
+[node name="North-East Wall" type="CollisionShape3D" parent="Collision/Island 1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.5, -14.1)
+shape = SubResource("BoxShape3D_gcx3q")
+
+[node name="Bridge" type="StaticBody3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22)
+
+[node name="Ground" type="CollisionShape3D" parent="Collision/Bridge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_cdt6f")
+
+[node name="West Wall" type="CollisionShape3D" parent="Collision/Bridge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.5, 0)
+shape = SubResource("BoxShape3D_w1mt8")
+
+[node name="East Wall" type="CollisionShape3D" parent="Collision/Bridge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0.5, 0)
+shape = SubResource("BoxShape3D_w1mt8")
+
+[node name="Island 2" type="StaticBody3D" parent="Collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -40)
+
+[node name="Ground" type="CollisionShape3D" parent="Collision/Island 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_miwep")
+
+[node name="North Wall" type="CollisionShape3D" parent="Collision/Island 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -9.75)
+shape = SubResource("BoxShape3D_rqimw")
+
+[node name="East Wall" type="CollisionShape3D" parent="Collision/Island 2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.75, 0.5, 0)
+shape = SubResource("BoxShape3D_rqimw")
+
+[node name="South-West Wall" type="CollisionShape3D" parent="Collision/Island 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0.5, 9.75)
+shape = SubResource("BoxShape3D_6hxf1")
+
+[node name="South-East Wall" type="CollisionShape3D" parent="Collision/Island 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0.5, 9.75)
+shape = SubResource("BoxShape3D_6hxf1")
+
+[node name="Cube Statue" parent="Collision/Island 2" instance=ExtResource("6_jkarq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision/Island 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_h8qgg")
+
+[node name="West-North Wall" type="CollisionShape3D" parent="Collision/Island 2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.75, 0.5, -5.5)
+shape = SubResource("BoxShape3D_6hxf1")
+
+[node name="West-South Wall" type="CollisionShape3D" parent="Collision/Island 2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.75, 0.5, 5.5)
+shape = SubResource("BoxShape3D_6hxf1")
+
+[node name="Bridge 2" type="StaticBody3D" parent="Collision"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -18, 0, -40)
+
+[node name="Ground" type="CollisionShape3D" parent="Collision/Bridge 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_cdt6f")
+
+[node name="West Wall" type="CollisionShape3D" parent="Collision/Bridge 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.5, 0)
+shape = SubResource("BoxShape3D_w1mt8")
+
+[node name="East Wall" type="CollisionShape3D" parent="Collision/Bridge 2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0.5, 0)
+shape = SubResource("BoxShape3D_w1mt8")
+
+[node name="Bridge 3" type="StaticBody3D" parent="Collision"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -40, 0, -40)
+
+[node name="Ground 1" type="CollisionShape3D" parent="Collision/Bridge 3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -6)
+shape = SubResource("BoxShape3D_2d8g5")
+
+[node name="Ground 2" type="CollisionShape3D" parent="Collision/Bridge 3"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6, -0.5, 0)
+shape = SubResource("BoxShape3D_2d8g5")
+
+[node name="Wall 1" type="CollisionShape3D" parent="Collision/Bridge 3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.5, -6)
+shape = SubResource("BoxShape3D_k3klu")
+
+[node name="Wall 2" type="CollisionShape3D" parent="Collision/Bridge 3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0.5, -7.75)
+shape = SubResource("BoxShape3D_eejtu")
+
+[node name="Wall 3" type="CollisionShape3D" parent="Collision/Bridge 3"]
+transform = Transform3D(4.37114e-08, 0, -1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 0.5, 1.75)
+shape = SubResource("BoxShape3D_k3klu")
+
+[node name="Wall 4" type="CollisionShape3D" parent="Collision/Bridge 3"]
+transform = Transform3D(4.37114e-08, 0, -1, 0, 1, 0, -1, 0, -4.37114e-08, 7.75, 0.5, -1.75)
+shape = SubResource("BoxShape3D_eejtu")
 
 [node name="Islands" parent="." instance=ExtResource("5_5yoom")]
 
@@ -218,12 +345,6 @@ grow_vertical = 0
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_1u80p")]
 visible = false
-
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -16)
-text = "Congratulations!
-You have completed prototype 4!"
-font_size = 100
 
 [node name="Pause Prompt" type="CanvasLayer" parent="."]
 script = ExtResource("10_fah3g")
