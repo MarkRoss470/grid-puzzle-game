@@ -10,7 +10,7 @@ process_mode = 3
 script = ExtResource("1_v8y3b")
 background_transparent = NodePath("Control/Background transparent")
 background_opaque = NodePath("Control/Background opaque")
-save_game_confirmation = NodePath("Control/Pause/Save Game/Save Game Confirmation")
+save_game_confirmation = NodePath("Control/Pause/Pause/Save Game/Save Game Confirmation")
 reset_prompt = NodePath("Control/Reset")
 
 [node name="Control" type="Control" parent="."]
@@ -41,7 +41,16 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Pause" type="VBoxContainer" parent="Control"]
+[node name="Pause" type="Control" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pause" type="VBoxContainer" parent="Control/Pause"]
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -52,12 +61,12 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Save and Quit" type="Label" parent="Control/Pause"]
+[node name="Save and Quit" type="Label" parent="Control/Pause/Pause"]
 layout_mode = 2
 mouse_filter = 0
 text = "Save and Quit"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Pause/Save and Quit"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Pause/Save and Quit"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -67,12 +76,12 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Save Game" type="Label" parent="Control/Pause"]
+[node name="Save Game" type="Label" parent="Control/Pause/Pause"]
 layout_mode = 2
 mouse_filter = 0
 text = "Save Game"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Pause/Save Game"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Pause/Save Game"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -82,7 +91,7 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Save Game Confirmation" type="TextureRect" parent="Control/Pause/Save Game"]
+[node name="Save Game Confirmation" type="TextureRect" parent="Control/Pause/Pause/Save Game"]
 visible = false
 layout_mode = 1
 anchors_preset = 4
@@ -96,12 +105,12 @@ grow_vertical = 2
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_gr3am")
 
-[node name="Settings" type="Label" parent="Control/Pause"]
+[node name="Settings" type="Label" parent="Control/Pause/Pause"]
 layout_mode = 2
 mouse_filter = 0
 text = "Settings"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Pause/Settings"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Pause/Settings"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -111,12 +120,12 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Return to Game" type="Label" parent="Control/Pause"]
+[node name="Return to Game" type="Label" parent="Control/Pause/Pause"]
 layout_mode = 2
 mouse_filter = 0
 text = "Return to Game"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Pause/Return to Game"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Pause/Return to Game"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -126,12 +135,12 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Reset Save" type="Label" parent="Control/Pause"]
+[node name="Reset Save" type="Label" parent="Control/Pause/Pause"]
 layout_mode = 2
 mouse_filter = 0
 text = "Reset Save"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Pause/Reset Save"]
+[node name="Selection Area" type="ColorRect" parent="Control/Pause/Pause/Reset Save"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.001
@@ -141,8 +150,16 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Settings" type="VBoxContainer" parent="Control"]
+[node name="Settings" type="Control" parent="Control"]
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Settings" type="VBoxContainer" parent="Control/Settings"]
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -153,13 +170,13 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Mouse Sensitivity" type="Label" parent="Control/Settings"]
+[node name="Mouse Sensitivity" type="Label" parent="Control/Settings/Settings"]
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 0
 text = "Mouse Sensitivity"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Settings/Mouse Sensitivity"]
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Settings/Mouse Sensitivity"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -9.644
@@ -170,7 +187,7 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Slider" type="HSlider" parent="Control/Settings/Mouse Sensitivity"]
+[node name="Slider" type="HSlider" parent="Control/Settings/Settings/Mouse Sensitivity"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -189,13 +206,13 @@ max_value = 0.01
 step = 0.0005
 value = 0.0005
 
-[node name="Movement Speed" type="Label" parent="Control/Settings"]
+[node name="Movement Speed" type="Label" parent="Control/Settings/Settings"]
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 0
 text = "Movement Speed"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Settings/Movement Speed"]
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Settings/Movement Speed"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -9.644
@@ -206,7 +223,7 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Slider" type="HSlider" parent="Control/Settings/Movement Speed"]
+[node name="Slider" type="HSlider" parent="Control/Settings/Settings/Movement Speed"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -225,13 +242,13 @@ max_value = 3.0
 step = 0.1
 value = 0.5
 
-[node name="Menu transparency" type="Label" parent="Control/Settings"]
+[node name="Menu transparency" type="Label" parent="Control/Settings/Settings"]
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 0
 text = "Menu transparency"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Settings/Menu transparency"]
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Settings/Menu transparency"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -9.644
@@ -242,7 +259,7 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="CheckButton" type="CheckButton" parent="Control/Settings/Menu transparency"]
+[node name="CheckButton" type="CheckButton" parent="Control/Settings/Settings/Menu transparency"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.004
@@ -255,13 +272,13 @@ offset_right = 62.868
 offset_bottom = 11.99
 focus_mode = 0
 
-[node name="Fullscreen" type="Label" parent="Control/Settings"]
+[node name="Fullscreen" type="Label" parent="Control/Settings/Settings"]
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 0
 text = "Fullscreen"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Settings/Fullscreen"]
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Settings/Fullscreen"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -9.644
@@ -272,7 +289,7 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="CheckButton" type="CheckButton" parent="Control/Settings/Fullscreen"]
+[node name="CheckButton" type="CheckButton" parent="Control/Settings/Settings/Fullscreen"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.004
@@ -285,12 +302,12 @@ offset_right = 62.868
 offset_bottom = 11.99
 focus_mode = 0
 
-[node name="Exit" type="Label" parent="Control/Settings"]
+[node name="Exit" type="Label" parent="Control/Settings/Settings"]
 layout_mode = 2
 mouse_filter = 0
 text = "Exit"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Settings/Exit"]
+[node name="Selection Area" type="ColorRect" parent="Control/Settings/Settings/Exit"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -9.644
@@ -301,8 +318,16 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Reset Save Confirmation" type="VBoxContainer" parent="Control"]
+[node name="Reset Save Confirmation" type="Control" parent="Control"]
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Reset Save Confirmation" type="VBoxContainer" parent="Control/Reset Save Confirmation"]
 custom_minimum_size = Vector2(100, 1.45519e-11)
 layout_mode = 1
 anchors_preset = -1
@@ -313,12 +338,12 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Confirm" type="Label" parent="Control/Reset Save Confirmation"]
+[node name="Confirm" type="Label" parent="Control/Reset Save Confirmation/Reset Save Confirmation"]
 layout_mode = 2
 mouse_filter = 0
 text = "Confirm"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Reset Save Confirmation/Confirm"]
+[node name="Selection Area" type="ColorRect" parent="Control/Reset Save Confirmation/Reset Save Confirmation/Confirm"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -9.644
@@ -329,12 +354,12 @@ offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
 
-[node name="Cancel" type="Label" parent="Control/Reset Save Confirmation"]
+[node name="Cancel" type="Label" parent="Control/Reset Save Confirmation/Reset Save Confirmation"]
 layout_mode = 2
 mouse_filter = 0
 text = "Cancel"
 
-[node name="Selection Area" type="ColorRect" parent="Control/Reset Save Confirmation/Cancel"]
+[node name="Selection Area" type="ColorRect" parent="Control/Reset Save Confirmation/Reset Save Confirmation/Cancel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -9.644
@@ -344,6 +369,18 @@ offset_right = -0.052002
 offset_bottom = 41.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0)
+
+[node name="Label" type="Label" parent="Control/Reset Save Confirmation"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 112.0
+offset_bottom = 232.0
+grow_horizontal = 2
+text = "Delete your save file?
+You will be reset to the beginning of the game.
+Your settings will be kept."
+horizontal_alignment = 1
 
 [node name="Selection Triangle" type="TextureRect" parent="Control"]
 layout_mode = 1
@@ -388,31 +425,31 @@ mouse_filter = 0
 text = "Reset settings with R"
 horizontal_alignment = 2
 
-[connection signal="gui_input" from="Control/Pause/Save and Quit" to="." method="on_menu_item_gui_input" binds= [0]]
-[connection signal="mouse_entered" from="Control/Pause/Save and Quit" to="." method="on_menu_item_mouse_entered" binds= [0]]
-[connection signal="gui_input" from="Control/Pause/Save Game" to="." method="on_menu_item_gui_input" binds= [1]]
-[connection signal="mouse_entered" from="Control/Pause/Save Game" to="." method="on_menu_item_mouse_entered" binds= [1]]
-[connection signal="gui_input" from="Control/Pause/Settings" to="." method="on_menu_item_gui_input" binds= [2]]
-[connection signal="mouse_entered" from="Control/Pause/Settings" to="." method="on_menu_item_mouse_entered" binds= [2]]
-[connection signal="gui_input" from="Control/Pause/Return to Game" to="." method="on_menu_item_gui_input" binds= [3]]
-[connection signal="mouse_entered" from="Control/Pause/Return to Game" to="." method="on_menu_item_mouse_entered" binds= [3]]
-[connection signal="gui_input" from="Control/Pause/Reset Save" to="." method="on_menu_item_gui_input" binds= [4]]
-[connection signal="mouse_entered" from="Control/Pause/Reset Save" to="." method="on_menu_item_mouse_entered" binds= [4]]
-[connection signal="gui_input" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_gui_input" binds= [0]]
-[connection signal="mouse_entered" from="Control/Settings/Mouse Sensitivity" to="." method="on_menu_item_mouse_entered" binds= [0]]
-[connection signal="value_changed" from="Control/Settings/Mouse Sensitivity/Slider" to="." method="on_menu_item_slider_input" binds= [0]]
-[connection signal="gui_input" from="Control/Settings/Movement Speed" to="." method="on_menu_item_gui_input" binds= [1]]
-[connection signal="mouse_entered" from="Control/Settings/Movement Speed" to="." method="on_menu_item_mouse_entered" binds= [1]]
-[connection signal="value_changed" from="Control/Settings/Movement Speed/Slider" to="." method="on_menu_item_slider_input" binds= [1]]
-[connection signal="gui_input" from="Control/Settings/Menu transparency" to="." method="on_menu_item_gui_input" binds= [2]]
-[connection signal="mouse_entered" from="Control/Settings/Menu transparency" to="." method="on_menu_item_mouse_entered" binds= [2]]
-[connection signal="toggled" from="Control/Settings/Menu transparency/CheckButton" to="." method="on_menu_item_check_button_input" binds= [2]]
-[connection signal="gui_input" from="Control/Settings/Fullscreen" to="." method="on_menu_item_gui_input" binds= [3]]
-[connection signal="mouse_entered" from="Control/Settings/Fullscreen" to="." method="on_menu_item_mouse_entered" binds= [3]]
-[connection signal="toggled" from="Control/Settings/Fullscreen/CheckButton" to="." method="on_menu_item_check_button_input" binds= [3]]
-[connection signal="gui_input" from="Control/Settings/Exit" to="." method="on_menu_item_gui_input" binds= [4]]
-[connection signal="mouse_entered" from="Control/Settings/Exit" to="." method="on_menu_item_mouse_entered" binds= [4]]
-[connection signal="gui_input" from="Control/Reset Save Confirmation/Confirm" to="." method="on_menu_item_gui_input" binds= [0]]
-[connection signal="mouse_entered" from="Control/Reset Save Confirmation/Confirm" to="." method="on_menu_item_mouse_entered" binds= [0]]
-[connection signal="gui_input" from="Control/Reset Save Confirmation/Cancel" to="." method="on_menu_item_gui_input" binds= [1]]
-[connection signal="mouse_entered" from="Control/Reset Save Confirmation/Cancel" to="." method="on_menu_item_mouse_entered" binds= [1]]
+[connection signal="gui_input" from="Control/Pause/Pause/Save and Quit" to="." method="on_menu_item_gui_input" binds= [0]]
+[connection signal="mouse_entered" from="Control/Pause/Pause/Save and Quit" to="." method="on_menu_item_mouse_entered" binds= [0]]
+[connection signal="gui_input" from="Control/Pause/Pause/Save Game" to="." method="on_menu_item_gui_input" binds= [1]]
+[connection signal="mouse_entered" from="Control/Pause/Pause/Save Game" to="." method="on_menu_item_mouse_entered" binds= [1]]
+[connection signal="gui_input" from="Control/Pause/Pause/Settings" to="." method="on_menu_item_gui_input" binds= [2]]
+[connection signal="mouse_entered" from="Control/Pause/Pause/Settings" to="." method="on_menu_item_mouse_entered" binds= [2]]
+[connection signal="gui_input" from="Control/Pause/Pause/Return to Game" to="." method="on_menu_item_gui_input" binds= [3]]
+[connection signal="mouse_entered" from="Control/Pause/Pause/Return to Game" to="." method="on_menu_item_mouse_entered" binds= [3]]
+[connection signal="gui_input" from="Control/Pause/Pause/Reset Save" to="." method="on_menu_item_gui_input" binds= [4]]
+[connection signal="mouse_entered" from="Control/Pause/Pause/Reset Save" to="." method="on_menu_item_mouse_entered" binds= [4]]
+[connection signal="gui_input" from="Control/Settings/Settings/Mouse Sensitivity" to="." method="on_menu_item_gui_input" binds= [0]]
+[connection signal="mouse_entered" from="Control/Settings/Settings/Mouse Sensitivity" to="." method="on_menu_item_mouse_entered" binds= [0]]
+[connection signal="value_changed" from="Control/Settings/Settings/Mouse Sensitivity/Slider" to="." method="on_menu_item_slider_input" binds= [0]]
+[connection signal="gui_input" from="Control/Settings/Settings/Movement Speed" to="." method="on_menu_item_gui_input" binds= [1]]
+[connection signal="mouse_entered" from="Control/Settings/Settings/Movement Speed" to="." method="on_menu_item_mouse_entered" binds= [1]]
+[connection signal="value_changed" from="Control/Settings/Settings/Movement Speed/Slider" to="." method="on_menu_item_slider_input" binds= [1]]
+[connection signal="gui_input" from="Control/Settings/Settings/Menu transparency" to="." method="on_menu_item_gui_input" binds= [2]]
+[connection signal="mouse_entered" from="Control/Settings/Settings/Menu transparency" to="." method="on_menu_item_mouse_entered" binds= [2]]
+[connection signal="toggled" from="Control/Settings/Settings/Menu transparency/CheckButton" to="." method="on_menu_item_check_button_input" binds= [2]]
+[connection signal="gui_input" from="Control/Settings/Settings/Fullscreen" to="." method="on_menu_item_gui_input" binds= [3]]
+[connection signal="mouse_entered" from="Control/Settings/Settings/Fullscreen" to="." method="on_menu_item_mouse_entered" binds= [3]]
+[connection signal="toggled" from="Control/Settings/Settings/Fullscreen/CheckButton" to="." method="on_menu_item_check_button_input" binds= [3]]
+[connection signal="gui_input" from="Control/Settings/Settings/Exit" to="." method="on_menu_item_gui_input" binds= [4]]
+[connection signal="mouse_entered" from="Control/Settings/Settings/Exit" to="." method="on_menu_item_mouse_entered" binds= [4]]
+[connection signal="gui_input" from="Control/Reset Save Confirmation/Reset Save Confirmation/Confirm" to="." method="on_menu_item_gui_input" binds= [0]]
+[connection signal="mouse_entered" from="Control/Reset Save Confirmation/Reset Save Confirmation/Confirm" to="." method="on_menu_item_mouse_entered" binds= [0]]
+[connection signal="gui_input" from="Control/Reset Save Confirmation/Reset Save Confirmation/Cancel" to="." method="on_menu_item_gui_input" binds= [1]]
+[connection signal="mouse_entered" from="Control/Reset Save Confirmation/Reset Save Confirmation/Cancel" to="." method="on_menu_item_mouse_entered" binds= [1]]
