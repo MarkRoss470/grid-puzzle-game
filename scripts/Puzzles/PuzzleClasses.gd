@@ -64,7 +64,7 @@ enum {
 	POINTER_DOUBLE_STRAIGHT, # Two pointers at 180 degrees from each other.
 		# A rotation of 0 means up-down.
 	POINTER_TRIPLE, # Three pointers, each at 90 degrees from each other.
-		# A rotation of 0 means up-left-down.
+		# A rotation of 0 means up-right-down.
 	POINTER_QUADRUPLE, # Four pointers, each at 90 degrees from each other.
 	
 	SQUARE,
@@ -73,7 +73,7 @@ enum {
 	SYMMETRY_HORIZONTAL,
 	SYMMETRY_VERTICAL,
 	
-	# Same as pointers but not player rotateable
+	# Same as pointers but not player rotatable
 	FIXED_POINTER_SINGLE,
 	FIXED_POINTER_DOUBLE_ANGLE,
 	FIXED_POINTER_DOUBLE_STRAIGHT,
