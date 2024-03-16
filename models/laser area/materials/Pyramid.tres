@@ -4,7 +4,6 @@
 
 [resource]
 resource_name = "Pyramid"
-cull_mode = 2
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.659599, 0.611745, 0.502318, 1)
 roughness = 0.5
