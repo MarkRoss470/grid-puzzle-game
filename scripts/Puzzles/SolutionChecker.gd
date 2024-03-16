@@ -11,7 +11,7 @@ class LaserPath:
 	var valid: bool
 	
 	# The coordinates of the cells the path goes through
-	var path: Array[Array]
+	var path: Array[Vector2]
 	
 	func equals(other: LaserPath) -> bool:
 		if self.colour != other.colour: return false
@@ -336,7 +336,7 @@ static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: in
 	var path := LaserPath.new()
 	path.valid = false
 	path.colour = puzzle.icons[x][y].colour
-	path.path.append([search_x, search_y])
+	path.path.append(Vector2(search_x, search_y))
 	
 	while true:
 		# Protection agains infinite loops - this should never be triggered.
@@ -367,7 +367,7 @@ static func check_laser(puzzle: PuzzleDesign, state: Array[Array], x: int, y: in
 				search_x -= 1
 				if search_x < 0: return path
 		
-		path.path.append([search_x, search_y])
+		path.path.append(Vector2(search_x, search_y))
 		
 		var icon: PuzzleDesignIcon = puzzle.icons[search_x][search_y]
 		# Get the rotation of the current cell
