@@ -39,8 +39,8 @@ const CELL_TEXTURES: Array[Texture2D] = [
 	preload("res://textures/puzzle icons/fixed pointers/pointer triple.svg"), # FIXED_POINTER_TRIPLE
 	preload("res://textures/puzzle icons/fixed pointers/pointer quadruple.svg"), # FIXED_POINTER_QUADRAPLE
 	
-	preload("res://textures/puzzle icons/arrow.svg"), # LASER
-	preload("res://textures/puzzle icons/arrow fixed.svg"), # LASER_FIXED
+	preload("res://textures/puzzle icons/lasers/arrow.svg"), # LASER
+	preload("res://textures/puzzle icons/lasers/arrow fixed.svg"), # LASER_FIXED
 ]
 
 # Textures to be used as icons

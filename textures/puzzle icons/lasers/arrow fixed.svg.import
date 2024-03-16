@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byrljdhyrqidc"
-path="res://.godot/imported/arrow.svg-a8dfbcbe0ed74632d6042f8e587b1281.ctex"
+uid="uid://c15ioc8ettwvj"
+path="res://.godot/imported/arrow fixed.svg-0ecbf40c2414e99ddf1c37bb011ed762.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/puzzle icons/arrow.svg"
-dest_files=["res://.godot/imported/arrow.svg-a8dfbcbe0ed74632d6042f8e587b1281.ctex"]
+source_file="res://textures/puzzle icons/lasers/arrow fixed.svg"
+dest_files=["res://.godot/imported/arrow fixed.svg-0ecbf40c2414e99ddf1c37bb011ed762.ctex"]
 
 [params]
 
