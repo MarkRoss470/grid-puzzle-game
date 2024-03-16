@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://n707pql7suy0"]
+[gd_scene load_steps=53 format=3 uid="uid://n707pql7suy0"]
 
 [ext_resource type="PackedScene" uid="uid://bejkb47sxk6pc" path="res://models/laser area/laser area.glb" id="1_up0nh"]
 [ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="1_vkic5"]
@@ -36,6 +36,9 @@
 [ext_resource type="Resource" uid="uid://b85ctex0c2ak1" path="res://puzzles/lasers/11. challenge 1.tres" id="34_aexm6"]
 [ext_resource type="Resource" uid="uid://dyjtwwoopsg24" path="res://puzzles/lasers/12. challenge 2.tres" id="35_wwotm"]
 [ext_resource type="Resource" uid="uid://dqg6t7esshk08" path="res://puzzles/lasers/13. challenge 3.tres" id="36_7fyuo"]
+[ext_resource type="Resource" uid="uid://cwk03f5401fkg" path="res://puzzles/lasers/14. challenge 4.tres" id="37_avt2b"]
+[ext_resource type="Material" uid="uid://omvgpgyrg7pb" path="res://models/laser area/materials/Inner wall.tres" id="38_lianh"]
+[ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseObjectMotion.gd" id="39_5b0ta"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3c676"]
 
@@ -53,16 +56,25 @@ size = Vector3(40, 1, 40)
 size = Vector3(7.4, 4, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ni08r"]
-size = Vector3(5.2, 4, 5)
+size = Vector3(1, 4, 7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bo1ve"]
-size = Vector3(5.2, 4, 5)
+size = Vector3(1, 4, 7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p36y1"]
 size = Vector3(6, 4, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4hy30"]
 size = Vector3(1, 4, 8.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jpwgh"]
+size = Vector3(17, 4, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6w1mv"]
+size = Vector3(0.5, 4, 15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2q4nu"]
+size = Vector3(1, 3, 2.2)
 
 [node name="laser area" type="Node3D"]
 
@@ -104,33 +116,51 @@ material = ExtResource("3_dm2xp")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_22lnv")
 
-[node name="Entrance right wall" type="CollisionShape3D" parent="Collision"]
+[node name="Entrance" type="StaticBody3D" parent="Collision"]
+
+[node name="Entrance right wall" type="CollisionShape3D" parent="Collision/Entrance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2, 2, 3.8)
 shape = SubResource("BoxShape3D_gcss7")
 
-[node name="Entrance left wall" type="CollisionShape3D" parent="Collision"]
+[node name="Entrance left wall" type="CollisionShape3D" parent="Collision/Entrance"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2, 2, -3.8)
 shape = SubResource("BoxShape3D_gcss7")
 
-[node name="First room back right wall" type="CollisionShape3D" parent="Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 2, 3.6)
+[node name="First Room" type="StaticBody3D" parent="Collision"]
+
+[node name="First room back right wall" type="CollisionShape3D" parent="Collision/First Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 2, 4.6)
 shape = SubResource("BoxShape3D_ni08r")
 
-[node name="First room back left wall" type="CollisionShape3D" parent="Collision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 2, -3.6)
+[node name="First room back left wall" type="CollisionShape3D" parent="Collision/First Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 2, -4.6)
 shape = SubResource("BoxShape3D_bo1ve")
 
-[node name="First room right wall" type="CollisionShape3D" parent="Collision"]
+[node name="First room right wall" type="CollisionShape3D" parent="Collision/First Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.92879, 0, 6.54438)
 shape = SubResource("BoxShape3D_p36y1")
 
-[node name="First room left wall" type="CollisionShape3D" parent="Collision"]
+[node name="First room left wall" type="CollisionShape3D" parent="Collision/First Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.92879, 0, -6.55562)
 shape = SubResource("BoxShape3D_p36y1")
 
-[node name="First room inner wall" type="CollisionShape3D" parent="Collision"]
+[node name="First room inner wall" type="CollisionShape3D" parent="Collision/First Room"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.75, 1, 0)
 shape = SubResource("BoxShape3D_4hy30")
+
+[node name="Second Room" type="StaticBody3D" parent="Collision"]
+
+[node name="Second room left wall" type="CollisionShape3D" parent="Collision/Second Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 1.5, 8.25)
+shape = SubResource("BoxShape3D_jpwgh")
+
+[node name="Second room right wall" type="CollisionShape3D" parent="Collision/Second Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, -8.25)
+shape = SubResource("BoxShape3D_jpwgh")
+
+[node name="Second room back wall" type="CollisionShape3D" parent="Collision/Second Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.25, 1.5, 0)
+shape = SubResource("BoxShape3D_6w1mv")
 
 [node name="Puzzles" type="Node3D" parent="."]
 
@@ -440,12 +470,37 @@ instance = NodePath("../../Tile")
 on_complete = NodePath("../Challenge 3")
 load_on_start = false
 
-[node name="Challenge 3" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance")]
+[node name="Challenge 3" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance", "on_complete")]
 transform = Transform3D(5.84122e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, 5.84122e-08, -7.1, 2.3, 1.4)
 script = ExtResource("5_advon")
 puzzle_design = ExtResource("36_7fyuo")
 instance = NodePath("../../Tile")
+on_complete = NodePath("../Challenge 4")
 load_on_start = false
+
+[node name="Challenge 4" type="Node3D" parent="Puzzles" node_paths=PackedStringArray("instance", "on_complete")]
+transform = Transform3D(-1.31134e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.31134e-08, -7.1, 2.3, 3.8)
+script = ExtResource("5_advon")
+puzzle_design = ExtResource("37_avt2b")
+instance = NodePath("../../Tile")
+on_complete = NodePath("../../Room divider")
+load_on_start = false
+
+[node name="Room divider" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1.5, 0)
+size = Vector3(0.8, 3, 2)
+material = ExtResource("38_lianh")
+script = ExtResource("39_5b0ta")
+end_position = Vector3(-6.5, -2, 1.45519e-11)
+transform_time = 5.0
+permanent = true
+save_file_name = "laser_room_divider"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Room divider"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room divider/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.9407e-08)
+shape = SubResource("BoxShape3D_2q4nu")
 
 [connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
 [connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]

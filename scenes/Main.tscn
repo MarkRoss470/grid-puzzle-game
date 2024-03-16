@@ -35,13 +35,13 @@ ground_horizon_color = Color(0.199732, 0.199732, 0.199732, 1)
 ground_curve = 0.309099
 sun_angle_max = 0.0
 
-[sub_resource type="Sky" id="Sky_ryqrm"]
+[sub_resource type="Sky" id="Sky_i2ktk"]
 sky_material = SubResource("ProceduralSkyMaterial_8xkuk")
 
 [sub_resource type="Environment" id="Environment_j8joh"]
 background_mode = 2
 background_energy_multiplier = 1.48
-sky = SubResource("Sky_ryqrm")
+sky = SubResource("Sky_i2ktk")
 ambient_light_color = Color(0.724643, 0.724643, 0.724643, 1)
 ambient_light_energy = 0.86
 

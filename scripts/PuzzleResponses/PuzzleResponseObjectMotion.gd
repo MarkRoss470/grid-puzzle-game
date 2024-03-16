@@ -15,6 +15,11 @@ extends Node3D
 
 # The time in seconds over which to move
 @export var transform_time := 1.0
+# Whether the object should stay in its final position even if the puzzle triggering it is solved
+@export var permanent := false
+# The name used to refer to this object in the save file. Only used if `permanent` is true.
+# Must be unique across all PuzzleResponseObjectMotion instances.
+@export var save_file_name: String = ""
 
 var audio_player := AudioStreamPlayer3D.new()
 @export var motion_sound: Sound = Sound.None
@@ -23,6 +28,14 @@ var solved := false
 var transform_progress := 0.0
 
 func _ready():
+	if permanent:
+		self.add_to_group("savable")
+		assert(save_file_name != "", "PuzzleResponseObjectMotion Nodes with permanent set to true must have the save_file_name property set.")
+		
+		if SaveManager.contains_key(get_unique_string()):
+			solved = SaveManager.get_state(get_unique_string())
+			if solved: on_puzzle_solve_immediate(0)
+	
 	audio_player.bus = "Objects"
 	audio_player.panning_strength = 0.5
 	
@@ -41,6 +54,9 @@ func on_puzzle_solve(_i: int):
 
 # Called on incorrect solution
 func on_puzzle_unsolve(_i: int):
+	# Permanent objects don't ever return
+	if permanent: return
+	
 	play_sound(motion_sound)
 	solved = false
 
@@ -65,6 +81,12 @@ func play_sound(sound: Sound):
 	
 	audio_player.stream = load(sounds[sound])
 	audio_player.play()
+
+func save():
+	SaveManager.set_state(get_unique_string(), solved)
+
+func get_unique_string() -> String:
+	return "object_motion_" + save_file_name
 
 enum Sound {
 	None,
