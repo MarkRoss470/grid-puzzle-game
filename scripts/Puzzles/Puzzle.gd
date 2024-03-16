@@ -118,17 +118,7 @@ func _ready():
 	if SaveManager.contains_key(get_unique_string()):
 		var saved_state = SaveManager.get_state(get_unique_string())
 		
-		if len(saved_state.rotations) == puzzle_design.width and len(saved_state.rotations[0]) == puzzle_design.height:
-			for x in puzzle_design.width:
-				for y in puzzle_design.height:
-					current_state[x][y] = int(saved_state.rotations[x][y])
-			
-			is_solved = saved_state.solved
-			ever_solved = saved_state.ever_solved
-			
-			on_puzzle_solve_immediate(0)
-			
-			has_valid_save = true
+		has_valid_save = load_saved_state(saved_state)
 	
 	if !has_valid_save:
 		for x in puzzle_design.width:
@@ -428,16 +418,38 @@ func on_puzzle_unsolve(_i: int):
 func get_unique_string() -> String:
 	return "puzzle_" + puzzle_design.resource_path
 
+# Gets the state which will be saved by `save`.
+func get_state_to_save() -> Dictionary:
+	return {
+		"rotations": current_state,
+		"solved": is_solved,
+		"ever_solved": ever_solved,
+	}
+
+# Loads the puzzle's state from the Dictionary stored in the save file.
+# Returns true if the state is valid, or false if it should be reset.
+func load_saved_state(saved_state: Dictionary) -> bool:
+	var rotations: Array = saved_state.rotations
+	
+	if len(rotations) == puzzle_design.width and len(rotations[0]) == puzzle_design.height:
+		for x in puzzle_design.width:
+			for y in puzzle_design.height:
+				current_state[x][y] = int(rotations[x][y])
+		
+		is_solved = saved_state.solved
+		ever_solved = saved_state.ever_solved
+		
+		on_puzzle_solve_immediate(0)
+		
+		return true
+	return false
+
 func save():
 	# Don't save puzzles which are not loaded 
 	# in order not to pollute the save file with unneeded data
 	if !loaded: return
 	
-	var puzzle_state = {
-		"rotations": current_state,
-		"solved": is_solved,
-		"ever_solved": ever_solved,
-	}
+	var puzzle_state = get_state_to_save()
 	
 	SaveManager.set_state(get_unique_string(), puzzle_state)
 
