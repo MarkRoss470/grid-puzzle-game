@@ -41,6 +41,7 @@ const CELL_TEXTURES: Array[Texture2D] = [
 	
 	preload("res://textures/puzzle icons/lasers/arrow.svg"), # LASER
 	preload("res://textures/puzzle icons/lasers/arrow fixed.svg"), # LASER_FIXED
+	preload("res://textures/puzzle icons/lasers/receiver.svg"), # LASER_RECIEVER
 ]
 
 # Textures to be used as icons
@@ -82,6 +83,7 @@ enum {
 	
 	LASER,
 	LASER_FIXED,
+	LASER_RECEIVER,
 }
 
 # Groups of icons for the puzzle editor
@@ -111,6 +113,7 @@ const ICON_GROUPS: Array[Array] = [
 		SYMMETRY_VERTICAL,
 		LASER,
 		LASER_FIXED,
+		LASER_RECEIVER,
 	],
 ]
 
