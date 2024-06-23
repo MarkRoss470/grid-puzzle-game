@@ -36,9 +36,14 @@ var y_velocity := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.add_to_group("savable")
+	var in_test_scene := get_tree().current_scene.name == "PuzzleDesignTestScene"
 	
-	if SaveManager.contains_key("player"):
+	print(get_tree().current_scene.name, ", ", in_test_scene)
+	
+	if not in_test_scene:
+		self.add_to_group("savable")
+	
+	if (not in_test_scene) and SaveManager.contains_key("player"):
 		var saved_state = SaveManager.get_state("player")
 		
 		position.x = saved_state.position[0]

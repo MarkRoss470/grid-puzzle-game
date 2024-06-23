@@ -1,0 +1,286 @@
+[gd_scene load_steps=36 format=3 uid="uid://ue2yhiyb86gl"]
+
+[ext_resource type="Script" path="res://scripts/Puzzles/PuzzleTile.gd" id="1_m0eqv"]
+[ext_resource type="Material" uid="uid://hdvxy54cbvy3" path="res://shaders/WhiteWithBlack.tres" id="2_wxyq7"]
+[ext_resource type="Material" uid="uid://c7lpntk7ouvgd" path="res://shaders/TransparentTexture.tres" id="3_w8i1y"]
+[ext_resource type="Script" path="res://scripts/Player and UI/CharacterController.gd" id="6_4vj5x"]
+[ext_resource type="AudioStream" uid="uid://tnyu15oyg2eg" path="res://sounds/footsteps.mp3" id="7_j3eea"]
+[ext_resource type="Script" path="res://scripts/Puzzles/LaserRotater.gd" id="7_td755"]
+[ext_resource type="Script" path="res://scripts/Puzzles/PuzzleDesignIcon.gd" id="8_1dqf5"]
+[ext_resource type="Script" path="res://scripts/Player and UI/ScreenBorder.gd" id="8_r5i1h"]
+[ext_resource type="Script" path="res://scripts/Puzzles/PuzzleDesign.gd" id="9_bnyuo"]
+[ext_resource type="Script" path="res://scripts/PuzzleResponses/PuzzleResponseFourWayRotater.gd" id="10_po4ge"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pum6x"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_klmoo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_40tq1"]
+size = Vector3(1, 0.05, 0.9)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k0wkh"]
+height = 1.5
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yvtga"]
+sky_top_color = Color(0.364706, 0.435294, 0.552941, 1)
+sky_horizon_color = Color(0.199732, 0.199732, 0.199732, 1)
+sky_curve = 0.0861525
+ground_bottom_color = Color(0.113725, 0.113725, 0.113725, 1)
+ground_horizon_color = Color(0.199732, 0.199732, 0.199732, 1)
+ground_curve = 0.309099
+sun_angle_max = 0.0
+
+[sub_resource type="Sky" id="Sky_ryqrm"]
+sky_material = SubResource("ProceduralSkyMaterial_yvtga")
+
+[sub_resource type="Environment" id="Environment_2qsne"]
+background_mode = 2
+background_energy_multiplier = 1.48
+sky = SubResource("Sky_ryqrm")
+ambient_light_color = Color(0.724643, 0.724643, 0.724643, 1)
+ambient_light_energy = 0.86
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2hcix"]
+size = Vector3(39, 1, 33)
+
+[sub_resource type="Resource" id="Resource_oqrub"]
+script = ExtResource("8_1dqf5")
+icon = 3
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_1cxuy"]
+script = ExtResource("8_1dqf5")
+icon = 3
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_dqpgy"]
+script = ExtResource("8_1dqf5")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_k7v1a"]
+script = ExtResource("8_1dqf5")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_r73l3"]
+script = ExtResource("8_1dqf5")
+icon = 3
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_7rhti"]
+script = ExtResource("8_1dqf5")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_40usj"]
+script = ExtResource("8_1dqf5")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_5l55i"]
+script = ExtResource("8_1dqf5")
+icon = 16
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_4gwg7"]
+script = ExtResource("8_1dqf5")
+icon = 3
+colour = 1
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_8ukt6"]
+script = ExtResource("8_1dqf5")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_cgo77"]
+script = ExtResource("8_1dqf5")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_kv7cs"]
+script = ExtResource("8_1dqf5")
+icon = 18
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_g0udb"]
+script = ExtResource("8_1dqf5")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_yiyuk"]
+script = ExtResource("8_1dqf5")
+icon = 18
+colour = 0
+rotation = 3
+
+[sub_resource type="Resource" id="Resource_fbx6d"]
+script = ExtResource("8_1dqf5")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_ephyp"]
+script = ExtResource("8_1dqf5")
+icon = 1
+colour = 0
+rotation = 0
+
+[sub_resource type="Resource" id="Resource_i1txy"]
+script = ExtResource("9_bnyuo")
+width = 4
+height = 4
+icons = Array[Array]([[SubResource("Resource_oqrub"), SubResource("Resource_1cxuy"), SubResource("Resource_dqpgy"), SubResource("Resource_k7v1a")], [SubResource("Resource_r73l3"), SubResource("Resource_7rhti"), SubResource("Resource_40usj"), SubResource("Resource_5l55i")], [SubResource("Resource_4gwg7"), SubResource("Resource_8ukt6"), SubResource("Resource_cgo77"), SubResource("Resource_kv7cs")], [SubResource("Resource_g0udb"), SubResource("Resource_yiyuk"), SubResource("Resource_fbx6d"), SubResource("Resource_ephyp")]])
+
+[node name="PuzzleDesignTestScene" type="Node3D"]
+
+[node name="Tile" type="Node3D" parent="."]
+visible = false
+script = ExtResource("1_m0eqv")
+backplane_path = NodePath("Backplane")
+icon_path = NodePath("Icon")
+
+[node name="Backplane" type="CSGMesh3D" parent="Tile"]
+transform = Transform3D(-0.5, -4.37114e-08, -1.91069e-15, 0, -2.18557e-08, 0.5, -4.37114e-08, 0.5, 2.18557e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_pum6x")
+material = ExtResource("2_wxyq7")
+
+[node name="Icon" type="CSGMesh3D" parent="Tile"]
+transform = Transform3D(0.5, -4.37114e-08, 4.37114e-08, 4.37114e-08, -2.18557e-08, -0.5, 4.37114e-08, 0.5, -2.18557e-08, 0, 0, 0.00199997)
+mesh = SubResource("PlaneMesh_klmoo")
+material = ExtResource("3_w8i1y")
+
+[node name="Area3D" type="Area3D" parent="Tile"]
+transform = Transform3D(-1, -1.50996e-07, -6.60024e-15, 0, -4.37114e-08, 1, -1.50996e-07, 1, 4.37114e-08, 1.1228e-24, 0, -0.00672182)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile/Area3D"]
+shape = SubResource("BoxShape3D_40tq1")
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "mode_indicator", "listener", "audio_player", "input_blocker")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("6_4vj5x")
+max_fall_speed = 1.0
+mouse_sensitivity = 0.005
+camera = NodePath("PlayerCamera")
+mode_indicator = NodePath("../Mode indicator")
+listener = NodePath("PlayerCamera/AudioListener3D")
+audio_player = NodePath("AudioStreamPlayer")
+input_blocker = NodePath("Input Blocker/Input Blocker")
+
+[node name="PlayerCapsule" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+shape = SubResource("CapsuleShape3D_k0wkh")
+
+[node name="PlayerCamera" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+current = true
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Player/PlayerCamera"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("7_j3eea")
+bus = &"Player"
+
+[node name="Input Blocker" type="CanvasLayer" parent="Player"]
+
+[node name="Input Blocker" type="Control" parent="Player/Input Blocker"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mode indicator" type="CanvasLayer" parent="." node_paths=PackedStringArray("container")]
+visible = false
+script = ExtResource("8_r5i1h")
+container = NodePath("Container")
+
+[node name="Container" type="Control" parent="Mode indicator"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Left" type="ColorRect" parent="Mode indicator/Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Right" type="ColorRect" parent="Mode indicator/Container"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = 10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Top" type="ColorRect" parent="Mode indicator/Container"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 10.0
+grow_horizontal = 2
+
+[node name="Bottom" type="ColorRect" parent="Mode indicator/Container"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2qsne")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -5, 3)
+shape = SubResource("BoxShape3D_2hcix")
+
+[node name="SymbolPuzzle" type="Node3D" parent="." node_paths=PackedStringArray("instance", "on_complete")]
+script = ExtResource("7_td755")
+puzzle_design = SubResource("Resource_i1txy")
+instance = NodePath("../Tile")
+on_complete = NodePath("../CSGBox3D")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
+size = Vector3(5, 1, 1)
+script = ExtResource("10_po4ge")
+
+[connection signal="input_event" from="Tile/Area3D" to="Tile" method="input_event"]
+[connection signal="mouse_entered" from="Tile/Area3D" to="Tile" method="mouse_enter"]
+[connection signal="mouse_exited" from="Tile/Area3D" to="Tile" method="mouse_exit"]

@@ -23,11 +23,7 @@ func rotate_cell(x: int, y: int, direction: int):
 	else:
 		unsolve_puzzle()
 
-# Checks whether the puzzle is solved and calls solve_puzzle or unsolve_puzzle respectively
-func check_state() -> bool:
-	# Check whether the solution is valid
-	var solution := SolutionChecker.check_solution(puzzle_design, current_state)
-	
+func check_for_flashes(solution: SolutionChecker.Solution):
 	# Flash squares in regions which have changed
 	for previous_region in regions:
 		# Whether the region has changed (there is an exact match for it in the new state)
@@ -74,6 +70,14 @@ func check_state() -> bool:
 			tiles[x][y].end_flash()
 	
 	laser_paths = solution.laser_paths
+
+# Checks whether the puzzle is solved.
+# Also checks changes in square and laser states and triggers flashes.
+func check_state() -> bool:
+	# Check whether the solution is valid
+	var solution := SolutionChecker.check_solution(puzzle_design, current_state)
+	
+	check_for_flashes(solution)
 	
 	reset_tile_colours()
 	
